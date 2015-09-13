@@ -1,0 +1,116 @@
+body {
+  font-family: 'futura-pt', sans-serif;
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+p {
+  font-weight: 100;
+}
+
+a, a:hover, a:focus {
+  position: relative;
+  color: #373A3C;
+  text-decoration: none;
+}
+
+  a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -0.3rem;
+    left: 0;
+    background-color: #373A3C;
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+    a:not(.sin-hover):hover:before {
+      visibility: visible;
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+
+header {
+  border-bottom: 1px solid #cbcbcb;
+  margin-bottom: 1.3rem;
+}
+
+footer {
+  border-top: 1px solid #cbcbcb;
+}
+
+img, iframe, canvas {
+  box-shadow: 4px 4px 5px #DDD;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.sin-sombra {
+  box-shadow: none;
+}
+
+  a:hover img, a:hover canvas {
+    box-shadow: 10px 10px 10px #eee;
+  }
+
+.navbar {
+  padding: 1.3rem 0 1.3rem 0;
+  font-size: 1.3rem;
+  border-radius: 0;
+}
+
+  .navbar-nav .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .navbar .pull-right .nav-link {
+    margin-left: 2rem;
+  }
+
+  .navbar .fa {
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+.row, .ficha {
+  margin-bottom: 3rem;
+}
+
+  .row *:last-child {
+    margin-bottom: 0;
+  }
+
+  .portada {
+    width: 100%;
+    margin-bottom: 1.3rem;
+  }
+
+  .separador {
+    color: #DDD;
+  }
+
+  .ficha {
+    font-size: 1.3rem;
+  }
+
+    .ficha h3 {
+      font-size: 1.5rem;
+    }
+
+    .ficha .row {
+      margin-bottom: 1.3rem;
+    }
+
+    .ficha .dato {
+      font-weight: 100;
+      display: block;
+    }
