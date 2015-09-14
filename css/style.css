@@ -48,7 +48,7 @@ footer {
   border-top: 1px solid #cbcbcb;
 }
 
-img, iframe, canvas {
+img, iframe, canvas, button {
   box-shadow: 4px 4px 5px #DDD;
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -57,7 +57,7 @@ img, iframe, canvas {
   box-shadow: none;
 }
 
-  a:hover img, a:hover canvas {
+  a:hover img, a:hover canvas, button:hover {
     box-shadow: 10px 10px 10px #eee;
   }
 
