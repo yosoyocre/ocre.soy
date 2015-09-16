@@ -98,6 +98,11 @@ img, iframe, canvas, button {
     color: #DDD;
   }
 
+  .btn-en-linea {
+    margin-top: -4px;
+    margin-right: 8px;
+  }
+
   .ficha {
     font-size: 1.3rem;
   }

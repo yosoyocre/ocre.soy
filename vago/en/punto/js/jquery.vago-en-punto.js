@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var pluginName = 'vagoenesencia';
+  var pluginName = 'vagoenpunto';
 
   var grayLuminance = getLuminance(200, 200, 200);
 
@@ -47,12 +47,13 @@
     return rgba;
   }
 
-  function VagoEnEsencia(element, options) {
+  function VagoEnPunto(element, options) {
 
     var defaults = {
       background: null,
       color: null,
       maxRadius: null,
+      reverse: false,
     };
 
     this.element = element;
@@ -74,7 +75,7 @@
     this.init();
   }
 
-  $.extend(VagoEnEsencia.prototype, {
+  $.extend(VagoEnPunto.prototype, {
 
     init: function() {
 
@@ -102,6 +103,7 @@
       var path;
       var row = 0;
       var column = 0;
+      var realColumn = 0;
       var i;
       var j;
       var k = 0;
@@ -127,11 +129,13 @@
       var averageLuminance;
 
       for (i = 0; i < iData.length; i += 4) {
+        realColumn = _this.settings.reverse ? auxCanvas.width - column : column;
+
         if (!matrix[row]) {
           matrix[row] = [];
         }
 
-        matrix[row][column] = getLuminance(iData[i], iData[i + 1], iData[i + 2]);
+        matrix[row][realColumn] = getLuminance(iData[i], iData[i + 1], iData[i + 2]);
 
         column++;
         if (column >= auxCanvas.width) {
@@ -168,7 +172,7 @@
   $.fn[ pluginName ] = function(options) {
     return this.each(function() {
       if (!$.data(this, 'plugin_' + pluginName)) {
-        $.data(this, 'plugin_' + pluginName, new VagoEnEsencia(this, options));
+        $.data(this, 'plugin_' + pluginName, new VagoEnPunto(this, options));
       }
     });
   };

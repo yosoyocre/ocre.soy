@@ -37,6 +37,16 @@
         </a>
       </span>
     </div>
+    <div class="col-lg-4">
+      Adaptador de imágenes
+      <span class="dato">
+        <a href="/vago/en/punto">
+          <span class="separador">/</span> vago
+          <span class="separador">/</span> en
+          <span class="separador">/</span> punto
+        </a>
+      </span>
+    </div>
   </div>
 </div>
 

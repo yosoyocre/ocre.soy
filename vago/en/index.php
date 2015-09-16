@@ -8,7 +8,10 @@
     </h1>
     <p>
       <a href="/vago/en/diseno"><span class="separador">/</span> diseño</a>
-    </p>    
+    </p>
+    <p>
+      <a href="/vago/en/punto"><span class="separador">/</span> punto</a>
+    </p>
   </div>
 </div>
 <?php require('../../_pie.php'); ?>
