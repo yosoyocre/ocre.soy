@@ -1,3 +1,12 @@
+<?php
+    $hayImagen = false;
+		if ($_FILES['imagen']) {
+			$filename = 'uploads/' . $_FILES['imagen']['name'];
+			move_uploaded_file($_FILES['imagen']["tmp_name"], $filename);
+      $hayImagen = true;
+    }
+?>
+
 <?php require('../../../_cabecera.php'); ?>
 
 <script type="text/javascript" src="js/jquery.vago-en-punto.js"></script>
@@ -43,7 +52,7 @@ $(function() {
   $('.js-punto-de-camara').click(function(e) {
     e.preventDefault();
 
-    $('.js-sin-camara').fadeOut(function() {
+    $('.js-primer-paso').fadeOut(function() {
       $('.js-cargando').fadeIn();
     });
 
@@ -65,6 +74,16 @@ $(function() {
         requestAnimFrame(draw);
         videoVagoEnEsencia.draw();
     }
+  });
+
+  $('.js-selecciona-imagen').click(function(e) {
+    e.preventDefault();
+
+    $('.js-primer-paso').fadeOut(function() {
+      $('.js-con-imagen').fadeIn();
+    });
+
+    $('.js-imagen').click();
   });
 
   $('.js-descargar').click(function(e) {
@@ -95,6 +114,12 @@ $(function() {
 
   });
 
+  $('.js-sube-imagen').click(function(e) {
+    e.preventDefault();
+
+    $('.js-imagen-en-punto').submit();
+  });
+
 });
 </script>
 
@@ -118,30 +143,69 @@ $(function() {
           <h3>Panel de control</h3>
         </div>
       </div>
-      <div class="row js-sin-camara">
-        <div class="col-lg-12">
-            <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
-          Enciende tu cámara
-        </div>
-      </div>
 
-      <div class="row js-cargando" style="display:none">
-        <div class="col-lg-12">
-            <i class="fa fa-spinner fa-pulse"></i> Obteniendo datos de cámara
-        </div>
-      </div>
+      <?php
+        if (!$hayImagen) :
+      ?>
 
-      <div class="row js-con-camara" style="display:none">
-        <div class="col-lg-12">
-          <button type="button" class="btn btn-default btn-en-linea js-descargar"><i class="fa fa-camera"></i></button>
-          Saca foto <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
+        <!-- Imagen de cámara -->
+        <div class="row js-primer-paso">
+          <div class="col-lg-12">
+              <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
+            Enciende tu cámara
+          </div>
         </div>
-      </div>
+
+        <div class="row js-cargando" style="display:none">
+          <div class="col-lg-12">
+              <i class="fa fa-spinner fa-pulse"></i> Obteniendo datos de cámara
+          </div>
+        </div>
+
+        <div class="row js-con-camara" style="display:none">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-default btn-en-linea js-descargar"><i class="fa fa-camera"></i></button>
+            Saca foto <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
+          </div>
+        </div>
+
+        <!-- Imagen de fichero -->
+
+        <form method="post" class="js-imagen-en-punto" enctype="multipart/form-data">
+
+          <div class="row js-primer-paso">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-default btn-en-linea js-selecciona-imagen"><i class="fa fa-picture-o"></i></button>
+                Selecciona una imagen en tu ordenador
+              <input type="file" name="imagen" value="" style="display:none" class="js-imagen">
+            </div>
+          </div>
+
+          <div class="row js-con-imagen" style="display:none">
+            <div class="col-lg-12">
+              <button type="button" class="btn btn-default btn-en-linea js-sube-imagen"><i class="fa fa-upload"></i></button>
+                Sube la imagen
+            </div>
+          </div>
+        </form>
+      <?php
+        endif;
+      ?>
     </div>
   </div>
   <div class="col-lg-6">
-    <canvas style="display:none" class="portada js-portada" width="504" height="504"></canvas>
-		<video style="display:none"></video>
+    <?php
+      if (!$hayImagen) :
+    ?>
+      <canvas style="display:none" class="portada js-portada" width="504" height="504"></canvas>
+  		<video style="display:none"></video>
+    <?php
+      else :
+    ?>
+      <img src="<?php echo $filename; ?>" class="img-fluid portada" alt="" />
+    <?php
+      endif;
+    ?>
   </div>
 </div>
 
