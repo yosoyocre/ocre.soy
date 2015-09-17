@@ -98,6 +98,11 @@ img, iframe, canvas, button {
     color: #DDD;
   }
 
+  .con-separacion {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 1.3rem;
+  }
+
   .btn-en-linea {
     margin-top: -4px;
     margin-right: 8px;

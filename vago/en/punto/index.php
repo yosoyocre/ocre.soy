@@ -1,12 +1,3 @@
-<?php
-    $hayImagen = false;
-		if ($_FILES['imagen']) {
-			$filename = 'uploads/' . $_FILES['imagen']['name'];
-			move_uploaded_file($_FILES['imagen']["tmp_name"], $filename);
-      $hayImagen = true;
-    }
-?>
-
 <?php require('../../../_cabecera.php'); ?>
 
 <script type="text/javascript" src="js/jquery.vago-en-punto.js"></script>
@@ -76,17 +67,22 @@ $(function() {
     }
   });
 
-  $('.js-selecciona-imagen').click(function(e) {
-    e.preventDefault();
+  function sacaFoto() {
+    var link = document.createElement("a");
 
-    $('.js-primer-paso').fadeOut(function() {
-      $('.js-con-imagen').fadeIn();
-    });
-
-    $('.js-imagen').click();
-  });
+    link.download = 'ocre-vago_en_esencia.png';
+    link.href = $('.js-portada').get(0).toDataURL("image/png");
+    link.click();
+  }
 
   $('.js-descargar').click(function(e) {
+    e.preventDefault();
+
+    sacaFoto();
+
+  });
+
+  $('.js-temporizador').click(function(e) {
     e.preventDefault();
 
     var tiempo = 3;
@@ -94,32 +90,22 @@ $(function() {
     $('.js-tiempo').text(tiempo);
     $('.js-cuenta-atras').css('display', 'inline');
 
-    function sacaFoto() {
+    function cuentaAtras() {
         if (tiempo) {
           $('.js-tiempo').text(tiempo);
           tiempo = tiempo - 1;
-          setTimeout(sacaFoto, 1000);
+          setTimeout(cuentaAtras, 1000);
         } else {
-          var link = document.createElement("a");
 
-          link.download = 'ocre-vago_en_esencia.png';
-          link.href = $('.js-portada').get(0).toDataURL("image/png");
-          link.click();
+          sacaFoto();
 
           $('.js-cuenta-atras').fadeOut();
         }
     }
 
-    sacaFoto();
+    cuentaAtras();
 
   });
-
-  $('.js-sube-imagen').click(function(e) {
-    e.preventDefault();
-
-    $('.js-imagen-en-punto').submit();
-  });
-
 });
 </script>
 
@@ -144,11 +130,6 @@ $(function() {
         </div>
       </div>
 
-      <?php
-        if (!$hayImagen) :
-      ?>
-
-        <!-- Imagen de cámara -->
         <div class="row js-primer-paso">
           <div class="col-lg-12">
               <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
@@ -158,54 +139,27 @@ $(function() {
 
         <div class="row js-cargando" style="display:none">
           <div class="col-lg-12">
-              <i class="fa fa-spinner fa-pulse"></i> Obteniendo datos de cámara
+              <i class="fa fa-spinner fa-pulse"></i> Obteniendo datos de tu cámara
           </div>
         </div>
 
-        <div class="row js-con-camara" style="display:none">
+        <div class="row js-con-camara con-separacion" style="display:none">
           <div class="col-lg-12">
             <button type="button" class="btn btn-default btn-en-linea js-descargar"><i class="fa fa-camera"></i></button>
-            Saca foto <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
+            Saca foto
           </div>
         </div>
-
-        <!-- Imagen de fichero -->
-
-        <form method="post" class="js-imagen-en-punto" enctype="multipart/form-data">
-
-          <div class="row js-primer-paso">
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-default btn-en-linea js-selecciona-imagen"><i class="fa fa-picture-o"></i></button>
-                Selecciona una imagen en tu ordenador
-              <input type="file" name="imagen" value="" style="display:none" class="js-imagen">
-            </div>
+        <div class="row js-con-camara" style="display:none">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-default btn-en-linea js-temporizador"><i class="fa fa-clock-o"></i></button>
+            Temporizador <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
           </div>
-
-          <div class="row js-con-imagen" style="display:none">
-            <div class="col-lg-12">
-              <button type="button" class="btn btn-default btn-en-linea js-sube-imagen"><i class="fa fa-upload"></i></button>
-                Sube la imagen
-            </div>
-          </div>
-        </form>
-      <?php
-        endif;
-      ?>
+        </div>
     </div>
   </div>
   <div class="col-lg-6">
-    <?php
-      if (!$hayImagen) :
-    ?>
       <canvas style="display:none" class="portada js-portada" width="504" height="504"></canvas>
   		<video style="display:none"></video>
-    <?php
-      else :
-    ?>
-      <img src="<?php echo $filename; ?>" class="img-fluid portada" alt="" />
-    <?php
-      endif;
-    ?>
   </div>
 </div>
 
