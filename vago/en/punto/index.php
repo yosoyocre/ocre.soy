@@ -4,6 +4,7 @@
 <script type="text/javascript">
 $(function() {
   var video = document.querySelector('video');
+  var color = true;
 
   function gumSuccess(stream) {
     window.stream = stream;
@@ -63,6 +64,11 @@ $(function() {
 
     function draw() {
         requestAnimFrame(draw);
+
+        if (color) {
+          videoVagoEnEsencia.settings.color = videoVagoEnEsencia.getRandomColor();
+          color = false;
+        }
         videoVagoEnEsencia.draw();
     }
   });
@@ -106,6 +112,12 @@ $(function() {
     cuentaAtras();
 
   });
+
+  $('.js-cambiar-color').click(function (e) {
+      e.preventDefault();
+
+      color = true;
+  });
 });
 </script>
 
@@ -117,6 +129,12 @@ $(function() {
       <span class="separador">/</span> <a href="/vago/en/punto">punto</a>
     </h1>
     <p>
+      En este experimento se aplica el algoritmo desarrollado en
+      <a href="/vago/en/diseno"><span class="separador">/</span> vago<span class="separador">/</span> en <span class="separador">/</span> diseno</a>
+      a la imagen capturada por la cámara web del usuario.
+    </p>
+    <p>
+      En el momento que quieras puedes sacarte una foto y obtendrás una imagen en puntos.
     </p>
   </div>
 </div>
@@ -124,12 +142,6 @@ $(function() {
 <div class="row">
   <div class="col-lg-6">
     <div class="ficha">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3>Panel de control</h3>
-        </div>
-      </div>
-
         <div class="row js-primer-paso">
           <div class="col-lg-12">
               <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
@@ -138,8 +150,12 @@ $(function() {
         </div>
 
         <div class="row js-cargando" style="display:none">
-          <div class="col-lg-12">
-              <i class="fa fa-spinner fa-pulse"></i> Obteniendo datos de tu cámara
+          <div class="col-lg-1">
+            <i class="fa fa-spinner fa-pulse"></i>
+          </div>
+          <div class="col-lg-11">
+              Obteniendo datos de tu cámara <br>
+              Pulsa en "Permitir" para poder acceder a ella.
           </div>
         </div>
 
@@ -149,10 +165,16 @@ $(function() {
             Saca foto
           </div>
         </div>
-        <div class="row js-con-camara" style="display:none">
+        <div class="row js-con-camara con-separacion" style="display:none">
           <div class="col-lg-12">
             <button type="button" class="btn btn-default btn-en-linea js-temporizador"><i class="fa fa-clock-o"></i></button>
-            Temporizador <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
+            Saca foto con temporizador <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
+          </div>
+        </div>
+        <div class="row js-con-camara" style="display:none">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-default btn-en-linea js-cambiar-color"><i class="fa fa-paint-brush"></i></button>
+            Cambia el color
           </div>
         </div>
     </div>
@@ -175,9 +197,7 @@ $(function() {
       Lenguajes de programación
       <span class="dato">HTML, CSS y JavaScript</span>
     </div>
-  </div>
 
-	<div class="row">
     <div class="col-lg-4">
       Librerías
       <span class="dato"><a href="https://jquery.com/">jQuery</a></span>

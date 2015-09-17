@@ -108,6 +108,10 @@ img, iframe, canvas, button {
     margin-right: 8px;
   }
 
+  .fa-spinner {
+    margin-top: 4px;
+  }
+
   .ficha {
     font-size: 1.3rem;
   }

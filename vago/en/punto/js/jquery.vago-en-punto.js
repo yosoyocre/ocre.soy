@@ -72,6 +72,8 @@
       this.settings.color = getRandomColor();
     }
 
+    this.getRandomColor = getRandomColor;
+
     this.init();
   }
 
