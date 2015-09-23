@@ -150,7 +150,7 @@ $(function() {
         <div class="row js-primer-paso">
           <div class="col-lg-12">
               <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
-            Enciende tu cámara
+            Pulsa para encender tu cámara
           </div>
         </div>
 
