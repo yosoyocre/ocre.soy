@@ -129,12 +129,17 @@ $(function() {
       <span class="separador">/</span> <a href="/vago/en/punto">punto</a>
     </h1>
     <p>
-      En este experimento se aplica el algoritmo desarrollado en
-      <a href="/vago/en/diseno"><span class="separador">/</span> vago<span class="separador">/</span> en <span class="separador">/</span> diseno</a>
-      a la imagen capturada por la cámara web del usuario.
+      Este es el primero de una serie de experimentos que transforman el entorno
+      digital en una colección de puntos de colores.
     </p>
     <p>
-      En el momento que quieras puedes sacarte una foto y obtendrás una imagen en puntos.
+      Mediante una <a href="https://es.wikipedia.org/wiki/Semitonos_(inform%C3%A1tica)">técnica</a>
+      similar a la de impresión de imágenes en periódicos antiguos,
+      el algoritmo convierte el vídeo capturado por la cámara web
+      del usuario en círculos de diferentes tamaños.
+    </p>
+    <p>
+      Si quieres probarlo, sigue estos pasos:
     </p>
   </div>
 </div>
@@ -194,13 +199,25 @@ $(function() {
 
   <div class="row">
     <div class="col-lg-4">
-      Lenguajes de programación
-      <span class="dato">HTML, CSS y JavaScript</span>
+      Código fuente
+      <span class="dato"><a href="https://github.com/yosoyocre/creoqueocre.es/tree/master/vago/en/punto">Github</a></span>
     </div>
 
     <div class="col-lg-4">
+      Lenguajes de programación
+      <span class="dato">HTML, CSS y JavaScript</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
       Librerías
       <span class="dato"><a href="https://jquery.com/">jQuery</a></span>
+    </div>
+
+    <div class="col-lg-4">
+      Inspiración
+      <span class="dato"><a href="https://es.wikipedia.org/wiki/Semitonos_(inform%C3%A1tica)">Semitonos</a></span>
     </div>
   </div>
 </div>

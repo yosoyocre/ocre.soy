@@ -38,7 +38,7 @@
       </span>
     </div>
     <div class="col-lg-4">
-      Adaptador de imágenes
+      Semitonos en cámara web
       <span class="dato">
         <a href="/vago/en/punto">
           <span class="separador">/</span> vago
