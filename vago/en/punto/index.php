@@ -149,7 +149,7 @@ $(function() {
     <div class="ficha">
         <div class="row js-primer-paso">
           <div class="col-lg-12">
-              <button type="button" class="btn btn-default btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
+              <button type="button" class="btn btn-primary btn-en-linea js-punto-de-camara"><i class="fa fa-video-camera"></i></button>
             Pulsa para encender tu cámara
           </div>
         </div>
@@ -166,19 +166,19 @@ $(function() {
 
         <div class="row js-con-camara con-separacion" style="display:none">
           <div class="col-lg-12">
-            <button type="button" class="btn btn-default btn-en-linea js-descargar"><i class="fa fa-camera"></i></button>
+            <button type="button" class="btn btn-primary btn-en-linea js-descargar"><i class="fa fa-camera"></i></button>
             Saca foto
           </div>
         </div>
         <div class="row js-con-camara con-separacion" style="display:none">
           <div class="col-lg-12">
-            <button type="button" class="btn btn-default btn-en-linea js-temporizador"><i class="fa fa-clock-o"></i></button>
+            <button type="button" class="btn btn-primary btn-en-linea js-temporizador"><i class="fa fa-clock-o"></i></button>
             Saca foto con temporizador <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
           </div>
         </div>
         <div class="row js-con-camara" style="display:none">
           <div class="col-lg-12">
-            <button type="button" class="btn btn-default btn-en-linea js-cambiar-color"><i class="fa fa-paint-brush"></i></button>
+            <button type="button" class="btn btn-primary btn-en-linea js-cambiar-color"><i class="fa fa-paint-brush"></i></button>
             Cambia el color
           </div>
         </div>

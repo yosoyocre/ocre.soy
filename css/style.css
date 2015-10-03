@@ -33,11 +33,17 @@ a, a:hover, a:focus {
     -webkit-transition: all 0.3s ease-in-out 0s;
     transition: all 0.3s ease-in-out 0s;
   }
-    a:not(.sin-hover):hover:before {
+    a:not(.sin-hover):not(.btn):hover:before {
       visibility: visible;
       -webkit-transform: scaleX(1);
       transform: scaleX(1);
     }
+
+.btn.btn-primary, .btn.btn-primary:hover {
+  background-color: #C0C0C0;
+  color: inherit;
+  border: 1px solid #C0C0C0;
+}
 
 header {
   border-bottom: 1px solid #cbcbcb;
@@ -48,7 +54,7 @@ footer {
   border-top: 1px solid #cbcbcb;
 }
 
-img, iframe, canvas, button {
+img, iframe, canvas, .btn {
   box-shadow: 4px 4px 5px #DDD;
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -57,8 +63,14 @@ img, iframe, canvas, button {
   box-shadow: none;
 }
 
-  a:hover img, a:hover canvas, button:hover {
+  a:hover img, a:hover canvas, .btn:hover {
     box-shadow: 10px 10px 10px #eee;
+  }
+
+  .btn:hover {
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
   }
 
 .navbar {

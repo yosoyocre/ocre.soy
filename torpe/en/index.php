@@ -8,7 +8,10 @@
     </h1>
     <p>
       <a href="/torpe/en/diseno"><span class="separador">/</span> diseño</a>
-    </p>    
+    </p>
+    <p>
+      <a href="/torpe/en/verano"><span class="separador">/</span> verano</a>
+    </p>
   </div>
 </div>
 <?php require('../../_pie.php'); ?>
