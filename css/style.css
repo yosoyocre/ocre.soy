@@ -57,6 +57,7 @@ footer {
 img, iframe, canvas, .btn {
   box-shadow: 4px 4px 5px #DDD;
   transition: box-shadow 0.3s ease-in-out;
+  margin-bottom: 1.3rem;
 }
 
 .sin-sombra {
@@ -97,10 +98,6 @@ img, iframe, canvas, .btn {
   margin-bottom: 3rem;
 }
 
-  .row *:last-child {
-    margin-bottom: 0;
-  }
-
   .portada {
     width: 100%;
     margin-bottom: 1.3rem;
@@ -116,7 +113,7 @@ img, iframe, canvas, .btn {
   }
 
   .btn-en-linea {
-    margin-top: -4px;
+    margin-top: 7px;
     margin-right: 8px;
   }
 
