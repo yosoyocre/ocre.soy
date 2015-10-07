@@ -61,7 +61,11 @@ img, iframe, canvas, .btn {
 }
 
 .sin-sombra {
-  box-shadow: none;
+  box-shadow: none !important;
+}
+
+.sin-mgbt {
+  margin-bottom: 0 !important;
 }
 
   a:hover img, a:hover canvas, .btn:hover {
@@ -113,8 +117,9 @@ img, iframe, canvas, .btn {
   }
 
   .btn-en-linea {
-    margin-top: 7px;
+    margin-top: -4px;
     margin-right: 8px;
+    margin-bottom: 0;
   }
 
   .fa-spinner {

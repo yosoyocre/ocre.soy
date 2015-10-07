@@ -21,7 +21,7 @@
 
 <div class="row">
   <div class="col-lg-6">
-    <div class="ficha">
+    <div class="ficha sin-mgbt">
         <div class="row">
           <div class="col-lg-12">
               <a href="/torpe/en/verano/totalmente" class="btn btn-primary btn-en-linea"><i class="fa fa-video-camera"></i></a> Generar un videoclip
@@ -48,7 +48,7 @@
   <div class="col-lg-8">
     <p>
       Dado que los usuarios están continuamente añadiendo nuevo metraje a la red social,
-      el videoclip generado es único, irrepetible y supone un reflejo de lo que está ocurriendo
+      el videoclip generado es único y supone un reflejo de lo que está ocurriendo
       en distintas partes del mundo en el mismo momento de su visualización.
     </p>
   </div>
