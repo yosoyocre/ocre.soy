@@ -1,3 +1,6 @@
+<?php 
+  $version = '15100700';
+?>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +9,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=<?php echo $version ?>">
   <link rel="shortcut icon" href="/img/favicon.png" class="js-favicon">
   <script src="https://use.typekit.net/wfj3ppv.js"></script>
   <script>try{Typekit.load({ });}catch(e){}</script>
