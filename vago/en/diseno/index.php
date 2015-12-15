@@ -6,13 +6,13 @@
       function nuevoDiseno() {
 					var $portada = $('.js-portada');
 
-			    $portada.removeData('plugin_vago').vago({ stepByStep: true });
+			    $portada.removeData('plugin_vago').vago({ background: 'white', stepByStep: true });
 					var portada = $.data($portada.get(0), 'plugin_vago');
 
 					var $favicon = $('<canvas width="16" height="16">');
 
 					$favicon.vago({
-						background: portada.settings.background,
+						background: 'rgba(255, 255, 255, 0)',
 						color: portada.settings.color,
 						maxRadius: 4,
 						points: 1,
