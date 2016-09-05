@@ -5,7 +5,7 @@
 	server('prod', 'http://188.166.156.92/', 22)
 	    ->user('ocre')
 	    ->forwardAgent()
-	    ->stage('prod')
+	    ->stage('production')
 	    ->env('branch', 'master')
 	    ->env('deploy_path', '/var/www/creoqueocre.es/www');
 
