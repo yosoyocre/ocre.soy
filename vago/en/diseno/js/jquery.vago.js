@@ -290,11 +290,10 @@
       var path;
       var x;
       var y = this.settings.maxRadius;
+      var color;
 
       ctx.fillStyle = this.settings.background;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-      ctx.fillStyle = this.settings.color;
 
       for (j = 0; j < this.maxY; j = j + 1) {
         x = this.settings.maxRadius;
@@ -306,6 +305,10 @@
 
           path = new Path2D();
           path.arc(x, y, radius, 0, 2 * Math.PI);
+
+          color = this.settings.color;
+          color = color.replace(', 1)', ', ' + Math.random() + ')');
+          ctx.fillStyle = color;
 
           ctx.fill(path);
           x += 2 * this.settings.maxRadius;
