@@ -2,7 +2,7 @@
 
 	require 'recipe/composer.php';
 
-	server('prod', 'http://188.166.156.92/', 22)
+	server('prod', '188.166.156.92', 22)
 	    ->user('ocre')
 	    ->forwardAgent()
 	    ->stage('production')
