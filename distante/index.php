@@ -14,7 +14,7 @@
     </p>
     <p>
       Si quieres ponerte en contacto conmigo, mándame un correo a
-      <a href="mailto:yo@creoqueocre.es">yo@creoqueocre.es</a>
+      <a href="mailto:yosoyocre@gmail.com">yosoyocre@gmail.com</a>
       o pásate por mi cuenta de <a href="https://www.facebook.com/yosoyocre">facebook</a> o
       <a href="https://twitter.com/yosoyocre">twitter</a>.
     </p>
