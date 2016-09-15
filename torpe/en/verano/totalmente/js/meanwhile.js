@@ -42,13 +42,13 @@
                 'id': this.options.id,
                 'preload': 'auto',
                 'autobuffer': true,
-                'muted': true,
             })
             .css({
                 'display': 'none'
             });
 
         this.video = this.element.get(0);
+        this.video.muted = true;
 
         this.status = Video.STATUS_EMPTY;
 

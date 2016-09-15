@@ -65,7 +65,7 @@
 <div id="screen" class="fullscreen"></div>
 <div id="loading">
     tu videoclip de 'veranos' se está generando... <br>
-    necesitas utilizar el navegador Google Chrome <br>
+    necesitas utilizar el navegador Google Chrome o el Mozilla Firefox <br>    
     mola más si lo visualizas a pantalla completa
 </div>
 <div id="clipTorpe" class="fullscreen"></div>
