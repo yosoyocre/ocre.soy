@@ -35,7 +35,7 @@ if ($vine_json){
         header('Content-type: application/json');
 
         echo '{
-            "video_url": "' . $video_url .'"
+            "video_url": "' . $video_url . '?t=' . time() . '"
         }';
 
         exit;
