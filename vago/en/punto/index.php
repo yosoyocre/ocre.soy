@@ -1,5 +1,26 @@
 <?php require('../../../_cabecera.php'); ?>
 
+<style>
+  .portada.pantalla-completa {
+    width: 578px;
+    position: fixed;
+    top: calc(50% - 289px);
+    left: calc(50% - 289px);    
+    z-index: 100;
+  }
+
+  .telon {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 90;
+    background: white;
+  }
+</style>
+
 <script type="text/javascript" src="js/jquery.vago-en-punto.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -118,6 +139,23 @@ $(function() {
 
       color = true;
   });
+
+  function modoPantallaCompleta() {
+    $('.js-portada').toggleClass('pantalla-completa');
+    $('.js-telon').toggle();
+  }
+
+  $('.js-pantalla-completa').click(function (e) {
+      e.preventDefault();
+
+      modoPantallaCompleta();
+
+      setTimeout(function() {
+        $('html').one('click', function() {
+          modoPantallaCompleta();
+        });
+      }, 1000);
+  }); 
 });
 </script>
 
@@ -176,10 +214,16 @@ $(function() {
             Saca foto con temporizador <div class="js-cuenta-atras" style="display:none">en <span class="js-tiempo">3</span></div>
           </div>
         </div>
-        <div class="row js-con-camara" style="display:none">
+        <div class="row js-con-camara con-separacion" style="display:none">
           <div class="col-lg-12">
             <button type="button" class="btn btn-primary btn-en-linea js-cambiar-color"><i class="fa fa-paint-brush"></i></button>
             Cambia el color
+          </div>
+        </div>
+        <div class="row js-con-camara" style="display:none">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-primary btn-en-linea js-pantalla-completa"><i class="fa fa-television"></i></button>
+            Ver a pantalla completa
           </div>
         </div>
     </div>
@@ -187,6 +231,7 @@ $(function() {
   <div class="col-lg-6">
       <canvas style="display:none" class="portada js-portada" width="504" height="504"></canvas>
   		<video style="display:none"></video>
+      <div class="telon js-telon"></div>
   </div>
 </div>
 
