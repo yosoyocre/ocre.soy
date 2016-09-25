@@ -9,5 +9,5 @@
 	    ->env('branch', 'master')
 	    ->env('deploy_path', '/var/www/creoqueocre.es/www');
 
-	set('repository', 'git@github.com:yosoyocre/creoqueocre.es.git');
+	set('repository', 'git@github.com:yosoyocre/ocre.soy.git');
 ?>

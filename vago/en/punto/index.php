@@ -245,7 +245,7 @@ $(function() {
   <div class="row">
     <div class="col-lg-4">
       Código fuente
-      <span class="dato"><a href="https://github.com/yosoyocre/creoqueocre.es/tree/master/vago/en/punto">Github</a></span>
+      <span class="dato"><a href="https://github.com/yosoyocre/ocre.soy/tree/master/vago/en/punto">Github</a></span>
     </div>
 
     <div class="col-lg-4">

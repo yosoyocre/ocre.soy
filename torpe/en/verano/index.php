@@ -64,7 +64,7 @@
   <div class="row">
     <div class="col-lg-4">
       Código fuente
-      <span class="dato"><a href="https://github.com/yosoyocre/creoqueocre.es/tree/master/torpe/en/verano/totalmente">Github</a></span>
+      <span class="dato"><a href="https://github.com/yosoyocre/ocre.soy/tree/master/torpe/en/verano/totalmente">Github</a></span>
     </div>
 
     <div class="col-lg-4">
