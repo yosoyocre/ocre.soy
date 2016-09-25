@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>creo que ocre . es <?php echo implode(' / ', explode('/', substr($_SERVER[REQUEST_URI], 0, -1))); ?></title>
+  <title>ocre . soy <?php echo implode(' / ', explode('/', substr($_SERVER[REQUEST_URI], 0, -1))); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
@@ -48,12 +48,12 @@
             ☰
           </button>
           <a class="navbar-brand hidden-sm-up" href="/">
-            creo que ocre <span class="separador">.</span> es
+            ocre <span class="separador">.</span> soy
           </a>
         </div>
         <div class="collapse navbar-toggleable-xs" id="bd-main-nav">
           <nav class="nav navbar-nav">
-            <a class="nav-item nav-link active hidden-xs-down" href="/">creo que ocre <span class="separador">.</span> es</a>
+            <a class="nav-item nav-link active hidden-xs-down" href="/">ocre <span class="separador">.</span> soy</a>
             <div class="pull-right">
               <a class="nav-item nav-link" href="/torpe"><span class="separador">/</span> torpe</a>
               <a class="nav-item nav-link " href="/vago"><span class="separador">/</span> vago</a>
