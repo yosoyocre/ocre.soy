@@ -7,7 +7,7 @@
 	    ->forwardAgent()
 	    ->stage('production')
 	    ->env('branch', 'master')
-	    ->env('deploy_path', '/var/www/creoqueocre.es/www');
+	    ->env('deploy_path', '/var/www/ocre.soy/www');
 
 	set('repository', 'git@github.com:yosoyocre/ocre.soy.git');
 ?>
