@@ -9,6 +9,19 @@
   var pluginName = 'vago';
   var grayLuminance = getLuminance(200, 200, 200);
 
+  var maxXWhenTitle = 33;
+  var maxYWhenTitle = 33;
+
+  function formatDate(date) {
+      function pad(n) { return n < 10 ? '0' + n : n; }
+
+      return pad(date.getHours()) + ':' +
+          pad(date.getMinutes()) + ' ' +
+          pad(date.getDate()) + '/' +
+          pad(date.getMonth() + 1) + '/' +
+          pad(date.getFullYear());
+  }
+
   function cloneArray(a) {
     var b = [];
 
@@ -76,6 +89,15 @@
     return rgba;
   }
 
+  function writeText(ctx, text, x, y) {
+      ctx.save();
+      ctx.fillStyle = '#c8c8c8';
+      ctx.font = "20px monospace";
+      ctx.textAlign = 'right';
+      ctx.fillText(text, x, y);
+      ctx.restore();
+  }
+
   function Vago(element, options) {
 
     var defaults = {
@@ -88,6 +110,8 @@
       degradationLevel: 0.1,
       stepByStep: false,
       addTitle: true,
+      addCredits: false,
+      border: 1
     };
 
     this.getRadius = function(matrix, x, y) {
@@ -185,7 +209,13 @@
           }
 
           if (!auxMatrix[i][j]) {
-            radius = this.getAverageRadius(this.matrix, this.settings.windowSize, i, j);
+            // Si colocamos el título, procuramos no dibujar por debajo
+            if (this.settings.addTitle && i > maxXWhenTitle && j > maxYWhenTitle) {
+              radius = 1;
+            } else {
+              radius = this.getAverageRadius(this.matrix, this.settings.windowSize, i, j);
+            }
+
             if (radius !== null) {
               degradation = Math.random();
               if (degradation >= this.settings.degradationLevel) {
@@ -237,6 +267,12 @@
         i = Math.floor(Math.random() * this.maxX);
         j = Math.floor(Math.random() * this.maxY);
 
+        // Si hay título del EP, descartamos los puntos que se dibujen debajo
+        if (this.settings.addTitle && i > maxXWhenTitle && j > maxYWhenTitle) {
+          n = n - 1;
+          continue;
+        }
+
         if (!this.matrix[i]) {
           this.matrix[i] = [];
         }
@@ -252,7 +288,16 @@
           _this.draw();
         };
       } else {
-        _this.draw();
+        if (this.settings.addCredits) {
+          this.credits = new Image();
+          this.credits.src = 'img/back.png';
+
+          this.credits.onload = function() {
+            _this.draw();
+          };
+        } else {
+          _this.draw();
+        }
       }
     },
 
@@ -320,6 +365,18 @@
       if (this.settings.addTitle) {
         ctx.drawImage(this.cover, 0, 0, this.canvas.width, this.canvas.height);
       }
+
+      if (this.settings.addCredits) {
+        ctx.drawImage(this.credits, 0, 0, this.canvas.width, this.canvas.height);
+        writeText(ctx, formatDate(new Date()), 19 * 70, 19 * 70);
+      }
+
+      if (this.settings.border) {
+        ctx.strokeStyle = '#999';
+        ctx.lineWidth = this.settings.border;
+        ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
+      }
+      
     },
   });
 

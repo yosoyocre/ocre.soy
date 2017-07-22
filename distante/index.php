@@ -9,7 +9,7 @@
       Ocre == Edu Poch, músico amateur e informático de profesión. <br>
       Integrante de <a href="http://discosdekirlian.com/">Discos de Kirlian</a>
       desde octubre de 2014. <br>
-      También, componente de <a href="http://nouvellecuisine.bandcamp.com/">Nouvelle Cuisine</a>
+      Fue componente de <a href="http://nouvellecuisine.bandcamp.com/">Nouvelle Cuisine</a>
       y <a href="https://elvisnegrata.bandcamp.com">Elvis Negro</a>.
     </p>
     <p>

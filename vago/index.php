@@ -3,17 +3,66 @@
 <div class="row">
   <div class="col-lg-8">
     <h1>
-      <span class="separador">/</span> <a href="/torpe">vago</a>
+      <span class="separador">/</span> <a href="/vago">vago</a>
     </h1>
 
     <p>
-      Un día cualquiera de 2016 saldrá a la luz, o no, el segundo EP, que se llamará
-      Vago. O no.
+      3 años después del <a href="/torpe">Torpe</a>, Discos de Kirlian publicó la segunda pieza del puzzle, el EP Vago, en septiembre de 2017. 
+    </p>
+    <p>
+      Aunque estas 6 canciones continúnan la línea estilística del primero, en este EP juego un poco más con la acumulación de samples de baterías, la aleatoriedad en ritmos y melodías.
     </p>
 
     <p>
-      Lo que ya está en marcha son sus experimentos web.
-      Aquí se puede ver una muestra.
+      Puedes escucharlo aquí o en el bandcamp de DK.
+    </p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Créditos</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Grabación, producción y masterización
+      <span class="dato"><a href="http://www.8estudios.com/">Jahel Piñeiro</a></span>
+    </div>
+
+    <div class="col-lg-4">
+      Asistencia técnica
+      <span class="dato">Córdulo David Merino y Leti Gordo</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      Letra de 1
+      <span class="dato">Xoansinho Daviña</span>
+    </div>
+    <div class="col-lg-4">
+      Voz, música y letra de 4
+      <span class="dato">Bita Barbadillo</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      Letra de 6
+      <span class="dato">Quintana Carter</span>
+    </div>    
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-8">
+    <p>
+      Una serie de experimentos acompañan al disco. Se trata de jugar
+      con la aleatoriedad y las posibilidades tecnológicas de la web.
+      Todo el código desarrollado es abierto y puede
+      ser consultado, descargado y modificado sin ninguna limitación.
     </p>
   </div>
 </div>

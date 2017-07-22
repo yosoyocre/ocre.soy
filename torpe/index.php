@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col-lg-4">
       Grabación, producción y masterización
-      <span class="dato"><a href="http://www.8estudios.es/">Jahel Piñeiro</a></span>
+      <span class="dato"><a href="http://www.8estudios.com/">Jahel Piñeiro</a></span>
     </div>
 
     <div class="col-lg-4">

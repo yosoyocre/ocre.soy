@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "112f919122d694cac3fa76ac9f6d1ff4",
     "content-hash": "d13763b456ea9b2eab18c198c799ca03",
     "packages": [
         {
@@ -59,7 +58,7 @@
             ],
             "description": "Deployment Tool",
             "homepage": "http://deployer.org",
-            "time": "2016-05-19 01:47:21"
+            "time": "2016-05-19T01:47:21+00:00"
         },
         {
             "name": "deployer/phar-update",
@@ -114,7 +113,7 @@
                 "phar",
                 "update"
             ],
-            "time": "2016-04-06 13:32:59"
+            "time": "2016-04-06T13:32:59+00:00"
         },
         {
             "name": "elfet/pure",
@@ -161,7 +160,7 @@
                 }
             ],
             "description": "Pure PHP key-value storage",
-            "time": "2016-03-19 14:26:03"
+            "time": "2016-03-19T14:26:03+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -207,7 +206,7 @@
                 "event-dispatcher",
                 "event-emitter"
             ],
-            "time": "2012-11-02 14:49:47"
+            "time": "2012-11-02T14:49:47+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -265,19 +264,19 @@
                 "stream",
                 "uri"
             ],
-            "time": "2016-06-24 23:00:38"
+            "time": "2016-06-24T23:00:38+00:00"
         },
         {
             "name": "herrera-io/json",
             "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/kherge-abandoned/php-json.git",
+                "url": "https://github.com/kherge-php/json.git",
                 "reference": "60c696c9370a1e5136816ca557c17f82a6fa83f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kherge-abandoned/php-json/zipball/60c696c9370a1e5136816ca557c17f82a6fa83f1",
+                "url": "https://api.github.com/repos/kherge-php/json/zipball/60c696c9370a1e5136816ca557c17f82a6fa83f1",
                 "reference": "60c696c9370a1e5136816ca557c17f82a6fa83f1",
                 "shasum": ""
             },
@@ -325,7 +324,8 @@
                 "schema",
                 "validate"
             ],
-            "time": "2013-10-30 16:51:34"
+            "abandoned": "kherge/json",
+            "time": "2013-10-30T16:51:34+00:00"
         },
         {
             "name": "herrera-io/phar-update",
@@ -382,7 +382,8 @@
                 "phar",
                 "update"
             ],
-            "time": "2013-11-09 17:13:13"
+            "abandoned": true,
+            "time": "2013-11-09T17:13:13+00:00"
         },
         {
             "name": "herrera-io/version",
@@ -433,7 +434,8 @@
                 "semantic",
                 "version"
             ],
-            "time": "2014-05-27 05:29:25"
+            "abandoned": true,
+            "time": "2014-05-27T05:29:25+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -499,7 +501,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2016-01-25 15:43:01"
+            "time": "2016-01-25T15:43:01+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -591,7 +593,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2016-08-18 18:49:14"
+            "time": "2016-08-18T18:49:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -641,7 +643,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -679,7 +681,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2012-12-21T11:40:51+00:00"
         },
         {
             "name": "react/cache",
@@ -713,7 +715,7 @@
             "keywords": [
                 "cache"
             ],
-            "time": "2016-02-25 18:17:16"
+            "time": "2016-02-25T18:17:16+00:00"
         },
         {
             "name": "react/child-process",
@@ -752,7 +754,7 @@
             "keywords": [
                 "process"
             ],
-            "time": "2016-08-01 18:09:48"
+            "time": "2016-08-01T18:09:48+00:00"
         },
         {
             "name": "react/dns",
@@ -789,7 +791,7 @@
                 "dns",
                 "dns-resolver"
             ],
-            "time": "2016-08-01 10:09:07"
+            "time": "2016-08-01T10:09:07+00:00"
         },
         {
             "name": "react/event-loop",
@@ -833,7 +835,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2016-03-08 02:09:32"
+            "time": "2016-03-08T02:09:32+00:00"
         },
         {
             "name": "react/http",
@@ -875,7 +877,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2015-05-21 20:12:09"
+            "time": "2015-05-21T20:12:09+00:00"
         },
         {
             "name": "react/http-client",
@@ -920,7 +922,7 @@
             "keywords": [
                 "http"
             ],
-            "time": "2016-03-21 14:01:16"
+            "time": "2016-03-21T14:01:16+00:00"
         },
         {
             "name": "react/promise",
@@ -964,7 +966,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2016-05-03 17:50:52"
+            "time": "2016-05-03T17:50:52+00:00"
         },
         {
             "name": "react/react",
@@ -1017,7 +1019,7 @@
                 "event-loop",
                 "reactor"
             ],
-            "time": "2014-12-11 02:06:55"
+            "time": "2014-12-11T02:06:55+00:00"
         },
         {
             "name": "react/socket",
@@ -1058,7 +1060,7 @@
             "keywords": [
                 "Socket"
             ],
-            "time": "2016-03-01 20:10:35"
+            "time": "2016-03-01T20:10:35+00:00"
         },
         {
             "name": "react/socket-client",
@@ -1100,7 +1102,7 @@
             "keywords": [
                 "Socket"
             ],
-            "time": "2016-03-27 18:31:39"
+            "time": "2016-03-27T18:31:39+00:00"
         },
         {
             "name": "react/stream",
@@ -1144,7 +1146,7 @@
                 "pipe",
                 "stream"
             ],
-            "time": "2016-08-22 09:51:07"
+            "time": "2016-08-22T09:51:07+00:00"
         },
         {
             "name": "seld/jsonlint",
@@ -1190,7 +1192,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2015-11-21 02:21:41"
+            "time": "2015-11-21T02:21:41+00:00"
         },
         {
             "name": "symfony/console",
@@ -1250,7 +1252,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-19 06:48:39"
+            "time": "2016-08-19T06:48:39+00:00"
         },
         {
             "name": "symfony/debug",
@@ -1307,7 +1309,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-23 13:39:15"
+            "time": "2016-08-23T13:39:15+00:00"
         },
         {
             "name": "symfony/expression-language",
@@ -1356,7 +1358,7 @@
             ],
             "description": "Symfony ExpressionLanguage Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-10 11:16:56"
+            "time": "2016-03-10T11:16:56+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1405,7 +1407,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-26 12:04:02"
+            "time": "2016-08-26T12:04:02+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1464,7 +1466,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/process",
@@ -1513,7 +1515,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-16 14:58:24"
+            "time": "2016-08-16T14:58:24+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1562,7 +1564,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-02 02:12:52"
+            "time": "2016-09-02T02:12:52+00:00"
         }
     ],
     "packages-dev": [],
