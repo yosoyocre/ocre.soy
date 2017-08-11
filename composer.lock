@@ -4,8 +4,89 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d13763b456ea9b2eab18c198c799ca03",
+    "content-hash": "c3796b78a57c121bc169aedb436b4283",
     "packages": [
+        {
+            "name": "bower-asset/jspdf",
+            "version": "v1.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MrRio/jsPDF.git",
+                "reference": "938a6bcfc8468ff383c2a02e50e6e3022ff253bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MrRio/jsPDF/zipball/938a6bcfc8468ff383c2a02e50e6e3022ff253bd",
+                "reference": "938a6bcfc8468ff383c2a02e50e6e3022ff253bd",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/jspdf.debug.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "libs",
+                    "CNAME",
+                    "jspdf.js",
+                    "examples/jspdf.PLUGINTEMPLATE.js",
+                    "plugins/*",
+                    "todo.txt",
+                    "wscript.py",
+                    "build.sh",
+                    "test",
+                    "tools"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "PDF Document creation from JavaScript",
+            "keywords": [
+                "pdf"
+            ]
+        },
+        {
+            "name": "bower-asset/moment",
+            "version": "2.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378",
+                "reference": "b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "moment.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "benchmarks",
+                    "bower_components",
+                    "meteor",
+                    "node_modules",
+                    "scripts",
+                    "tasks",
+                    "test",
+                    "component.json",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "ender.js",
+                    "Gruntfile.js",
+                    "Moment.js.nuspec",
+                    "package.js",
+                    "package.json",
+                    "ISSUE_TEMPLATE.md",
+                    "typing-tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ]
+        },
         {
             "name": "deployer/deployer",
             "version": "v3.3.0",
