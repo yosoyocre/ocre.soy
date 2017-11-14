@@ -22,7 +22,8 @@
     </p>    
 
     <p style="margin-top: 40px; margin-bottom: 40px;">
-      Quedan <b><span class="js-cuentaAtras"></span></b>.
+      Estad atentas y atentos a esta web porque solo quedan <br>
+      <b><span class="js-cuentaAtras"></span></b>.
     </p>
 
     <p>
