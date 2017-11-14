@@ -12,6 +12,9 @@
     <p>
       <a href="/vago/en/punto"><span class="separador">/</span> punto</a>
     </p>
+    <p>
+      <a href="/vago/en/adelante"><span class="separador">/</span> adelante</a>
+    </p>
   </div>
 </div>
 <?php require('../../_pie.php'); ?>

@@ -3,7 +3,7 @@
 <script src="/vendor/bower-asset/jquery.countdown/dist/jquery.countdown.min.js"></script>
 <script>
   $(function() {
-    $('.js-cuentaAtras').countdown("2017/11/27 12:00:00", function(event) {
+    $('.js-cuentaAtras').countdown("2017/11/28 12:00:00", function(event) {
       $(this).text(
         event.strftime('%D días y %H:%M:%S horas')
       );
@@ -18,7 +18,7 @@
     </h1>
 
     <p>
-      3 años después del <a href="/torpe">Torpe</a>, Discos de Kirlian publicará la segunda pieza del puzzle, el EP Vago, el 27 de noviembre de 2017. 
+      3 años después del <a href="/torpe">Torpe</a>, Discos de Kirlian publicará la segunda pieza del puzzle, el EP Vago, el 28 de noviembre de 2017. 
     </p>    
 
     <p style="margin-top: 40px; margin-bottom: 40px;">
