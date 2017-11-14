@@ -18,10 +18,10 @@
     </h1>
 
     <p>
-      3 años después del <a href="/torpe">Torpe</a>, Discos de Kirlian publicará la segunda pieza del puzzle, el EP Vago, el 28 de noviembre de 2017. 
+      3 años después del <a href="/torpe">Torpe</a>, <a href="https://discosdekirlian.com/">Discos de Kirlian</a> publicará la segunda pieza del puzzle, el EP Vago, el 28 de noviembre de 2017. 
     </p>    
 
-    <p style="margin-top: 40px; margin-bottom: 40px;">
+    <p>
       Estad atentas y atentos a esta web porque solo quedan <br>
       <b><span class="js-cuentaAtras"></span></b>.
     </p>
@@ -67,8 +67,7 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
-      Generador del videoclip de<br>
-      "La fatiga de los materiales"
+      Generador del videoclips
       <span class="dato">
         <a href="/vago/en/adelante">
           <span class="separador">/</span> vago

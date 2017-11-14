@@ -8,10 +8,10 @@
       <span class="separador">/</span> <a href="/vago/en/adelante">adelante</a>
     </h1>
     <p>
-      'La fatiga de los materiales' es la canción que sirve de avance del <a href="/vago">Vago</a>, segundo EP de Ocre, que publicará Discos de Kirlian el 28 de noviembre de 2017 con la referencia DK55.
+      <i>La fatiga de los materiales</i> es la canción que sirve de avance del <a href="/vago">Vago</a>, segundo EP de Ocre, que publicará <a href="https://discosdekirlian.com/">Discos de Kirlian</a> el 28 de noviembre de 2017 con la referencia DK55.
     </p>
     <p>
-      El videoclip del tema lo genera un programa de ordenador que descarga GIFs animados aleatorios de <a href="https://giphy.com/">GIPHY</a>, los convierte a imágenes de puntos, los pinta en un color al azar y los combina con nuestras caras.
+      El videoclip del tema lo genera un programa de ordenador que descarga gifs animados aleatorios de <a href="https://giphy.com/">GIPHY</a>, los convierte a imágenes de puntos, los pinta en un color al azar y los combina con nuestras caras.
     </p>    
   </div>
 </div>
@@ -71,11 +71,11 @@
   <div class="row">
     <div class="col-lg-4">
       Librerías
-      <span class="dato"><a href="https://github.com/Sybio/GifFrameExtractor">GifFrameExtractor</a>, <a href="http://unirest.io/">Unirest</a>, <a href="https://jquery.com/">jQuery</a>, <a href="https://imagesloaded.desandro.com/">imagesLoaded</a>, </span>
+      <span class="dato"><a href="https://github.com/Sybio/GifFrameExtractor">GifFrameExtractor</a>, <a href="http://unirest.io/">Unirest</a>, <a href="https://jquery.com/">jQuery</a> e <a href="https://imagesloaded.desandro.com/">imagesLoaded</a> </span>
     </div>
 
     <div class="col-lg-4">
-      GIFs animados
+      Gifs animados
       <span class="dato"><a href="https://giphy.com/">GIPHY</a></span>
     </div>
   </div>

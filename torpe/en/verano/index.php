@@ -8,7 +8,7 @@
       <span class="separador">/</span> <a href="/torpe/en/verano">verano</a>
     </h1>
     <p>
-      El videoclip de 'veranos', el último corte del <a href="/torpe">EP Torpe</a>,
+      El videoclip de <i>Veranos</i>, el último corte del <a href="/torpe">EP Torpe</a>,
       en lugar de tener una estructura fija, se va construyendo con tecnologías web.
     </p>
     <p>
