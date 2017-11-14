@@ -5,7 +5,7 @@
   $(function() {
     $('.js-cuentaAtras').countdown("2017/11/28 12:00:00", function(event) {
       $(this).text(
-        event.strftime('%D días y %H:%M:%S horas')
+        event.strftime('%D días, %H horas, %M minutos y %S segundos')
       );
     });
   });
