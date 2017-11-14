@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>ocre . soy <?php echo implode(' / ', explode('/', substr($_SERVER[REQUEST_URI], 0, -1))); ?></title>
+  <title>ocre . soy <?php echo implode(' / ', explode('/', substr($_SERVER['REQUEST_URI'], 0, -1))); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
