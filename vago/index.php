@@ -27,8 +27,8 @@
     </p>
 
     <p>
-      Una serie de experimentos acompañarán al disco. Se trata de jugar
-      con la aleatoriedad y las posibilidades tecnológicas de la web.
+      Mientras tanto, podéis echarle un ojo a los experimentos que acompañarán al disco. 
+      Se trata de jugar con la aleatoriedad y las posibilidades tecnológicas de la web.
       Todo el código desarrollado es abierto y puede
       ser consultado, descargado y modificado sin ninguna limitación.
     </p>
