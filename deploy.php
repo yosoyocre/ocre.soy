@@ -1,13 +1,15 @@
 <?php
 
+	namespace Deployer;
+
 	require 'recipe/composer.php';
 
-	server('prod', '188.166.156.92', 22)
+	host('188.166.156.92')
 	    ->user('ocre')
-	    ->forwardAgent()
+	    ->forwardAgent(true)
 	    ->stage('production')
-	    ->env('branch', 'master')
-	    ->env('deploy_path', '/var/www/ocre.soy/www');
+	    ->set('branch', 'master')
+	    ->set('deploy_path', '/var/www/ocre.soy/www');
 
 	set('repository', 'git@github.com:yosoyocre/ocre.soy.git');
 ?>
