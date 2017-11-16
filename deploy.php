@@ -12,4 +12,12 @@
 	    ->set('deploy_path', '/var/www/ocre.soy/www');
 
 	set('repository', 'git@github.com:yosoyocre/ocre.soy.git');
+
+	set('shared_dirs', [
+	    'vago/en/adelante/siempre/gifs',
+	]);
+
+	set('writable_dirs', [
+	    'vago/en/adelante/siempre/gifs',
+	]);
 ?>
