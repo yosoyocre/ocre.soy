@@ -15,11 +15,12 @@
   function formatDate(date) {
       function pad(n) { return n < 10 ? '0' + n : n; }
 
-      return pad(date.getHours()) + ':' +
-          pad(date.getMinutes()) + ' ' +
+      return 'el ' +
           pad(date.getDate()) + '/' +
           pad(date.getMonth() + 1) + '/' +
-          pad(date.getFullYear());
+          pad(date.getFullYear()) + ' a las ' +
+          pad(date.getHours()) + ':' +
+          pad(date.getMinutes());
   }
 
   function cloneArray(a) {
@@ -111,7 +112,10 @@
       stepByStep: false,
       addTitle: true,
       addCredits: false,
-      border: 1
+      creditsText: null,
+      border: 1,
+      coverSrc: 'img/front.png',
+      creditsSrc: 'img/back.png'
     };
 
     this.getRadius = function(matrix, x, y) {
@@ -282,7 +286,7 @@
 
       if (this.settings.addTitle) {
         this.cover = new Image();
-        this.cover.src = 'img/front.png';
+        this.cover.src = this.settings.coverSrc;
 
         this.cover.onload = function() {
           _this.draw();
@@ -290,7 +294,7 @@
       } else {
         if (this.settings.addCredits) {
           this.credits = new Image();
-          this.credits.src = 'img/back.png';
+          this.credits.src = this.settings.creditsSrc;
 
           this.credits.onload = function() {
             _this.draw();
@@ -336,6 +340,7 @@
       var x;
       var y = this.settings.maxRadius;
       var color;
+      var text = '';
 
       ctx.fillStyle = this.settings.background;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -368,7 +373,14 @@
 
       if (this.settings.addCredits) {
         ctx.drawImage(this.credits, 0, 0, this.canvas.width, this.canvas.height);
-        writeText(ctx, formatDate(new Date()), 19 * 70, 19 * 70);
+
+        if (this.settings.creditsText) {
+          text = this.settings.creditsText + ', ';
+        }
+
+        text = text + formatDate(new Date());
+
+        writeText(ctx, text, 19 * 70, 19 * 70);
       }
 
       if (this.settings.border) {

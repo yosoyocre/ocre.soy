@@ -1,6 +1,6 @@
 <?php require('../../../_cabecera.php'); ?>
 
-<script src="js/jquery.vago.js"></script>
+<script src="js/jquery.vago.js?v=17112100"></script>
 	<script>
 		$(function() {
       function nuevoDiseno() {
