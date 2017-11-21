@@ -7,11 +7,12 @@
     function formatDate(date) {
         function pad(n) { return n < 10 ? '0' + n : n; }
 
-        return pad(date.getHours()) + ':' +
-            pad(date.getMinutes()) + ' ' +
+        return 'el ' +
             pad(date.getDate()) + '/' +
             pad(date.getMonth() + 1) + '/' +
-            pad(date.getFullYear());
+            pad(date.getFullYear()) + ' a las ' +
+            pad(date.getHours()) + ':' +
+            pad(date.getMinutes());
     }
 
     function nuevoDiseno() {
