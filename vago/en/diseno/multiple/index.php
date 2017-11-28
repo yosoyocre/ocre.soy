@@ -98,9 +98,11 @@
       </p>
 
       <form method="post">
-        <div class="form-group">
-          <label for="n">Número de diseños</label>
-          <input style="max-width: 100px;" type="number" class="form-control" id="n" name="n">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="n">Número de diseños</label>
+            <input style="max-width: 100px;" type="number" class="form-control m-l-lg" id="n" name="n">
+          </div>
         </div>
         <div class="form-group">
           <label for="dedicatorias">Dedicatorias</label>

@@ -122,12 +122,22 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
-      Generador del videoclips
+      Generador de videoclips
       <span class="dato">
         <a href="/vago/en/adelante">
           <span class="separador">/</span> vago
           <span class="separador">/</span> en
           <span class="separador">/</span> adelante
+        </a>
+      </span>
+    </div>
+    <div class="col-lg-4">
+      Generador de notas de prensa
+      <span class="dato">
+        <a href="/vago/en/comunicacion">
+          <span class="separador">/</span> vago
+          <span class="separador">/</span> en
+          <span class="separador">/</span> comunicación
         </a>
       </span>
     </div>

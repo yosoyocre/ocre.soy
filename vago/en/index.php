@@ -15,6 +15,9 @@
     <p>
       <a href="/vago/en/adelante"><span class="separador">/</span> adelante</a>
     </p>
+    <p>
+      <a href="/vago/en/comunicacion"><span class="separador">/</span> comunicación</a>
+    </p>
   </div>
 </div>
 <?php require('../../_pie.php'); ?>
