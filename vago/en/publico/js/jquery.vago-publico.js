@@ -4,22 +4,8 @@
 
   var pluginName = 'vaguizable';
 
-  var grayLuminance = getLuminance(200, 200, 200);
-
   function getLuminance(r, g, b) {
     return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  }
-
-  function getContrastWidthGrey(r, g, b) {
-    var l1 = getLuminance(r, g, b) + 0.05;
-    var l2 = grayLuminance;
-    var ratio = l1 / l2;
-
-    if (l2 > l1) {
-      ratio = 1 / ratio;
-    }
-
-    return ratio;
   }
 
   function getRandomColor() {
@@ -34,15 +20,6 @@
     b = Math.floor(Math.random() * 255);
 
     rgba = r + ', ' + g + ', ' + b;
-
-    contrast = getContrastWidthGrey(r, g, b);
-
-    //if (contrast < 2) {
-      // Para mejorar la legibilidad de "OCRE es VAGO", descartamos los colores
-      // con poco contraste con el gris
-
-      //return getRandomColor();
-    //}
 
     return rgba;
   }
@@ -120,10 +97,6 @@
       auxCtx.fillText('NAVE 1839', 1160, 1495);
       auxCtx.fillText('A CORUÑA', 1160, 1670);
 
-      // auxCtx.drawImage(_this.image, 100, 50, _this.image.width, _this.image.height);
-      // auxCtx.drawImage(_this.nave, 500, 1000, _this.nave.width / 2, _this.nave.height/2);
-      //auxCtx.drawImage(_this.cartel, 0, 0, _this.canvas.width, _this.canvas.height);
-
       var imageData = auxCtx.getImageData(0, 0, _this.canvas.width, _this.canvas.height);
       var iData = imageData.data;
       var matrix = [];
@@ -147,14 +120,11 @@
       ctx.fillRect(0, 0, _this.canvas.width, _this.canvas.height);
       ctx.fillStyle = _this.settings.color;
 
-      var auxAlpha;
       var auxColor;
       var auxColors = [];
       var auxRadius;
-      var frec = Math.random();
       var auxGradientColors = [];
       var progress;
-      console.log('frec = ' + frec);
 
       auxColors[0] = getRandomColor();
       auxColors[1] = getRandomColor();
@@ -182,41 +152,18 @@
 
           progress = (i * matrix[i].length + j) / ((matrix.length * matrix[i].length));
 
-          // if (i == j) {
-          //  auxAlpha = 1;
-          // } else {
-          //  auxAlpha = 0.8;
-          // }
-          auxAlpha = 1;
-          //auxAlpha = Math.abs((i * matrix[i].length + j) - (matrix.length * matrix[i].length) / 2) / ((matrix.length * matrix[i].length) / 2);
-          //auxAlpha = 1 - Math.abs((i * matrix[i].length + j) - (matrix.length * matrix[i].length) / 2) / ((matrix.length * matrix[i].length) / 2) * 0.95;
-          //auxAlpha = 1 - (i * matrix[i].length + j) / ((matrix.length * matrix[i].length));
-          //auxAlpha = (i * matrix[i].length + j) / ((matrix.length * matrix[i].length));
-
-          //auxAlpha = Math.abs(Math.cos(i * matrix[i].length + j * 2 * Math.PI));
-          //auxAlpha = Math.abs(Math.sin(2 * Math.PI * 0.003 * i)) + 0.2;
-          //auxAlpha = Math.abs(Math.sin(2 * Math.PI * 0.0015 * (i * matrix[i].length + j))) + 0.2;
-
-          //auxColor = _this.settings.color;
-          //auxColor = getRandomColor();
-          //auxColor = auxColors[Math.floor(Math.random() * auxColors.length)];
-          auxColor = Math.floor(auxGradientColors[0][0] + (auxGradientColors[1][0] - auxGradientColors[0][0]) * progress) + ','
-            + Math.floor(auxGradientColors[0][1] + (auxGradientColors[1][1] - auxGradientColors[0][1]) * progress) + ','
-            + Math.floor(auxGradientColors[0][2] + (auxGradientColors[1][2] - auxGradientColors[0][2]) * progress);
+          auxColor = Math.floor(auxGradientColors[0][0] + (auxGradientColors[1][0] - auxGradientColors[0][0]) * progress) + ',' +
+            Math.floor(auxGradientColors[0][1] + (auxGradientColors[1][1] - auxGradientColors[0][1]) * progress) + ',' +
+            Math.floor(auxGradientColors[0][2] + (auxGradientColors[1][2] - auxGradientColors[0][2]) * progress);
 
           auxRadius = Math.max(1, (averageLuminance) * radius);
-          // if (auxRadius > 1) {
-          //   auxRadius = Math.max(2, ( Math.abs(Math.sin(2 * Math.PI * frec * (i * matrix[i].length + j) ))) * radius );
-          // }
 
-          ctx.fillStyle = 'rgba(' + auxColor + ', ' + auxAlpha + ')';
+          ctx.fillStyle = 'rgba(' + auxColor + ', 1)';
           path = new Path2D();
           path.arc(j, i, auxRadius, 0, 2 * Math.PI);
           ctx.fill(path);
         }
       }
-
-      //ctx.drawImage(_this.texto, 0, 0, _this.canvas.width, _this.canvas.height);
 
     },
   });
