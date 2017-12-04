@@ -142,6 +142,28 @@
       </span>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-4">
+      Generador de proyecciones
+      <span class="dato">
+        <a href="/vago/en/proyeccion">
+          <span class="separador">/</span> vago
+          <span class="separador">/</span> en
+          <span class="separador">/</span> proyección
+        </a>
+      </span>
+    </div>
+    <div class="col-lg-4">
+      Generador de carteles
+      <span class="dato">
+        <a href="/vago/en/publico">
+          <span class="separador">/</span> vago
+          <span class="separador">/</span> en
+          <span class="separador">/</span> público
+        </a>
+      </span>
+    </div>    
+  </div>
 </div>
 
 <?php require('../_pie.php'); ?>

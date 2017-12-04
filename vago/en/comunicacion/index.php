@@ -5,6 +5,11 @@
 <script src="/vago/en/diseno/js/jquery.vago.js"></script>
 	<script>
 		$(function() {
+        var $visor = $('.js-visor');
+        var visorW = $visor.outerWidth(true);
+
+        $visor.height(visorW * 1.4142 + 60);
+
 				var $icono = $('.js-icono');
         
 		    $icono.removeData('plugin_vago').vago({ 
@@ -86,6 +91,8 @@
         lineas = doc.splitTextToSize('La imagen de esta nota de prensa también es aleatoria\ny fue generada el ' + fechaFirma, tamanoParrafo);          
         doc.text(margenIzq, y, lineas);
 
+        $('.js-pdf-visor').attr('src', doc.output('datauristring'));
+
         $('.js-descargar').click(function(e) {
           e.preventDefault();
 
@@ -107,10 +114,18 @@
     </p>
 
     <p class="m-t-md">
-      <a class="js-descargar" href="#">Pulsa aquí para descargar la nota de prensa</a>
+      <a class="js-descargar" href="#">Pulsa aquí para descargar el PDF</a>.
     </p>
 
-    <canvas style="display:none" class="icono js-icono" width="240" height="240"></canvas>
+    <canvas style="display:none" class="icono js-icono" width="240" height="240"></canvas>    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="embed-responsive js-visor">
+      <iframe class="embed-responsive-item js-pdf-visor"></iframe>
+    </div>
   </div>
 </div>
 

@@ -8,7 +8,7 @@
       <span class="separador">/</span> <a href="/vago/en/adelante">adelante</a>
     </h1>
     <p>
-      <i>La fatiga de los materiales</i> es la canción que sirve de avance del <a href="/vago">Vago</a>, segundo EP de Ocre, que publicará <a href="https://discosdekirlian.com/">Discos de Kirlian</a> el 28 de noviembre de 2017 con la referencia DK55.
+      <i>La fatiga de los materiales</i> es la canción que sirvió de avance del <a href="/vago">Vago</a>, segundo EP de Ocre, que publicó <a href="https://discosdekirlian.com/">Discos de Kirlian</a> el 28 de noviembre de 2017 con la referencia DK55.
     </p>
     <p>
       El videoclip del tema lo genera un programa de ordenador que descarga gifs animados aleatorios de <a href="https://giphy.com/">GIPHY</a>, los convierte a imágenes de puntos, los pinta en un color al azar y los combina con nuestras caras.

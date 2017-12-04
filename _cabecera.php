@@ -20,7 +20,7 @@
 <body>
 
   <?php
-    if ($_SERVER['SERVER_NAME'] != 'localhost') :
+    if ($_SERVER['SERVER_PORT'] != '8888') :
   ?>
 
     <script>

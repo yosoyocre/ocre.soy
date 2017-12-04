@@ -1,0 +1,36 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ocre . soy  / vago / en / proyeccion / global</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/jquery.vago-proyeccion.js"></script>
+			<script>
+				$(function() {
+
+					$('.js-proyeccion').attr('width', $(window).width());
+					$('.js-proyeccion').attr('height', $(window).height());
+
+					var options = {
+				    	addTitle: false,
+				    	color: [0, 0, 0],
+				    	background: [255, 255, 255]
+				   	};
+
+					var $imageVago = $('.js-proyeccion').vago(options);
+
+				});
+			</script>
+</head>
+<body>
+	<div class="main-container container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<canvas class="js-proyeccion" style="position: absolute; top: 0; left: 0;"></canvas>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

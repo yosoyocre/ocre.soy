@@ -18,6 +18,12 @@
     <p>
       <a href="/vago/en/comunicacion"><span class="separador">/</span> comunicación</a>
     </p>
+    <p>
+      <a href="/vago/en/proyeccion"><span class="separador">/</span> proyección</a>
+    </p>
+    <p>
+      <a href="/vago/en/publico"><span class="separador">/</span> público</a>
+    </p>
   </div>
 </div>
 <?php require('../../_pie.php'); ?>
