@@ -10,7 +10,8 @@
       Integrante de <a href="http://discosdekirlian.com/">Discos de Kirlian</a>
       desde octubre de 2014. <br>
       Fue componente de <a href="http://nouvellecuisine.bandcamp.com/">Nouvelle Cuisine</a>
-      y <a href="https://elvisnegrata.bandcamp.com">Elvis Negro</a>.
+      y <a href="https://elvisnegrata.bandcamp.com">Elvis Negro</a>. <br>
+      Y desde 2019 toca en <a href="https://atrastigre.bandcamp.com/">Atrás Tigre</a>.
     </p>
     <p>
       Si quieres ponerte en contacto conmigo, mándame un correo a

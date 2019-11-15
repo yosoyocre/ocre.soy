@@ -82,6 +82,19 @@
       <div class="col-lg-2 js-icono"></div>
       <div class="col-lg-2 js-icono"></div>
     </div>
+    <div class="row">
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-4">
+        <p>
+          Hola, yo soy Ocre, <br>
+          un músico-informático <br>
+          un poco <a href="/sucio"><span class="separador">/</span> sucio</a>
+        </p>
+      </div>
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-2 js-icono"></div>
+    </div>
   </div>
 </div>
 

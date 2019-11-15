@@ -57,6 +57,7 @@
             <div class="pull-right">
               <a class="nav-item nav-link" href="/torpe"><span class="separador">/</span> torpe</a>
               <a class="nav-item nav-link " href="/vago"><span class="separador">/</span> vago</a>
+              <a class="nav-item nav-link " href="/sucio"><span class="separador">/</span> sucio</a>
             </div>
           </nav>
         </div>
