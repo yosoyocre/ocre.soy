@@ -12,10 +12,8 @@ function preload() {
 function setup() {
 
 	let tamanoCelda = 20;
-	let grosorLinea = random(5, 8);
-	// let grosorLinea = 5;
-	let ruido = round(random(0, 0.6));
-	// let ruido = 0.5;
+	let ruido = 0.8;
+	// let ruido = 0;
 
 	let mediaCelda = tamanoCelda / 2;
 	let xMedio = canvasW / 2;
@@ -165,22 +163,27 @@ function setup() {
 	let figuraCentral;
 
 	figuraCentral = createGraphics(canvasW, canvasH);
-	figuraCentral.strokeWeight(grosorLinea);
-
+	
 	if (forma == 'triangulo') {
 		figuraCentral.translate(0, canvasH / 9);
 	}
 
 	$.each(figuras, function (f, figura) {
-		if (figura.puntos.length) {
+		if (figura.puntos.length >= 2) {
 			figuraCentral.beginShape();
 			figuraCentral.stroke(figura.color);
-
-			figuraCentral.curveVertex(figura.puntos[0][0], figura.puntos[0][1]);
-			$.each(figura.puntos, function (p, punto) {
-				figuraCentral.curveVertex(punto[0], punto[1]);
-			});
-			figuraCentral.curveVertex(figura.puntos[figura.puntos.length - 1][0], figura.puntos[figura.puntos.length - 1][1]);
+			
+			if (figura.puntos.length == 2) {
+				figuraCentral.strokeWeight(10);
+				figuraCentral.point(figura.puntos[0][0], figura.puntos[0][1]);
+			} else {
+				figuraCentral.strokeWeight(map(figura.puntos.length, 2, 5, 2, 8));
+				figuraCentral.curveVertex(figura.puntos[0][0], figura.puntos[0][1]);
+				$.each(figura.puntos, function (p, punto) {
+					figuraCentral.curveVertex(punto[0], punto[1]);
+				});
+				figuraCentral.curveVertex(figura.puntos[figura.puntos.length - 1][0], figura.puntos[figura.puntos.length - 1][1]);
+			}
 
 			figuraCentral.endShape();
 		}
@@ -188,7 +191,12 @@ function setup() {
 
 	clear();
 	background(255, 255, 255);
-	image(figuraCentral, 0, 0);
+	push();
+	// imageMode(CENTER);
+	// translate(canvasW / 2, canvasH / 2);	
+	// rotate(PI);
+	image(figuraCentral, 0, 0);		
+	pop();
 	image(front, 0, 0);
 }
 
