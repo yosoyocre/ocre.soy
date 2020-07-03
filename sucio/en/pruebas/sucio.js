@@ -6,7 +6,7 @@ let front;
 let figuras = [];
 
 function preload() {
-	front = loadImage('front_outlined.png');
+	front = loadImage('front_outlined_pixelado.png');
 }
 
 function setup() {
