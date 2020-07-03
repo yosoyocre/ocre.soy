@@ -6,7 +6,7 @@ let front;
 let figuras = [];
 
 function preload() {
-	front = loadImage('front.png');
+	front = loadImage('front_outlined.png');
 }
 
 function setup() {
@@ -27,8 +27,12 @@ function setup() {
 	let formas = ['circulo', 'cuadrado', 'triangulo'];
 
 	let forma = random(formas);
-	// let forma = 'triangulo';
+	// forma = 'triangulo';
 	let matiz = round(random(0, 255));
+
+	if (forma == 'triangulo') {
+		ruido = 1;
+	}
 
 	// Cálculo de figuras
 
@@ -49,6 +53,7 @@ function setup() {
 	function randomColor(h) {
 		let s = round(random(30, 100));
 		let l = round(random(0, 100));
+		
 		let rColor = color('hsl(' + h + ', ' + s + '%, ' + l + '%)');
 
 		return rColor;
@@ -69,6 +74,10 @@ function setup() {
 
 	for (let x = margenX + mediaCelda; x < (canvasW - margenX); x = x + tamanoCelda) {
 		for (let y = margenY + mediaCelda; y < (canvasH - margenY); y = y + tamanoCelda) {
+
+			// if (x >= 700 && y >= 700) {
+			// 	continue;
+			// }
 
 			let figura = {
 				x: x,
@@ -192,11 +201,18 @@ function setup() {
 	clear();
 	background(255, 255, 255);
 	push();
-	// imageMode(CENTER);
-	// translate(canvasW / 2, canvasH / 2);	
-	// rotate(PI);
+	if (forma == 'triangulo') {
+		imageMode(CENTER);
+		translate(canvasW / 2, canvasH / 2);	
+		rotate(PI/2);
+		// scale(1);
+	}
 	image(figuraCentral, 0, 0);		
 	pop();
+	noStroke();
+	// fill('rgba(255, 255, 255, 0.8)');
+	// rect(700, 700, 1400, 1400);
+	//rect(700, 700, 1400, 1400);
 	image(front, 0, 0);
 }
 
