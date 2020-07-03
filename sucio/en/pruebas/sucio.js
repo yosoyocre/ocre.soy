@@ -13,7 +13,6 @@ function setup() {
 
 	let tamanoCelda = 20;
 	let ruido = 0.8;
-	// let ruido = 0;
 
 	let mediaCelda = tamanoCelda / 2;
 	let xMedio = canvasW / 2;
@@ -27,7 +26,6 @@ function setup() {
 	let formas = ['circulo', 'cuadrado', 'triangulo'];
 
 	let forma = random(formas);
-	// forma = 'triangulo';
 	let matiz = round(random(0, 255));
 
 	if (forma == 'triangulo') {
@@ -74,10 +72,6 @@ function setup() {
 
 	for (let x = margenX + mediaCelda; x < (canvasW - margenX); x = x + tamanoCelda) {
 		for (let y = margenY + mediaCelda; y < (canvasH - margenY); y = y + tamanoCelda) {
-
-			// if (x >= 700 && y >= 700) {
-			// 	continue;
-			// }
 
 			let figura = {
 				x: x,
@@ -204,15 +198,11 @@ function setup() {
 	if (forma == 'triangulo') {
 		imageMode(CENTER);
 		translate(canvasW / 2, canvasH / 2);	
-		rotate(PI/2);
-		// scale(1);
+		rotate(random([0, PI/2, PI, 3/2 * PI]));
 	}
 	image(figuraCentral, 0, 0);		
 	pop();
 	noStroke();
-	// fill('rgba(255, 255, 255, 0.8)');
-	// rect(700, 700, 1400, 1400);
-	//rect(700, 700, 1400, 1400);
 	image(front, 0, 0);
 }
 
