@@ -6,7 +6,7 @@ let front;
 let figuras = [];
 
 function preload() {
-	front = loadImage('front_outlined_pixelado.png');
+	front = loadImage('front_outlined_0.png');
 }
 
 function setup() {
@@ -198,7 +198,8 @@ function setup() {
 	if (forma == 'triangulo') {
 		imageMode(CENTER);
 		translate(canvasW / 2, canvasH / 2);	
-		rotate(random([0, PI/2, PI, 3/2 * PI]));
+		//rotate(random([0, PI/2, PI, 3/2 * PI]));
+		rotate(random([0, PI/2]));
 	}
 	image(figuraCentral, 0, 0);		
 	pop();
