@@ -195,12 +195,12 @@ function setup() {
 	clear();
 	background(255, 255, 255);
 	push();
-	if (forma == 'triangulo') {
-		imageMode(CENTER);
-		translate(canvasW / 2, canvasH / 2);	
-		//rotate(random([0, PI/2, PI, 3/2 * PI]));
-		rotate(random([0, PI/2]));
-	}
+	// if (forma == 'triangulo') {
+	// 	imageMode(CENTER);
+	// 	translate(canvasW / 2, canvasH / 2);	
+	// 	//rotate(random([0, PI/2, PI, 3/2 * PI]));
+	// 	rotate(random([0, PI/2]));
+	// }
 	image(figuraCentral, 0, 0);		
 	pop();
 	noStroke();
