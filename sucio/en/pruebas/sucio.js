@@ -110,23 +110,31 @@ function setup() {
 
 					// Gracias a Daniel Arias por la ayuda trigonométrica!
 
+					// Teniendo en cuenta que hay cierto nivel de rudio,
+					// ajusto la posición vertical a ojo
+
+					yp = y - canvasH / 6;
+
+
 					if (x <= centroTx) {
-						if (sqrt(3) / 3 * (x - centroTx) + (y - centroTy) <= 0) {
-							nPuntos = tercioIzquierda(x, y);
+						if (sqrt(3) / 3 * (x - centroTx) + (yp - centroTy) <= 0) {
+							nPuntos = tercioIzquierda(x, yp);
 							nPuntos = map(nPuntos, 0, tercioIzquierda(centroTx, centroTy), 1, 5);
-						} else {
-							if (y < 3 / 2 * centroTy) {
-								nPuntos = tercioAbajo(x, y);
+						} 
+						else {
+							if (yp < 3 / 2 * centroTy) {
+								nPuntos = tercioAbajo(x, yp);
 								nPuntos = map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
 							}
 						}
-					} else {
-						if (sqrt(3) / - 3 * (x - centroTx) + (y - centroTy) <= 0) {
-							nPuntos = tercioDerecha(x, y);
+					} 
+					else {
+						if (sqrt(3) / - 3 * (x - centroTx) + (yp - centroTy) <= 0) {
+							nPuntos = tercioDerecha(x, yp);
 							nPuntos = map(nPuntos, 0, tercioDerecha(centroTx, centroTy), 1, 5);
 						} else {
-							if (y < 3 / 2 * centroTy) {
-								nPuntos = tercioAbajo(x, y);
+							if (yp < 3 / 2 * centroTy) {
+								nPuntos = tercioAbajo(x, yp);
 								nPuntos = map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
 							}
 						}
@@ -167,9 +175,9 @@ function setup() {
 
 	figuraCentral = createGraphics(canvasW, canvasH);
 	
-	if (forma == 'triangulo') {
-		figuraCentral.translate(0, canvasH / 9);
-	}
+	// if (forma == 'triangulo') {
+	// 	figuraCentral.translate(0, canvasH / 9);
+	// }
 
 	$.each(figuras, function (f, figura) {
 		if (figura.puntos.length >= 2) {
