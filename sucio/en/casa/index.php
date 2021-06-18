@@ -26,7 +26,8 @@
   <div class="col-lg-6">
     <p><a href="audio/devenir_maquina_200921.mp3">Devenir máquina</a></p>
     <p><a href="audio/martes_terribles_200921.mp3">Martes terribles</a></p>
-    <p><a href="audio/santoalla_200927.mp3">Santoalla, el musical</a></p>
+    <p><a href="audio/santoalla_200927.mp3">Santoalla (el musical)</a></p>
+    <p><a href="audio/oda_al_odio_210618.mp3">Oda al odio</a></p>
   </div>
   
 </div>
