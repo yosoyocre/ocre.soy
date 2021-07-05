@@ -113,7 +113,7 @@ function setup() {
 					// Teniendo en cuenta que hay cierto nivel de rudio,
 					// ajusto la posición vertical a ojo
 
-					yp = y - canvasH / 6;
+					yp = y - canvasH / 7;
 
 
 					if (x <= centroTx) {
