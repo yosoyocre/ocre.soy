@@ -23,7 +23,8 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 
 		let formas = ['circulo', 'cuadrado', 'triangulo'];
 
-		sketch.matiz = !!matizGlobal ? matizGlobal : sketch.round(sketch.random(0, 255));
+		let conTrazoFijo = sketch.round(sketch.random(0,1));
+		let matiz = !!matizGlobal ? matizGlobal : sketch.round(sketch.random(0, 255));
 
 		// Cálculo de figuras
 
@@ -63,11 +64,15 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 
 		function crearFigura() {
 
+			let conRuido = sketch.round(sketch.random(0,1));
+			let trazoFijo = sketch.round(sketch.random(4,6));
 			let ruido = 0.8;
 			let forma = sketch.random(formas);
 			let figuras = [];
 			
-			if (forma == 'triangulo') {
+			if (conTrazoFijo && !conRuido) {
+				ruido = 0;
+			} else if (forma == 'triangulo') {
 				ruido = 1;
 			}
 
@@ -80,7 +85,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 						x: x,
 						y: y,
 						puntos: [],
-						color: randomColor(sketch.matiz)
+						color: randomColor(matiz)
 					};
 
 					let xp;
@@ -116,7 +121,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 							// Teniendo en cuenta que hay cierto nivel de rudio,
 							// ajusto la posición vertical a ojo
 
-							yp = y - canvasH / 7;
+							yp = y - canvasH / 9;
 
 
 							if (x <= centroTx) {
@@ -165,11 +170,11 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 					figuraCentral.beginShape();
 					figuraCentral.stroke(figura.color);
 					
-					if (figura.puntos.length == 2) {
-						figuraCentral.strokeWeight(10);
+					if (!conTrazoFijo && figura.puntos.length == 2) {
+						figuraCentral.strokeWeight(8);
 						figuraCentral.point(figura.puntos[0][0], figura.puntos[0][1]);
 					} else {
-						figuraCentral.strokeWeight(sketch.map(figura.puntos.length, 2, 5, canvasW / 700, canvasH / 175));
+						figuraCentral.strokeWeight(sketch.map(conTrazoFijo ? trazoFijo : figura.puntos.length, 2, 5, canvasW / 700, canvasH / 175));
 						figuraCentral.curveVertex(figura.puntos[0][0], figura.puntos[0][1]);
 						$.each(figura.puntos, function (p, punto) {
 							figuraCentral.curveVertex(punto[0], punto[1]);
