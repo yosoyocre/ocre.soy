@@ -1,9 +1,7 @@
-const sucio = (canvasW, canvasH, coverType) => ( sketch ) => {
+const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 
 	let front;
 	let back;
-
-	let figuras = [];
 
 	sketch.preload = () => {
 		front = sketch.loadImage('front_outlined_0.png');
@@ -12,8 +10,7 @@ const sucio = (canvasW, canvasH, coverType) => ( sketch ) => {
 
 	sketch.setup = () => {
 
-		let tamanoCelda = canvasW / 70;
-		let ruido = 0.8;
+		let tamanoCelda = canvasW / 70;		
 
 		let mediaCelda = tamanoCelda / 2;
 		let xMedio = canvasW / 2;
@@ -26,12 +23,7 @@ const sucio = (canvasW, canvasH, coverType) => ( sketch ) => {
 
 		let formas = ['circulo', 'cuadrado', 'triangulo'];
 
-		let forma = sketch.random(formas);
-		let matiz = sketch.round(sketch.random(0, 255));
-
-		if (forma == 'triangulo') {
-			ruido = 1;
-		}
+		sketch.matiz = !!matizGlobal ? matizGlobal : sketch.round(sketch.random(0, 255));
 
 		// Cálculo de figuras
 
@@ -66,127 +58,157 @@ const sucio = (canvasW, canvasH, coverType) => ( sketch ) => {
 				sketch.round(y - tamano / 2 + tamano * sketch.random())
 			];
 		}
-		
+
 		// Construcción de figuras
 
-		let nPuntos;
+		function crearFigura() {
 
-		for (let x = margenX + mediaCelda; x < (canvasW - margenX); x = x + tamanoCelda) {
-			for (let y = margenY + mediaCelda; y < (canvasH - margenY); y = y + tamanoCelda) {
+			let ruido = 0.8;
+			let forma = sketch.random(formas);
+			let figuras = [];
+			
+			if (forma == 'triangulo') {
+				ruido = 1;
+			}
 
-				let figura = {
-					x: x,
-					y: y,
-					puntos: [],
-					color: randomColor(matiz)
-				};
+			let nPuntos;
 
-				let xp;
-				let yp;
-				let distancia;
+			for (let x = margenX + mediaCelda; x < (canvasW - margenX); x = x + tamanoCelda) {
+				for (let y = margenY + mediaCelda; y < (canvasH - margenY); y = y + tamanoCelda) {
 
-				switch (forma) {
-					case 'circulo':
-						nPuntos = sketch.map(xMedio - sketch.dist(x, y, xMedio, yMedio), 0, xMedio, 0, 5);
-						break;
+					let figura = {
+						x: x,
+						y: y,
+						puntos: [],
+						color: randomColor(sketch.matiz)
+					};
 
-					case 'cuadrado':
-						xp = x;
-						yp = y;
+					let xp;
+					let yp;
+					let distancia;
 
-						if (sketch.abs(x - xMedio) < sketch.abs(y - yMedio)) {
-							xp = xMedio;
-						} else {
-							yp = yMedio;
-						}
+					switch (forma) {
+						case 'circulo':
+							nPuntos = sketch.map(xMedio - sketch.dist(x, y, xMedio, yMedio), 0, xMedio, 0, 5);
+							break;
 
-						distancia = xMedio - sketch.dist(xp, yp, xMedio, yMedio);
+						case 'cuadrado':
+							xp = x;
+							yp = y;
 
-						nPuntos = sketch.map(distancia, 0, xMedio, 0, 5);
+							if (sketch.abs(x - xMedio) < sketch.abs(y - yMedio)) {
+								xp = xMedio;
+							} else {
+								yp = yMedio;
+							}
 
-						break;
+							distancia = xMedio - sketch.dist(xp, yp, xMedio, yMedio);
 
-					case 'triangulo':
-						nPuntos = 0;
+							nPuntos = sketch.map(distancia, 0, xMedio, 0, 5);
 
-						// Gracias a Daniel Arias por la ayuda trigonométrica!
+							break;
 
-						// Teniendo en cuenta que hay cierto nivel de rudio,
-						// ajusto la posición vertical a ojo
+						case 'triangulo':
+							nPuntos = 0;
 
-						yp = y - canvasH / 7;
+							// Gracias a Daniel Arias por la ayuda trigonométrica!
+
+							// Teniendo en cuenta que hay cierto nivel de rudio,
+							// ajusto la posición vertical a ojo
+
+							yp = y - canvasH / 7;
 
 
-						if (x <= centroTx) {
-							if (sketch.sqrt(3) / 3 * (x - centroTx) + (yp - centroTy) <= 0) {
-								nPuntos = tercioIzquierda(x, yp);
-								nPuntos = sketch.map(nPuntos, 0, tercioIzquierda(centroTx, centroTy), 1, 5);
+							if (x <= centroTx) {
+								if (sketch.sqrt(3) / 3 * (x - centroTx) + (yp - centroTy) <= 0) {
+									nPuntos = tercioIzquierda(x, yp);
+									nPuntos = sketch.map(nPuntos, 0, tercioIzquierda(centroTx, centroTy), 1, 5);
+								} 
+								else {
+									if (yp < 3 / 2 * centroTy) {
+										nPuntos = tercioAbajo(x, yp);
+										nPuntos = sketch.map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
+									}
+								}
 							} 
 							else {
-								if (yp < 3 / 2 * centroTy) {
-									nPuntos = tercioAbajo(x, yp);
-									nPuntos = sketch.map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
+								if (sketch.sqrt(3) / - 3 * (x - centroTx) + (yp - centroTy) <= 0) {
+									nPuntos = tercioDerecha(x, yp);
+									nPuntos = sketch.map(nPuntos, 0, tercioDerecha(centroTx, centroTy), 1, 5);
+								} else {
+									if (yp < 3 / 2 * centroTy) {
+										nPuntos = tercioAbajo(x, yp);
+										nPuntos = sketch.map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
+									}
 								}
 							}
-						} 
-						else {
-							if (sketch.sqrt(3) / - 3 * (x - centroTx) + (yp - centroTy) <= 0) {
-								nPuntos = tercioDerecha(x, yp);
-								nPuntos = sketch.map(nPuntos, 0, tercioDerecha(centroTx, centroTy), 1, 5);
-							} else {
-								if (yp < 3 / 2 * centroTy) {
-									nPuntos = tercioAbajo(x, yp);
-									nPuntos = sketch.map(nPuntos, 3 / 2 * centroTy, tercioAbajo(centroTx, centroTy), 1, 5);
-								}
-							}
-						}
 
-						break;
+							break;
+					}
+
+					nPuntos = nPuntos + sketch.random(ruido * -1, ruido);
+
+					for (i = 0; i < nPuntos; i++) {
+						figura.puntos.push(coordenada(figura.x, figura.y, tamanoCelda));
+					}
+
+					figuras.push(figura);
 				}
-
-				nPuntos = nPuntos + sketch.random(ruido * -1, ruido);
-
-				for (i = 0; i < nPuntos; i++) {
-					figura.puntos.push(coordenada(figura.x, figura.y, tamanoCelda));
-				}
-
-				figuras.push(figura);
 			}
+
+			let figuraCentral;
+			
+			figuraCentral = sketch.createGraphics(canvasW, canvasH);
+	
+			$.each(figuras, function (f, figura) {
+				if (figura.puntos.length >= 2) {
+					figuraCentral.beginShape();
+					figuraCentral.stroke(figura.color);
+					
+					if (figura.puntos.length == 2) {
+						figuraCentral.strokeWeight(10);
+						figuraCentral.point(figura.puntos[0][0], figura.puntos[0][1]);
+					} else {
+						figuraCentral.strokeWeight(sketch.map(figura.puntos.length, 2, 5, canvasW / 700, canvasH / 175));
+						figuraCentral.curveVertex(figura.puntos[0][0], figura.puntos[0][1]);
+						$.each(figura.puntos, function (p, punto) {
+							figuraCentral.curveVertex(punto[0], punto[1]);
+						});
+						figuraCentral.curveVertex(figura.puntos[figura.puntos.length - 1][0], figura.puntos[figura.puntos.length - 1][1]);
+					}
+	
+					figuraCentral.endShape();
+				}
+			});
+
+			return figuraCentral;
 		}
 
 		// Dibujo de figuras
 
 		sketch.createCanvas(canvasW, canvasH);
 
-		let figuraCentral;
-
-		figuraCentral = sketch.createGraphics(canvasW, canvasH);
-
-		$.each(figuras, function (f, figura) {
-			if (figura.puntos.length >= 2) {
-				figuraCentral.beginShape();
-				figuraCentral.stroke(figura.color);
-				
-				if (figura.puntos.length == 2) {
-					figuraCentral.strokeWeight(10);
-					figuraCentral.point(figura.puntos[0][0], figura.puntos[0][1]);
-				} else {
-					figuraCentral.strokeWeight(sketch.map(figura.puntos.length, 2, 5, canvasW / 700, canvasH / 175));
-					figuraCentral.curveVertex(figura.puntos[0][0], figura.puntos[0][1]);
-					$.each(figura.puntos, function (p, punto) {
-						figuraCentral.curveVertex(punto[0], punto[1]);
-					});
-					figuraCentral.curveVertex(figura.puntos[figura.puntos.length - 1][0], figura.puntos[figura.puntos.length - 1][1]);
-				}
-
-				figuraCentral.endShape();
-			}
-		});
-
 		sketch.clear();
 		sketch.background(255, 255, 255);
 		sketch.push();
-		sketch.image(figuraCentral, 0, 0);		
+
+		switch (coverType) {
+			case 'front':
+				sketch.image(crearFigura(), 0, 0);
+				break;
+
+			case 'back':
+				let miniW = 252;
+				let miniMargen = 30;
+				sketch.image(crearFigura(), canvasW - miniW - miniMargen, miniMargen, miniW, miniW);
+				sketch.image(crearFigura(), miniMargen, canvasW - miniW - miniMargen, miniW, miniW);
+				break;
+
+			default:
+				sketch.image(crearFigura(), 0, 0);
+				break;
+		}
+
 		sketch.pop();
 		sketch.noStroke();
 

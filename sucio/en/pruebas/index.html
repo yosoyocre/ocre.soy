@@ -7,8 +7,10 @@
     <script src="p5.js"></script>
     <script src="sucio.js"></script>
     <script>
-        let front = new p5(sucio(1400, 1400, 'front'), 'front');
-        let back = new p5(sucio(1400, 1400, 'back'), 'back');
+        let matiz = Math.round(Math.random() * 255);
+
+        let front = new p5(sucio(1400, 1400, 'front', matiz), 'front');
+        let back = new p5(sucio(1400, 1400, 'back', matiz), 'back');
     </script>
     <style>
         body {
