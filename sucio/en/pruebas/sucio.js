@@ -1,11 +1,11 @@
-const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
+const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( sketch ) => {
 
 	let front;
 	let back;
 
 	sketch.preload = () => {
 		front = sketch.loadImage('front_outlined_0.png');
-		back = sketch.loadImage('back.png');
+		back = sketch.loadImage('back.png?v=3');
 	}
 
 	sketch.setup = () => {
@@ -60,6 +60,17 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 			];
 		}
 
+		function fecha(date) {
+			function pad(n) { return n < 10 ? '0' + n : n; }
+	  
+			return 'el ' +
+				pad(date.getDate()) + '/' +
+				pad(date.getMonth() + 1) + '/' +
+				pad(date.getFullYear()) + ' a las ' +
+				pad(date.getHours()) + ':' +
+				pad(date.getMinutes());
+		}
+
 		// Construcción de figuras
 
 		function crearFigura() {
@@ -67,7 +78,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 			let conRuido = sketch.round(sketch.random(0,1));
 			let trazoFijo = sketch.round(sketch.random(4,6));
 			let ruido = 0.8;
-			let forma = sketch.random(formas);
+			let forma = coverType == 'back' ? 'circulo' : sketch.random(formas);
 			let figuras = [];
 			
 			if (conTrazoFijo && !conRuido) {
@@ -224,6 +235,19 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal) => ( sketch ) => {
 
 			case 'back':
 				sketch.image(back, 0, 0);
+				let text = '';
+				
+				if (!!textoCreditos) {
+					text = textoCreditos + ', ';
+				}
+		  
+				text = text + fecha(new Date());
+
+				sketch.textSize(20);
+				sketch.textFont('monospace');
+				sketch.textAlign(sketch.RIGHT);
+				sketch.fill(200, 200, 200);
+				sketch.text(text, 19 * 70, 19 * 70);
 				break;
 		}
 	}
