@@ -1,14 +1,27 @@
-const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( sketch ) => {
+const sucio = (args) => ( sketch ) => {
 
 	let front;
 	let back;
 
+	let canvasW;
+	let canvasH;
+	let coverType;
+	let matizGlobal;
+	let callback;
+	let textoCreditos;
+
 	sketch.preload = () => {
-		front = sketch.loadImage('front_outlined_0.png');
-		back = sketch.loadImage('back.png');
+		front = sketch.loadImage('img/front.png');
+		back = sketch.loadImage('img/back.png');
 	}
 
 	sketch.setup = () => {
+		canvasW = !!args && !!args.canvasW ? args.canvasW : 1400;
+		canvasH = !!args && !!args.canvasW ? args.canvasW : 1400;
+		coverType = !!args && !!args.coverType ? args.coverType : null; 
+		matizGlobal = !!args && !!args.matizGlobal ? args.matizGlobal : null; 
+		callback = !!args && !!args.callback ? args.callback : null; 
+		textoCreditos = !!args && !!args.textoCreditos ? args.textoCreditos : null;
 
 		let tamanoCelda = canvasW / 70;		
 
@@ -175,7 +188,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( ske
 			let figuraCentral;
 			
 			figuraCentral = sketch.createGraphics(canvasW, canvasH);
-	
+			
 			$.each(figuras, function (f, figura) {
 				if (figura.puntos.length >= 2) {
 					figuraCentral.beginShape();
@@ -250,9 +263,13 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( ske
 				sketch.text(text, 19 * 70, 19 * 70);
 				break;
 		}
+
+		sketch.noLoop();
 	}
 
 	sketch.draw = () => {		
-		
+		if (callback) {
+			callback();
+		}
 	}
 }
