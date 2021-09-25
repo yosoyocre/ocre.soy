@@ -5,7 +5,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( ske
 
 	sketch.preload = () => {
 		front = sketch.loadImage('front_outlined_0.png');
-		back = sketch.loadImage('back.png?v=3');
+		back = sketch.loadImage('back.png');
 	}
 
 	sketch.setup = () => {
@@ -215,7 +215,7 @@ const sucio = (canvasW, canvasH, coverType, matizGlobal, textoCreditos) => ( ske
 
 			case 'back':
 				let miniW = 252;
-				let miniMargen = 30;
+				let miniMargen = 29;
 				sketch.image(crearFigura(), canvasW - miniW - miniMargen, miniMargen, miniW, miniW);
 				sketch.image(crearFigura(), miniMargen, canvasW - miniW - miniMargen, miniW, miniW);
 				break;
