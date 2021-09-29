@@ -81,7 +81,7 @@
     </h1>
     <p>
       Siguiendo la tradición marcada por el <a href="/torpe">Torpe</a> y el <a href="/torpe">Vago</a>, la portada del <a href="/sucio">Sucio</a>
-      la crea el ordenador generando una especie de confeti con una forma más o menos definida.
+      también la crea tu ordenador generando una especie de confeti con una forma más o menos definida.
     </p>
 		<p>
 			Hay tantas combinaciones posibles de colores y distribuciones que es casi imposible
