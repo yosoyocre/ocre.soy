@@ -8,11 +8,15 @@
     </h1>
 
     <p>
-      Y 4 años después del <a href="/vago">Vago</a>, <a href="https://discosdekirlian.com/">Discos de Kirlian</a> publicó la tercerza pieza del puzzle, el EP Sucio, el 8 de diciembre de 2021. 
+      Y entonces llegó el 8 de diciembre de 2021 y <a href="https://discosdekirlian.com/">Discos de Kirlian</a> publicó el EP Sucio. 
     </p>    
 
     <p>
-      El disco vuelven a formar 6 canciones de pop electrónico en las que canto a los afectos y a las transformaciones. 
+      Junto con el <a href="/torpe">Torpe</a> (2014) y el <a href="/vago">Vago</a> (2017), el Sucio completa una cosa que me gusta llamar la "trilogía de la reapropiación".
+    </p>
+
+    <p>
+      El disco lo vuelven a formar 6 canciones de pop pero esta vez canto a los afectos y a las transformaciones. 
     </p>
 
     <p>

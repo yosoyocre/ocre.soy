@@ -11,7 +11,7 @@ const sucio = (args) => ( sketch ) => {
 	let textoCreditos;
 
 	sketch.preload = () => {
-		front = sketch.loadImage('img/front.png');
+		front = sketch.loadImage('img/front.png?v=2');
 		back = sketch.loadImage('img/back.png');
 	}
 
