@@ -49,7 +49,7 @@
     </div>
     
     <div class="col-lg-4">
-      Ayuda con las letras
+      Supervisión y mejora de letras
       <span class="dato">Bita Barbadillo</span>
     </div>
   </div>
