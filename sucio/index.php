@@ -8,15 +8,15 @@
     </h1>
 
     <p>
-      En algún momento del 2020, Ocre publicará su tercer EP, el Sucio.
+      Y 4 años después del <a href="/vago">Vago</a>, <a href="https://discosdekirlian.com/">Discos de Kirlian</a> publicó la tercerza pieza del puzzle, el EP Sucio, el 8 de diciembre de 2021. 
     </p>    
 
     <p>
-      El disco lo formarán 6 canciones de pop, como siempre.
+      El disco vuelven a formar 6 canciones de pop electrónico en las que canto a los afectos y a las transformaciones. 
     </p>
 
     <p>
-      Y por ahora eso es todo.
+      Puedes escucharlo aquí o en el <a href="https://discosdekirlian.bandcamp.com/album/dk86-sucio">el bandcamp de DK</a>.
     </p>
 
   </div>
@@ -24,10 +24,64 @@
 
 <div class="row">
   <div class="col-lg-6">
-    <img class="img-fluid" style="border: 1px solid #E9E9E9" src="/sucio/en/diseno/img/front.png" alt="Boceto de portada de Sucio" />
+    <img class="img-fluid" src="https://f4.bcbits.com/img/a3903758655_16.jpg" alt="Portada de Sucio en Bandcamp" />
   </div>
   <div class="col-lg-6">
+    <iframe style="border: 0; width: 100%; height: 340px;" src="https://bandcamp.com/EmbeddedPlayer/album=424958197/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" seamless></iframe>
   </div>
+</div>
+
+<div class="ficha">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Créditos</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Grabación, producción y masterización
+      <span class="dato"><a href="http://www.8estudios.com/">Jahel Piñeiro</a></span>
+    </div>
+    
+    <div class="col-lg-4">
+      Ayuda con las letras
+      <span class="dato">Bita Barbadillo</span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <p>
+      Una serie de experimentos acompañan al disco. 
+      Se trata de jugar con la aleatoriedad y las posibilidades tecnológicas de la web.
+      Todo el código desarrollado es abierto y puede
+      ser consultado, descargado y modificado sin ninguna limitación.
+    </p>
+  </div>
+</div>
+
+
+<div class="ficha">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Experimentos web</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Generador de portadas
+      <span class="dato">
+        <a href="/sucio/en/diseno">
+          <span class="separador">/</span> sucio
+          <span class="separador">/</span> en
+          <span class="separador">/</span> diseño
+        </a>
+      </span>
+    </div>
+  </div>  
 </div>
 
 <?php require('../_pie.php'); ?>
