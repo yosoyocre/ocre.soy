@@ -1,5 +1,7 @@
 const sucio = (args) => ( sketch ) => {
 
+	let domain = window.location.origin;
+
 	let front;
 	let back;
 
@@ -11,8 +13,8 @@ const sucio = (args) => ( sketch ) => {
 	let textoCreditos;
 
 	sketch.preload = () => {
-		front = sketch.loadImage('img/front.png?v=2');
-		back = sketch.loadImage('img/back.png');
+		front = sketch.loadImage(domain + '/sucio/en/diseno/img/front.png?v=2');
+		back = sketch.loadImage(domain + '/sucio/en/diseno/img/back.png');
 	}
 
 	sketch.setup = () => {
