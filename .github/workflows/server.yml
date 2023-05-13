@@ -14,6 +14,6 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}        
+        key: ${{ secrets.SSH_KEY }}        
         host: ${{ secrets.SSH_HOST }}
         script: 'cd /home/ocre/ocre.soy && chmod u+x server_deploy.sh && ./server_deploy.sh'
