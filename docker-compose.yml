@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: docker/app/Dockerfile
+    image: ocre
+    container_name: ocre-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  nginx:
+    image: nginx:alpine
+    container_name: ocre-nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/local.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/logs:/var/log/nginx/
+    links:
+      - app
