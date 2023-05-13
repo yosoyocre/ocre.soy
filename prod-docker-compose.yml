@@ -1,0 +1,54 @@
+#
+# Configuración para servidor de producción
+#
+# He seguido esta guía
+# https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
+#
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: docker/app/Dockerfile
+    image: ocre
+    container_name: ocre-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  nginx:
+    image: nginx:alpine
+    container_name: ocre-nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/prod.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/logs:/var/log/nginx/
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./dhparam:/etc/ssl/certs
+    links:
+      - app
+
+  certbot:
+    image: certbot/certbot
+    container_name: ocre-certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./:/var/www
+    depends_on:
+      - nginx
+    command: certonly --webroot --webroot-path=/var/www --email edupoch@gmail.com --agree-tos --no-eff-email --force-renewal -d ocre.soy
+
+volumes:
+  certbot-etc:
+  certbot-var:
