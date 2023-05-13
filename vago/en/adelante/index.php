@@ -11,31 +11,19 @@
       <i>La fatiga de los materiales</i> es la canción que sirvió de avance del <a href="/vago">Vago</a>, segundo EP de Ocre, que publicó <a href="https://discosdekirlian.com/">Discos de Kirlian</a> el 28 de noviembre de 2017 con la referencia DK55.
     </p>
     <p>
-      El videoclip del tema lo genera un programa de ordenador que descarga gifs animados aleatorios de <a href="https://giphy.com/">GIPHY</a>, los convierte a imágenes de puntos, los pinta en un color al azar y los combina con nuestras caras.
-    </p>    
+      El videoclip del tema lo generaba un programa de ordenador que descargaba gifs animados aleatorios de <a href="https://giphy.com/">GIPHY</a>, los convertía a imágenes de puntos, los pintaba en un color al azar y los combinaba con nuestras caras.
+    </p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-6">
-    <div class="ficha sin-mgbt">
-        <div class="row">
-          <div class="col-lg-12">
-              <a href="/vago/en/adelante/siempre" class="btn btn-primary btn-en-linea"><i class="fa fa-video-camera"></i></a> Generar un videoclip
-          </div>
-        </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-6">
-    <a class="sin-hover" href="/vago/en/adelante/siempre">
+    <a class="sin-hover" href="https://www.youtube.com/watch?v=1MrQca66_Ok">
       <img class="img-fluid" src="img/vago_en_adelante1.png" />
     </a>
   </div>
   <div class="col-lg-6">
-    <a class="sin-hover" href="/vago/en/adelante/siempre">
+    <a class="sin-hover" href="https://www.youtube.com/watch?v=1MrQca66_Ok">
       <img class="img-fluid" src="img/vago_en_adelante2.png" />
     </a>
   </div>
@@ -45,8 +33,19 @@
   <div class="col-lg-8">
     <p>
       Dado que los usuarios están continuamente añadiendo nuevos gifs a la red social,
-      el videoclip generado es único para cada persona que lo visualiza.
+      el videoclip generado era único para cada persona que lo visualizaba.
     </p>
+    <p>
+      De todos los generados, aquí podéis el vídeo oficial que usamos para promocionar la canción:
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/1MrQca66_Ok" title="Ocre - Veranos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </div>
 </div>
 
