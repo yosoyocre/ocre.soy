@@ -32,7 +32,7 @@ const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
   });
 };
 
-export function creaPortada(opciones) {
+export function crea(opciones) {
   loadScript("node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
       loadScript("node_modules/qrcodejs/qrcode.min.js")
