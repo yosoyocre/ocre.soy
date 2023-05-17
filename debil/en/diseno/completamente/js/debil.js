@@ -36,7 +36,7 @@ loadScript("node_modules/seedrandom/seedrandom.min.js")
   .then((data) => {
     loadScript("node_modules/qrcodejs/qrcode.min.js")
       .then((data) => {
-        let container, stats;
+        let container, globalContainer, stats;
 
         let camera, controls, scene, renderer, effect;
 
@@ -130,7 +130,8 @@ loadScript("node_modules/seedrandom/seedrandom.min.js")
         animate();
 
         function init() {
-          container = document.getElementById("container");
+          globalContainer = document.getElementById("debil");
+          container = document.createElement("div");
           container.innerHTML = "";
 
           renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -173,11 +174,21 @@ loadScript("node_modules/seedrandom/seedrandom.min.js")
           // let caracteres = " ON"; // positivo
           // let caracteres = "eOcr "; // negativo
 
-          effect = new AsciiEffectDebil(renderer, colorBase, caracteres, {
-            resolution: 0.1,
-            scale: 1,
-            color: "rgb(0,255,0)",
-          });
+          let debilCanvas = document.createElement("canvas");
+          debilCanvas.width = 1400;
+          debilCanvas.height = 1400;
+
+          effect = new AsciiEffectDebil(
+            debilCanvas,
+            renderer,
+            colorBase,
+            caracteres,
+            {
+              resolution: 0.1,
+              scale: 1,
+              color: "rgb(0,255,0)",
+            }
+          );
           effect.setSize(windowWidth, windowHeight);
 
           if (conEfecto) {
@@ -267,6 +278,8 @@ loadScript("node_modules/seedrandom/seedrandom.min.js")
           const urlSeed = baseUrl + "?" + searchParams.toString();
 
           console.log(urlSeed);
+
+          globalContainer.appendChild(debilCanvas);
 
           // QR
 

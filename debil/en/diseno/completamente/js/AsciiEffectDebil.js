@@ -5,7 +5,13 @@
  */
 
 class AsciiEffectDebil {
-  constructor(renderer, colorBase, charSet = " .:-=+*#%@", options = {}) {
+  constructor(
+    outputCanvas,
+    renderer,
+    colorBase,
+    charSet = " .:-=+*#%@",
+    options = {}
+  ) {
     // Some ASCII settings
 
     const fResolution = options["resolution"] || 0.15; // Higher for more details
@@ -76,7 +82,7 @@ class AsciiEffectDebil {
       oCtx.drawImage(oCanvasImg, 0, 0, iWidth, iHeight);
       const oImgData = oCtx.getImageData(0, 0, iWidth, iHeight).data;
 
-      const targetCtx = document.getElementById("canvas").getContext("2d");
+      const targetCtx = outputCanvas.getContext("2d");
       targetCtx.font = fFontSize + "px courier new, monospace";
       targetCtx.textBaseline = "top";
 
