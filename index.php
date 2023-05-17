@@ -1,6 +1,6 @@
 <?php
-  $ocultaNav = true;
-  require('_cabecera.php');
+$ocultaNav = true;
+require('_cabecera.php');
 ?>
 
 <script type="text/javascript" src="torpe/en/diseno/js/torpe.js"></script>
@@ -47,8 +47,8 @@
     mas50();
 
     $(window).scroll(function() {
-      if(($(window).scrollTop() + window.innerWidth) > ($(document).height() - 100)) {
-           mas50();
+      if (($(window).scrollTop() + window.innerWidth) > ($(document).height() - 100)) {
+        mas50();
       }
     });
   });
@@ -90,6 +90,19 @@
           Hola, yo soy Ocre, <br>
           un músico-informático <br>
           un poco <a href="/sucio"><span class="separador">/</span> sucio</a>
+        </p>
+      </div>
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-2 js-icono"></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-2 js-icono"></div>
+      <div class="col-lg-4">
+        <p>
+          Hola, yo soy Ocre, <br>
+          un músico-informático <br>
+          un poco <a href="/debil"><span class="separador">/</span> débil</a>
         </p>
       </div>
       <div class="col-lg-2 js-icono"></div>

@@ -1,7 +1,8 @@
-<?php 
-  $version = '15100700';
+<?php
+$version = '15100700';
 ?>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>ocre . soy <?php echo implode(' / ', explode('/', substr($_SERVER['REQUEST_URI'], 0, -1))); ?></title>
@@ -12,35 +13,46 @@
   <link rel="stylesheet" href="/css/style.css?v=<?php echo $version ?>">
   <link rel="shortcut icon" href="/img/favicon.png" class="js-favicon">
   <script src="https://use.typekit.net/wfj3ppv.js"></script>
-  <script>try{Typekit.load({ });}catch(e){}</script>
+  <script>
+    try {
+      Typekit.load({});
+    } catch (e) {}
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.js"></script>
 </head>
+
 <body>
 
   <?php
-    if ($_SERVER['SERVER_PORT'] != '8888') :
+  if ($_SERVER['SERVER_PORT'] != '8888') :
   ?>
 
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
       ga('create', 'UA-67516662-1', 'auto');
       ga('send', 'pageview');
-
     </script>
-    
+
   <?php
-    endif;
+  endif;
   ?>
 
   <div class="container">
     <?php
-      if (!isset($ocultaNav) || !$ocultaNav) :
+    if (!isset($ocultaNav) || !$ocultaNav) :
     ?>
       <header class="navbar navbar-static-top bd-navbar" role="banner">
         <div class="clearfix">
@@ -58,10 +70,11 @@
               <a class="nav-item nav-link" href="/torpe"><span class="separador">/</span> torpe</a>
               <a class="nav-item nav-link " href="/vago"><span class="separador">/</span> vago</a>
               <a class="nav-item nav-link " href="/sucio"><span class="separador">/</span> sucio</a>
+              <a class="nav-item nav-link " href="/debil"><span class="separador">/</span> débil</a>
             </div>
           </nav>
         </div>
       </header>
     <?php
-      endif;
+    endif;
     ?>
