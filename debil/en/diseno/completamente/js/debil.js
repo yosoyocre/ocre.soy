@@ -37,7 +37,8 @@ export function creaPortada(opciones) {
     .then((data) => {
       loadScript("node_modules/qrcodejs/qrcode.min.js")
         .then((data) => {
-          let selector = opciones.selector;
+          let portada = opciones.portada;
+          let contra = opciones.contra;
           let conMovimiento =
             opciones.conMovimiento !== undefined
               ? opciones.conMovimiento
@@ -130,7 +131,7 @@ export function creaPortada(opciones) {
           animate();
 
           function init() {
-            globalContainer = document.querySelector(selector);
+            globalContainer = document.querySelector(portada);
             container = document.createElement("div");
             container.innerHTML = "";
 
@@ -283,21 +284,25 @@ export function creaPortada(opciones) {
 
             // QR
 
-            var qrcode = new QRCode("qr", {
-              text: urlSeed,
-              width: 256,
-              height: 256,
-              colorDark:
-                "rgb(" +
-                colorBase.r +
-                "," +
-                colorBase.g +
-                "," +
-                colorBase.b +
-                ")",
-              colorLight: "#ffffff",
-              correctLevel: QRCode.CorrectLevel.L,
-            });
+            if (contra !== undefined) {
+              let contenedorContra = document.querySelector(contra);
+
+              var qrcode = new QRCode(contenedorContra, {
+                text: urlSeed,
+                width: 256,
+                height: 256,
+                colorDark:
+                  "rgb(" +
+                  colorBase.r +
+                  "," +
+                  colorBase.g +
+                  "," +
+                  colorBase.b +
+                  ")",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.L,
+              });
+            }
           }
 
           function onWindowResize() {
