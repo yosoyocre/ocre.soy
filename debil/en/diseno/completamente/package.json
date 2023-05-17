@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "qrcodejs": "^1.0.0",
-    "seedrandom": "^3.0.5"
-  }
-}
