@@ -36,7 +36,10 @@
 
     <script type="module">
       import { creaPortada } from "./js/debil.js";
-      creaPortada("#portada");
+      creaPortada({
+        selector: "#portada",
+        // conMovimiento: false,
+      });
     </script>
   </body>
 </html>

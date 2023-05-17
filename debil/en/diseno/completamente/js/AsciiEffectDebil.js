@@ -74,7 +74,7 @@ class AsciiEffectDebil {
 
     const front = new Image();
 
-    front.src = "img/front_debil.png";
+    front.src = "img/front.png";
     // front.src = "img/yo.png";
 
     function asciifyImage() {

@@ -32,11 +32,17 @@ const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
   });
 };
 
-export function creaPortada(selector) {
+export function creaPortada(opciones) {
   loadScript("node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
       loadScript("node_modules/qrcodejs/qrcode.min.js")
         .then((data) => {
+          let selector = opciones.selector;
+          let conMovimiento =
+            opciones.conMovimiento !== undefined
+              ? opciones.conMovimiento
+              : true;
+
           let container, globalContainer, stats;
 
           let camera, controls, scene, renderer, effect;
@@ -45,7 +51,6 @@ export function creaPortada(selector) {
 
           const conEfecto = true;
           const conAbismo = true;
-          const conMovimiento = true;
 
           const worldWidth = 800,
             worldDepth = 800,
@@ -61,12 +66,6 @@ export function creaPortada(selector) {
           const pointer = new THREE.Vector2();
 
           const baseUrl = new URL(window.location.href);
-
-          // // Permitimos que ciertos parámetros se puedan pasar por la URL
-          // const urlParams = new URLSearchParams(window.location.search);
-          // // como la forma de la montaña
-          // const forma =
-          //   urlParams.get("f") !== null ? urlParams.get("f") : Math.random() * 100;
 
           // Permitimos que una seed se pueda pasar por la URL
           const urlParams = new URLSearchParams(window.location.search);
