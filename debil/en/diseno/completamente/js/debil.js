@@ -175,12 +175,12 @@ export function crea(opciones) {
             // let caracteres = " ON"; // positivo
             // let caracteres = "eOcr "; // negativo
 
-            let debilCanvas = document.createElement("canvas");
-            debilCanvas.width = 1400;
-            debilCanvas.height = 1400;
+            let canvasPortada = document.createElement("canvas");
+            canvasPortada.width = windowWidth;
+            canvasPortada.height = windowHeight;
 
             effect = new AsciiEffectDebil(
-              debilCanvas,
+              canvasPortada,
               renderer,
               colorBase,
               caracteres,
@@ -280,28 +280,61 @@ export function crea(opciones) {
 
             console.log(urlSeed);
 
-            globalContainer.appendChild(debilCanvas);
+            globalContainer.appendChild(canvasPortada);
 
             // QR
 
             if (contra !== undefined) {
-              let contenedorContra = document.querySelector(contra);
+              const imgContra = new Image();
+              imgContra.src = "img/back.png";
+              imgContra.onload = function () {
+                let contenedorContra = document.querySelector(contra);
 
-              var qrcode = new QRCode(contenedorContra, {
-                text: urlSeed,
-                width: 256,
-                height: 256,
-                colorDark:
-                  "rgb(" +
-                  colorBase.r +
-                  "," +
-                  colorBase.g +
-                  "," +
-                  colorBase.b +
-                  ")",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.L,
-              });
+                let canvasContra = document.createElement("canvas");
+                canvasContra.width = windowWidth;
+                canvasContra.height = windowHeight;
+
+                let ctxContra = canvasContra.getContext("2d");
+
+                ctxContra.drawImage(imgContra, 0, 0);
+
+                let contenedorQR = document.createElement("div");
+
+                let tamanoQR = 252;
+
+                let qrcode = new QRCode(contenedorQR, {
+                  text: urlSeed,
+                  width: tamanoQR,
+                  height: tamanoQR,
+                  colorDark:
+                    "rgb(" +
+                    colorBase.r +
+                    "," +
+                    colorBase.g +
+                    "," +
+                    colorBase.b +
+                    ")",
+                  colorLight: "#ffffff",
+                  correctLevel: QRCode.CorrectLevel.L,
+                });
+
+                // Get img from contenedorQR
+                let imgQR = contenedorQR.querySelector("canvas");
+                let margenQR = 72;
+                // Paint imgQR on canvasContra
+                ctxContra.drawImage(
+                  imgQR,
+                  windowWidth - tamanoQR - margenQR,
+                  margenQR
+                );
+                ctxContra.drawImage(
+                  imgQR,
+                  margenQR,
+                  windowHeight - tamanoQR - margenQR
+                );
+
+                contenedorContra.appendChild(canvasContra);
+              };
             }
           }
 
