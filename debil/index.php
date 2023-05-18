@@ -33,11 +33,10 @@
     <div class="col-lg-4">
       Generador de portadas
       <span class="dato">
-        <a href="/debil/en/diseno/completamente">
+        <a href="/debil/en/diseno">
           <span class="separador">/</span> debil
           <span class="separador">/</span> en
           <span class="separador">/</span> diseño
-          <span class="separador">/</span> completamente
         </a>
       </span>
     </div>

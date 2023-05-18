@@ -304,7 +304,7 @@ export function crea(opciones) {
 
                 let contenedorQR = document.createElement("div");
 
-                let tamanoQR = 252;
+                let tamanoQR = 202;
 
                 let qrcode = new QRCode(contenedorQR, {
                   text: urlSeed,
@@ -324,7 +324,7 @@ export function crea(opciones) {
 
                 // Get img from contenedorQR
                 let imgQR = contenedorQR.querySelector("canvas");
-                let margenQR = 72;
+                let margenQR = 54;
                 // Paint imgQR on canvasContra
                 ctxContra.drawImage(
                   imgQR,
