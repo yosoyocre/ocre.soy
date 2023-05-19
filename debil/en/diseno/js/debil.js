@@ -304,7 +304,7 @@ export function crea(opciones) {
 
                 let contenedorQR = document.createElement("canvas");
 
-                let tamanoQR = 202;
+                let tamanoQR = 218;
 
                 let qrcode = new QRious({
                   element: contenedorQR,
@@ -323,7 +323,7 @@ export function crea(opciones) {
                 });
 
                 let imgQR = contenedorQR;
-                let margenQR = 54;
+                let margenQR = 46;
                 // Paint imgQR on canvasContra
                 ctxContra.drawImage(
                   imgQR,
