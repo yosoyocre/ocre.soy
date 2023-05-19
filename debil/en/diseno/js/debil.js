@@ -38,7 +38,7 @@ const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
 export function crea(opciones) {
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
-      loadScript(URL_BASE + "node_modules/qrcodejs/qrcode.min.js")
+      loadScript(URL_BASE + "node_modules/qrious/dist/qrious.min.js")
         .then((data) => {
           let portada = opciones.portada;
           let contra = opciones.contra;
@@ -302,15 +302,15 @@ export function crea(opciones) {
 
                 ctxContra.drawImage(imgContra, 0, 0);
 
-                let contenedorQR = document.createElement("div");
+                let contenedorQR = document.createElement("canvas");
 
                 let tamanoQR = 202;
 
-                let qrcode = new QRCode(contenedorQR, {
-                  text: urlSeed,
-                  width: tamanoQR,
-                  height: tamanoQR,
-                  colorDark:
+                let qrcode = new QRious({
+                  element: contenedorQR,
+                  value: urlSeed,
+                  size: tamanoQR,
+                  foreground:
                     "rgb(" +
                     colorBase.r +
                     "," +
@@ -318,12 +318,11 @@ export function crea(opciones) {
                     "," +
                     colorBase.b +
                     ")",
-                  colorLight: "#ffffff",
-                  correctLevel: QRCode.CorrectLevel.L,
+                  background: "#ffffff",
+                  level: "L",
                 });
 
-                // Get img from contenedorQR
-                let imgQR = contenedorQR.querySelector("canvas");
+                let imgQR = contenedorQR;
                 let margenQR = 54;
                 // Paint imgQR on canvasContra
                 ctxContra.drawImage(
