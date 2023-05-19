@@ -3,12 +3,19 @@ const URL_BASE = "http://localhost/debil/en/diseno/";
 
 import * as THREE from "./three.module.js";
 
-import Stats from "./stats.module.js";
-
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
 import { OrbitControls } from "./OrbitControls.js";
 import { ImprovedNoise } from "./ImprovedNoise.js";
 
+/**
+ * Carga un script de forma asíncrona
+ *
+ * @param   {string}    FILE_URL  URL del script
+ * @param   {boolean}   async     Si es asíncrono o no
+ * @param   {string}    type      Tipo de script
+ * @returns {Promise}             Promesa con el resultado de la carga
+ * @private
+ */
 const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
   return new Promise((resolve, reject) => {
     try {
@@ -35,7 +42,26 @@ const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
   });
 };
 
+const luminance = (r, g, b) => {
+  var a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+};
+
+/**
+ * Crea una portada y contraportada del disco Débil
+ *
+ * @param   {Object}  opciones                Opciones para crear la portada y contraportada
+ * @param   {string}  opciones.portada        Selector CSS que especifica el elemento donde se creará la portada
+ * @param   {string}  opciones.contra         Selector CSS que especifica el elemento donde se creará la contraportada
+ * @param   {boolean} opciones.conMovimiento  Si la portada tiene movimiento o no
+ * @returns {void}
+ * @public
+ */
 export function crea(opciones) {
+  // Cargamos los scripts necesarios
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
       loadScript(URL_BASE + "node_modules/qrious/dist/qrious.min.js")
@@ -47,11 +73,11 @@ export function crea(opciones) {
               ? opciones.conMovimiento
               : true;
 
-          let container, globalContainer, stats;
+          let contenedor3d, contenedorPortada;
 
-          let camera, controls, scene, renderer, effect;
+          let camara, controles, escena, renderer, efectoAscii;
 
-          let mesh, texture;
+          let terreno, textura;
 
           const conEfecto = true;
           const conAbismo = true;
@@ -79,6 +105,14 @@ export function crea(opciones) {
               : Math.random().toString(36).slice(2);
           const generator = new Math.seedrandom(seed);
 
+          const randomColor = () => {
+            let color = [];
+            color["r"] = generator() * 255;
+            color["g"] = generator() * 255;
+            color["b"] = generator() * 255;
+            return color;
+          };
+
           let searchParams = new URLSearchParams("");
           searchParams.set("seed", seed);
 
@@ -86,24 +120,6 @@ export function crea(opciones) {
 
           console.log("seed", seed);
           console.log("forma", forma);
-
-          function luminance(r, g, b) {
-            var a = [r, g, b].map(function (v) {
-              v /= 255;
-              return v <= 0.03928
-                ? v / 12.92
-                : Math.pow((v + 0.055) / 1.055, 2.4);
-            });
-            return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-          }
-
-          function randomColor() {
-            let color = [];
-            color["r"] = generator() * 255;
-            color["g"] = generator() * 255;
-            color["b"] = generator() * 255;
-            return color;
-          }
 
           let colorBase = randomColor();
 
@@ -134,17 +150,13 @@ export function crea(opciones) {
           animate();
 
           function init() {
-            globalContainer = document.querySelector(portada);
-            container = document.createElement("div");
-            container.innerHTML = "";
+            contenedorPortada = document.querySelector(portada);
+            contenedor3d = document.createElement("div");
+            contenedor3d.innerHTML = "";
 
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(windowWidth, windowHeight);
-            // container.appendChild(renderer.domElement);
-
-            // Sacar de https://theasciicode.com.ar/extended-ascii-code/black-square-ascii-code-254.html
-            // y https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
             let posiblesCaracteres = [
               "#@%=*+-:·   ",
@@ -162,27 +174,16 @@ export function crea(opciones) {
                 Math.floor(generator() * posiblesCaracteres.length)
               ];
 
-            // caracteres = "↯⇊⇩⇓⇟↡↧↓⇂⇣ "; // negativo
-            // caracteres = "▣▩▦▨▥◫▢ "; // negativo
-            // caracteres = "😠💪 "; // negativo
-            // caracteres = "܁܃܀܊܍  ";
-            // caracteres = "௵௸ௐ௯௨௦ ";
-
-            // Invertir
+            // Invertir?
             if (generator() > 0.5) {
               caracteres = caracteres.split("").reverse().join("");
             }
-
-            // let caracteres = ".'`^,:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"; // positivo largo
-            // let caracteres = ".'`^,:;!~+_-?][}{)(|/rcOe*#&%@$"; // positivo
-            // let caracteres = " ON"; // positivo
-            // let caracteres = "eOcr "; // negativo
 
             let canvasPortada = document.createElement("canvas");
             canvasPortada.width = windowWidth;
             canvasPortada.height = windowHeight;
 
-            effect = new AsciiEffectDebil(
+            efectoAscii = new AsciiEffectDebil(
               URL_BASE,
               canvasPortada,
               renderer,
@@ -194,18 +195,18 @@ export function crea(opciones) {
                 color: "rgb(0,255,0)",
               }
             );
-            effect.setSize(windowWidth, windowHeight);
+            efectoAscii.setSize(windowWidth, windowHeight);
 
             if (conEfecto) {
-              container.appendChild(effect.domElement);
+              contenedor3d.appendChild(efectoAscii.domElement);
             } else {
-              container.appendChild(renderer.domElement);
+              contenedor3d.appendChild(renderer.domElement);
             }
 
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xffffff);
+            escena = new THREE.Scene();
+            escena.background = new THREE.Color(0xffffff);
 
-            camera = new THREE.PerspectiveCamera(
+            camara = new THREE.PerspectiveCamera(
               30,
               windowWidth / windowHeight,
               10,
@@ -213,25 +214,25 @@ export function crea(opciones) {
             );
 
             if (conEfecto) {
-              controls = new OrbitControls(camera, effect.domElement);
+              controles = new OrbitControls(camara, efectoAscii.domElement);
             } else {
-              controls = new OrbitControls(camera, renderer.domElement);
+              controles = new OrbitControls(camara, renderer.domElement);
             }
-            controls.minDistance = 1000;
-            controls.maxDistance = 10000;
-            controls.maxPolarAngle = Math.PI / 2;
-            controls.autoRotate = true;
-
-            //
+            controles.minDistance = 1000;
+            controles.maxDistance = 10000;
+            controles.maxPolarAngle = Math.PI / 2;
+            controles.autoRotate = true;
 
             const data = generateHeight(worldWidth, worldDepth);
 
-            controls.target.y =
+            controles.target.y =
               data[worldHalfWidth + worldHalfDepth * worldWidth] + 500;
-            camera.position.y = controls.target.y + 10000;
-            camera.position.x = 2000;
-            camera.position.z = 3000;
-            controls.update();
+            camara.position.y = controles.target.y + 10000;
+            camara.position.x = 2000;
+            camara.position.z = 3000;
+            controles.update();
+
+            // Generamos el terreno
 
             const geometry = new THREE.PlaneGeometry(
               7500,
@@ -248,19 +249,17 @@ export function crea(opciones) {
               vertices[j + 1] = data[i] * 20;
             }
 
-            //
-
-            texture = new THREE.CanvasTexture(
+            textura = new THREE.CanvasTexture(
               generateTexture(data, worldWidth, worldDepth)
             );
-            texture.wrapS = THREE.ClampToEdgeWrapping;
-            texture.wrapT = THREE.ClampToEdgeWrapping;
+            textura.wrapS = THREE.ClampToEdgeWrapping;
+            textura.wrapT = THREE.ClampToEdgeWrapping;
 
-            mesh = new THREE.Mesh(
+            terreno = new THREE.Mesh(
               geometry,
-              new THREE.MeshBasicMaterial({ map: texture })
+              new THREE.MeshBasicMaterial({ map: textura })
             );
-            scene.add(mesh);
+            escena.add(terreno);
 
             const geometryHelper = new THREE.ConeGeometry(20, 100, 3);
             geometryHelper.translate(0, 50, 0);
@@ -269,14 +268,9 @@ export function crea(opciones) {
               geometryHelper,
               new THREE.MeshNormalMaterial()
             );
-            scene.add(helper);
+            escena.add(helper);
 
-            container.addEventListener("pointermove", onPointerMove);
-
-            stats = new Stats();
-            // container.appendChild(stats.dom);
-
-            //
+            contenedor3d.addEventListener("pointermove", onPointerMove);
 
             window.addEventListener("resize", onWindowResize);
 
@@ -284,9 +278,9 @@ export function crea(opciones) {
 
             console.log(urlSeed);
 
-            globalContainer.appendChild(canvasPortada);
+            contenedorPortada.appendChild(canvasPortada);
 
-            // QR
+            // Generamos la contraportada si se indica en las opciones
 
             if (contra !== undefined) {
               const imgContra = new Image();
@@ -324,7 +318,8 @@ export function crea(opciones) {
 
                 let imgQR = contenedorQR;
                 let margenQR = 46;
-                // Paint imgQR on canvasContra
+
+                // Imprimos el QR en 2 esquinas
                 ctxContra.drawImage(
                   imgQR,
                   windowWidth - tamanoQR - margenQR,
@@ -342,14 +337,10 @@ export function crea(opciones) {
           }
 
           function onWindowResize() {
-            camera.aspect = windowWidth / windowHeight;
-            camera.updateProjectionMatrix();
+            camara.aspect = windowWidth / windowHeight;
+            camara.updateProjectionMatrix();
 
             renderer.setSize(windowWidth, windowHeight);
-          }
-
-          function distancia(x1, y1, x2, y2) {
-            return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
           }
 
           function generateHeight(width, height) {
@@ -373,23 +364,6 @@ export function crea(opciones) {
 
               quality *= 5;
             }
-
-            // Creamos un círculo en el centro
-            // y al resto de puntos les sumamos una altura base
-            // for (let i = 0; i < size; i++) {
-            //   const x = i % width,
-            //     y = ~~(i / width);
-
-            //   const d = distancia(x, y, width / 2, height / 2);
-            //   if (d < radius) {
-            //     data[i] = 0;
-            //   } else {
-            //     data[i] += base;
-            //   }
-            // }
-
-            // Creamos una línea que atraviese el centro
-            // y al resto de puntos les sumamos una altura base
 
             let tamanoAbismo = 60;
 
@@ -486,19 +460,16 @@ export function crea(opciones) {
             requestAnimationFrame(animate);
 
             render();
-            // controls.position.z = controls.position.z + 0.1;
-            // controls.update();
-            // stats.update();
             if (conMovimiento) {
-              controls.update();
+              controles.update();
             }
           }
 
           function render() {
             if (conEfecto) {
-              effect.render(scene, camera);
+              efectoAscii.render(escena, camara);
             } else {
-              renderer.render(scene, camera);
+              renderer.render(escena, camara);
             }
           }
 
@@ -507,10 +478,10 @@ export function crea(opciones) {
               (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
             pointer.y =
               -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
-            raycaster.setFromCamera(pointer, camera);
+            raycaster.setFromCamera(pointer, camara);
 
-            // See if the ray from the camera into the world hits one of our meshes
-            const intersects = raycaster.intersectObject(mesh);
+            // See if the ray from the camara into the world hits one of our meshes
+            const intersects = raycaster.intersectObject(terreno);
 
             // Toggle rotation bool for meshes that we clicked
             if (intersects.length > 0) {
