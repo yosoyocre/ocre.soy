@@ -67,6 +67,24 @@
     generaPortadaYContra();
   });
 
+  document.querySelector('.js-portada-descargar').addEventListener("click", function(e) {
+    e.preventDefault();
+
+    var link = document.createElement("a");
+    link.download = 'ocre-debil_portada.png';
+    link.href = this.querySelector('canvas').toDataURL("image/png");
+    link.click();
+  });
+
+  document.querySelector('.js-contra-descargar').addEventListener("click", function(e) {
+    e.preventDefault();
+
+    var link = document.createElement("a");
+    link.download = 'ocre-debil_contra.png';
+    link.href = this.querySelector('canvas').toDataURL("image/png");
+    link.click();
+  });
+
   generaPortadaYContra();
 </script>
 <?php require('../../../_pie.php'); ?>

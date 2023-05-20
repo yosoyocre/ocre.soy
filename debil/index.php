@@ -8,16 +8,18 @@
     </h1>
 
     <p>
-      En algún momento del 2023 llegará el Débil, después del <a href="/torpe">Torpe</a> (2014), el <a href="/vago">Vago</a> (2017) y el <a href="/sucio">Sucio</a> (2021).
+      En algún momento del 2023 llegará el Débil.
     </p>
 
     <p>
-      Será mi primer disco conceptual: 6 canciones sobre la masculindad.
+      Será mi cuarto EP y el primero conceptual: 6 canciones sobre la masculindad.
     </p>
 
     <p>
       Por ahora, lo único que os puedo enseñar el diseño de la portada que, como siempre, se crea aleatoriamente en cada visualización.
     </p>
+
+    <p>Podés verlo pulsando <a href="/debil/en/diseno">aquí</a>.</p>
 
   </div>
 </div>
