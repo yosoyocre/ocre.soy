@@ -15,8 +15,12 @@
       <span class="separador">/</span> <a href="/debil/en/diseno">diseño</a>
     </h1>
     <p>
-      Siguiendo la tradición marcada por los discos anteriores, la portada del <a href="/debil">Débil</a>
-      también la crea tu ordenador.
+      Siguiendo la tradición marcada por los discos anteriores, la portada y la contraportada del <a href="/debil">Débil</a>
+      también las crea tu ordenador.
+    </p>
+    <p>
+      Por ejemplo, aquí tienes unos diseños que se acaban de generar. <br>
+      Haz click sobre la imagen para descargártela o pulsa <a class="js-nuevoDiseno" href="/debil/en/diseno">aquí</a> para producir otras.
     </p>
   </div>
 </div>
@@ -39,10 +43,30 @@
   import {
     crea
   } from "./js/debil.js";
-  crea({
-    portada: "#portada",
-    contra: "#contra",
-    // conMovimiento: false,
+
+  let borrar;
+
+  function generaPortadaYContra() {
+    document.getElementById("portada").innerHTML = "";
+    document.getElementById("contra").innerHTML = "";
+
+    if (borrar !== undefined) {
+      borrar();
+    }
+
+    borrar = crea({
+      portada: "#portada",
+      contra: "#contra",
+      // conMovimiento: false,
+    });
+  }
+
+  document.querySelector(".js-nuevoDiseno").addEventListener("click", function(e) {
+    e.preventDefault();
+
+    generaPortadaYContra();
   });
+
+  generaPortadaYContra();
 </script>
 <?php require('../../../_pie.php'); ?>

@@ -86,13 +86,22 @@ const fecha = (date) => {
  * @public
  */
 export function crea(opciones) {
-  const URL_BASE = new URL(window.location.href);
+  const DOMINIO_ACTUAL = window.location.origin;
+  const URL_BASE = DOMINIO_ACTUAL + "/debil/en/diseno/";
+
+  let renderer;
+  let geometria;
+  let textura;
+  let geometriaHelper;
+  let efectoAscii;
+  let detenido = false;
 
   // Cargamos los scripts necesarios
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
       loadScript(URL_BASE + "node_modules/qrious/dist/qrious.min.js")
         .then((data) => {
+          let proceso = Math.random();
           let portada = opciones.portada;
           let contra = opciones.contra;
           let conMovimiento =
@@ -102,9 +111,9 @@ export function crea(opciones) {
 
           let contenedor3d, contenedorPortada;
 
-          let camara, controles, escena, renderer, efectoAscii;
+          let camara, controles, escena;
 
-          let terreno, textura;
+          let terreno;
 
           const conEfecto = true;
           const conAbismo = true;
@@ -280,15 +289,15 @@ export function crea(opciones) {
 
             // Generamos el terreno
 
-            const geometry = new THREE.PlaneGeometry(
+            geometria = new THREE.PlaneGeometry(
               7500,
               7500,
               anchoMundo - 1,
               profundidadMundo - 1
             );
-            geometry.rotateX(-Math.PI / 2);
+            geometria.rotateX(-Math.PI / 2);
 
-            const vertices = geometry.attributes.position.array;
+            const vertices = geometria.attributes.position.array;
 
             for (let i = 0, j = 0, l = vertices.length; i < l; i++, j += 3) {
               // Este multiplicador hace que las diferencias de altura sean más grandes
@@ -304,18 +313,18 @@ export function crea(opciones) {
             textura.wrapT = THREE.ClampToEdgeWrapping;
 
             terreno = new THREE.Mesh(
-              geometry,
+              geometria,
               new THREE.MeshBasicMaterial({ map: textura })
             );
             escena.add(terreno);
 
             // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
-            const geometryHelper = new THREE.ConeGeometry(20, 100, 3);
-            geometryHelper.translate(0, 50, 0);
-            geometryHelper.rotateX(Math.PI / 2);
+            geometriaHelper = new THREE.ConeGeometry(20, 100, 3);
+            geometriaHelper.translate(0, 50, 0);
+            geometriaHelper.rotateX(Math.PI / 2);
             helper = new THREE.Mesh(
-              geometryHelper,
+              geometriaHelper,
               new THREE.MeshNormalMaterial()
             );
             escena.add(helper);
@@ -537,7 +546,9 @@ export function crea(opciones) {
            * @private
            */
           function animate() {
-            requestAnimationFrame(animate);
+            if (!detenido) {
+              requestAnimationFrame(animate);
+            }
 
             render();
             if (conMovimiento) {
@@ -585,4 +596,15 @@ export function crea(opciones) {
     .catch((err) => {
       console.error(err);
     });
+
+  let borrables = [renderer, geometria, textura, geometriaHelper, efectoAscii];
+
+  return function () {
+    borrables.forEach((e) => {
+      if (e !== undefined) {
+        e.dispose();
+      }
+    });
+    detenido = true;
+  };
 }
