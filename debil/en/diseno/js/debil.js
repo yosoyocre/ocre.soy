@@ -1,6 +1,3 @@
-// TODO Hacer que URL_BASE se adapte a la ruta del archivo
-const URL_BASE = "http://localhost/debil/en/diseno/";
-
 import * as THREE from "./three.module.js";
 
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
@@ -59,6 +56,25 @@ const luminosidad = (r, g, b) => {
   return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 };
 
+const fecha = (date) => {
+  function pad(n) {
+    return n < 10 ? "0" + n : n;
+  }
+
+  return (
+    "el " +
+    pad(date.getDate()) +
+    "/" +
+    pad(date.getMonth() + 1) +
+    "/" +
+    pad(date.getFullYear()) +
+    " a las " +
+    pad(date.getHours()) +
+    ":" +
+    pad(date.getMinutes())
+  );
+};
+
 /**
  * Crea una portada y contraportada del disco Débil
  *
@@ -70,6 +86,8 @@ const luminosidad = (r, g, b) => {
  * @public
  */
 export function crea(opciones) {
+  const URL_BASE = new URL(window.location.href);
+
   // Cargamos los scripts necesarios
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
@@ -104,8 +122,6 @@ export function crea(opciones) {
           const raycaster = new THREE.Raycaster();
           const pointer = new THREE.Vector2();
 
-          const baseUrl = new URL(window.location.href);
-
           // Permitimos que una seed se pueda pasar por la URL
           const urlParams = new URLSearchParams(window.location.search);
           const seed =
@@ -134,7 +150,8 @@ export function crea(opciones) {
           let searchParams = new URLSearchParams("");
           searchParams.set("seed", seed);
 
-          const urlSeed = baseUrl + "?" + searchParams.toString();
+          const urlSeed =
+            URL_BASE + "completamente/" + "?" + searchParams.toString();
 
           const forma = generador() * 100;
 
@@ -362,6 +379,19 @@ export function crea(opciones) {
                   margenQR,
                   altoImagen - tamanoQR - margenQR
                 );
+
+                let textoContra = "";
+
+                if (!!opciones.textoCreditos) {
+                  textoContra = opciones.textoCreditos + ", ";
+                }
+
+                textoContra = textoContra + fecha(new Date());
+
+                ctxContra.font = "20px monospace";
+                ctxContra.textAlign = "right";
+                ctxContra.fillStyle = "rgb(200,200,200)";
+                ctxContra.fillText(textoContra, 19 * 70, 19 * 70);
 
                 contenedorContra.appendChild(canvasContra);
               };
