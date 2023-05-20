@@ -42,7 +42,16 @@ const loadScript = (FILE_URL, async = true, type = "text/javascript") => {
   });
 };
 
-const luminance = (r, g, b) => {
+/**
+ * Calcula la luminosidad de un color
+ *
+ * @param   {number} r Valor de rojo
+ * @param   {number} g Valor de verde
+ * @param   {number} b Valor de azul
+ * @returns {number}   Luminosidad del color
+ * @private
+ */
+const luminosidad = (r, g, b) => {
   var a = [r, g, b].map(function (v) {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
@@ -82,13 +91,13 @@ export function crea(opciones) {
           const conEfecto = true;
           const conAbismo = true;
 
-          const worldWidth = 800,
-            worldDepth = 800,
-            worldHalfWidth = worldWidth / 2,
-            worldHalfDepth = worldDepth / 2;
+          const anchoMundo = 800,
+            profundidadMundo = 800,
+            medioAnchoMundo = anchoMundo / 2,
+            mediaProfundidadMundo = profundidadMundo / 2;
 
-          const windowWidth = 1400;
-          const windowHeight = 1400;
+          const anchoImagen = 1400;
+          const altoImagen = 1400;
 
           let helper;
 
@@ -103,36 +112,50 @@ export function crea(opciones) {
             urlParams.get("seed") !== null
               ? urlParams.get("seed")
               : Math.random().toString(36).slice(2);
-          const generator = new Math.seedrandom(seed);
 
-          const randomColor = () => {
+          // Creamos el generador de números aleatorios con la seed
+          const generador = new Math.seedrandom(seed);
+
+          /**
+           * Obtener un color aleatorio
+           *
+           * @returns {Array} Color aleatorio
+           * @private
+           */
+          const colorAleatorio = () => {
             let color = [];
-            color["r"] = generator() * 255;
-            color["g"] = generator() * 255;
-            color["b"] = generator() * 255;
+            color["r"] = generador() * 255;
+            color["g"] = generador() * 255;
+            color["b"] = generador() * 255;
             return color;
           };
 
+          // Establecemos la seed en la URL que se usará en el QR
           let searchParams = new URLSearchParams("");
           searchParams.set("seed", seed);
 
-          const forma = generator() * 100;
+          const urlSeed = baseUrl + "?" + searchParams.toString();
+
+          const forma = generador() * 100;
 
           console.log("seed", seed);
           console.log("forma", forma);
+          console.log("urlSeed", urlSeed);
 
-          let colorBase = randomColor();
+          let colorBase = colorAleatorio();
 
-          let luminanceBase = luminance(
+          let luminanceBase = luminosidad(
             colorBase["r"],
             colorBase["g"],
             colorBase["b"]
           );
           const maxLuminance = 0.1;
 
+          // El color debe tener una liminosidad menor que maxLuminance
+          // para que el texto en gris tenga contraste sufienciente
           while (luminanceBase > maxLuminance) {
-            colorBase = randomColor();
-            luminanceBase = luminance(
+            colorBase = colorAleatorio();
+            luminanceBase = luminosidad(
               colorBase["r"],
               colorBase["g"],
               colorBase["b"]
@@ -140,6 +163,7 @@ export function crea(opciones) {
           }
 
           console.log(
+            "colorBase",
             colorBase["r"],
             colorBase["g"],
             colorBase["b"],
@@ -156,33 +180,36 @@ export function crea(opciones) {
 
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(windowWidth, windowHeight);
+            renderer.setSize(anchoImagen, altoImagen);
 
+            // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
             let posiblesCaracteres = [
-              "#@%=*+-:·   ",
+              "#@%=*+-:·  ",
               "█▓▒░ ",
               "█▛▚▝ ",
               "╬╠║╗┐- ",
-              "●ø•:·  ",
+              "●ø•:· ",
               "✺✹✸✷✶✦· ",
               "⣿⣷⣶⣦⣤⣄⣀⡀  ",
               "█▓▒░⣿⣷⣶⣦⣤⣄⣀⡀ ",
             ];
 
+            // Tomamos una cadena aleatoria de caracteres
             let caracteres =
               posiblesCaracteres[
-                Math.floor(generator() * posiblesCaracteres.length)
+                Math.floor(generador() * posiblesCaracteres.length)
               ];
 
-            // Invertir?
-            if (generator() > 0.5) {
+            // Invertir el efecto ASCII?
+            if (generador() > 0.5) {
               caracteres = caracteres.split("").reverse().join("");
             }
 
             let canvasPortada = document.createElement("canvas");
-            canvasPortada.width = windowWidth;
-            canvasPortada.height = windowHeight;
+            canvasPortada.width = anchoImagen;
+            canvasPortada.height = altoImagen;
 
+            // Creamos el efecto ASCII
             efectoAscii = new AsciiEffectDebil(
               URL_BASE,
               canvasPortada,
@@ -195,7 +222,7 @@ export function crea(opciones) {
                 color: "rgb(0,255,0)",
               }
             );
-            efectoAscii.setSize(windowWidth, windowHeight);
+            efectoAscii.setSize(anchoImagen, altoImagen);
 
             if (conEfecto) {
               contenedor3d.appendChild(efectoAscii.domElement);
@@ -206,9 +233,11 @@ export function crea(opciones) {
             escena = new THREE.Scene();
             escena.background = new THREE.Color(0xffffff);
 
+            // Hacemos que la cámara gire alrededor del abismo
+
             camara = new THREE.PerspectiveCamera(
               30,
-              windowWidth / windowHeight,
+              anchoImagen / altoImagen,
               10,
               20000
             );
@@ -223,10 +252,10 @@ export function crea(opciones) {
             controles.maxPolarAngle = Math.PI / 2;
             controles.autoRotate = true;
 
-            const data = generateHeight(worldWidth, worldDepth);
+            const data = generarAlturas(anchoMundo, profundidadMundo);
 
             controles.target.y =
-              data[worldHalfWidth + worldHalfDepth * worldWidth] + 500;
+              data[medioAnchoMundo + mediaProfundidadMundo * anchoMundo] + 500;
             camara.position.y = controles.target.y + 10000;
             camara.position.x = 2000;
             camara.position.z = 3000;
@@ -237,8 +266,8 @@ export function crea(opciones) {
             const geometry = new THREE.PlaneGeometry(
               7500,
               7500,
-              worldWidth - 1,
-              worldDepth - 1
+              anchoMundo - 1,
+              profundidadMundo - 1
             );
             geometry.rotateX(-Math.PI / 2);
 
@@ -249,8 +278,10 @@ export function crea(opciones) {
               vertices[j + 1] = data[i] * 20;
             }
 
+            // Aplicamos sombras
+
             textura = new THREE.CanvasTexture(
-              generateTexture(data, worldWidth, worldDepth)
+              generarTextura(data, anchoMundo, profundidadMundo)
             );
             textura.wrapS = THREE.ClampToEdgeWrapping;
             textura.wrapT = THREE.ClampToEdgeWrapping;
@@ -261,6 +292,8 @@ export function crea(opciones) {
             );
             escena.add(terreno);
 
+            // Creamos un helper que nos permita girar la cámara mirando siempre al centro
+
             const geometryHelper = new THREE.ConeGeometry(20, 100, 3);
             geometryHelper.translate(0, 50, 0);
             geometryHelper.rotateX(Math.PI / 2);
@@ -270,13 +303,12 @@ export function crea(opciones) {
             );
             escena.add(helper);
 
-            contenedor3d.addEventListener("pointermove", onPointerMove);
+            // Añadimos los listeners de los eventos
 
+            contenedor3d.addEventListener("pointermove", onPointerMove);
             window.addEventListener("resize", onWindowResize);
 
-            const urlSeed = baseUrl + "?" + searchParams.toString();
-
-            console.log(urlSeed);
+            // Añadimos la portada al canvas
 
             contenedorPortada.appendChild(canvasPortada);
 
@@ -289,8 +321,8 @@ export function crea(opciones) {
                 let contenedorContra = document.querySelector(contra);
 
                 let canvasContra = document.createElement("canvas");
-                canvasContra.width = windowWidth;
-                canvasContra.height = windowHeight;
+                canvasContra.width = anchoImagen;
+                canvasContra.height = altoImagen;
 
                 let ctxContra = canvasContra.getContext("2d");
 
@@ -300,7 +332,7 @@ export function crea(opciones) {
 
                 let tamanoQR = 218;
 
-                let qrcode = new QRious({
+                new QRious({
                   element: contenedorQR,
                   value: urlSeed,
                   size: tamanoQR,
@@ -322,13 +354,13 @@ export function crea(opciones) {
                 // Imprimos el QR en 2 esquinas
                 ctxContra.drawImage(
                   imgQR,
-                  windowWidth - tamanoQR - margenQR,
+                  anchoImagen - tamanoQR - margenQR,
                   margenQR
                 );
                 ctxContra.drawImage(
                   imgQR,
                   margenQR,
-                  windowHeight - tamanoQR - margenQR
+                  altoImagen - tamanoQR - margenQR
                 );
 
                 contenedorContra.appendChild(canvasContra);
@@ -337,46 +369,52 @@ export function crea(opciones) {
           }
 
           function onWindowResize() {
-            camara.aspect = windowWidth / windowHeight;
+            camara.aspect = anchoImagen / altoImagen;
             camara.updateProjectionMatrix();
 
-            renderer.setSize(windowWidth, windowHeight);
+            renderer.setSize(anchoImagen, altoImagen);
           }
 
-          function generateHeight(width, height) {
-            const size = width * height,
-              radius = width / 6,
-              data = new Uint8Array(size),
+          /**
+           * Genera un array con las alturas del terreno
+           *
+           * @param   {number}      ancho Ancho de la superficie sobre la que generar alturas
+           * @param   {number}      alto  Alto de la superficie sobre la que generar alturas
+           * @returns {Uint8Array}        Array de bytes con las alturas generadas
+           */
+          function generarAlturas(ancho, alto) {
+            const tamano = ancho * alto,
+              data = new Uint8Array(tamano),
               perlin = new ImprovedNoise();
 
-            let quality = 1;
+            let calidad = 1;
             let base = 100;
 
             for (let j = 0; j < 4; j++) {
-              for (let i = 0; i < size; i++) {
-                const x = i % width,
-                  y = ~~(i / width);
+              for (let i = 0; i < tamano; i++) {
+                const x = i % ancho,
+                  y = ~~(i / ancho);
 
                 data[i] += Math.abs(
-                  perlin.noise(x / quality, y / quality, forma) * quality * 1.75
+                  perlin.noise(x / calidad, y / calidad, forma) * calidad * 1.75
                 );
               }
 
-              quality *= 5;
+              calidad *= 5;
             }
 
+            // En ese terreno, generamos un abismo que lo atraviese
             let tamanoAbismo = 60;
 
             if (conAbismo) {
-              for (let i = 0; i < size; i++) {
-                const x = i % width,
-                  y = ~~(i / width);
+              for (let i = 0; i < tamano; i++) {
+                const x = i % ancho,
+                  y = ~~(i / ancho);
 
                 if (
-                  x > width / 2 - tamanoAbismo &&
-                  x < width / 2 + tamanoAbismo
+                  x > ancho / 2 - tamanoAbismo &&
+                  x < ancho / 2 + tamanoAbismo
                 ) {
-                  // if (x > width / 2 - tamanoAbismo) {
                   data[i] = 0;
                 } else {
                   data[i] += base;
@@ -387,75 +425,87 @@ export function crea(opciones) {
             return data;
           }
 
-          function generateTexture(data, width, height) {
-            // bake lighting into texture
-
-            let context, image, imageData, shade;
+          /**
+           *  Genera una textura a partir de un array de bytes con las alturas del terreno
+           *
+           * @param {Uint8array} data Array de bytes con las alturas del terreno
+           * @param {number} ancho Ancho del terreno
+           * @param {number} alto Alto del terreno
+           * @returns {*} El canvas con la textura generada
+           */
+          function generarTextura(data, ancho, alto) {
+            // Aplicamos luz y sombra al terreno
+            let context, imagen, imagenData, sombra;
 
             const vector3 = new THREE.Vector3(0, 0, 0);
 
-            const sun = new THREE.Vector3(1, 1, 10);
-            sun.normalize();
+            const sol = new THREE.Vector3(1, 1, 10);
+            sol.normalize();
 
             const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = ancho;
+            canvas.height = alto;
 
             context = canvas.getContext("2d");
             context.fillStyle = "#000";
-            context.fillRect(0, 0, width, height);
+            context.fillRect(0, 0, canvas.width, canvas.height);
 
-            image = context.getImageData(0, 0, canvas.width, canvas.height);
-            imageData = image.data;
+            imagen = context.getImageData(0, 0, canvas.width, canvas.height);
+            imagenData = imagen.data;
 
-            for (let i = 0, j = 0, l = imageData.length; i < l; i += 4, j++) {
+            for (let i = 0, j = 0, l = imagenData.length; i < l; i += 4, j++) {
               vector3.x = data[j - 2] - data[j + 2];
               vector3.y = 2;
-              vector3.z = data[j - width * 2] - data[j + width * 2];
+              vector3.z =
+                data[j - canvas.width * 2] - data[j + canvas.width * 2];
               vector3.normalize();
 
-              shade = vector3.dot(sun);
+              sombra = vector3.dot(sol);
 
-              imageData[i] = (96 + shade * 128) * (0.5 + data[j] * 0.007);
-              imageData[i + 1] = (32 + shade * 96) * (0.5 + data[j] * 0.007);
-              imageData[i + 2] = shade * 96 * (0.5 + data[j] * 0.007);
+              imagenData[i] = (96 + sombra * 128) * (0.5 + data[j] * 0.007);
+              imagenData[i + 1] = (32 + sombra * 96) * (0.5 + data[j] * 0.007);
+              imagenData[i + 2] = sombra * 96 * (0.5 + data[j] * 0.007);
             }
 
-            context.putImageData(image, 0, 0);
+            context.putImageData(imagen, 0, 0);
 
-            // Scaled 4x
+            // Escalamos la imagen x4
 
-            const canvasScaled = document.createElement("canvas");
-            canvasScaled.width = width * 4;
-            canvasScaled.height = height * 4;
+            const canvasEscalado = document.createElement("canvas");
+            canvasEscalado.width = canvas.width * 4;
+            canvasEscalado.height = canvas.height * 4;
 
-            context = canvasScaled.getContext("2d");
+            context = canvasEscalado.getContext("2d");
             context.scale(4, 4);
             context.drawImage(canvas, 0, 0);
 
-            image = context.getImageData(
+            imagen = context.getImageData(
               0,
               0,
-              canvasScaled.width,
-              canvasScaled.height
+              canvasEscalado.width,
+              canvasEscalado.height
             );
-            imageData = image.data;
+            imagenData = imagen.data;
 
-            for (let i = 0, l = imageData.length; i < l; i += 4) {
-              const v = ~~(generator() * 5);
+            for (let i = 0, l = imagenData.length; i < l; i += 4) {
+              const v = ~~(generador() * 5);
 
-              imageData[i] += v;
-              imageData[i + 1] += v;
-              imageData[i + 2] += v;
+              imagenData[i] += v;
+              imagenData[i + 1] += v;
+              imagenData[i + 2] += v;
             }
 
-            context.putImageData(image, 0, 0);
+            context.putImageData(imagen, 0, 0);
 
-            return canvasScaled;
+            return canvasEscalado;
           }
 
-          //
-
+          /**
+           * Anima la escena
+           *
+           * @returns {void}
+           * @private
+           */
           function animate() {
             requestAnimationFrame(animate);
 
@@ -465,6 +515,12 @@ export function crea(opciones) {
             }
           }
 
+          /**
+           * Renderiza la escena
+           *
+           * @returns {void}
+           * @private
+           */
           function render() {
             if (conEfecto) {
               efectoAscii.render(escena, camara);

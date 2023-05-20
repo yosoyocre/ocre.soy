@@ -76,7 +76,6 @@ class AsciiEffectDebil {
     const front = new Image();
 
     front.src = urlBase + "img/front.png";
-    // front.src = "img/yo.png";
 
     function asciifyImage() {
       oCtx.clearRect(0, 0, iWidth, iHeight);
@@ -128,13 +127,8 @@ class AsciiEffectDebil {
             (x * width) / iWidth,
             (y * height) / iHeight
           );
-          // targetCtx.fillText("@", (x * width) / iWidth, (y * height) / iHeight);
         }
       }
-
-      // Fondo de las letras
-      // targetCtx.fillStyle = "rgb(255, 255, 255)";
-      // targetCtx.fillRect(width * 0.62, height * 0.63, width, height);
 
       targetCtx.drawImage(front, 0, 0, width, height);
     }
