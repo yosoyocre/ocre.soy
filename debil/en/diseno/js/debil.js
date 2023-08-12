@@ -78,10 +78,11 @@ const fecha = (date) => {
 /**
  * Crea una portada y contraportada del disco Débil
  *
- * @param   {Object}  opciones                Opciones para crear la portada y contraportada
- * @param   {string}  opciones.portada        Selector CSS que especifica el elemento donde se creará la portada
- * @param   {string}  opciones.contra         Selector CSS que especifica el elemento donde se creará la contraportada
- * @param   {boolean} opciones.conMovimiento  Si la portada tiene movimiento o no
+ * @param   {Object}  opciones                           Opciones para crear la portada y contraportada
+ * @param   {string}  opciones.portada                   Selector CSS que especifica el elemento donde se creará la portada
+ * @param   {string}  opciones.contra                    Selector CSS que especifica el elemento donde se creará la contraportada
+ * @param   {boolean} opciones.conMovimiento             Si la portada tiene movimiento o no
+ * @param   {boolean} opciones.conPosicionInicialRandom  Si la portada se genera en una posición random o no
  * @returns {void}
  * @public
  */
@@ -97,6 +98,7 @@ export function crea(opciones) {
   let detenido = false;
 
   // Cargamos los scripts necesarios
+  // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
       loadScript(URL_BASE + "node_modules/qrious/dist/qrious.min.js")
@@ -107,6 +109,10 @@ export function crea(opciones) {
           let conMovimiento =
             opciones.conMovimiento !== undefined
               ? opciones.conMovimiento
+              : true;
+          let conPosicionInicialRandom =
+            opciones.conPosicionInicialRandom !== undefined
+              ? opciones.conPosicionInicialRandom
               : true;
 
           let contenedor3d, contenedorPortada;
@@ -283,7 +289,9 @@ export function crea(opciones) {
             controles.target.y =
               data[medioAnchoMundo + mediaProfundidadMundo * anchoMundo] + 500;
             camara.position.y = controles.target.y + 10000;
-            camara.position.x = 2000;
+            camara.position.x = conPosicionInicialRandom
+              ? generador() * 10000
+              : 2000;
             camara.position.z = 3000;
             controles.update();
 

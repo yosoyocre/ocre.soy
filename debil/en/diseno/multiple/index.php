@@ -91,6 +91,7 @@ if (isset($_POST['generar'])) :
           portada: "#portada_" + i,
           contra: "#contra_" + i,
           conMovimiento: false,
+          conPosicionInicialRandom: true
         });
       }
     </script>
@@ -116,7 +117,11 @@ else :
 
       <p>
         Este es un sistema para generar varios diseños del <a href="/debil/en/diseno">débil</a> a la vez. <br>
-        Para que quede bien, hay que convertirla a <b>CMYK</b> e imprimirla a color <b>mate</b> en un papel de <b>180grs</b>.
+        Para que quede bien, hay que convertirla a <b>CMYK</b>. Para ello: <br>
+      </p>
+      <pre>gs -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -sColorConversionStrategy=CMYK -sColorConversionStrategyForImages=CMYK -dEncodeColorImages=false -o output.pdf input.pdf</pre>
+      <p>
+        Luego, imprimirla a color <b>mate</b> en un papel de <b>180grs</b>.
       </p>
 
       <form method="post">
