@@ -113,7 +113,7 @@ export function crea(opciones) {
           let conPosicionInicialRandom =
             opciones.conPosicionInicialRandom !== undefined
               ? opciones.conPosicionInicialRandom
-              : true;
+              : false;
 
           let contenedor3d, contenedorPortada;
 
@@ -289,8 +289,11 @@ export function crea(opciones) {
             controles.target.y =
               data[medioAnchoMundo + mediaProfundidadMundo * anchoMundo] + 500;
             camara.position.y = controles.target.y + 10000;
+
+            let posiblePosicionInicialRandom = generador() * 4000;
+
             camara.position.x = conPosicionInicialRandom
-              ? generador() * 10000
+              ? posiblePosicionInicialRandom
               : 2000;
             camara.position.z = 3000;
             controles.update();
