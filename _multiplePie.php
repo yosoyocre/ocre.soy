@@ -22,7 +22,7 @@
       <div class="form-inline">
         <div class="form-group">
           <label for="n">Número de diseños</label>
-          <input style="max-width: 100px;" type="number" class="form-control m-l-lg" id="n" name="n">
+          <input style="max-width: 100px;" type="number" class="form-control m-l-lg" id="n" name="n" min="1" value="1">
         </div>
       </div>
       <div class="form-group">
