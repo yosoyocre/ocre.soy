@@ -1,6 +1,6 @@
 <?php
-$idDisco = 'debil';
-$nombreDisco = 'débil';
+$idDisco = 'vago';
+$nombreDisco = 'vago';
 
 if (isset($_POST['generar'])) :
 
