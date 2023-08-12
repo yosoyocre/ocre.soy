@@ -9,7 +9,6 @@ services:
       dockerfile: docker/app/Dockerfile
     image: ocre
     container_name: ocre-app
-    restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
@@ -18,7 +17,6 @@ services:
   nginx:
     image: nginx:alpine
     container_name: ocre-nginx
-    restart: unless-stopped
     ports:
       - 80:80
     volumes:
