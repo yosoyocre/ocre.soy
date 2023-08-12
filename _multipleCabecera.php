@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $nombreDisco ?> Múltiple</title>
+    <title><?= $idDisco ?>Multiple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">

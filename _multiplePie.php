@@ -11,11 +11,6 @@
 
     <p>
       Este es un sistema para generar varios diseños del <a href="/<?= $idDisco ?>/en/diseno"><?= $nombreDisco ?></a> a la vez. <br>
-      Para que quede bien, hay que convertirla a <b>CMYK</b>. Para ello: <br>
-    </p>
-    <pre>gs -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -sColorConversionStrategy=CMYK -sColorConversionStrategyForImages=CMYK -dEncodeColorImages=false -o output.pdf input.pdf</pre>
-    <p>
-      Luego, imprimirla a color <b>mate</b> en un papel de <b>180grs</b>.
     </p>
 
     <form method="post">
@@ -31,6 +26,16 @@
       </div>
       <button name="generar" type="submit" class="btn btn-default">Generar</button>
     </form>
+
+    <p>
+      Para que quede bien, hay que convertirla a <b>CMYK</b>. Para ello:
+    </p>
+    <p>
+      <code>gs -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -sColorConversionStrategy=CMYK -sColorConversionStrategyForImages=CMYK -dEncodeColorImages=false -o <?= $idDisco ?>MultipleCYMK.pdf <?= $idDisco ?>Multiple.pdf</code>
+    </p>
+    <p>
+      Luego, imprimirla a color <b>mate</b> en un papel de <b>180grs</b>.
+    </p>
 
   </div>
 </div>
