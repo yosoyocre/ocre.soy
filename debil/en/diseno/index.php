@@ -57,6 +57,7 @@
     borrar = crea({
       portada: "#portada",
       contra: "#contra",
+      // conTextoPortada: false
       // conMovimiento: false,
     });
   }
