@@ -237,13 +237,12 @@ export function crea(opciones) {
             // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
             let posiblesCaracteres = [
               "#@%=*+-:·  ",
-              "█▓▒░ ",
+              "██⣿⣿  ",
               "█▛▚▝ ",
               "╬╠║╗┐- ",
               "●ø•:· ",
               "✺✹✸✷✶✦· ",
               "⣿⣷⣶⣦⣤⣄⣀⡀  ",
-              "█▓▒░⣿⣷⣶⣦⣤⣄⣀⡀ ",
             ];
 
             if (caracteresElegidos.length > 0) {
@@ -447,7 +446,7 @@ export function crea(opciones) {
 
                 ctxContra.font = "20px monospace";
                 ctxContra.textAlign = "right";
-                ctxContra.fillStyle = "rgb(200,200,200)";
+                ctxContra.fillStyle = "rgb(181,181,181)";
                 ctxContra.fillText(textoContra, 19 * 70, 19 * 70);
 
                 contenedorContra.appendChild(canvasContra);

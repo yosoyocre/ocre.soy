@@ -31,6 +31,17 @@
             border-top: 1px solid #ddd;
         }
 
+        .portada.front.centrado canvas,
+        .portada.front.centrado .canvas,
+        .portada.back.centrado canvas,
+        .portada.back.centrado .canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ddd;
+        }
+
         @media print {
             .pagina {
                 page-break-after: always;
