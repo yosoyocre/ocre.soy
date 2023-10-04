@@ -25,19 +25,23 @@ if (isset($_POST['generar'])) :
       for (i = 0; i < n; i++) {
 
         let portada = document.createElement('div');
-        portada.className = 'portada front';
+        portada.className = 'portada front centrado';
         portada.id = 'portada_' + i;
 
         let contra = document.createElement('div');
-        contra.className = 'portada back';
+        contra.className = 'portada back centrado';
         contra.id = 'contra_' + i;
 
-        let pagina = document.createElement('div');
-        pagina.className = 'pagina';
+        let pagina1 = document.createElement('div');
+        pagina1.className = 'pagina';
+        pagina1.appendChild(portada);
 
-        pagina.appendChild(portada);
-        pagina.appendChild(contra);
-        disenos.appendChild(pagina);
+        let pagina2 = document.createElement('div');
+        pagina2.className = 'pagina';
+        pagina2.appendChild(contra);
+
+        disenos.appendChild(pagina1);
+        disenos.appendChild(pagina2);
 
         crea({
           portada: "#portada_" + i,

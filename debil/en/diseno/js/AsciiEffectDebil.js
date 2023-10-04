@@ -20,6 +20,10 @@ class AsciiEffectDebil {
     const bColor = options["color"] || false; // nice but slows down rendering!
     const bInvert = options["invert"] || false; // black is white, white is black
     const strResolution = options["strResolution"] || "low";
+    const conTextoPortada =
+      options["conTextoPortada"] !== undefined
+        ? options["conTextoPortada"]
+        : true;
 
     let width, height;
 
@@ -130,7 +134,9 @@ class AsciiEffectDebil {
         }
       }
 
-      targetCtx.drawImage(front, 0, 0, width, height);
+      if (conTextoPortada) {
+        targetCtx.drawImage(front, 0, 0, width, height);
+      }
     }
   }
 }

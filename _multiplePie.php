@@ -34,7 +34,7 @@
       <code>gs -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -sColorConversionStrategy=CMYK -sColorConversionStrategyForImages=CMYK -dEncodeColorImages=false -o <?= $idDisco ?>MultipleCYMK.pdf <?= $idDisco ?>Multiple.pdf</code>
     </p>
     <p>
-      Luego, imprimirla a color <b>mate</b> en un papel de <b>180grs</b>.
+      Luego, imprimirla a color <b>mate</b> en un papel <b>estucado</b> de <b>170grs</b>.
     </p>
 
   </div>

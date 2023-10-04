@@ -81,8 +81,12 @@ const fecha = (date) => {
  * @param   {Object}  opciones                           Opciones para crear la portada y contraportada
  * @param   {string}  opciones.portada                   Selector CSS que especifica el elemento donde se creará la portada
  * @param   {string}  opciones.contra                    Selector CSS que especifica el elemento donde se creará la contraportada
+ * @param   {array}   opciones.caracteresElegidos        Array con los índices de los caracteres a utilizar
  * @param   {boolean} opciones.conMovimiento             Si la portada tiene movimiento o no
  * @param   {boolean} opciones.conPosicionInicialRandom  Si la portada se genera en una posición random o no
+ * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
+ * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
+ * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
  * @returns {void}
  * @public
  */
@@ -106,6 +110,10 @@ export function crea(opciones) {
           let proceso = Math.random();
           let portada = opciones.portada;
           let contra = opciones.contra;
+          let caracteresElegidos =
+            opciones.caracteresElegidos !== undefined
+              ? opciones.caracteresElegidos
+              : [];
           let conMovimiento =
             opciones.conMovimiento !== undefined
               ? opciones.conMovimiento
@@ -114,6 +122,11 @@ export function crea(opciones) {
             opciones.conPosicionInicialRandom !== undefined
               ? opciones.conPosicionInicialRandom
               : false;
+          let conTextoPortada =
+            opciones.conTextoPortada !== undefined
+              ? opciones.conTextoPortada
+              : true;
+          let conColorEnNegativo = opciones.conColorEnNegativo;
 
           let contenedor3d, contenedorPortada;
 
@@ -202,6 +215,13 @@ export function crea(opciones) {
             luminanceBase
           );
 
+          let conAbismoCircular =
+            opciones.conAbismoCircular !== undefined
+              ? opciones.conAbismoCircular
+              : generador() > 0.5;
+
+          console.log("conAbismoCircular", conAbismoCircular);
+
           init();
           animate();
 
@@ -217,14 +237,23 @@ export function crea(opciones) {
             // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
             let posiblesCaracteres = [
               "#@%=*+-:·  ",
-              "█▓▒░ ",
+              "██⣿⣿  ",
               "█▛▚▝ ",
               "╬╠║╗┐- ",
               "●ø•:· ",
               "✺✹✸✷✶✦· ",
               "⣿⣷⣶⣦⣤⣄⣀⡀  ",
-              "█▓▒░⣿⣷⣶⣦⣤⣄⣀⡀ ",
             ];
+
+            if (caracteresElegidos.length > 0) {
+              let posiblesCaracteresElegidos = [];
+
+              caracteresElegidos.forEach((e) => {
+                posiblesCaracteresElegidos.push(posiblesCaracteres[e]);
+              });
+
+              posiblesCaracteres = posiblesCaracteresElegidos;
+            }
 
             // Tomamos una cadena aleatoria de caracteres
             let caracteres =
@@ -233,8 +262,14 @@ export function crea(opciones) {
               ];
 
             // Invertir el efecto ASCII?
-            if (generador() > 0.5) {
-              caracteres = caracteres.split("").reverse().join("");
+            if (conColorEnNegativo !== undefined) {
+              if (conColorEnNegativo) {
+                caracteres = caracteres.split("").reverse().join("");
+              }
+            } else {
+              if (generador() > 0.5) {
+                caracteres = caracteres.split("").reverse().join("");
+              }
             }
 
             let canvasPortada = document.createElement("canvas");
@@ -252,6 +287,7 @@ export function crea(opciones) {
                 resolution: 0.1,
                 scale: 1,
                 color: "rgb(0,255,0)",
+                conTextoPortada: conTextoPortada,
               }
             );
             efectoAscii.setSize(anchoImagen, altoImagen);
@@ -410,7 +446,7 @@ export function crea(opciones) {
 
                 ctxContra.font = "20px monospace";
                 ctxContra.textAlign = "right";
-                ctxContra.fillStyle = "rgb(200,200,200)";
+                ctxContra.fillStyle = "rgb(181,181,181)";
                 ctxContra.fillText(textoContra, 19 * 70, 19 * 70);
 
                 contenedorContra.appendChild(canvasContra);
@@ -423,6 +459,10 @@ export function crea(opciones) {
             camara.updateProjectionMatrix();
 
             renderer.setSize(anchoImagen, altoImagen);
+          }
+
+          function distancia(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
           }
 
           /**
@@ -453,21 +493,37 @@ export function crea(opciones) {
               calidad *= 5;
             }
 
-            // En ese terreno, generamos un abismo que lo atraviese
-            let tamanoAbismo = 60;
-
-            if (conAbismo) {
+            if (conAbismoCircular) {
+              let tamanoAbismo = ancho / 4;
+              // Creamos un círculo en el centro
+              // y al resto de puntos les sumamos una altura base
               for (let i = 0; i < tamano; i++) {
                 const x = i % ancho,
                   y = ~~(i / ancho);
-
-                if (
-                  x > ancho / 2 - tamanoAbismo &&
-                  x < ancho / 2 + tamanoAbismo
-                ) {
+                const d = distancia(x, y, ancho / 2, ancho / 2);
+                if (d < tamanoAbismo) {
                   data[i] = 0;
                 } else {
                   data[i] += base;
+                }
+              }
+            } else {
+              // En ese terreno, generamos un abismo que lo atraviese
+              let tamanoAbismo = 60;
+
+              if (conAbismo) {
+                for (let i = 0; i < tamano; i++) {
+                  const x = i % ancho,
+                    y = ~~(i / ancho);
+
+                  if (
+                    x > ancho / 2 - tamanoAbismo &&
+                    x < ancho / 2 + tamanoAbismo
+                  ) {
+                    data[i] = 0;
+                  } else {
+                    data[i] += base;
+                  }
                 }
               }
             }
