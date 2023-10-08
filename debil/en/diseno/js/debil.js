@@ -88,9 +88,11 @@ const fecha = (date) => {
  * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
  * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
+ * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
  * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
  * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
  * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
+ * @param   {boolean} opciones.objeto.posicionZ          Posición Z de la cámara
  * @returns {void}
  * @public
  */
@@ -131,6 +133,8 @@ export function crea(opciones) {
               ? opciones.conTextoPortada
               : true;
           let conColorEnNegativo = opciones.conColorEnNegativo;
+          let conEfecto =
+            opciones.conEfecto !== undefined ? opciones.conEfecto : true;
 
           let contenedor3d, contenedorPortada;
 
@@ -139,7 +143,6 @@ export function crea(opciones) {
           let terreno;
           let objeto;
 
-          const conEfecto = true;
           const conAbismo = true;
 
           const anchoMundo = 800,
@@ -334,7 +337,10 @@ export function crea(opciones) {
             camara.position.x = conPosicionInicialRandom
               ? posiblePosicionInicialRandom
               : 2000;
-            camara.position.z = 3000;
+            camara.position.z =
+              opciones.objeto && opciones.objeto.posicionZ
+                ? opciones.objeto.posicionZ
+                : 3000;
             controles.update();
 
             // Generamos el terreno
@@ -357,15 +363,16 @@ export function crea(opciones) {
             // Aplicamos sombras
 
             if (opciones.objeto !== undefined) {
-              // Por ahora no cargamos luces de ambiente para tener más contraste
-              // const ambientLight = new THREE.AmbientLight(0xcccccc);
-              // ambientLight.name = "AmbientLight";
-              // escena.add(ambientLight);
+              if (opciones.objeto.conLuzAmbiente) {
+                const ambientLight = new THREE.AmbientLight(0xcccccc);
+                ambientLight.name = "AmbientLight";
+                escena.add(ambientLight);
+              }
 
               const dirLight = new THREE.DirectionalLight(0xffffff, 3);
               dirLight.target.position.set(0, 10, -1);
               dirLight.add(dirLight.target);
-              dirLight.lookAt(-1, -1, 0);
+              dirLight.lookAt(-1, -10, 0);
               dirLight.name = "DirectionalLight";
               escena.add(dirLight);
 
@@ -373,7 +380,11 @@ export function crea(opciones) {
               loader.load(opciones.objeto.path, function (gltf) {
                 objeto = gltf.scene;
                 objeto.scale.setScalar(opciones.objeto.tamano);
-                objeto.position.set(0, 0, 0);
+                objeto.position.set(
+                  opciones.objeto.posicion[0],
+                  opciones.objeto.posicion[1],
+                  opciones.objeto.posicion[2]
+                );
                 escena.add(objeto);
               });
             } else {

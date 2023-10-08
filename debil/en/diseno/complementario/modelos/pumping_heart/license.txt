@@ -1,0 +1,11 @@
+Model Information:
+* title:	PUMPING HEART MODEL
+* source:	https://sketchfab.com/3d-models/pumping-heart-model-6f815b9822dc479eae0a17b8dcab9c75
+* author:	omarelone (https://sketchfab.com/omarelone)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "PUMPING HEART MODEL" (https://sketchfab.com/3d-models/pumping-heart-model-6f815b9822dc479eae0a17b8dcab9c75) by omarelone (https://sketchfab.com/omarelone) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -10,8 +10,8 @@
       #portada canvas {
         margin: 20px;
         border: 1px solid #ddd;
-        max-width: 600px;
-        max-height: 600px;
+        max-width: 1000px;
+        max-height: 1000px;
         width: calc(100% - 40px);
         height: auto;
       }
@@ -33,15 +33,15 @@
 
     <script type="module">
       import { crea } from "../js/debil.js";
+      import modelo from "./modelos/pumping_heart.js";
+      //   import modelo from "./modelos/skull.js";
 
       crea({
         portada: "#portada",
         conTextoPortada: false,
         conMovimiento: true,
-        objeto: {
-          path: "./modelos/ShaderBall.glb",
-          tamano: 1500,
-        },
+        // conEfecto: false,
+        objeto: modelo,
       });
     </script>
   </body>
