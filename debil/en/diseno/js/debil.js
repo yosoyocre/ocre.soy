@@ -145,8 +145,6 @@ export function crea(opciones) {
           const anchoImagen = 1400;
           const altoImagen = 1400;
 
-          let helper;
-
           const raycaster = new THREE.Raycaster();
           const pointer = new THREE.Vector2();
 
@@ -370,11 +368,6 @@ export function crea(opciones) {
             geometriaHelper = new THREE.ConeGeometry(20, 100, 3);
             geometriaHelper.translate(0, 50, 0);
             geometriaHelper.rotateX(Math.PI / 2);
-            helper = new THREE.Mesh(
-              geometriaHelper,
-              new THREE.MeshNormalMaterial()
-            );
-            escena.add(helper);
 
             // Añadimos los listeners de los eventos
 
@@ -383,7 +376,11 @@ export function crea(opciones) {
 
             // Añadimos la portada al canvas
 
-            contenedorPortada.appendChild(canvasPortada);
+            if (conEfecto) {
+              contenedorPortada.appendChild(canvasPortada);
+            } else {
+              contenedorPortada.appendChild(renderer.domElement);
+            }
 
             // Generamos la contraportada si se indica en las opciones
 
@@ -646,14 +643,6 @@ export function crea(opciones) {
 
             // See if the ray from the camara into the world hits one of our meshes
             const intersects = raycaster.intersectObject(terreno);
-
-            // Toggle rotation bool for meshes that we clicked
-            if (intersects.length > 0) {
-              helper.position.set(0, 0, 0);
-              helper.lookAt(intersects[0].face.normal);
-
-              helper.position.copy(intersects[0].point);
-            }
           }
         })
         .catch((err) => {
