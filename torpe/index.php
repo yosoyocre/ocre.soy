@@ -12,7 +12,7 @@
       formado por 6 canciones que combinan el pop, el kraut y la música electrónica.
     </p>
     <p>
-      Puedes escucharlo aquí o en el <a href="http://discosdekirlian.bandcamp.com/album/torpe">el bandcamp de DK</a>.
+      Puedes escucharlo aquí o en <a href="http://discosdekirlian.bandcamp.com/album/torpe">el bandcamp de DK</a>.
     </p>
   </div>
 </div>

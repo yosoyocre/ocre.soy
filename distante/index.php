@@ -8,7 +8,7 @@
     <p>
       Ocre == Edu Poch, músico amateur e informático de profesión. <br>
       Integrante de <a href="http://discosdekirlian.com/">Discos de Kirlian</a>
-      desde octubre de 2014. <br>
+      entre 2014 y 2023. <br>
       Fue componente de <a href="http://nouvellecuisine.bandcamp.com/">Nouvelle Cuisine</a>
       y <a href="https://elvisnegrata.bandcamp.com">Elvis Negro</a>. <br>
       Y desde 2019 toca en <a href="https://atrastigre.bandcamp.com/">Atrás Tigre</a>.
@@ -16,12 +16,11 @@
     <p>
       Si quieres ponerte en contacto conmigo, mándame un correo a
       <a href="mailto:yosoyocre@gmail.com">yosoyocre@gmail.com</a>
-      o pásate por mi cuenta de <a href="https://www.facebook.com/yosoyocre">facebook</a> o
-      <a href="https://twitter.com/yosoyocre">twitter</a>.
+      o pásate por mi cuenta de <a href="https://instagram.com/odepoche">instagram</a>.
     </p>
   </div>
   <div class="col-lg-4">
-    <img src="img/ocre.png" alt="ocre" class="img-fluid sin-sombra img-circle" style="margin-top: 1.4rem"/>
+    <img src="img/ocre.png" alt="ocre" class="img-fluid sin-sombra img-circle" style="margin-top: 1.4rem" />
   </div>
 </div>
 
