@@ -3,6 +3,7 @@ import * as THREE from "./three.module.js";
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
 import { OrbitControls } from "./OrbitControls.js";
 import { ImprovedNoise } from "./ImprovedNoise.js";
+import { GLTFLoader } from "./GLTFLoader.js";
 
 /**
  * Carga un script de forma asíncrona
@@ -87,6 +88,9 @@ const fecha = (date) => {
  * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
  * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
+ * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
+ * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
+ * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
  * @returns {void}
  * @public
  */
@@ -133,6 +137,7 @@ export function crea(opciones) {
           let camara, controles, escena;
 
           let terreno;
+          let objeto;
 
           const conEfecto = true;
           const conAbismo = true;
@@ -351,17 +356,39 @@ export function crea(opciones) {
 
             // Aplicamos sombras
 
-            textura = new THREE.CanvasTexture(
-              generarTextura(data, anchoMundo, profundidadMundo)
-            );
-            textura.wrapS = THREE.ClampToEdgeWrapping;
-            textura.wrapT = THREE.ClampToEdgeWrapping;
+            if (opciones.objeto !== undefined) {
+              // Por ahora no cargamos luces de ambiente para tener más contraste
+              // const ambientLight = new THREE.AmbientLight(0xcccccc);
+              // ambientLight.name = "AmbientLight";
+              // escena.add(ambientLight);
 
-            terreno = new THREE.Mesh(
-              geometria,
-              new THREE.MeshBasicMaterial({ map: textura })
-            );
-            escena.add(terreno);
+              const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+              dirLight.target.position.set(0, 10, -1);
+              dirLight.add(dirLight.target);
+              dirLight.lookAt(-1, -1, 0);
+              dirLight.name = "DirectionalLight";
+              escena.add(dirLight);
+
+              const loader = new GLTFLoader();
+              loader.load(opciones.objeto.path, function (gltf) {
+                objeto = gltf.scene;
+                objeto.scale.setScalar(opciones.objeto.tamano);
+                objeto.position.set(0, 0, 0);
+                escena.add(objeto);
+              });
+            } else {
+              textura = new THREE.CanvasTexture(
+                generarTextura(data, anchoMundo, profundidadMundo)
+              );
+              textura.wrapS = THREE.ClampToEdgeWrapping;
+              textura.wrapT = THREE.ClampToEdgeWrapping;
+
+              terreno = new THREE.Mesh(
+                geometria,
+                new THREE.MeshBasicMaterial({ map: textura })
+              );
+              escena.add(terreno);
+            }
 
             // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
@@ -642,7 +669,11 @@ export function crea(opciones) {
             raycaster.setFromCamera(pointer, camara);
 
             // See if the ray from the camara into the world hits one of our meshes
-            const intersects = raycaster.intersectObject(terreno);
+            if (opciones.objeto !== undefined) {
+              const intersects = raycaster.intersectObject(objeto);
+            } else {
+              const intersects = raycaster.intersectObject(terreno);
+            }
           }
         })
         .catch((err) => {
