@@ -24,6 +24,7 @@ class AsciiEffectDebil {
       options["conTextoPortada"] !== undefined
         ? options["conTextoPortada"]
         : true;
+    let margin = options["margen"] !== undefined ? options["margen"] : 4;
 
     let width, height;
 
@@ -102,8 +103,6 @@ class AsciiEffectDebil {
         "," +
         colorBase["b"] +
         ")";
-
-      let margin = 4;
 
       for (let y = margin; y < iHeight - margin; y += 2) {
         for (let x = margin; x < iWidth - margin; x++) {

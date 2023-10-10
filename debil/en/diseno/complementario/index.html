@@ -8,12 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       #portada canvas {
-        margin: 20px;
-        border: 1px solid #ddd;
-        max-width: 1000px;
-        max-height: 1000px;
-        width: calc(100% - 40px);
-        height: auto;
+        width: 100vw;
+        height: 100vh;
       }
     </style>
   </head>
@@ -33,15 +29,21 @@
 
     <script type="module">
       import { crea } from "../js/debil.js";
-      // import modelo from "./modelos/pumping_heart.js";
-      // import modelo from "./modelos/skull.js";
-      import modelo from "./modelos/eggplant.js";
+      // import modelo from "./modelos/pumping_heart/modelo.js";
+      // import modelo from "./modelos/skull/modelo.js";
+      // import modelo from "./modelos/eggplant/modelo.js";
+      // import modelo from "./modelos/colt/modelo.js";
+      // import modelo from "./modelos/retro_computer/modelo.js";
+      import modelo from "./modelos/sonic/modelo.js";
 
       crea({
         portada: "#portada",
         conTextoPortada: false,
         conMovimiento: true,
         // conEfecto: false,
+        // conColorEnNegativo: false,
+        alto: 782,
+        margen: 0,
         objeto: modelo,
       });
     </script>

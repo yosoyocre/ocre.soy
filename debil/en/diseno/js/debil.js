@@ -89,6 +89,9 @@ const fecha = (date) => {
  * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
+ * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
+ * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
+ * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
  * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
  * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
  * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
@@ -150,8 +153,8 @@ export function crea(opciones) {
             medioAnchoMundo = anchoMundo / 2,
             mediaProfundidadMundo = profundidadMundo / 2;
 
-          const anchoImagen = 1400;
-          const altoImagen = 1400;
+          const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
+          const altoImagen = opciones.alto ? opciones.alto : 1400;
 
           const raycaster = new THREE.Raycaster();
           const pointer = new THREE.Vector2();
@@ -293,6 +296,7 @@ export function crea(opciones) {
                 resolution: 0.1,
                 scale: 1,
                 color: "rgb(0,255,0)",
+                margen: opciones.margen,
                 conTextoPortada: conTextoPortada,
               }
             );
