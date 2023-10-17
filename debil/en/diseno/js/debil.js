@@ -3,6 +3,7 @@ import * as THREE from "./three.module.js";
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
 import { OrbitControls } from "./OrbitControls.js";
 import { ImprovedNoise } from "./ImprovedNoise.js";
+import { GLTFLoader } from "./GLTFLoader.js";
 
 /**
  * Carga un script de forma asíncrona
@@ -87,6 +88,14 @@ const fecha = (date) => {
  * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
  * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
+ * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
+ * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
+ * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
+ * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
+ * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
+ * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
+ * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
+ * @param   {boolean} opciones.objeto.posicionZ          Posición Z de la cámara
  * @returns {void}
  * @public
  */
@@ -127,14 +136,16 @@ export function crea(opciones) {
               ? opciones.conTextoPortada
               : true;
           let conColorEnNegativo = opciones.conColorEnNegativo;
+          let conEfecto =
+            opciones.conEfecto !== undefined ? opciones.conEfecto : true;
 
           let contenedor3d, contenedorPortada;
 
           let camara, controles, escena;
 
           let terreno;
+          let objeto;
 
-          const conEfecto = true;
           const conAbismo = true;
 
           const anchoMundo = 800,
@@ -142,10 +153,8 @@ export function crea(opciones) {
             medioAnchoMundo = anchoMundo / 2,
             mediaProfundidadMundo = profundidadMundo / 2;
 
-          const anchoImagen = 1400;
-          const altoImagen = 1400;
-
-          let helper;
+          const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
+          const altoImagen = opciones.alto ? opciones.alto : 1400;
 
           const raycaster = new THREE.Raycaster();
           const pointer = new THREE.Vector2();
@@ -287,6 +296,7 @@ export function crea(opciones) {
                 resolution: 0.1,
                 scale: 1,
                 color: "rgb(0,255,0)",
+                margen: opciones.margen,
                 conTextoPortada: conTextoPortada,
               }
             );
@@ -331,7 +341,10 @@ export function crea(opciones) {
             camara.position.x = conPosicionInicialRandom
               ? posiblePosicionInicialRandom
               : 2000;
-            camara.position.z = 3000;
+            camara.position.z =
+              opciones.objeto && opciones.objeto.posicionZ
+                ? opciones.objeto.posicionZ
+                : 3000;
             controles.update();
 
             // Generamos el terreno
@@ -353,28 +366,50 @@ export function crea(opciones) {
 
             // Aplicamos sombras
 
-            textura = new THREE.CanvasTexture(
-              generarTextura(data, anchoMundo, profundidadMundo)
-            );
-            textura.wrapS = THREE.ClampToEdgeWrapping;
-            textura.wrapT = THREE.ClampToEdgeWrapping;
+            if (opciones.objeto !== undefined) {
+              if (opciones.objeto.conLuzAmbiente) {
+                const ambientLight = new THREE.AmbientLight(0xcccccc);
+                ambientLight.name = "AmbientLight";
+                escena.add(ambientLight);
+              }
 
-            terreno = new THREE.Mesh(
-              geometria,
-              new THREE.MeshBasicMaterial({ map: textura })
-            );
-            escena.add(terreno);
+              const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+              dirLight.target.position.set(0, 10, -1);
+              dirLight.add(dirLight.target);
+              dirLight.lookAt(-1, -10, 0);
+              dirLight.name = "DirectionalLight";
+              escena.add(dirLight);
+
+              const loader = new GLTFLoader();
+              loader.load(opciones.objeto.path, function (gltf) {
+                objeto = gltf.scene;
+                objeto.scale.setScalar(opciones.objeto.tamano);
+                objeto.position.set(
+                  opciones.objeto.posicion[0],
+                  opciones.objeto.posicion[1],
+                  opciones.objeto.posicion[2]
+                );
+                escena.add(objeto);
+              });
+            } else {
+              textura = new THREE.CanvasTexture(
+                generarTextura(data, anchoMundo, profundidadMundo)
+              );
+              textura.wrapS = THREE.ClampToEdgeWrapping;
+              textura.wrapT = THREE.ClampToEdgeWrapping;
+
+              terreno = new THREE.Mesh(
+                geometria,
+                new THREE.MeshBasicMaterial({ map: textura })
+              );
+              escena.add(terreno);
+            }
 
             // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
             geometriaHelper = new THREE.ConeGeometry(20, 100, 3);
             geometriaHelper.translate(0, 50, 0);
             geometriaHelper.rotateX(Math.PI / 2);
-            helper = new THREE.Mesh(
-              geometriaHelper,
-              new THREE.MeshNormalMaterial()
-            );
-            escena.add(helper);
 
             // Añadimos los listeners de los eventos
 
@@ -383,7 +418,11 @@ export function crea(opciones) {
 
             // Añadimos la portada al canvas
 
-            contenedorPortada.appendChild(canvasPortada);
+            if (conEfecto) {
+              contenedorPortada.appendChild(canvasPortada);
+            } else {
+              contenedorPortada.appendChild(renderer.domElement);
+            }
 
             // Generamos la contraportada si se indica en las opciones
 
@@ -645,14 +684,10 @@ export function crea(opciones) {
             raycaster.setFromCamera(pointer, camara);
 
             // See if the ray from the camara into the world hits one of our meshes
-            const intersects = raycaster.intersectObject(terreno);
-
-            // Toggle rotation bool for meshes that we clicked
-            if (intersects.length > 0) {
-              helper.position.set(0, 0, 0);
-              helper.lookAt(intersects[0].face.normal);
-
-              helper.position.copy(intersects[0].point);
+            if (opciones.objeto !== undefined) {
+              const intersects = raycaster.intersectObject(objeto);
+            } else {
+              const intersects = raycaster.intersectObject(terreno);
             }
           }
         })

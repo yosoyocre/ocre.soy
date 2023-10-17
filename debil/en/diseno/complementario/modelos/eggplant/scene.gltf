@@ -1,0 +1,336 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1613,
+      "max": [
+        0.0397503636777401,
+        0.041706595569849014,
+        0.06441599875688553
+      ],
+      "min": [
+        -0.039750371128320694,
+        -0.041661497205495834,
+        -0.09946499764919281
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 19356,
+      "componentType": 5126,
+      "count": 1613,
+      "max": [
+        0.9978610873222351,
+        0.9978646636009216,
+        0.4387427568435669
+      ],
+      "min": [
+        -0.9978611469268799,
+        -0.9978725910186768,
+        -0.9982939958572388
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1613,
+      "max": [
+        0.999901533126831,
+        0.9712195992469788
+      ],
+      "min": [
+        0.001060884678736329,
+        9.853576921159402e-05
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 8778,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 38712,
+      "componentType": 5126,
+      "count": 2980,
+      "max": [
+        0.02759617194533348,
+        0.026542864739894867,
+        0.03172461315989494
+      ],
+      "min": [
+        -0.027774648740887642,
+        -0.026540014892816544,
+        -0.031538911163806915
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 74472,
+      "componentType": 5126,
+      "count": 2980,
+      "max": [
+        0.9949300289154053,
+        0.9997166395187378,
+        0.997549831867218
+      ],
+      "min": [
+        -0.9999001026153564,
+        -0.9881410002708435,
+        -0.2651689350605011
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 12904,
+      "componentType": 5126,
+      "count": 2980,
+      "max": [
+        0.9166637659072876,
+        0.5577443838119507
+      ],
+      "min": [
+        0.055245477706193924,
+        0.024763448163866997
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 35112,
+      "componentType": 5125,
+      "count": 12801,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "negar (https://sketchfab.com/negar)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/eggplant-844b147c0ee14cb78d133770ccc70fa5",
+      "title": "Eggplant"
+    },
+    "generator": "Sketchfab-12.65.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 86316,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 36744,
+      "byteOffset": 86316,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 110232,
+      "byteOffset": 123060,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 233292,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "bodyColor",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0659668,
+          0.00271043,
+          0.0405191,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.996167145049061
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.189218,
+          0.478575,
+          0.0,
+          1.0
+        ],
+        "metallicFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "eggplant.body_bodyColor_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "eggplant.top_Top_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "a0b682ba3f434fc89b12b586be7c54cd.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        89.0826151871068,
+        38.98474017632372,
+        -23.33407874096052,
+        0.0,
+        -42.95707952662767,
+        55.5418631451064,
+        -71.20246313796494,
+        0.0,
+        -14.797912044011557,
+        73.4526493985028,
+        66.22484500154246,
+        0.0,
+        0.3965801000595093,
+        1.0618057250976563,
+        -2.2066333293914795,
+        1.0
+      ],
+      "name": "eggplant.body"
+    },
+    {
+      "mesh": 0,
+      "name": "eggplant.body_bodyColor_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        95.12017143529947,
+        41.62692306623283,
+        -24.915544486327864,
+        0.0,
+        -45.86849654611393,
+        59.306200190330905,
+        -76.02822500273912,
+        0.0,
+        -15.800845133174558,
+        78.43090586724708,
+        70.71321229313142,
+        0.0,
+        -0.564805805683136,
+        5.740445613861084,
+        2.660726308822632,
+        1.0
+      ],
+      "name": "eggplant.top"
+    },
+    {
+      "mesh": 1,
+      "name": "eggplant.top_Top_0"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
