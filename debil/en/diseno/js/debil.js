@@ -83,6 +83,7 @@ const fecha = (date) => {
  * @param   {string}  opciones.portada                   Selector CSS que especifica el elemento donde se creará la portada
  * @param   {string}  opciones.contra                    Selector CSS que especifica el elemento donde se creará la contraportada
  * @param   {array}   opciones.caracteresElegidos        Array con los índices de los caracteres a utilizar
+ * @param   {Object}  opciones.color                     Objeto con el color del diseño en formato rgb, indexado por r, g y b
  * @param   {boolean} opciones.conMovimiento             Si la portada tiene movimiento o no
  * @param   {boolean} opciones.conPosicionInicialRandom  Si la portada se genera en una posición random o no
  * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
@@ -196,25 +197,38 @@ export function crea(opciones) {
           console.log("forma", forma);
           console.log("urlSeed", urlSeed);
 
-          let colorBase = colorAleatorio();
+          let colorBase;
+          let luminanceBase;
 
-          let luminanceBase = luminosidad(
-            colorBase["r"],
-            colorBase["g"],
-            colorBase["b"]
-          );
-          const maxLuminance = 0.1;
-
-          // El color debe tener una liminosidad menor que maxLuminance
-          // para que el texto en gris tenga contraste sufienciente
-          while (luminanceBase > maxLuminance) {
+          if (opciones.color !== undefined) {
+            colorBase = opciones.color;
+          } else {
             colorBase = colorAleatorio();
+
             luminanceBase = luminosidad(
               colorBase["r"],
               colorBase["g"],
               colorBase["b"]
             );
+            const maxLuminance = 0.1;
+
+            // El color debe tener una liminosidad menor que maxLuminance
+            // para que el texto en gris tenga contraste sufienciente
+            while (luminanceBase > maxLuminance) {
+              colorBase = colorAleatorio();
+              luminanceBase = luminosidad(
+                colorBase["r"],
+                colorBase["g"],
+                colorBase["b"]
+              );
+            }
           }
+
+          luminanceBase = luminosidad(
+            colorBase["r"],
+            colorBase["g"],
+            colorBase["b"]
+          );
 
           console.log(
             "colorBase",

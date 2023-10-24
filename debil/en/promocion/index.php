@@ -13,7 +13,8 @@
     <div class="col-lg-6">
         <a class="sin-hover js-portada-descargar" href="#">
             <canvas width="1024" height="683" id="fotoCanvas"></canvas>
-            <img id="foto" src="eduvulnerable.png" alt="" style="display:none">
+            <img id="foto" src="eduvulnerable4.png" alt="" style="display:none">
+            <!-- <img id="foto" src="eduvulnerable_peq.png" alt="" style="display:none"> -->
             <div class="portada" id="portada" style="display:none"></div>
         </a>
     </div>
@@ -37,7 +38,12 @@
 
         borrar = crea({
             portada: "#portada",
-            caracteresElegidos: [2],
+            // caracteresElegidos: [0],
+            // color: {
+            //     r: 0,
+            //     g: 0,
+            //     b: 0
+            // },
             conMovimiento: false,
             conPosicionInicialRandom: true,
             conTextoPortada: false,
@@ -88,10 +94,16 @@
                         proporcion += 0.08;
                     }
 
-                    pintarFoto();
+                    // pintarFoto();
 
-                    // fotoCtx.drawImage(canvas, -100, 0 - (imagenAlto - imagenAncho / 2), imagenAncho + 200, imagenAncho);
+                    fotoCtx.drawImage(canvas, -100, 0 - (imagenAlto - imagenAncho / 2) - 50, imagenAncho + 200, imagenAncho);
                     // fotoCtx.drawImage(foto, imagenAncho / 4, imagenAlto / 4, imagenAncho / 2, imagenAlto / 2);
+
+                    let anchoFinal = imagenAncho / 1.5;
+                    let altoFinal = imagenAlto / 1.5;
+                    fotoCtx.drawImage(foto, (imagenAncho - anchoFinal) / 2, (imagenAlto - altoFinal) / 2, anchoFinal, altoFinal);
+
+                    // fotoCtx.drawImage(foto, 0, 0);
 
                     // fotoCtx.drawImage(canvas, 380 / fotoAncho * imagenAncho, 1800 / fotoAlto * imagenAlto, 900, 300);
                 }
