@@ -57,9 +57,17 @@
     borrar = crea({
       portada: "#portada",
       contra: "#contra",
+      // color: {
+      //   r: 58,
+      //   g: 138,
+      //   b: 201
+      // },
       // conTextoPortada: false,
       // conMovimiento: false,
-      // conAbismoCircular: true
+      // conAbismoCircular: false,
+      // caracteresElegidos: [2],
+      // conColorEnNegativo: true,
+      // conPosicionInicialRandom: true
     });
   }
 
