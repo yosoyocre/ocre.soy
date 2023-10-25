@@ -20,7 +20,9 @@
     <div class="col-lg-6">
         <a class="sin-hover js-portada-descargar" href="#">
             <div id="portada" style="display:none"></div>
-            <img src="mascara.png" id="mascara" alt="" style="display:none">
+            <!-- <img src="mascara.png" id="mascara" alt="" style="display:none"> -->
+            <img src="foto_byn.png" id="foto" alt="" style="display:none">
+            <canvas id="canvasAux" width="1024" height="492" style="display:none"></canvas>
             <canvas id="imagen" width="1024" height="492"></canvas>
         </a>
     </div>
@@ -85,16 +87,47 @@
     generaPortada();
 
     setTimeout(function() {
+        let ancho = 1024;
+        let alto = 492;
+
         let portada = document.getElementById("portada");
         let canvas = portada.querySelector('canvas');
 
         let imagen = document.getElementById("imagen");
         let imagenCtx = imagen.getContext('2d');
 
-        let mascara = document.getElementById("mascara");
+        // let mascara = document.getElementById("mascara");
+        let foto = document.getElementById("foto");
 
-        imagenCtx.drawImage(canvas, 0, 0, 1024, 492);
-        imagenCtx.drawImage(mascara, 0, 0, 1024, 492);
+        let canvasAux = document.getElementById('canvasAux');
+        let ctxAux = canvasAux.getContext('2d');
+
+        ctxAux.drawImage(foto, 0, 0, ancho, alto);
+        ctxAux.globalCompositeOperation = 'destination-out';
+        ctxAux.beginPath();
+        // for (let i = 0; i < 2; i++) {
+        // ctxAux.lineTo(Math.random() * ancho, Math.random() * alto);
+        // }
+
+        // ctxAux.moveTo(Math.random() * ancho, 0);
+        // ctxAux.lineTo(Math.random() * ancho, alto);
+
+        ctxAux.moveTo(0, 0);
+        let coordenada1 = 200 + Math.random() * (ancho - 400);
+        // let coordenada1 = ancho - 400;
+        ctxAux.lineTo(coordenada1, 0);
+        let coordenada2 = 200 + Math.random() * (ancho - 400);
+        // let coordenada2 = ancho;
+        ctxAux.lineTo(coordenada2, alto);
+        ctxAux.lineTo(0, alto);
+
+        // ctxAux.moveTo(0, 0);
+        ctxAux.closePath();
+        ctxAux.fill();
+        // ctxAux.clearRect(0, 0, ancho / 2, alto);
+
+        imagenCtx.drawImage(canvas, 0, 0, ancho, alto);
+        imagenCtx.drawImage(ctxAux.canvas, 0, 0, ancho, alto);
 
     }, 2000);
 </script>
