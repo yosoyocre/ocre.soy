@@ -1,9 +1,6 @@
 import * as THREE from "./three.module.js";
 
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
-import { OrbitControls } from "./OrbitControls.js";
-import { ImprovedNoise } from "./ImprovedNoise.js";
-import { GLTFLoader } from "./GLTFLoader.js";
 
 /**
  * Carga un script de forma asíncrona
@@ -80,23 +77,13 @@ const fecha = (date) => {
  * Crea una portada y contraportada del disco Débil
  *
  * @param   {Object}  opciones                           Opciones para crear la portada y contraportada
- * @param   {string}  opciones.portada                   Selector CSS que especifica el elemento donde se creará la portada
- * @param   {string}  opciones.contra                    Selector CSS que especifica el elemento donde se creará la contraportada
+ * @param   {string}  opciones.imagen                    Selector CSS que especifica el elemento donde se creará la imagen
  * @param   {array}   opciones.caracteresElegidos        Array con los índices de los caracteres a utilizar
  * @param   {Object}  opciones.color                     Objeto con el color del diseño en formato rgb, indexado por r, g y b
- * @param   {boolean} opciones.conMovimiento             Si la portada tiene movimiento o no
- * @param   {boolean} opciones.conPosicionInicialRandom  Si la portada se genera en una posición random o no
- * @param   {boolean} opciones.conTextoPortada           Si se muestra texto en la portada
- * @param   {boolean} opciones.conAbismoCircular         Si el abismo es circular o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
- * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
- * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
- * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
- * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
- * @param   {boolean} opciones.objeto.posicionZ          Posición Z de la cámara
  * @returns {void}
  * @public
  */
@@ -112,34 +99,21 @@ export function crea(opciones) {
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
-      let proceso = Math.random();
-      let portada = opciones.portada;
-      let contra = opciones.contra;
+      let imagen = opciones.imagen;
       let caracteresElegidos =
         opciones.caracteresElegidos !== undefined
           ? opciones.caracteresElegidos
           : [];
-      let conMovimiento =
-        opciones.conMovimiento !== undefined ? opciones.conMovimiento : true;
-      let conPosicionInicialRandom =
-        opciones.conPosicionInicialRandom !== undefined
-          ? opciones.conPosicionInicialRandom
-          : false;
-      let conTextoPortada =
-        opciones.conTextoPortada !== undefined
-          ? opciones.conTextoPortada
-          : true;
       let conColorEnNegativo = opciones.conColorEnNegativo;
       let conEfecto =
         opciones.conEfecto !== undefined ? opciones.conEfecto : true;
 
-      let contenedor3d, contenedorPortada;
+      let contenedor3d, contenedorImagen;
 
       let camara, controles, escena;
 
       const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
       const altoImagen = opciones.alto ? opciones.alto : 933;
-      //   const altoImagen = opciones.alto ? opciones.alto : 1400;
 
       // Permitimos que una seed se pueda pasar por la URL
       const urlParams = new URLSearchParams(window.location.search);
@@ -219,7 +193,7 @@ export function crea(opciones) {
       animate();
 
       function init() {
-        contenedorPortada = document.querySelector(portada);
+        contenedorImagen = document.querySelector(imagen);
         contenedor3d = document.createElement("div");
         contenedor3d.innerHTML = "";
 
@@ -265,14 +239,14 @@ export function crea(opciones) {
           }
         }
 
-        let canvasPortada = document.createElement("canvas");
-        canvasPortada.width = anchoImagen;
-        canvasPortada.height = altoImagen;
+        let canvasImagen = document.createElement("canvas");
+        canvasImagen.width = anchoImagen;
+        canvasImagen.height = altoImagen;
 
         // Creamos el efecto ASCII
         efectoAscii = new AsciiEffectDebil(
           URL_BASE,
-          canvasPortada,
+          canvasImagen,
           renderer,
           colorBase,
           caracteres,
@@ -280,8 +254,7 @@ export function crea(opciones) {
             resolution: 0.1,
             scale: 1,
             color: "rgb(0,255,0)",
-            margen: opciones.margen,
-            conTextoPortada: conTextoPortada,
+            conTextoPortada: false,
           }
         );
         efectoAscii.setSize(anchoImagen, altoImagen);
@@ -319,60 +292,12 @@ export function crea(opciones) {
         // Finally, set the camera's position in the z-dimension
         camara.position.z = 5;
 
-        // console.log("Cargando imagen");
-        // let loader = new THREE.TextureLoader();
-
-        // // Load an image file into a custom material
-        // let imagenMaterial = new THREE.MeshLambertMaterial({
-        //   map: loader.load("/debil/en/promocion/eduvulnerable2.png"),
-        //   transparent: true,
-        //   // opacity: 0.5,
-        //   // color: 0xffffff,
-        // });
-
-        // // create a plane geometry for the image with a width of 10
-        // // and a height that preserves the image's aspect ratio
-        // let tamanoImagen = 2500;
-        // let imagenGeometry = new THREE.PlaneGeometry(
-        //   tamanoImagen,
-        //   tamanoImagen * 0.75
-        // );
-
-        // // combine our image geometry and material into a mesh
-        // let imagenMesh = new THREE.Mesh(imagenGeometry, imagenMaterial);
-
-        // // set the position of the image mesh in the x,y,z dimensions
-        // imagenMesh.position.set(1200, 6000, 1600);
-
-        // // add the image to the scene
-        // escena.add(imagenMesh);
-
-        // var imageLight = new THREE.PointLight(0xffffff, 1, 0);
-
-        // let luzX = 1;
-        // let luzY = 9000;
-        // let luzZ = 100;
-
-        // // Specify the light's position
-        // imageLight.position.set(luzX, luzY, luzZ);
-        // // imageLight.rotateX(-20);
-
-        // // Add the light to the scene
-        // escena.add(imageLight);
-
-        /**
-         * Image
-         **/
-
         // Create a texture loader so we can load our image file
         var loader = new THREE.TextureLoader();
 
         // Load an image file into a custom material
         var material = new THREE.MeshLambertMaterial({
-          map: loader.load(
-            // "https://s3.amazonaws.com/duhaime/blog/tsne-webgl/assets/cat.jpg"
-            "/debil/en/promocion/eduvulnerable_10.png"
-          ),
+          map: loader.load("/debil/en/promocion/eduvulnerable_10.png"),
           transparent: true,
         });
 
@@ -405,27 +330,10 @@ export function crea(opciones) {
         // Add the light to the scene
         escena.add(light);
 
-        // const boxGeometry = new THREE.BoxGeometry(100, 100, 100);
-
-        // const boxObject = new THREE.Mesh(
-        //   boxGeometry,
-        //   new THREE.MeshLambertMaterial({
-        //     color: 0xff0000,
-        //   })
-        // );
-
-        // boxObject.position.x = luzX;
-        // boxObject.position.y = luzY;
-        // boxObject.position.z = luzZ;
-
-        // escena.add(boxObject);
-
-        // Hacemos que la cámara gire alrededor del abismo
-
         if (conEfecto) {
-          contenedorPortada.appendChild(canvasPortada);
+          contenedorImagen.appendChild(canvasImagen);
         } else {
-          contenedorPortada.appendChild(renderer.domElement);
+          contenedorImagen.appendChild(renderer.domElement);
         }
       }
 
@@ -441,9 +349,6 @@ export function crea(opciones) {
         }
 
         render();
-        if (conMovimiento) {
-          controles.update();
-        }
       }
 
       /**
@@ -475,62 +380,3 @@ export function crea(opciones) {
     detenido = true;
   };
 }
-
-// console.log("Cargando imagen");
-// let loader = new THREE.TextureLoader();
-
-// // Load an image file into a custom material
-// let imagenMaterial = new THREE.MeshLambertMaterial({
-//     map: loader.load("/debil/en/promocion/eduvulnerable2.png"),
-//     transparent: true,
-//     // opacity: 0.5,
-//     // color: 0xffffff,
-// });
-
-// // create a plane geometry for the image with a width of 10
-// // and a height that preserves the image's aspect ratio
-// let tamanoImagen = 2500;
-// let imagenGeometry = new THREE.PlaneGeometry(
-//     tamanoImagen,
-//     tamanoImagen * 0.75
-// );
-// // geometriaHelper.translate(0, 50, 0);
-// // imagenGeometry.rotateX(Math.PI / -2);
-// // imagenGeometry.rotateY(Math.PI / 8);
-
-// // combine our image geometry and material into a mesh
-// let imagenMesh = new THREE.Mesh(imagenGeometry, imagenMaterial);
-
-// // set the position of the image mesh in the x,y,z dimensions
-// imagenMesh.position.set(1200, 6000, 1600);
-
-// // add the image to the scene
-// escena.add(imagenMesh);
-
-// var imageLight = new THREE.PointLight(0xffffff, 1, 0);
-
-// let luzX = 1;
-// let luzY = 9000;
-// let luzZ = 100;
-
-// // Specify the light's position
-// imageLight.position.set(luzX, luzY, luzZ);
-// // imageLight.rotateX(-20);
-
-// // Add the light to the scene
-// escena.add(imageLight);
-
-// const boxGeometry = new THREE.BoxGeometry(100, 100, 100);
-
-// const boxObject = new THREE.Mesh(
-//     boxGeometry,
-//     new THREE.MeshLambertMaterial({
-//     color: 0xff0000,
-//     })
-// );
-
-// boxObject.position.x = luzX;
-// boxObject.position.y = luzY;
-// boxObject.position.z = luzZ;
-
-// // escena.add(boxObject);

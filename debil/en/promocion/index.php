@@ -1,26 +1,18 @@
 <?php require('../../../_cabecera.php'); ?>
 
-<style>
-    /* #portada canvas {
-        max-width: 100%;
-        height: auto;
-    } */
-</style>
-
 <div class="row">
     <div class="col-lg-8">
         <h1>
             <span class="separador">/</span> <a href="/debil">débil</a>
             <span class="separador">/</span> <a href="/debil/en">en</a>
-            <span class="separador">/</span> <a href="/debil/en/diseno">diseño</a>
+            <span class="separador">/</span> <a href="/debil/en/promocion">promoción</a>
         </h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-8">
-        <a class="sin-hover js-portada-descargar" href="#">
-            <!-- <img src="mascara.png" id="mascara" alt="" style="display:none"> -->
-            <div id="portada" width="1400" height="933" style="display:none"></div>
+        <a class="sin-hover js-imagen-descargar" href="#">
+            <div id="imagenEfecto" width="1400" height="933" style="display:none"></div>
             <img src="eduvulnerable_10.png" id="foto" alt="" width="1400" height="933" style="display:none">
             <canvas id="canvasAux" width="1400" height="933" style="display:none"></canvas>
             <canvas id="imagen" width="1400" height="933" style="width: 100%; height: auto"></canvas>
@@ -32,30 +24,26 @@
 <script type="module">
     import {
         crea
-    } from "../diseno/js/promoDebil.js?v=14";
+    } from "../diseno/js/promoDebil.js?v=20";
 
     let borrar;
 
-    function generaPortada() {
-        let portada = document.getElementById("portada");
-        portada.innerHTML = "";
+    function generaImagen() {
+        let imagen = document.getElementById("imagen");
+        imagen.innerHTML = "";
 
         if (borrar !== undefined) {
             borrar();
         }
 
         borrar = crea({
-            portada: "#portada",
+            imagen: "#imagenEfecto",
             // caracteresElegidos: [0],
             // color: {
             //     r: 0,
             //     g: 0,
             //     b: 0
             // },
-            conMovimiento: false,
-            // conPosicionInicialRandom: true,
-            conTextoPortada: false,
-            conAbismoCircular: true,
             conColorEnNegativo: true,
             // conEfecto: false
         });
@@ -65,7 +53,7 @@
         };
     }
 
-    document.querySelector('.js-portada-descargar').addEventListener("click", function(e) {
+    document.querySelector('.js-imagen-descargar').addEventListener("click", function(e) {
         e.preventDefault();
 
         var link = document.createElement("a");
@@ -74,19 +62,18 @@
         link.click();
     });
 
-    generaPortada();
+    generaImagen();
 
     setTimeout(function() {
         let ancho = 1400;
         let alto = 933;
 
-        let portada = document.getElementById("portada");
-        let canvas = portada.querySelector('canvas');
+        let imagenEfecto = document.getElementById("imagenEfecto");
+        let canvas = imagenEfecto.querySelector('canvas');
 
         let imagen = document.getElementById("imagen");
         let imagenCtx = imagen.getContext('2d');
 
-        // let mascara = document.getElementById("mascara");
         let foto = document.getElementById("foto");
 
         let canvasAux = document.getElementById('canvasAux');
