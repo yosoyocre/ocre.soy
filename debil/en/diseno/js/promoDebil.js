@@ -371,7 +371,7 @@ export function crea(opciones) {
         var material = new THREE.MeshLambertMaterial({
           map: loader.load(
             // "https://s3.amazonaws.com/duhaime/blog/tsne-webgl/assets/cat.jpg"
-            "/debil/en/promocion/foto_byn_sombra.png"
+            "/debil/en/promocion/eduvulnerable7.png"
           ),
           transparent: true,
         });

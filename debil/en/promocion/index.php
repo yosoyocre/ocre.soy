@@ -32,7 +32,7 @@
 <script type="module">
     import {
         crea
-    } from "../diseno/js/promoDebil.js?v=2";
+    } from "../diseno/js/promoDebil.js?v=6";
 
     let borrar;
 
@@ -93,28 +93,29 @@
         let ctxAux = canvasAux.getContext('2d');
 
         ctxAux.drawImage(foto, 0, 0, ancho, alto);
+
+        ctxAux.save();
         ctxAux.globalCompositeOperation = 'destination-out';
         ctxAux.beginPath();
-        // for (let i = 0; i < 2; i++) {
-        // ctxAux.lineTo(Math.random() * ancho, Math.random() * alto);
-        // }
-
-        // ctxAux.moveTo(Math.random() * ancho, 0);
-        // ctxAux.lineTo(Math.random() * ancho, alto);
-
         ctxAux.moveTo(0, 0);
         let coordenada1 = 200 + Math.random() * (ancho - 400);
-        // let coordenada1 = ancho - 400;
         ctxAux.lineTo(coordenada1, 0);
         let coordenada2 = 200 + Math.random() * (ancho - 400);
-        // let coordenada2 = ancho;
         ctxAux.lineTo(coordenada2, alto);
         ctxAux.lineTo(0, alto);
-
-        // ctxAux.moveTo(0, 0);
         ctxAux.closePath();
         ctxAux.fill();
-        // ctxAux.clearRect(0, 0, ancho / 2, alto);
+        ctxAux.restore();
+
+        let tamanoLinea = 5;
+        ctxAux.fillStyle = '#fff';
+        ctxAux.beginPath();
+        ctxAux.moveTo(coordenada1, 0);
+        ctxAux.lineTo(coordenada1 - tamanoLinea, 0);
+        ctxAux.lineTo(coordenada2 - tamanoLinea, alto);
+        ctxAux.lineTo(coordenada2, alto);
+        ctxAux.closePath();
+        ctxAux.fill();
 
         imagenCtx.drawImage(canvas, 0, 0, ancho, alto);
         imagenCtx.drawImage(ctxAux.canvas, 0, 0, ancho, alto);
