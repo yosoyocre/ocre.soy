@@ -147,7 +147,8 @@ export function crea(opciones) {
         const maxLuminance = 0.1;
 
         // El color debe tener una liminosidad menor que maxLuminance
-        // para que el texto en gris tenga contraste sufienciente
+        // para tener coherencia con el diseño del disco
+        // TODO Podríamos llevar esta función a su propio módulo, utils.js, y que lo usasen tanto debil.js como esta
         while (luminanceBase > maxLuminance) {
           colorBase = colorAleatorio();
           luminanceBase = luminosidad(
@@ -186,6 +187,7 @@ export function crea(opciones) {
         renderer.setSize(anchoImagen, altoImagen);
 
         // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
+        // TODO Llevar la elección de posibles caracteres a AsciiEffectDebil.js, tanto aquí como en debil.js
         let posiblesCaracteres = [
           "#@%=*+-:·  ",
           "██⣿⣿  ",
@@ -252,66 +254,55 @@ export function crea(opciones) {
         escena = new THREE.Scene();
         escena.background = new THREE.Color(0xffffff);
 
-        // Specify the portion of the scene visiable at any time (in degrees)
-        var fieldOfView = 67;
+        /*
+         * Pintamos la imagen en el canvas para aplicarle el efecto ASCII
+         */
 
-        // Specify the camera's aspect ratio
-        var aspectRatio = anchoImagen / altoImagen;
+        var campoDeVision = 67;
+        var ratioAspectoCamara = anchoImagen / altoImagen;
+        // Especificamos los límites del plano de recorte. Solo se
+        // renderizarán objetos entre estos planos en la escena
+        var inicioPlano = 0.1;
+        var finPlano = 1000;
 
-        // Specify the near and far clipping planes. Only objects
-        // between those planes will be rendered in the scene
-        // (these values help control the number of items rendered
-        // at any given time)
-        var nearPlane = 0.1;
-        var farPlane = 1000;
-
-        // Use the values specified above to create a camera
         camara = new THREE.PerspectiveCamera(
-          fieldOfView,
-          aspectRatio,
-          nearPlane,
-          farPlane
+          campoDeVision,
+          ratioAspectoCamara,
+          inicioPlano,
+          finPlano
         );
-
-        // Finally, set the camera's position in the z-dimension
         camara.position.z = 5;
 
-        // Create a texture loader so we can load our image file
-        var loader = new THREE.TextureLoader();
+        // Creamos el cargador de texturas para cargar la imagen
+        // TODO Si luego vamos a cargar esta misma imagen sin efecto, igual podríamos cargarla una vez
+        var cargadorImagenes = new THREE.TextureLoader();
 
-        // Load an image file into a custom material
-        var material = new THREE.MeshLambertMaterial({
-          map: loader.load("/debil/en/promocion/eduvulnerable_10.png"),
+        // Cargamos la imagen en un material personalizado
+        var materialImagen = new THREE.MeshLambertMaterial({
+          map: cargadorImagenes.load(
+            "/debil/en/promocion/img/foto_byn_sombra.png"
+          ),
           transparent: true,
         });
 
-        // create a plane geometry for the image with a width of 10
-        // and a height that preserves the image's aspect ratio
-        var geometry = new THREE.PlaneGeometry(
+        // Creamos un plano para la imagen con un ancho de 10
+        // y un alto que preserva la relación de aspecto de la imagen
+        var geometriaImagen = new THREE.PlaneGeometry(
           10,
           (10 * altoImagen) / anchoImagen
         );
 
-        // combine our image geometry and material into a mesh
-        var mesh = new THREE.Mesh(geometry, material);
-
-        // set the position of the image mesh in the x,y,z dimensions
-        mesh.position.set(0, 0, 0);
-
-        // add the image to the scene
-        escena.add(mesh);
+        // Combinamos la geometría de la imagen y el material en un mesh
+        var meshImagen = new THREE.Mesh(geometriaImagen, materialImagen);
+        meshImagen.position.set(0, 0, 0);
+        escena.add(meshImagen);
 
         /**
-         * Lights
+         * Luces para visualizar la imagen
          **/
 
-        // Add a point light with #fff color, .7 intensity, and 0 distance
         var light = new THREE.PointLight(0xffffff, 1, 0);
-
-        // Specify the light's position
         light.position.set(1, 1, 100);
-
-        // Add the light to the scene
         escena.add(light);
 
         if (conEfecto) {
@@ -361,21 +352,23 @@ export function crea(opciones) {
       let ancho = 1400;
       let alto = 933;
 
-      let canvas = contenedorImagen.querySelector("canvas");
+      let canvasAscii = contenedorImagen.querySelector("canvas");
 
-      // let imagen = document.getElementById("imagen");
-      let imagen = document.createElement("canvas");
-      imagen.width = ancho;
-      imagen.height = alto;
-      let imagenCtx = imagen.getContext("2d");
+      let imagenPromocional = document.createElement("canvas");
+      imagenPromocional.width = ancho;
+      imagenPromocional.height = alto;
+      let imagenCtx = imagenPromocional.getContext("2d");
 
+      // Usamos un canvas auxiliar para un trozo de la foto sin efecto
       let canvasAux = document.createElement("canvas");
       canvasAux.width = ancho;
       canvasAux.height = alto;
       let ctxAux = canvasAux.getContext("2d");
 
+      // Dibujamos la foto en el canvas auxiliar
       ctxAux.drawImage(foto, 0, 0, ancho, alto);
 
+      // Recortamos un polígono aleatorio
       ctxAux.save();
       ctxAux.globalCompositeOperation = "destination-out";
       ctxAux.beginPath();
@@ -389,6 +382,7 @@ export function crea(opciones) {
       ctxAux.fill();
       ctxAux.restore();
 
+      // Dibujamos una línea justo en el borde
       let tamanoLinea = 15;
       ctxAux.fillStyle = "#fff";
       ctxAux.beginPath();
@@ -399,16 +393,17 @@ export function crea(opciones) {
       ctxAux.closePath();
       ctxAux.fill();
 
-      imagenCtx.drawImage(canvas, 0, 0, ancho, alto);
+      // Dibujamos la imagen con el efecto ASCII en la imagen final
+      imagenCtx.drawImage(canvasAscii, 0, 0, ancho, alto);
+      // Dibujamos por encima la imagen sin el efecto ASCII recortada
       imagenCtx.drawImage(ctxAux.canvas, 0, 0, ancho, alto);
 
-      // Append imagen to body
-      console.log("Añadiendo imagen");
-      contenedorFinal.appendChild(imagen);
+      console.log("Añadiendo imagen promocional");
+      contenedorFinal.appendChild(imagenPromocional);
 
       detenido = true;
     };
-    foto.src = "/debil/en/promocion/eduvulnerable_10.png";
+    foto.src = "/debil/en/promocion/img/foto_byn_sombra.png";
   }, 2000);
 
   return function () {
