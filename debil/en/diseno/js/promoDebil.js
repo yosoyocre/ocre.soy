@@ -138,7 +138,7 @@ export function crea(opciones) {
       let camara, controles, escena;
 
       const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
-      const altoImagen = anchoImagen * 0.48;
+      const altoImagen = opciones.alto ? opciones.alto : 933;
       //   const altoImagen = opciones.alto ? opciones.alto : 1400;
 
       // Permitimos que una seed se pueda pasar por la URL
@@ -296,10 +296,10 @@ export function crea(opciones) {
         escena.background = new THREE.Color(0xffffff);
 
         // Specify the portion of the scene visiable at any time (in degrees)
-        var fieldOfView = 75;
+        var fieldOfView = 67;
 
         // Specify the camera's aspect ratio
-        var aspectRatio = window.innerWidth / window.innerHeight;
+        var aspectRatio = anchoImagen / altoImagen;
 
         // Specify the near and far clipping planes. Only objects
         // between those planes will be rendered in the scene
@@ -371,14 +371,17 @@ export function crea(opciones) {
         var material = new THREE.MeshLambertMaterial({
           map: loader.load(
             // "https://s3.amazonaws.com/duhaime/blog/tsne-webgl/assets/cat.jpg"
-            "/debil/en/promocion/eduvulnerable7.png"
+            "/debil/en/promocion/eduvulnerable_10.png"
           ),
           transparent: true,
         });
 
         // create a plane geometry for the image with a width of 10
         // and a height that preserves the image's aspect ratio
-        var geometry = new THREE.PlaneGeometry(10, 10 * 0.75);
+        var geometry = new THREE.PlaneGeometry(
+          10,
+          (10 * altoImagen) / anchoImagen
+        );
 
         // combine our image geometry and material into a mesh
         var mesh = new THREE.Mesh(geometry, material);

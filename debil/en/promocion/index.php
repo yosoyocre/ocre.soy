@@ -17,13 +17,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-8">
         <a class="sin-hover js-portada-descargar" href="#">
-            <div id="portada" style="display:none"></div>
             <!-- <img src="mascara.png" id="mascara" alt="" style="display:none"> -->
-            <img src="foto_byn_sombra.png" id="foto" alt="" style="display:none">
-            <canvas id="canvasAux" width="1024" height="492" style="display:none"></canvas>
-            <canvas id="imagen" width="1024" height="492"></canvas>
+            <div id="portada" width="1400" height="933" style="display:none"></div>
+            <img src="eduvulnerable_10.png" id="foto" alt="" width="1400" height="933" style="display:none">
+            <canvas id="canvasAux" width="1400" height="933" style="display:none"></canvas>
+            <canvas id="imagen" width="1400" height="933" style="width: 100%; height: auto"></canvas>
         </a>
     </div>
 </div>
@@ -32,7 +32,7 @@
 <script type="module">
     import {
         crea
-    } from "../diseno/js/promoDebil.js?v=6";
+    } from "../diseno/js/promoDebil.js?v=14";
 
     let borrar;
 
@@ -46,7 +46,7 @@
 
         borrar = crea({
             portada: "#portada",
-            // caracteresElegidos: [6],
+            // caracteresElegidos: [0],
             // color: {
             //     r: 0,
             //     g: 0,
@@ -77,8 +77,8 @@
     generaPortada();
 
     setTimeout(function() {
-        let ancho = 1024;
-        let alto = 492;
+        let ancho = 1400;
+        let alto = 933;
 
         let portada = document.getElementById("portada");
         let canvas = portada.querySelector('canvas');
@@ -107,7 +107,7 @@
         ctxAux.fill();
         ctxAux.restore();
 
-        let tamanoLinea = 5;
+        let tamanoLinea = 15;
         ctxAux.fillStyle = '#fff';
         ctxAux.beginPath();
         ctxAux.moveTo(coordenada1, 0);
