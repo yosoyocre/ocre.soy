@@ -54,25 +54,6 @@ const luminosidad = (r, g, b) => {
   return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 };
 
-const fecha = (date) => {
-  function pad(n) {
-    return n < 10 ? "0" + n : n;
-  }
-
-  return (
-    "el " +
-    pad(date.getDate()) +
-    "/" +
-    pad(date.getMonth() + 1) +
-    "/" +
-    pad(date.getFullYear()) +
-    " a las " +
-    pad(date.getHours()) +
-    ":" +
-    pad(date.getMinutes())
-  );
-};
-
 /**
  * Crea una portada y contraportada del disco Débil
  *
@@ -94,6 +75,8 @@ export function crea(opciones) {
   let renderer;
   let efectoAscii;
   let detenido = false;
+  let contenedorImagen;
+  let contenedorFinal;
 
   // Cargamos los scripts necesarios
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
@@ -108,7 +91,7 @@ export function crea(opciones) {
       let conEfecto =
         opciones.conEfecto !== undefined ? opciones.conEfecto : true;
 
-      let contenedor3d, contenedorImagen;
+      let contenedor3d;
 
       let camara, controles, escena;
 
@@ -193,7 +176,8 @@ export function crea(opciones) {
       animate();
 
       function init() {
-        contenedorImagen = document.querySelector(imagen);
+        contenedorFinal = document.querySelector(imagen);
+        contenedorImagen = document.createElement("div");
         contenedor3d = document.createElement("div");
         contenedor3d.innerHTML = "";
 
@@ -370,6 +354,62 @@ export function crea(opciones) {
     });
 
   let borrables = [renderer, efectoAscii];
+
+  setTimeout(function () {
+    var foto = new Image();
+    foto.onload = function () {
+      let ancho = 1400;
+      let alto = 933;
+
+      let canvas = contenedorImagen.querySelector("canvas");
+
+      // let imagen = document.getElementById("imagen");
+      let imagen = document.createElement("canvas");
+      imagen.width = ancho;
+      imagen.height = alto;
+      let imagenCtx = imagen.getContext("2d");
+
+      let canvasAux = document.createElement("canvas");
+      canvasAux.width = ancho;
+      canvasAux.height = alto;
+      let ctxAux = canvasAux.getContext("2d");
+
+      ctxAux.drawImage(foto, 0, 0, ancho, alto);
+
+      ctxAux.save();
+      ctxAux.globalCompositeOperation = "destination-out";
+      ctxAux.beginPath();
+      ctxAux.moveTo(0, 0);
+      let coordenada1 = 200 + Math.random() * (ancho - 400);
+      ctxAux.lineTo(coordenada1, 0);
+      let coordenada2 = 200 + Math.random() * (ancho - 400);
+      ctxAux.lineTo(coordenada2, alto);
+      ctxAux.lineTo(0, alto);
+      ctxAux.closePath();
+      ctxAux.fill();
+      ctxAux.restore();
+
+      let tamanoLinea = 15;
+      ctxAux.fillStyle = "#fff";
+      ctxAux.beginPath();
+      ctxAux.moveTo(coordenada1, 0);
+      ctxAux.lineTo(coordenada1 - tamanoLinea, 0);
+      ctxAux.lineTo(coordenada2 - tamanoLinea, alto);
+      ctxAux.lineTo(coordenada2, alto);
+      ctxAux.closePath();
+      ctxAux.fill();
+
+      imagenCtx.drawImage(canvas, 0, 0, ancho, alto);
+      imagenCtx.drawImage(ctxAux.canvas, 0, 0, ancho, alto);
+
+      // Append imagen to body
+      console.log("Añadiendo imagen");
+      contenedorFinal.appendChild(imagen);
+
+      detenido = true;
+    };
+    foto.src = "/debil/en/promocion/eduvulnerable_10.png";
+  }, 2000);
 
   return function () {
     borrables.forEach((e) => {
