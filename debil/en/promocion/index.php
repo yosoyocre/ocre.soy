@@ -21,7 +21,7 @@
         <a class="sin-hover js-portada-descargar" href="#">
             <div id="portada" style="display:none"></div>
             <!-- <img src="mascara.png" id="mascara" alt="" style="display:none"> -->
-            <img src="foto_byn.png" id="foto" alt="" style="display:none">
+            <img src="foto_byn_sombra.png" id="foto" alt="" style="display:none">
             <canvas id="canvasAux" width="1024" height="492" style="display:none"></canvas>
             <canvas id="imagen" width="1024" height="492"></canvas>
         </a>
@@ -63,24 +63,14 @@
         var config = {
             childList: true,
         };
-
-        // var observer = new MutationObserver(callback);
-
-        // observer.observe(portada, config);
     }
-
-    // document.querySelector(".js-nuevoDiseno").addEventListener("click", function(e) {
-    //     e.preventDefault();
-
-    //     generaPortada();
-    // });
 
     document.querySelector('.js-portada-descargar').addEventListener("click", function(e) {
         e.preventDefault();
 
         var link = document.createElement("a");
-        link.download = 'ocre-debil_portada.png';
-        link.href = this.querySelector('canvas').toDataURL("image/png");
+        link.download = 'ocre-debil_promocion.png';
+        link.href = this.querySelector('#imagen').toDataURL("image/png");
         link.click();
     });
 
