@@ -5,6 +5,10 @@
         width: 100%;
         height: auto;
     }
+
+    img {
+        max-width: 100%;
+    }
 </style>
 
 <div class="row">
@@ -28,6 +32,24 @@
         <a class="sin-hover js-imagen-descargar" href="#">
             <div id="imagenPromo"></div>
         </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <p>
+            Aparte de la imagen generada por ordenador, también estoy utilizando estas otras fotos de <a href="https://www.instagram.com/rosalia_hhay/">Rosalía</a> para promocionar el disco:
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <p>
+            <a class="sin-hover" href="img/promo1.jpg"><img src="img/promo1_web.jpg" alt="Ocre abrazando"></a>
+            <a class="sin-hover" href="img/promo2.jpg"><img src="img/promo2_web.jpg" alt="Ocre dando la mano"></a>
+            <a class="sin-hover" href="img/promo3.jpg"><img src="img/promo3_web.jpg" alt="Ocre y osito de peluche"></a>
+            <a class="sin-hover" href="img/promo4.jpg"><img src="img/promo4_web.jpg" alt="Ocre y el abismo"></a>
+        </p>
     </div>
 </div>
 
