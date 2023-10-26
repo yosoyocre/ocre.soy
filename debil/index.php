@@ -42,6 +42,16 @@
         </a>
       </span>
     </div>
+    <div class="col-lg-4">
+      Generador de fotos promocionales
+      <span class="dato">
+        <a href="/debil/en/promocion">
+          <span class="separador">/</span> debil
+          <span class="separador">/</span> en
+          <span class="separador">/</span> promoción
+        </a>
+      </span>
+    </div>
   </div>
 </div>
 

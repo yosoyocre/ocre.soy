@@ -9,6 +9,9 @@
     <p>
       <a href="/debil/en/diseno"><span class="separador">/</span> diseño</a>
     </p>
+    <p>
+      <a href="/debil/en/promocion"><span class="separador">/</span> promoción</a>
+    </p>
 
   </div>
 </div>

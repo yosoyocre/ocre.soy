@@ -15,8 +15,14 @@
       <span class="separador">/</span> <a href="/debil/en/diseno">diseño</a>
     </h1>
     <p>
+      <i>Estuve en el abismo y me acordé de ti</i>
+    </p>
+    <p>
       Siguiendo la tradición marcada por los discos anteriores, la portada y la contraportada del <a href="/debil">Débil</a>
       también las crea tu ordenador.
+    </p>
+    <p>
+      Esta vez cada disco será como una postal enviada desde el mismísimo abismo (es decir, el abismismísimo). Y al acceder al QR de la contraportada se podrá ver esa misma imagen en movimiento.
     </p>
     <p>
       Por ejemplo, aquí tienes unos diseños que se acaban de generar. <br>
@@ -35,6 +41,49 @@
     <a class="sin-hover js-contra-descargar" href="#">
       <div class="portada" id="contra"></div>
     </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <p>
+      De esta forma, cualquiera puede descargarse una portada del Débil, imprimírsela
+      y fabricar una edición de la que no habrá otra copia.
+    </p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Colofón</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Código fuente
+      <span class="dato"><a href="https://github.com/yosoyocre/ocre.soy/blob/master/debil/en/diseno/js/debil.js">Github</a></span>
+    </div>
+
+    <div class="col-lg-4">
+      Lenguajes de programación
+      <span class="dato">HTML, CSS y JavaScript</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Librerías
+      <span class="dato"><a href="https://threejs.org/">three.js</a></span>
+      <span class="dato"><a href="https://github.com/davidbau/seedrandom">seedrandom.js</a></span>
+      <span class="dato"><a href="https://github.com/neocotic/qrious">QRious</a></span>
+    </div>
+    <div class="col-lg-4">
+      Inspiración
+      <span class="dato"><a href="https://threejs.org/examples/webgl_effects_ascii.html">Efecto ASCII</a></span>
+      <span class="dato"><a href="https://threejs.org/examples/#webgl_geometry_terrain_raycast">Terreno</a></span>
+    </div>
   </div>
 </div>
 

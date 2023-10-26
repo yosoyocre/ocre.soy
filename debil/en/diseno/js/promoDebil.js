@@ -76,7 +76,11 @@ export function crea(opciones) {
   let efectoAscii;
   let detenido = false;
   let contenedorImagen;
-  let contenedorFinal;
+
+  let imagen = opciones.imagen;
+  let contenedorFinal = document.querySelector(imagen);
+
+  contenedorFinal.innerHTML = "<p>Generando imagen...</p>";
 
   var foto = new Image();
   foto.onload = function () {
@@ -84,7 +88,6 @@ export function crea(opciones) {
     // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
     loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
       .then((data) => {
-        let imagen = opciones.imagen;
         let caracteresElegidos =
           opciones.caracteresElegidos !== undefined
             ? opciones.caracteresElegidos
@@ -179,7 +182,6 @@ export function crea(opciones) {
         animate();
 
         function init() {
-          contenedorFinal = document.querySelector(imagen);
           contenedorImagen = document.createElement("div");
           contenedor3d = document.createElement("div");
           contenedor3d.innerHTML = "";
@@ -399,6 +401,7 @@ export function crea(opciones) {
       imagenCtx.drawImage(ctxAux.canvas, 0, 0, ancho, alto);
 
       console.log("Añadiendo imagen promocional");
+      contenedorFinal.innerHTML = "";
       contenedorFinal.appendChild(imagenPromocional);
 
       detenido = true;
