@@ -116,7 +116,7 @@
 
         var link = document.createElement("a");
         link.download = 'ocre-debil_promocion.png';
-        link.href = this.querySelector('#imagen').toDataURL("image/png");
+        link.href = document.querySelector('#imagenPromo canvas').toDataURL("image/png");
         link.click();
     });
 
