@@ -28,7 +28,7 @@
 <script type="module">
     import {
         crea
-    } from "../diseno/js/promoDebil.js?v=29";
+    } from "../diseno/js/promoDebil.js?v=32";
 
     let borrar;
 
