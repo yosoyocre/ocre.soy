@@ -36,7 +36,7 @@
       Generador de portadas
       <span class="dato">
         <a href="/debil/en/diseno">
-          <span class="separador">/</span> debil
+          <span class="separador">/</span> débil
           <span class="separador">/</span> en
           <span class="separador">/</span> diseño
         </a>
@@ -46,7 +46,7 @@
       Generador de fotos promocionales
       <span class="dato">
         <a href="/debil/en/promocion">
-          <span class="separador">/</span> debil
+          <span class="separador">/</span> débil
           <span class="separador">/</span> en
           <span class="separador">/</span> promoción
         </a>
