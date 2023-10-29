@@ -1,8 +1,7 @@
 import * as THREE from "./three.module.js";
 
-import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
+import { AsciiEffectProyeccionDebil } from "./AsciiEffectProyeccionDebil.js";
 import { OrbitControls } from "./OrbitControls.js";
-import { ImprovedNoise } from "./ImprovedNoise.js";
 import { GLTFLoader } from "./GLTFLoader.js";
 
 /**
@@ -115,7 +114,6 @@ export function crea(opciones) {
   let nModelosCargados = 0;
   let hayModelosCargados = false;
   let modeloMostrado;
-  let ciclos = 0;
 
   // Cargamos los scripts necesarios
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
@@ -277,23 +275,16 @@ export function crea(opciones) {
             Math.floor(generador() * posiblesCaracteres.length)
           ];
 
-        // Invertir el efecto ASCII?
-        if (conColorEnNegativo !== undefined) {
-          if (conColorEnNegativo) {
-            caracteres = caracteres.split("").reverse().join("");
-          }
-        } else {
-          if (generador() > 0.5) {
-            caracteres = caracteres.split("").reverse().join("");
-          }
-        }
-
         let canvasPortada = document.createElement("canvas");
         canvasPortada.width = anchoImagen;
         canvasPortada.height = altoImagen;
 
+        if (conColorEnNegativo === undefined) {
+          conColorEnNegativo = generador() > 0.5;
+        }
+
         // Creamos el efecto ASCII
-        efectoAscii = new AsciiEffectDebil(
+        efectoAscii = new AsciiEffectProyeccionDebil(
           URL_BASE,
           canvasPortada,
           renderer,
@@ -305,6 +296,7 @@ export function crea(opciones) {
             color: "rgb(0,255,0)",
             margen: opciones.margen,
             conTextoPortada: false,
+            invert: conColorEnNegativo,
           }
         );
         efectoAscii.setSize(anchoImagen, altoImagen);
@@ -384,9 +376,9 @@ export function crea(opciones) {
 
         // Aplicamos sombras
 
-        const ambientLight = new THREE.AmbientLight(0xcccccc);
-        ambientLight.name = "AmbientLight";
-        escena.add(ambientLight);
+        // const ambientLight = new THREE.AmbientLight(0xcccccc);
+        // ambientLight.name = "AmbientLight";
+        // escena.add(ambientLight);
 
         const dirLight = new THREE.DirectionalLight(0xffffff, 3);
         dirLight.target.position.set(0, 10, -1);
@@ -436,13 +428,8 @@ export function crea(opciones) {
         if (!hayModelosCargados) {
           if (nModelosCargados === nModelos) {
             hayModelosCargados = true;
-          }
-        } else {
-          if (ciclos % 100 === 0) {
             mostrarModelo();
-            ciclos = 0;
           }
-          ciclos++;
         }
 
         render();
@@ -457,6 +444,11 @@ export function crea(opciones) {
         }
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
         escena.add(modeloMostrado);
+
+        efectoAscii.colorBaseGlobal = colorAleatorio();
+        efectoAscii.invert = generador() > 0.5;
+
+        setTimeout(mostrarModelo, 5000);
       }
 
       /**
