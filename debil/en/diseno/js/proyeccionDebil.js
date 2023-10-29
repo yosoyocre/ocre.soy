@@ -76,15 +76,15 @@ const fecha = (date) => {
 };
 
 /**
- * Crea una portada y contraportada del disco Débil
+ * Crea una proyección del disco Débil
  *
- * @param   {Object}  opciones                           Opciones para crear la portada y contraportada
- * @param   {string}  opciones.portada                   Selector CSS que especifica el elemento donde se creará la portada
+ * @param   {Object}  opciones                           Opciones para crear la proyección
+ * @param   {string}  opciones.proyector                 Selector CSS que especifica el elemento donde se creará la proyección
  * @param   {array}   opciones.caracteresElegidos        Array con los índices de los caracteres a utilizar
  * @param   {Object}  opciones.color                     Objeto con el color del diseño en formato rgb, indexado por r, g y b
- * @param   {boolean} opciones.conMovimiento             Si la portada tiene movimiento o no
- * @param   {boolean} opciones.conPosicionInicialRandom  Si la portada se genera en una posición random o no
- * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la portada en negativo o no
+ * @param   {boolean} opciones.conMovimiento             Si la proyección tiene movimiento o no
+ * @param   {boolean} opciones.conPosicionInicialRandom  Si la proyección se genera en una posición random o no
+ * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la proyección en negativo o no
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
@@ -106,7 +106,7 @@ export function crea(opciones) {
   let geometriaHelper;
   let efectoAscii;
   let detenido = false;
-  let contenedorPortada;
+  let contenedorProyector;
 
   let modelos;
   let modelosCargados = [];
@@ -122,7 +122,7 @@ export function crea(opciones) {
       modelos = opciones.modelos;
       nModelos = modelos.length;
 
-      let portada = opciones.portada;
+      let proyector = opciones.proyector;
       let caracteresElegidos =
         opciones.caracteresElegidos !== undefined
           ? opciones.caracteresElegidos
@@ -133,10 +133,6 @@ export function crea(opciones) {
         opciones.conPosicionInicialRandom !== undefined
           ? opciones.conPosicionInicialRandom
           : false;
-      let conTextoPortada =
-        opciones.conTextoPortada !== undefined
-          ? opciones.conTextoPortada
-          : true;
       let conColorEnNegativo = opciones.conColorEnNegativo;
       let conEfecto =
         opciones.conEfecto !== undefined ? opciones.conEfecto : true;
@@ -182,6 +178,22 @@ export function crea(opciones) {
         return color;
       };
 
+      const colorAleatorioConContraste = () => {
+        let color = colorAleatorio();
+
+        luminanceBase = luminosidad(color["r"], color["g"], color["b"]);
+        const maxLuminance = 0.1;
+
+        // El color debe tener una liminosidad menor que maxLuminance
+        // para que el texto en gris tenga contraste sufienciente
+        while (luminanceBase > maxLuminance) {
+          color = colorAleatorio();
+          luminanceBase = luminosidad(color["r"], color["g"], color["b"]);
+        }
+
+        return color;
+      };
+
       // Establecemos la seed en la URL que se usará en el QR
       let searchParams = new URLSearchParams("");
       searchParams.set("seed", seed);
@@ -201,25 +213,7 @@ export function crea(opciones) {
       if (opciones.color !== undefined) {
         colorBase = opciones.color;
       } else {
-        colorBase = colorAleatorio();
-
-        luminanceBase = luminosidad(
-          colorBase["r"],
-          colorBase["g"],
-          colorBase["b"]
-        );
-        const maxLuminance = 0.1;
-
-        // El color debe tener una liminosidad menor que maxLuminance
-        // para que el texto en gris tenga contraste sufienciente
-        while (luminanceBase > maxLuminance) {
-          colorBase = colorAleatorio();
-          luminanceBase = luminosidad(
-            colorBase["r"],
-            colorBase["g"],
-            colorBase["b"]
-          );
-        }
+        colorBase = colorAleatorioConContraste();
       }
 
       luminanceBase = luminosidad(
@@ -240,7 +234,7 @@ export function crea(opciones) {
       animate();
 
       function init() {
-        contenedorPortada = document.querySelector(portada);
+        contenedorProyector = document.querySelector(proyector);
         contenedor3d = document.createElement("div");
         contenedor3d.innerHTML = "";
 
@@ -275,9 +269,9 @@ export function crea(opciones) {
             Math.floor(generador() * posiblesCaracteres.length)
           ];
 
-        let canvasPortada = document.createElement("canvas");
-        canvasPortada.width = anchoImagen;
-        canvasPortada.height = altoImagen;
+        let canvasProyector = document.createElement("canvas");
+        canvasProyector.width = anchoImagen;
+        canvasProyector.height = altoImagen;
 
         if (conColorEnNegativo === undefined) {
           conColorEnNegativo = generador() > 0.5;
@@ -286,7 +280,7 @@ export function crea(opciones) {
         // Creamos el efecto ASCII
         efectoAscii = new AsciiEffectProyeccionDebil(
           URL_BASE,
-          canvasPortada,
+          canvasProyector,
           renderer,
           colorBase,
           caracteres,
@@ -295,7 +289,6 @@ export function crea(opciones) {
             scale: 1,
             color: "rgb(0,255,0)",
             margen: opciones.margen,
-            conTextoPortada: false,
             invert: conColorEnNegativo,
           }
         );
@@ -398,12 +391,12 @@ export function crea(opciones) {
         contenedor3d.addEventListener("pointermove", onPointerMove);
         window.addEventListener("resize", onWindowResize);
 
-        // Añadimos la portada al canvas
+        // Añadimos la proyección al canvas
 
         if (conEfecto) {
-          contenedorPortada.appendChild(canvasPortada);
+          contenedorProyector.appendChild(canvasProyector);
         } else {
-          contenedorPortada.appendChild(renderer.domElement);
+          contenedorProyector.appendChild(renderer.domElement);
         }
       }
 
@@ -445,7 +438,7 @@ export function crea(opciones) {
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
         escena.add(modeloMostrado);
 
-        efectoAscii.colorBaseGlobal = colorAleatorio();
+        efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
         efectoAscii.invert = generador() > 0.5;
 
         setTimeout(mostrarModelo, 5000);
@@ -486,6 +479,6 @@ export function crea(opciones) {
       }
     });
     detenido = true;
-    contenedorPortada.innerHTML = "";
+    contenedorProyector.innerHTML = "";
   };
 }

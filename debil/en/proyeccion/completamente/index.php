@@ -51,7 +51,7 @@ while ($archivo = readdir($directorioModelos)) {
 
         async function mostrarModelo() {
             let nuevoBorrar = crea({
-                portada: "#proyector",
+                proyector: "#proyector",
                 conMovimiento: true,
                 // conEfecto: false,
                 // conColorEnNegativo: false,

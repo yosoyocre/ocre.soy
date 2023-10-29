@@ -19,10 +19,6 @@ class AsciiEffectProyeccionDebil {
     const iScale = options["scale"] || 1;
     const bColor = options["color"] || false; // nice but slows down rendering!
     const strResolution = options["strResolution"] || "low";
-    const conTextoPortada =
-      options["conTextoPortada"] !== undefined
-        ? options["conTextoPortada"]
-        : true;
     let margin = options["margen"] !== undefined ? options["margen"] : 4;
 
     let self = this;
@@ -82,10 +78,6 @@ class AsciiEffectProyeccionDebil {
 
     const fFontSize = (2 / fResolution) * iScale;
 
-    const front = new Image();
-
-    front.src = urlBase + "img/front.png";
-
     function asciifyImage() {
       oCtx.clearRect(0, 0, iWidth, iHeight);
       oCtx.drawImage(oCanvasImg, 0, 0, iWidth, iHeight);
@@ -135,10 +127,6 @@ class AsciiEffectProyeccionDebil {
             (y * height) / iHeight
           );
         }
-      }
-
-      if (conTextoPortada) {
-        targetCtx.drawImage(front, 0, 0, width, height);
       }
     }
   }
