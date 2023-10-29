@@ -7,7 +7,7 @@ $modelos = [];
 
 while ($archivo = readdir($directorioModelos)) {
     if ($archivo != "." && $archivo != "..") {
-        array_push($modelos, $archivo);
+        array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
 }
 
@@ -50,11 +50,6 @@ while ($archivo = readdir($directorioModelos)) {
         let borrar;
 
         async function mostrarModelo() {
-            let nombreModelo = modelos[Math.floor(Math.random() * modelos.length)];
-            let path = "./modelos/" + nombreModelo + "/modelo.js";
-
-            let modelo = await import(path);
-
             let nuevoBorrar = crea({
                 portada: "#proyector",
                 conMovimiento: true,
@@ -62,7 +57,7 @@ while ($archivo = readdir($directorioModelos)) {
                 // conColorEnNegativo: false,
                 alto: 782,
                 margen: 0,
-                objeto: modelo.default,
+                modelos: modelos
             });
 
             if (borrar) {

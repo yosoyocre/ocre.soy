@@ -109,10 +109,21 @@ export function crea(opciones) {
   let detenido = false;
   let contenedorPortada;
 
+  let modelos;
+  let modelosCargados = [];
+  let nModelos;
+  let nModelosCargados = 0;
+  let hayModelosCargados = false;
+  let modeloMostrado;
+  let ciclos = 0;
+
   // Cargamos los scripts necesarios
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
     .then((data) => {
+      modelos = opciones.modelos;
+      nModelos = modelos.length;
+
       let portada = opciones.portada;
       let caracteresElegidos =
         opciones.caracteresElegidos !== undefined
@@ -310,7 +321,7 @@ export function crea(opciones) {
         // Hacemos que la cámara gire alrededor del abismo
 
         camara = new THREE.PerspectiveCamera(
-          30,
+          75,
           anchoImagen / altoImagen,
           10,
           20000
@@ -326,8 +337,8 @@ export function crea(opciones) {
         controles.maxPolarAngle = Math.PI / 2;
         controles.autoRotate = true;
 
-        controles.target.y = 100;
-        camara.position.y = controles.target.y + 10000;
+        controles.target.y = 500;
+        camara.position.y = controles.target.y;
 
         let posiblePosicionInicialRandom = generador() * 4000;
 
@@ -350,39 +361,52 @@ export function crea(opciones) {
         );
         geometria.rotateX(-Math.PI / 2);
 
-        const vertices = geometria.attributes.position.array;
+        modelos.forEach((path) => {
+          import(path).then((modelo) => {
+            const objeto = modelo.default;
+            const loader = new GLTFLoader();
+            loader.load(objeto.path, function (gltf) {
+              nModelosCargados++;
 
-        for (let i = 0, j = 0, l = vertices.length; i < l; i++, j += 3) {
-          // Este multiplicador hace que las diferencias de altura sean más grandes
-          vertices[j + 1] = data[i] * 20;
-        }
+              let modeloCargado = gltf.scene;
+              modeloCargado.scale.setScalar(objeto.tamano);
+              modeloCargado.position.set(
+                objeto.posicion[0],
+                objeto.posicion[1],
+                objeto.posicion[2]
+              );
 
+              modelosCargados.push(modeloCargado);
+              // escena.add(objeto);
+            });
+          });
+        });
         // Aplicamos sombras
 
-        if (opciones.objeto.conLuzAmbiente) {
-          const ambientLight = new THREE.AmbientLight(0xcccccc);
-          ambientLight.name = "AmbientLight";
-          escena.add(ambientLight);
-        }
+        // if (opciones.objeto.conLuzAmbiente) {
+        //   const ambientLight = new THREE.AmbientLight(0xcccccc);
+        //   ambientLight.name = "AmbientLight";
+        //   escena.add(ambientLight);
+        // }
 
-        const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-        dirLight.target.position.set(0, 10, -1);
-        dirLight.add(dirLight.target);
-        dirLight.lookAt(-1, -10, 0);
-        dirLight.name = "DirectionalLight";
-        escena.add(dirLight);
+        // const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+        // dirLight.target.position.set(0, 10, -1);
+        // dirLight.add(dirLight.target);
+        // dirLight.lookAt(-1, -10, 0);
+        // dirLight.name = "DirectionalLight";
+        // escena.add(dirLight);
 
-        const loader = new GLTFLoader();
-        loader.load(opciones.objeto.path, function (gltf) {
-          objeto = gltf.scene;
-          objeto.scale.setScalar(opciones.objeto.tamano);
-          objeto.position.set(
-            opciones.objeto.posicion[0],
-            opciones.objeto.posicion[1],
-            opciones.objeto.posicion[2]
-          );
-          escena.add(objeto);
-        });
+        // const loader = new GLTFLoader();
+        // loader.load(opciones.objeto.path, function (gltf) {
+        //   objeto = gltf.scene;
+        //   objeto.scale.setScalar(opciones.objeto.tamano);
+        //   objeto.position.set(
+        //     opciones.objeto.posicion[0],
+        //     opciones.objeto.posicion[1],
+        //     opciones.objeto.posicion[2]
+        //   );
+        //   escena.add(objeto);
+        // });
 
         // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
@@ -422,10 +446,30 @@ export function crea(opciones) {
           requestAnimationFrame(animate);
         }
 
+        if (!hayModelosCargados) {
+          if (nModelosCargados === nModelos) {
+            hayModelosCargados = true;
+          }
+        } else {
+          if (ciclos % 100 === 0) {
+            mostrarModelo();
+            ciclos = 0;
+          }
+          ciclos++;
+        }
+
         render();
         if (conMovimiento) {
           controles.update();
         }
+      }
+
+      function mostrarModelo() {
+        if (modeloMostrado !== undefined) {
+          escena.remove(modeloMostrado);
+        }
+        modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
+        escena.add(modeloMostrado);
       }
 
       /**
