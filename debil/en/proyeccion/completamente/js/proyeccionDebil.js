@@ -421,7 +421,7 @@ export function crea(opciones) {
           escena.remove(modeloMostrado);
         }
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
-        // modeloMostrado = modelosCargados[5];
+        // modeloMostrado = modelosCargados[6];
         escena.add(modeloMostrado);
 
         efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
