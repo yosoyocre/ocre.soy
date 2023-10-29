@@ -12,6 +12,9 @@
     <p>
       <a href="/debil/en/promocion"><span class="separador">/</span> promoción</a>
     </p>
+    <p>
+      <a href="/debil/en/proyeccion"><span class="separador">/</span> proyección</a>
+    </p>
 
   </div>
 </div>

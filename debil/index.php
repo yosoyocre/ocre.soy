@@ -53,6 +53,18 @@
       </span>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-4">
+      Generador de proyecciones para directo
+      <span class="dato">
+        <a href="/debil/en/proyeccion">
+          <span class="separador">/</span> débil
+          <span class="separador">/</span> en
+          <span class="separador">/</span> proyección
+        </a>
+      </span>
+    </div>
+  </div>
 </div>
 
 <?php require('../_pie.php'); ?>
