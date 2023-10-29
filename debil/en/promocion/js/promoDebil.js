@@ -70,6 +70,7 @@ const luminosidad = (r, g, b) => {
  */
 export function crea(opciones) {
   const DOMINIO_ACTUAL = window.location.origin;
+  const URL_LIBRERIAS = DOMINIO_ACTUAL + "/debil/";
   const URL_BASE = DOMINIO_ACTUAL + "/debil/en/diseno/";
 
   let renderer;
@@ -86,7 +87,7 @@ export function crea(opciones) {
   foto.onload = function () {
     // Cargamos los scripts necesarios
     // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
-    loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
+    loadScript(URL_LIBRERIAS + "node_modules/seedrandom/seedrandom.min.js")
       .then((data) => {
         let caracteresElegidos =
           opciones.caracteresElegidos !== undefined
