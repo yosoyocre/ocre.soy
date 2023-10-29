@@ -115,6 +115,13 @@ export function crea(opciones) {
   let hayModelosCargados = false;
   let modeloMostrado;
 
+  let contador = document.createElement("div");
+
+  const actualizaContador = () => {
+    contador.innerHTML =
+      nModelosCargados + " de " + nModelos + " modelos cargados";
+  };
+
   // Cargamos los scripts necesarios
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
   loadScript(URL_BASE + "node_modules/seedrandom/seedrandom.min.js")
@@ -300,6 +307,8 @@ export function crea(opciones) {
           contenedor3d.appendChild(renderer.domElement);
         }
 
+        contenedorProyector.appendChild(contador);
+
         escena = new THREE.Scene();
         escena.background = new THREE.Color(0xffffff);
 
@@ -362,7 +371,7 @@ export function crea(opciones) {
               );
 
               modelosCargados.push(modeloCargado);
-              // escena.add(objeto);
+              actualizaContador();
             });
           });
         });
@@ -421,6 +430,7 @@ export function crea(opciones) {
         if (!hayModelosCargados) {
           if (nModelosCargados === nModelos) {
             hayModelosCargados = true;
+            contenedorProyector.removeChild(contador);
             mostrarModelo();
           }
         }
