@@ -43,7 +43,7 @@ while ($archivo = readdir($directorioModelos)) {
     <script type="module">
         import {
             crea
-        } from "../../diseno/js/proyeccionDebil.js";
+        } from "./js/proyeccionDebil.js";
 
         let nuevoBorrar = crea({
             proyector: "#proyector",

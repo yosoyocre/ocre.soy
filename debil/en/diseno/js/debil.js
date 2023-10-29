@@ -1,9 +1,8 @@
-import * as THREE from "./three.module.js";
+import * as THREE from "../../../js/three.module.js";
 
 import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
-import { OrbitControls } from "./OrbitControls.js";
+import { OrbitControls } from "../../../js/OrbitControls.js";
 import { ImprovedNoise } from "./ImprovedNoise.js";
-import { GLTFLoader } from "./GLTFLoader.js";
 
 /**
  * Carga un script de forma asíncrona
@@ -93,10 +92,6 @@ const fecha = (date) => {
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
  * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
- * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
- * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
- * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
- * @param   {boolean} opciones.objeto.posicionZ          Posición Z de la cámara
  * @returns {void}
  * @public
  */
@@ -145,7 +140,6 @@ export function crea(opciones) {
           let camara, controles, escena;
 
           let terreno;
-          let objeto;
 
           const conAbismo = true;
 
@@ -355,10 +349,7 @@ export function crea(opciones) {
             camara.position.x = conPosicionInicialRandom
               ? posiblePosicionInicialRandom
               : 2000;
-            camara.position.z =
-              opciones.objeto && opciones.objeto.posicionZ
-                ? opciones.objeto.posicionZ
-                : 3000;
+            camara.position.z = 3000;
             controles.update();
 
             // Generamos el terreno
@@ -380,44 +371,17 @@ export function crea(opciones) {
 
             // Aplicamos sombras
 
-            if (opciones.objeto !== undefined) {
-              if (opciones.objeto.conLuzAmbiente) {
-                const ambientLight = new THREE.AmbientLight(0xcccccc);
-                ambientLight.name = "AmbientLight";
-                escena.add(ambientLight);
-              }
+            textura = new THREE.CanvasTexture(
+              generarTextura(data, anchoMundo, profundidadMundo)
+            );
+            textura.wrapS = THREE.ClampToEdgeWrapping;
+            textura.wrapT = THREE.ClampToEdgeWrapping;
 
-              const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-              dirLight.target.position.set(0, 10, -1);
-              dirLight.add(dirLight.target);
-              dirLight.lookAt(-1, -10, 0);
-              dirLight.name = "DirectionalLight";
-              escena.add(dirLight);
-
-              const loader = new GLTFLoader();
-              loader.load(opciones.objeto.path, function (gltf) {
-                objeto = gltf.scene;
-                objeto.scale.setScalar(opciones.objeto.tamano);
-                objeto.position.set(
-                  opciones.objeto.posicion[0],
-                  opciones.objeto.posicion[1],
-                  opciones.objeto.posicion[2]
-                );
-                escena.add(objeto);
-              });
-            } else {
-              textura = new THREE.CanvasTexture(
-                generarTextura(data, anchoMundo, profundidadMundo)
-              );
-              textura.wrapS = THREE.ClampToEdgeWrapping;
-              textura.wrapT = THREE.ClampToEdgeWrapping;
-
-              terreno = new THREE.Mesh(
-                geometria,
-                new THREE.MeshBasicMaterial({ map: textura })
-              );
-              escena.add(terreno);
-            }
+            terreno = new THREE.Mesh(
+              geometria,
+              new THREE.MeshBasicMaterial({ map: textura })
+            );
+            escena.add(terreno);
 
             // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
@@ -698,11 +662,7 @@ export function crea(opciones) {
             raycaster.setFromCamera(pointer, camara);
 
             // See if the ray from the camara into the world hits one of our meshes
-            if (opciones.objeto !== undefined) {
-              const intersects = raycaster.intersectObject(objeto);
-            } else {
-              const intersects = raycaster.intersectObject(terreno);
-            }
+            const intersects = raycaster.intersectObject(terreno);
           }
         })
         .catch((err) => {
