@@ -330,6 +330,7 @@ export function crea(opciones) {
         controles.maxDistance = 10000;
         controles.maxPolarAngle = Math.PI / 2;
         controles.autoRotate = true;
+        controles.autoRotateSpeed = 8;
 
         controles.target.y = 500;
         camara.position.y = controles.target.y;
@@ -339,10 +340,7 @@ export function crea(opciones) {
         camara.position.x = conPosicionInicialRandom
           ? posiblePosicionInicialRandom
           : 2000;
-        camara.position.z =
-          opciones.objeto && opciones.objeto.posicionZ
-            ? opciones.objeto.posicionZ
-            : 3000;
+        camara.position.z = 3000;
         controles.update();
 
         // Generamos el terreno
@@ -446,6 +444,7 @@ export function crea(opciones) {
           escena.remove(modeloMostrado);
         }
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
+        // modeloMostrado = modelosCargados[5];
         escena.add(modeloMostrado);
 
         efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
