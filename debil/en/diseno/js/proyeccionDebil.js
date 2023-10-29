@@ -381,32 +381,19 @@ export function crea(opciones) {
             });
           });
         });
+
         // Aplicamos sombras
 
-        // if (opciones.objeto.conLuzAmbiente) {
-        //   const ambientLight = new THREE.AmbientLight(0xcccccc);
-        //   ambientLight.name = "AmbientLight";
-        //   escena.add(ambientLight);
-        // }
+        const ambientLight = new THREE.AmbientLight(0xcccccc);
+        ambientLight.name = "AmbientLight";
+        escena.add(ambientLight);
 
-        // const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-        // dirLight.target.position.set(0, 10, -1);
-        // dirLight.add(dirLight.target);
-        // dirLight.lookAt(-1, -10, 0);
-        // dirLight.name = "DirectionalLight";
-        // escena.add(dirLight);
-
-        // const loader = new GLTFLoader();
-        // loader.load(opciones.objeto.path, function (gltf) {
-        //   objeto = gltf.scene;
-        //   objeto.scale.setScalar(opciones.objeto.tamano);
-        //   objeto.position.set(
-        //     opciones.objeto.posicion[0],
-        //     opciones.objeto.posicion[1],
-        //     opciones.objeto.posicion[2]
-        //   );
-        //   escena.add(objeto);
-        // });
+        const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+        dirLight.target.position.set(0, 10, -1);
+        dirLight.add(dirLight.target);
+        dirLight.lookAt(-1, -10, 0);
+        dirLight.name = "DirectionalLight";
+        escena.add(dirLight);
 
         // Creamos un helper que nos permita girar la cámara mirando siempre al centro
 
