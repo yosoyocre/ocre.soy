@@ -1,6 +1,6 @@
-import * as THREE from "./three.module.js";
+import * as THREE from "../../../js/three.module.js";
 
-import { AsciiEffectDebil } from "./AsciiEffectDebil.js";
+import { AsciiEffectDebil } from "../../diseno/js/AsciiEffectDebil.js";
 
 /**
  * Carga un script de forma asíncrona

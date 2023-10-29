@@ -89,7 +89,7 @@
 <script type="module">
     import {
         crea
-    } from "../diseno/js/promoDebil.js?v=33";
+    } from "./js/promoDebil.js";
 
     let borrar;
 
