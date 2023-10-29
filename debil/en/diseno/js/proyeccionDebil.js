@@ -115,7 +115,18 @@ export function crea(opciones) {
   let hayModelosCargados = false;
   let modeloMostrado;
 
+  let contenedorContador = document.createElement("div");
+  contenedorContador.classList.add(
+    "absolute",
+    "w-screen",
+    "h-screen",
+    "text-center",
+    "text-2xl",
+    "bg-white"
+  );
   let contador = document.createElement("div");
+  contador.style = "margin-top: 50vh;";
+  contenedorContador.appendChild(contador);
 
   const actualizaContador = () => {
     contador.innerHTML =
@@ -307,7 +318,7 @@ export function crea(opciones) {
           contenedor3d.appendChild(renderer.domElement);
         }
 
-        contenedorProyector.appendChild(contador);
+        contenedorProyector.appendChild(contenedorContador);
 
         escena = new THREE.Scene();
         escena.background = new THREE.Color(0xffffff);
@@ -428,7 +439,7 @@ export function crea(opciones) {
         if (!hayModelosCargados) {
           if (nModelosCargados === nModelos) {
             hayModelosCargados = true;
-            contenedorProyector.removeChild(contador);
+            contenedorProyector.removeChild(contenedorContador);
             mostrarModelo();
           }
         }
