@@ -25,6 +25,7 @@ class AsciiEffectProyeccionDebil {
 
     this.colorBaseGlobal = colorBase;
     this.invert = options["invert"] || false; // black is white, white is black
+    this.caracteres = charSet;
 
     let width, height;
 
@@ -74,11 +75,11 @@ class AsciiEffectProyeccionDebil {
 
     let aCharList = bColor ? aDefaultColorCharList : aDefaultCharList;
 
-    if (charSet) aCharList = charSet;
-
     const fFontSize = (2 / fResolution) * iScale;
 
     function asciifyImage() {
+      if (self.caracteres) aCharList = self.caracteres;
+
       oCtx.clearRect(0, 0, iWidth, iHeight);
       oCtx.drawImage(oCanvasImg, 0, 0, iWidth, iHeight);
       const oImgData = oCtx.getImageData(0, 0, iWidth, iHeight).data;

@@ -140,6 +140,17 @@ export function crea(opciones) {
       modelos = opciones.modelos;
       nModelos = modelos.length;
 
+      // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
+      let posiblesCaracteres = [
+        "#@%=*+-:·  ",
+        "██⣿⣿  ",
+        "█▛▚▝ ",
+        "╬╠║╗┐- ",
+        "●ø•:· ",
+        "✺✹✸✷✶✦· ",
+        "⣿⣷⣶⣦⣤⣄⣀⡀  ",
+      ];
+
       let proyector = opciones.proyector;
       let caracteresElegidos =
         opciones.caracteresElegidos !== undefined
@@ -259,17 +270,6 @@ export function crea(opciones) {
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(anchoImagen, altoImagen);
-
-        // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
-        let posiblesCaracteres = [
-          "#@%=*+-:·  ",
-          "██⣿⣿  ",
-          "█▛▚▝ ",
-          "╬╠║╗┐- ",
-          "●ø•:· ",
-          "✺✹✸✷✶✦· ",
-          "⣿⣷⣶⣦⣤⣄⣀⡀  ",
-        ];
 
         if (caracteresElegidos.length > 0) {
           let posiblesCaracteresElegidos = [];
@@ -460,6 +460,10 @@ export function crea(opciones) {
 
         efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
         efectoAscii.invert = generador() > 0.5;
+        efectoAscii.caracteres =
+          posiblesCaracteres[
+            Math.floor(generador() * posiblesCaracteres.length)
+          ];
 
         setTimeout(mostrarModelo, 5000);
       }
