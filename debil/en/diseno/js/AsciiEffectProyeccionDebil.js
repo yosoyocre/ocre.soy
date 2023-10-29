@@ -18,8 +18,6 @@ class AsciiEffectProyeccionDebil {
     const fResolution = options["resolution"] || 0.15; // Higher for more details
     const iScale = options["scale"] || 1;
     const bColor = options["color"] || false; // nice but slows down rendering!
-    const strResolution = options["strResolution"] || "low";
-    let margin = options["margen"] !== undefined ? options["margen"] : 4;
 
     let self = this;
 
@@ -100,6 +98,8 @@ class AsciiEffectProyeccionDebil {
         "," +
         self.colorBaseGlobal["b"] +
         ")";
+
+      const margin = 0;
 
       for (let y = margin; y < iHeight - margin; y += 2) {
         for (let x = margin; x < iWidth - margin; x++) {

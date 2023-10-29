@@ -45,34 +45,13 @@ while ($archivo = readdir($directorioModelos)) {
             crea
         } from "../../diseno/js/proyeccionDebil.js";
 
-        let modelos = <?= json_encode($modelos); ?>;
-
-        let borrar;
-
-        async function mostrarModelo() {
-            let nuevoBorrar = crea({
-                proyector: "#proyector",
-                conMovimiento: true,
-                // conEfecto: false,
-                // conColorEnNegativo: false,
-                alto: 782,
-                margen: 0,
-                modelos: modelos
-            });
-
-            if (borrar) {
-                console.log('Borrando');
-                borrar();
-            }
-
-            borrar = nuevoBorrar;
-
-            // setTimeout(() => {
-            //     mostrarModelo();
-            // }, 5000);
-        }
-
-        await mostrarModelo();
+        let nuevoBorrar = crea({
+            proyector: "#proyector",
+            conMovimiento: true,
+            // conEfecto: false,
+            // conColorEnNegativo: false,
+            modelos: <?= json_encode($modelos); ?>
+        });
     </script>
 </body>
 

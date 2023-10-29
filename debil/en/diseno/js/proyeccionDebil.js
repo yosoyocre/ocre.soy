@@ -56,25 +56,6 @@ const luminosidad = (r, g, b) => {
   return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 };
 
-const fecha = (date) => {
-  function pad(n) {
-    return n < 10 ? "0" + n : n;
-  }
-
-  return (
-    "el " +
-    pad(date.getDate()) +
-    "/" +
-    pad(date.getMonth() + 1) +
-    "/" +
-    pad(date.getFullYear()) +
-    " a las " +
-    pad(date.getHours()) +
-    ":" +
-    pad(date.getMinutes())
-  );
-};
-
 /**
  * Crea una proyección del disco Débil
  *
@@ -88,11 +69,6 @@ const fecha = (date) => {
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
- * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
- * @param   {Object}  opciones.objeto                    Objeto a cargar en lugar del terreno
- * @param   {string}  opciones.objeto.path               Path del archivo glTF (.glb) a cargar
- * @param   {int}     opciones.objeto.tamano             Tamaño del objeto
- * @param   {boolean} opciones.objeto.posicionZ          Posición Z de la cámara
  * @returns {void}
  * @public
  */
@@ -173,12 +149,10 @@ export function crea(opciones) {
       let objeto;
 
       const anchoMundo = 800,
-        profundidadMundo = 800,
-        medioAnchoMundo = anchoMundo / 2,
-        mediaProfundidadMundo = profundidadMundo / 2;
+        profundidadMundo = 800;
 
       const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
-      const altoImagen = opciones.alto ? opciones.alto : 1400;
+      const altoImagen = opciones.alto ? opciones.alto : 782;
 
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -223,18 +197,10 @@ export function crea(opciones) {
         return color;
       };
 
-      // Establecemos la seed en la URL que se usará en el QR
-      let searchParams = new URLSearchParams("");
-      searchParams.set("seed", seed);
-
-      const urlSeed =
-        URL_BASE + "completamente/" + "?" + searchParams.toString();
-
       const forma = generador() * 100;
 
       console.log("seed", seed);
       console.log("forma", forma);
-      console.log("urlSeed", urlSeed);
 
       let colorBase;
       let luminanceBase;
@@ -306,7 +272,6 @@ export function crea(opciones) {
             resolution: 0.1,
             scale: 1,
             color: "rgb(0,255,0)",
-            margen: opciones.margen,
             invert: conColorEnNegativo,
           }
         );
