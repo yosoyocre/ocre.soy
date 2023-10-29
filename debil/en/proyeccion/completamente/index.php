@@ -1,3 +1,18 @@
+<?php
+
+// Leemos las subcarpetas de la carpeta modelos
+
+$directorioModelos = opendir('./modelos');
+$modelos = [];
+
+while ($archivo = readdir($directorioModelos)) {
+    if ($archivo != "." && $archivo != "..") {
+        array_push($modelos, $archivo);
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,14 +45,7 @@
             crea
         } from "../../diseno/js/proyeccionDebil.js";
 
-        let modelos = [
-            "pumping_heart",
-            "skull",
-            "eggplant",
-            "colt",
-            "retro_computer",
-            "sonic",
-        ];
+        let modelos = <?= json_encode($modelos); ?>;
 
         let borrar;
 
@@ -64,9 +72,9 @@
 
             borrar = nuevoBorrar;
 
-            setTimeout(() => {
-                mostrarModelo();
-            }, 5000);
+            // setTimeout(() => {
+            //     mostrarModelo();
+            // }, 5000);
         }
 
         await mostrarModelo();
