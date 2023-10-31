@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "liricle": "^4.0.4",
     "qrious": "^4.0.2",
     "seedrandom": "^3.0.5"
   }
