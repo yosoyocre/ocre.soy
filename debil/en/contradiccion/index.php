@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body class="h-screen text-black font-bold bg-black text-center uppercase">
+<body class="h-screen font-bold text-center uppercase text-black bg-black">
     <div class="flex items-center h-full">
         <div class="mx-auto relative z-10">
             <span id="letra"></span>
@@ -46,7 +46,7 @@
             crea
         } from "./js/videoDebil.js";
 
-        crea({
+        let borrar = crea({
             portada: "#portada",
             conTextoPortada: false,
             // color: {
@@ -60,6 +60,8 @@
             conColorEnNegativo: true
         });
 
+        let body = document.querySelector('body');
+        let portada = document.getElementById("portada");
         let audio = document.getElementById("audio");
         let letra = document.getElementById("letra");
 
@@ -67,7 +69,16 @@
 
         // listen to on sync event
         liricle.on("sync", (line, word) => {
-            letra.innerHTML = line.text.replace(/\s+/g, "<br />");
+            let texto = line.text;
+
+            if (texto.toLowerCase() == 'no mujer') {
+                borrar();
+                portada.remove();
+                body.classList.remove("bg-black")
+                body.classList.add("bg-white");
+            }
+
+            letra.innerHTML = texto.replace(/\s+/g, "<br />");
         });
 
         // load lyric
