@@ -179,6 +179,24 @@ export function crea(opciones) {
             return color;
           };
 
+          const colorAleatorioConContraste = () => {
+            let color = colorAleatorio();
+
+            luminanceBase = luminosidad(color["r"], color["g"], color["b"]);
+            const minLuminance = 0.4;
+
+            while (luminanceBase < minLuminance) {
+              colorBase = colorAleatorio();
+              luminanceBase = luminosidad(
+                colorBase["r"],
+                colorBase["g"],
+                colorBase["b"]
+              );
+            }
+
+            return color;
+          };
+
           // Establecemos la seed en la URL que se usará en el QR
           let searchParams = new URLSearchParams("");
           searchParams.set("seed", seed);
@@ -198,23 +216,7 @@ export function crea(opciones) {
           if (opciones.color !== undefined) {
             colorBase = opciones.color;
           } else {
-            colorBase = colorAleatorio();
-
-            luminanceBase = luminosidad(
-              colorBase["r"],
-              colorBase["g"],
-              colorBase["b"]
-            );
-            const minLuminance = 0.4;
-
-            while (luminanceBase < minLuminance) {
-              colorBase = colorAleatorio();
-              luminanceBase = luminosidad(
-                colorBase["r"],
-                colorBase["g"],
-                colorBase["b"]
-              );
-            }
+            colorBase = colorAleatorioConContraste();
           }
 
           luminanceBase = luminosidad(
@@ -468,6 +470,46 @@ export function crea(opciones) {
                 contenedorContra.appendChild(canvasContra);
               };
             }
+
+            let body = document.querySelector("body");
+            let audio = document.getElementById("audio");
+            let letra = document.getElementById("letra");
+
+            const liricle = new Liricle();
+
+            // listen to on sync event
+            liricle.on("sync", (line, word) => {
+              efectoAscii.colorGlobal = colorAleatorioConContraste();
+              efectoAscii.caracteres =
+                posiblesCaracteres[
+                  Math.floor(generador() * posiblesCaracteres.length)
+                ];
+              let texto = line.text;
+
+              if (texto.toLowerCase() == "no mujer") {
+                contenedorPortada.remove();
+                body.classList.remove("bg-black");
+                body.classList.add("bg-white");
+              }
+
+              letra.innerHTML = texto.replace(/\s+/g, "<br />");
+            });
+
+            // load lyric
+            liricle.load({
+              url: "audio/no_debil.lrc",
+            });
+
+            audio.addEventListener("timeupdate", () => {
+              const time = audio.currentTime;
+
+              // sync lyric when the audio time updated
+              liricle.sync(time, false);
+            });
+
+            setTimeout(() => {
+              audio.play();
+            }, 1000);
           }
 
           function onWindowResize() {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Débil</title>
+    <title>No débil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://use.typekit.net/wfj3ppv.js"></script>
     <script>
@@ -33,7 +33,8 @@
             <span id="letra"></span>
         </div>
         <div id="portada" class="absolute"></div>
-        <audio controls id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio>
+        <!-- <audio controls id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio> -->
+        <audio id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio>
     </div>
 
     <!-- Import maps polyfill -->
@@ -57,45 +58,9 @@
             margen: 0,
             ancho: 1400,
             alto: 782,
-            conColorEnNegativo: true
+            conColorEnNegativo: true,
+            conAbismoCircular: false
         });
-
-        let body = document.querySelector('body');
-        let portada = document.getElementById("portada");
-        let audio = document.getElementById("audio");
-        let letra = document.getElementById("letra");
-
-        const liricle = new Liricle();
-
-        // listen to on sync event
-        liricle.on("sync", (line, word) => {
-            let texto = line.text;
-
-            if (texto.toLowerCase() == 'no mujer') {
-                borrar();
-                portada.remove();
-                body.classList.remove("bg-black")
-                body.classList.add("bg-white");
-            }
-
-            letra.innerHTML = texto.replace(/\s+/g, "<br />");
-        });
-
-        // load lyric
-        liricle.load({
-            url: "audio/no_debil.lrc"
-        });
-
-        audio.addEventListener("timeupdate", () => {
-            const time = audio.currentTime;
-
-            // sync lyric when the audio time updated
-            liricle.sync(time, false);
-        });
-
-        setTimeout(() => {
-            audio.play();
-        }, 1000);
     </script>
 </body>
 

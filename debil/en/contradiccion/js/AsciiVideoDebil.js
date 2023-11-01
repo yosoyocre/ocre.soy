@@ -26,6 +26,11 @@ class AsciiVideoDebil {
         : true;
     let margin = options["margen"] !== undefined ? options["margen"] : 4;
 
+    this.colorGlobal = colorBase;
+    this.caracteres = charSet;
+
+    let self = this;
+
     let width, height;
 
     const domElement = document.createElement("div");
@@ -72,10 +77,6 @@ class AsciiVideoDebil {
       return;
     }
 
-    let aCharList = bColor ? aDefaultColorCharList : aDefaultCharList;
-
-    if (charSet) aCharList = charSet;
-
     const fFontSize = (2 / fResolution) * iScale;
 
     const front = new Image();
@@ -83,6 +84,8 @@ class AsciiVideoDebil {
     front.src = urlBase + "img/front.png";
 
     function asciifyImage() {
+      let aCharList;
+      if (self.caracteres) aCharList = self.caracteres;
       oCtx.clearRect(0, 0, iWidth, iHeight);
       oCtx.drawImage(oCanvasImg, 0, 0, iWidth, iHeight);
       const oImgData = oCtx.getImageData(0, 0, iWidth, iHeight).data;
@@ -97,11 +100,11 @@ class AsciiVideoDebil {
 
       targetCtx.fillStyle =
         "rgb(" +
-        colorBase["r"] +
+        self.colorGlobal["r"] +
         "," +
-        colorBase["g"] +
+        self.colorGlobal["g"] +
         "," +
-        colorBase["b"] +
+        self.colorGlobal["b"] +
         ")";
 
       for (let y = margin; y < iHeight - margin; y += 2) {
