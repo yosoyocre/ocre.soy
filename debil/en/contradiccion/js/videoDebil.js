@@ -107,6 +107,18 @@ export function crea(opciones) {
   let geometriaHelper;
   let efectoAscii;
   let detenido = false;
+  let trallaFinal = false;
+
+  // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
+  let posiblesCaracteres = [
+    "#@%=*+-:·  ",
+    "██⣿⣿  ",
+    "█▛▚▝ ",
+    "╬╠║╗┐- ",
+    "●ø•:· ",
+    "✺✹✸✷✶✦· ",
+    "⣿⣷⣶⣦⣤⣄⣀⡀  ",
+  ];
 
   // Cargamos los scripts necesarios
   // TODO Igual esto no lo tenemos que cargar en cada llamada. Podemos tener una variable modulosCargados
@@ -252,17 +264,6 @@ export function crea(opciones) {
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(anchoImagen, altoImagen);
-
-            // Las posibles cadenas de caracteres que se usarán para el efecto ASCII
-            let posiblesCaracteres = [
-              "#@%=*+-:·  ",
-              "██⣿⣿  ",
-              "█▛▚▝ ",
-              "╬╠║╗┐- ",
-              "●ø•:· ",
-              "✺✹✸✷✶✦· ",
-              "⣿⣷⣶⣦⣤⣄⣀⡀  ",
-            ];
 
             if (caracteresElegidos.length > 0) {
               let posiblesCaracteresElegidos = [];
@@ -481,11 +482,13 @@ export function crea(opciones) {
 
             // listen to on sync event
             liricle.on("sync", (line, word) => {
-              efectoAscii.colorGlobal = colorAleatorioConContraste();
-              efectoAscii.caracteres =
-                posiblesCaracteres[
-                  Math.floor(generador() * posiblesCaracteres.length)
-                ];
+              if (!trallaFinal) {
+                efectoAscii.colorGlobal = colorAleatorioConContraste();
+                efectoAscii.caracteres =
+                  posiblesCaracteres[
+                    Math.floor(generador() * posiblesCaracteres.length)
+                  ];
+              }
               let texto = line.text;
 
               if (texto.toLowerCase() == "no mujer") {
@@ -521,12 +524,16 @@ export function crea(opciones) {
             audio.addEventListener("timeupdate", () => {
               const time = audio.currentTime;
 
+              if (time > 3 * 60 + 49) {
+                trallaFinal = true;
+              }
+
               // sync lyric when the audio time updated
               liricle.sync(time, false);
             });
 
             setTimeout(() => {
-              audio.currentTime = 4 * 60 + 44;
+              // audio.currentTime = 3 * 60 + 45;
               audio.play();
             }, 1000);
           }
@@ -707,6 +714,14 @@ export function crea(opciones) {
            * @private
            */
           function render() {
+            if (trallaFinal) {
+              efectoAscii.colorGlobal = colorAleatorioConContraste();
+              efectoAscii.caracteres =
+                posiblesCaracteres[
+                  Math.floor(generador() * posiblesCaracteres.length)
+                ];
+            }
+
             if (conEfecto) {
               efectoAscii.render(escena, camara);
             } else {
