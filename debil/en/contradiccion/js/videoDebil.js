@@ -62,16 +62,17 @@ const fecha = (date) => {
   }
 
   return (
-    "el " +
+    "el <b>" +
     pad(date.getDate()) +
     "." +
     pad(date.getMonth() + 1) +
     "." +
     pad(date.getFullYear().toString().substr(-2)) +
-    " a las " +
+    "</b> a las <b>" +
     pad(date.getHours()) +
     ":" +
-    pad(date.getMinutes())
+    pad(date.getMinutes()) +
+    "</b>"
   );
 };
 
@@ -496,12 +497,13 @@ export function crea(opciones) {
                 body.style.fontSize = "1.5em";
                 body.style.lineHeight = "1.2";
                 body.style.letterSpacing = "-0.05em";
+                body.classList.remove("font-bold");
                 esFinal = true;
                 texto =
                   "Vídeo generado " +
                   fecha(new Date()) +
-                  ' <br>para la canción "No débil"<br>del disco "Débil" de Ocre<br>Autoeditado en 2023<br><br>' +
-                  "Letra y Música de Edu Poch y Bita Barbadillo<br>Grabada y producida por Edu Poch<br>Mezclada por Jahel Piñeiro<br>Código del vídeo programado por Edu Poch";
+                  " <br>para la canción <b>No débil</b><br>del disco <b>Débil</b> de <b>Ocre</b><br>Autoeditado en <b>2023</b><br><br>" +
+                  "Letra y Música de <b>Edu Poch</b> y <b>Bita Barbadillo</b><br>Grabada y producida por <b>Edu Poch</b><br>Mezclada y masterizada por <b>Jahel Piñeiro</b><br>Código del vídeo programado por <b>Edu Poch</b>";
               }
 
               if (!esFinal) {
