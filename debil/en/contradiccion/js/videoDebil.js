@@ -498,9 +498,10 @@ export function crea(opciones) {
                 body.style.letterSpacing = "-0.05em";
                 esFinal = true;
                 texto =
-                  "Vídeo generado <br>" +
+                  "Vídeo generado " +
                   fecha(new Date()) +
-                  ' <br>para la canción "No débil"<br>del disco "Débil"<br>de Ocre<br>Autoeditado en 2023';
+                  ' <br>para la canción "No débil"<br>del disco "Débil" de Ocre<br>Autoeditado en 2023<br><br>' +
+                  "Letra y Música de Edu Poch y Bita Barbadillo<br>Grabada y producida por Edu Poch<br>Mezclada por Jahel Piñeiro<br>Código del vídeo programado por Edu Poch";
               }
 
               if (!esFinal) {
@@ -523,7 +524,7 @@ export function crea(opciones) {
             });
 
             setTimeout(() => {
-              // audio.currentTime = 4 * 60 + 44;
+              audio.currentTime = 4 * 60 + 44;
               audio.play();
             }, 1000);
           }
