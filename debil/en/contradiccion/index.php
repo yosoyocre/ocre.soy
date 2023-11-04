@@ -16,9 +16,6 @@
     <style>
         body {
             font-family: 'futura-pt', sans-serif;
-            letter-spacing: -0.1em;
-            font-size: 16rem;
-            line-height: 0.9 !important;
         }
 
         #portada canvas {
@@ -27,7 +24,7 @@
     </style>
 </head>
 
-<body class="h-screen font-bold text-center uppercase text-black bg-black">
+<body class="h-screen font-bold text-center uppercase text-black bg-black" style="font-size: 16rem; line-height: 0.9; letter-spacing: -0.1em;">
     <div class="flex items-center h-full">
         <div class="mx-auto relative z-10">
             <span id="letra"></span>

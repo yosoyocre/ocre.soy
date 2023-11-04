@@ -64,10 +64,10 @@ const fecha = (date) => {
   return (
     "el " +
     pad(date.getDate()) +
-    "/" +
+    "." +
     pad(date.getMonth() + 1) +
-    "/" +
-    pad(date.getFullYear()) +
+    "." +
+    pad(date.getFullYear().toString().substr(-2)) +
     " a las " +
     pad(date.getHours()) +
     ":" +
@@ -474,6 +474,7 @@ export function crea(opciones) {
             let body = document.querySelector("body");
             let audio = document.getElementById("audio");
             let letra = document.getElementById("letra");
+            let esFinal = false;
 
             const liricle = new Liricle();
 
@@ -490,9 +491,23 @@ export function crea(opciones) {
                 contenedorPortada.remove();
                 body.classList.remove("bg-black");
                 body.classList.add("bg-white");
+              } else if (texto.toLowerCase() == "fin") {
+                // body.classList.remove("uppercase");
+                body.style.fontSize = "1.5em";
+                body.style.lineHeight = "1.2";
+                body.style.letterSpacing = "-0.05em";
+                esFinal = true;
+                texto =
+                  "Vídeo generado <br>" +
+                  fecha(new Date()) +
+                  ' <br>para la canción "No débil"<br>del disco "Débil"<br>de Ocre<br>Autoeditado en 2023';
               }
 
-              letra.innerHTML = texto.replace(/\s+/g, "<br />");
+              if (!esFinal) {
+                letra.innerHTML = texto.replace(/\s+/g, "<br />");
+              } else {
+                letra.innerHTML = texto;
+              }
             });
 
             // load lyric
@@ -508,6 +523,7 @@ export function crea(opciones) {
             });
 
             setTimeout(() => {
+              // audio.currentTime = 4 * 60 + 44;
               audio.play();
             }, 1000);
           }
