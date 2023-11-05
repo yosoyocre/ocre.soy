@@ -405,74 +405,6 @@ export function crea(opciones) {
               contenedorPortada.appendChild(renderer.domElement);
             }
 
-            // Generamos la contraportada si se indica en las opciones
-
-            if (contra !== undefined) {
-              const imgContra = new Image();
-              imgContra.src = URL_BASE + "img/back.png";
-              imgContra.onload = function () {
-                let contenedorContra = document.querySelector(contra);
-
-                let canvasContra = document.createElement("canvas");
-                canvasContra.width = anchoImagen;
-                canvasContra.height = altoImagen;
-
-                let ctxContra = canvasContra.getContext("2d");
-
-                ctxContra.drawImage(imgContra, 0, 0);
-
-                let contenedorQR = document.createElement("canvas");
-
-                let tamanoQR = 218;
-
-                new QRious({
-                  element: contenedorQR,
-                  value: urlSeed,
-                  size: tamanoQR,
-                  foreground:
-                    "rgb(" +
-                    colorBase.r +
-                    "," +
-                    colorBase.g +
-                    "," +
-                    colorBase.b +
-                    ")",
-                  background: "#ffffff",
-                  level: "L",
-                });
-
-                let imgQR = contenedorQR;
-                let margenQR = 46;
-
-                // Imprimos el QR en 2 esquinas
-                ctxContra.drawImage(
-                  imgQR,
-                  anchoImagen - tamanoQR - margenQR,
-                  margenQR
-                );
-                ctxContra.drawImage(
-                  imgQR,
-                  margenQR,
-                  altoImagen - tamanoQR - margenQR
-                );
-
-                let textoContra = "";
-
-                if (!!opciones.textoCreditos) {
-                  textoContra = opciones.textoCreditos + ", ";
-                }
-
-                textoContra = textoContra + fecha(new Date());
-
-                ctxContra.font = "20px monospace";
-                ctxContra.textAlign = "right";
-                ctxContra.fillStyle = "rgb(181,181,181)";
-                ctxContra.fillText(textoContra, 19 * 70, 19 * 70);
-
-                contenedorContra.appendChild(canvasContra);
-              };
-            }
-
             let body = document.querySelector("body");
             let audio = document.getElementById("audio");
             let letra = document.getElementById("letra");
@@ -482,6 +414,8 @@ export function crea(opciones) {
 
             // listen to on sync event
             liricle.on("sync", (line, word) => {
+              contenedorPortada.classList.remove("hidden");
+
               if (!trallaFinal) {
                 efectoAscii.colorGlobal = colorAleatorioConContraste();
                 efectoAscii.caracteres =
