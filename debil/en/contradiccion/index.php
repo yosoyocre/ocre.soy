@@ -16,10 +16,11 @@
     <style>
         body {
             font-family: 'futura-pt', sans-serif;
+            overflow: hidden;
         }
 
         #portada canvas {
-            height: 100vh;
+            width: 100vw;
         }
     </style>
 </head>
@@ -35,7 +36,7 @@
         <div id="contenedor-letra" class="mx-auto relative z-10 hidden">
             <span id="letra"></span>
         </div>
-        <div id="portada" class="absolute hidden"></div>
+        <div id="portada" class="absolute mx-auto"></div>
         <!-- <audio controls id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio> -->
         <audio id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio>
     </div>
@@ -68,8 +69,8 @@
                     //     b: 255
                     // },
                     margen: 0,
-                    ancho: 1400,
-                    alto: 782,
+                    ancho: window.innerWidth,
+                    alto: window.innerHeight,
                     conColorEnNegativo: true,
                     conAbismoCircular: false
                 });
