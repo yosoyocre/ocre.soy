@@ -56,8 +56,13 @@ require('../_cabecera.php');
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <p>
+                <a href="https://open.spotify.com/album/6ObAlX2o1gKlQfFbmgwqGL?si=OZGbaKx6TKeNnxSA7U_5xg">
+                    6º aniversario del Vago
+                </a>
+            </p>
+            <p>
                 <a href="https://open.spotify.com/artist/4vaAG0GM8Bb96kbuZJ7tqG?si=01-MJPz9S2aqf6pXtFl6xA">
-                    Mi música en Spotify
+                    El resto de mi música en Spotify
                 </a>
             </p>
             <p>
