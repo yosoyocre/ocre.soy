@@ -8,19 +8,68 @@
     </h1>
 
     <p>
-      En algún momento del 2023 llegará el Débil.
+      El 21 de diciembre de 2023 autoedité mi cuarto disco, el Débil.
     </p>
+
+    <p>Es mi primer disco conceptual y en él reflexiono sobre mi masculinidad y, por extensión, la de mi generación. </p>
 
     <p>
-      Será mi cuarto EP y el primero conceptual: 6 canciones sobre la masculindad.
+      Puedes escucharlo aquí o en mi <a href="https://ocre.bandcamp.com/album/d-bil">bandcamp</a>.
     </p>
 
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <img class="img-fluid" src="https://f4.bcbits.com/img/a0798048731_10.jpg" alt="Portada de Débil en Bandcamp" />
+  </div>
+  <div class="col-lg-6">
+    <iframe style="border: 0; width: 100%; height: 340px;" src="https://bandcamp.com/EmbeddedPlayer/album=4042305040/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" seamless></iframe>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+
+    <p>Cada una de las 6 canciones de pop ecléctico refleja un aspecto de la normatividad masculina: la competitividad, la ira, el deseo exagerado, la represión de sentimientos, el individualismo y la necesidad de demostrar constantemente nuestra no feminidad. Y para hablar de ello me he apoyado en los textos, vídeos y podcasts de pensadoras feministas contemporáneas, como Itziar Ziga, Clara Serra, Irantzu Varela, Estela Ortiz y Brigitte Vasallo</p>
+
+    <p>Musicalmente, experimento con lo roto, lo obsoleto y lo heredado: instrumentos construidos por mi padre, casettes de mi madre, grabaciones con el móvil, audios de WhatsApp, samples de YouTube, charlas con ChatGPT, sonidos de videojuegos de los 90, software mal programado y baterías que se deconstruyen en cada compás. En las melodías se esconden Simon & Garfunkel, Sufjan Stevens, Laurie Anderson, Kraftwerk y en las producciones Low, La Casa Azul, Bon Iver, Talking Heads.</p>
+
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Créditos</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      Apoyo en música y letras <br>y coros en la 1, 2, 4 y 5
+      <span class="dato">Bita Barbadillo</span>
+    </div>
+
+    <div class="col-lg-4">
+      Grabación y masterización
+      <span class="dato"><a href="http://www.8estudios.com/">Jahel Piñeiro</a></span>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
     <p>
-      Por ahora, lo único que os puedo enseñar el diseño de la portada que, como siempre, se crea aleatoriamente en cada visualización.
+      Una serie de experimentos acompañan al disco.
+      Se trata de jugar con la aleatoriedad y las posibilidades tecnológicas de la web.
+      Todo el código desarrollado es abierto y puede
+      ser consultado, descargado y modificado sin ninguna limitación.
     </p>
-
-    <p>Podés verlo pulsando <a href="/debil/en/diseno">aquí</a>.</p>
-
   </div>
 </div>
 
