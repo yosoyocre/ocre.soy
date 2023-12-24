@@ -47,7 +47,8 @@ if (isset($_POST['generar'])) :
           portada: "#portada_" + i,
           contra: "#contra_" + i,
           conMovimiento: false,
-          conPosicionInicialRandom: true
+          conPosicionInicialRandom: true,
+          textoCreditos: dedicatorias[i]
         });
       }
     </script>

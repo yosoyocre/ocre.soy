@@ -92,6 +92,7 @@ const fecha = (date) => {
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
  * @param   {Object}  opciones.margen                    Margen alrededor de la imagen en píxeles
+ * @param   {string}  opciones.textoCreditos             Dedicatoria que se muestra en la contraportada
  * @returns {void}
  * @public
  */
