@@ -441,7 +441,7 @@ export function crea(opciones) {
                 });
 
                 let imgQR = contenedorQR;
-                let margenQR = 46;
+                let margenQR = 62;
 
                 // Imprimos el QR en 2 esquinas
                 ctxContra.drawImage(
@@ -452,7 +452,7 @@ export function crea(opciones) {
                 ctxContra.drawImage(
                   imgQR,
                   margenQR,
-                  altoImagen - tamanoQR - margenQR
+                  altoImagen - tamanoQR - margenQR + 2
                 );
 
                 let textoContra = "";
