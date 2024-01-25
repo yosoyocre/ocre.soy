@@ -56,8 +56,8 @@ require('../_cabecera.php');
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <p>
-                <a href="https://ocre.bandcamp.com/album/d-bil">
-                    Escucha mi último disco "Débil"
+                <a href="https://open.spotify.com/album/4TJyHW1TUP2XYWKTPZyipQ?si=jW4FPYXtQtyWq8LnfK3XBw">
+                    Escucha mi último disco "Débil" en Spotify
                 </a>
             </p>
             <p>
