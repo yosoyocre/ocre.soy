@@ -6,6 +6,32 @@
     <title>Juego 1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <script>
+        function siguienteLetra(x, y) {
+            return [x + 1, y];
+            // let sX = x;
+            // let sY = y;
+
+            // let mX, mY;
+
+            // while (true) {
+            //     mx = floor(random(0, 2));
+            //     my = floor(random(0, 2));
+
+            //     if ((mx == 0 && my == 0) || (mx == 1 && my == 1)) {
+            //         continue;
+            //     }
+
+            //     sX = x + mx;
+            //     sY = y + my;
+
+            //     if (sX >= 0 && sY >= 0) {
+            //         break;
+            //     }
+            // }
+
+            // return [sX, sY];
+        }
+
         function setup() {
             let width = 700;
             let height = width * 1.414;
@@ -22,6 +48,8 @@
             let negro = "131313";
             let paleta = ["DB898D", "005747", "4162AB", "E56C03", "582B5F", "DC3B26"];
             let blanco = "D8D6D7";
+
+            let frases = ['ocre', 'concerto', 'a revolteira', '01/03/24'];
 
             shuffle(paleta, true);
 
@@ -102,11 +130,29 @@
                 }
             }
 
-            for (let xL = 0; xL < cols; xL++) {
-                for (let yL = 0; yL < rows; yL++) {
-                    console.log(xL, yL);
-                    fill('#' + coloresLetras[xL][yL]);
-                    text('O', xL * wCuadrado + wCuadrado / 10, (yL + 1) * hCuadrado);
+            let x = 0;
+            let y = 0;
+            let sX = 0;
+            let sY = 0;
+
+            for (let f = 0; f < frases.length; f++) {
+                let frase = frases[f];
+                console.log(frase);
+
+                x = floor(random(0, cols - frase.length - 1));
+                y = floor(random(0, rows - frase.length - 1));
+
+                for (let i = 0; i < frase.length; i++) {
+                    let letra = frase[i];
+
+                    fill('#' + coloresLetras[x][y]);
+                    text(letra.toUpperCase(), (x) * wCuadrado + wCuadrado / 8, (y + 1) * hCuadrado);
+
+                    let siguiente = siguienteLetra(x, y);
+                    x = siguiente[0];
+                    y = siguiente[1];
+
+                    console.log(x, y);
                 }
             }
         }
