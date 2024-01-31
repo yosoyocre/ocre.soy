@@ -53,7 +53,9 @@
                     let paleta = ["DB898D", "005747", "4162AB", "E56C03", "582B5F", "DC3B26"];
                     let blanco = "D8D6D7";
 
-                    let frases = ['ocre', 'concerto', 'a revolteira', '01/03/24'];
+                    // let frases = ['sufjan stevens + ocre', 'concerto', 'acéfala', '1 MARZO', '2024'];
+                    // let frases = ['Laurie Anderson + ocre', 'concerto', 'a revolteira', '1 MARZO', '2024'];
+                    let frases = ['Bon Iver + ocre', 'concerto', 'liceo mutante', '1 MARZO', '2024'];
 
                     shuffle(paleta, true);
 
@@ -65,7 +67,7 @@
                     textFont('futura-pt', 800);
                     textSize(wCuadrado);
                     textAlign(CENTER);
-                    // textStyle(BOLD);
+                    textStyle(BOLD);
 
 
                     let coloresPrincipales = [];
