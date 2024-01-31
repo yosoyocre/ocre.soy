@@ -45,6 +45,7 @@
 
             noStroke();
             textSize(wCuadrado);
+            textAlign(CENTER);
 
             let coloresPrincipales = [];
             let coloresSecundarios = [];
@@ -184,7 +185,7 @@
                 for (let j = 0; j < rows; j++) {
                     if (arrayLetras[i][j] != '') {
                         fill('#' + coloresLetras[i][j]);
-                        text(arrayLetras[i][j].toUpperCase(), (i) * wCuadrado + wCuadrado / 8, (j + 1) * hCuadrado);
+                        text(arrayLetras[i][j].toUpperCase(), (i) * wCuadrado + wCuadrado / 2, (j + 1) * hCuadrado);
                     }
                 }
             }
