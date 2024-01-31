@@ -145,6 +145,8 @@
                     x = floor(random(0, cols - 1));
                     y = floor(random(0, rows - 1));
 
+                    cambiamosX = random() > .5;
+
                     for (let i = 0; i < frase.length; i++) {
                         console.log(x, y, frase[i]);
 
@@ -157,7 +159,11 @@
 
                             arrayLetrasCopia[x][y] = frase[i];
 
-                            if (random() > .5) {
+                            if (randomGaussian() > .5) {
+                                cambiamosX = !cambiamosX;
+                            }
+
+                            if (cambiamosX) {
                                 x = x + 1;
                             } else {
                                 y = y + 1;
