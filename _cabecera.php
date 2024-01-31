@@ -12,12 +12,27 @@ $version = '15100700';
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css?v=<?php echo $version ?>">
   <link rel="shortcut icon" href="/img/favicon.png" class="js-favicon">
+
   <script src="https://use.typekit.net/wfj3ppv.js"></script>
-  <script>
-    try {
-      Typekit.load({});
-    } catch (e) {}
-  </script>
+
+  <?php
+  if (!isset($NO_CARGAR_FUENTES) || !$NO_CARGAR_FUENTES) :
+  ?>
+    <script>
+      var FUENTES_CARGADAS = false;
+
+      try {
+        Typekit.load({
+          active: function() {
+            // console.log('Fuente cargada!');
+            FUENTES_CARGADAS = true;
+          },
+        });
+      } catch (e) {}
+    </script>
+  <?php
+  endif;
+  ?>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.js"></script>

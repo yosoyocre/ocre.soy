@@ -1,3 +1,6 @@
+<?php
+$NO_CARGAR_FUENTES = true;
+?>
 <?php require('../../../_cabecera.php'); ?>
 
 <script src="js/jquery.vago-publico.js"></script>
@@ -10,7 +13,7 @@
         var options = {
           addTitle: false,
           background: 'white',
-        };      
+        };
 
         var $poster = $('.js-poster');
 
@@ -23,7 +26,7 @@
         });
       }
     })
-  } catch(e) {}
+  } catch (e) {}
 </script>
 
 <div class="row">
@@ -34,19 +37,19 @@
       <span class="separador">/</span> <a href="/vago/en/publico">público</a>
     </h1>
     <p>
-      Para promocionar mi primer concierto en la <a href="http://nave1839.org/">Nave 1839</a>, teloneando a la banda viguesa <a href="https://www.facebook.com/igmigmusic/">IGMIG</a> el <a href="https://www.facebook.com/yosoyocre/posts/524765537692144">24 de octubre de 2015</a> en A Coruña, 
+      Para promocionar mi primer concierto en la <a href="http://nave1839.org/">Nave 1839</a>, teloneando a la banda viguesa <a href="https://www.facebook.com/igmigmusic/">IGMIG</a> el <a href="https://www.facebook.com/yosoyocre/posts/524765537692144">24 de octubre de 2015</a> en A Coruña,
       programé un generador de carteles que mostrasen los datos del evento con un degradado de colores aleatorios, siguiendo la estética del <a href="/vago">Vago</a>.
     </p>
     <p>
       Y aquí está el resultado. Si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
-    </p>        
+    </p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-8">
     <canvas class="js-poster img-fluid" width="1240" height="1754"></canvas>
-  </div>  
+  </div>
 </div>
 
 <div class="ficha">
@@ -71,11 +74,11 @@
     <div class="col-lg-4">
       Librerías
       <span class="dato"><a href="https://jquery.com/">jQuery</a></span>
-    </div> 
+    </div>
     <div class="col-lg-4">
       Tipografía del cartel
       <span class="dato"><a href="https://typekit.com/fonts/fatfrank">FatFrank</a> de <a href="https://www.jeffreyschreiber.nl/">Jeff Schreiber</a></span>
-    </div>  
+    </div>
   </div>
 </div>
 <?php require('../../../_pie.php'); ?>

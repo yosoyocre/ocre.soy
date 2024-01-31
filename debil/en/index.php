@@ -15,6 +15,9 @@
     <p>
       <a href="/debil/en/proyeccion"><span class="separador">/</span> proyección</a>
     </p>
+    <p>
+      <a href="/debil/en/concentracion"><span class="separador">/</span> concentración</a>
+    </p>
 
   </div>
 </div>

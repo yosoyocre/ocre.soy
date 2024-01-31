@@ -113,6 +113,16 @@
         </a>
       </span>
     </div>
+    <div class="col-lg-4">
+      Generador de imágenes para Instagram
+      <span class="dato">
+        <a href="/debil/en/concentracion">
+          <span class="separador">/</span> débil
+          <span class="separador">/</span> en
+          <span class="separador">/</span> concentración
+        </a>
+      </span>
+    </div>
   </div>
 </div>
 
