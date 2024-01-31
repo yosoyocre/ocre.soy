@@ -23,6 +23,7 @@
     function draw() {
         if (!imagenDibujada) {
             if (FUENTES_CARGADAS) {
+                // A4
                 let width = 700;
                 let height = width * 1.414;
 
@@ -65,6 +66,7 @@
                 let coloresLetras = [];
                 let grados = [];
 
+                // Elegimos los colores y los grados de mezcla de los cuadrados
                 for (let i = 0; i < cols; i++) {
                     for (let j = 0; j < rows; j++) {
                         if (!coloresPrincipales[i]) {
@@ -81,6 +83,7 @@
                             if (i == 0 || coloresPrincipales[i - 1][j] != negro) {
                                 if (j == 0 || coloresPrincipales[i][j - 1] != negro) {
                                     if (random() > .75) {
+                                        // Si toca negro, pintamos una línea negra hacia abajo de tamaño random
                                         color = negro;
                                         let tamano = random(minTira, maxTira);
                                         for (let k = 0; k < tamano; k++) {
@@ -109,6 +112,7 @@
                     }
                 }
 
+                // Pintamos los cuadrados
                 for (let i = 0; i < width; i++) {
                     for (let j = 0; j < height; j++) {
 
@@ -130,6 +134,7 @@
                     }
                 }
 
+                // Situamos los textos en los cuadrados
                 let x = 0;
                 let y = 0;
 
@@ -149,6 +154,7 @@
 
                     let fraseEscrita = false;
 
+                    // Por si acaso, limitamos el número de ciclos que puede dar el loop
                     let ciclos = 0;
 
                     while (!fraseEscrita && ciclos < 1000) {
@@ -166,6 +172,7 @@
 
                             if (x >= 0 && x <= cols - 1 && y >= 0 && y <= rows - 1 &&
                                 arrayLetras[x][y] == '' &&
+                                // Las letras de palabras distintas no pueden tocarse
                                 (x == 0 || arrayLetras[x - 1][y] == '') &&
                                 (y == 0 || arrayLetras[x][y - 1] == '') &&
                                 (x == cols - 1 || arrayLetras[x + 1][y] == '') &&
@@ -173,6 +180,8 @@
 
                                 arrayLetrasCopia[x][y] = frase[i];
 
+                                // Para evitar demasiado zigzagueo, usamos una distribución normal
+                                // para decidir si cambiamos de eje o no
                                 if (randomGaussian() > .5) {
                                     cambiamosX = !cambiamosX;
                                 }
@@ -183,7 +192,8 @@
                                     y = y + 1;
                                 }
                             } else {
-                                console.log('Problema!');
+                                // Si la frase no cabe en un determinado momento, la descartamos y
+                                // volvemos a empezar
                                 fraseEscrita = false;
                                 arrayLetrasCopia = copiaArray(arrayLetras);
                                 break;
@@ -194,6 +204,7 @@
                     arrayLetras = arrayLetrasCopia;
                 }
 
+                // Pintamos las letras
                 for (let i = 0; i < cols; i++) {
                     for (let j = 0; j < rows; j++) {
                         if (arrayLetras[i][j] != '') {
