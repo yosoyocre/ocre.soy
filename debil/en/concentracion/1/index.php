@@ -6,30 +6,16 @@
     <title>Juego 1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <script>
-        function siguienteLetra(x, y) {
-            return [x + 1, y];
-            // let sX = x;
-            // let sY = y;
+        function copiaArray(array) {
+            let arrayCopia = [];
+            for (let i = 0; i < array.length; i++) {
+                arrayCopia[i] = [];
+                for (let j = 0; j < array[i].length; j++) {
+                    arrayCopia[i][j] = array[i][j];
+                }
+            }
 
-            // let mX, mY;
-
-            // while (true) {
-            //     mx = floor(random(0, 2));
-            //     my = floor(random(0, 2));
-
-            //     if ((mx == 0 && my == 0) || (mx == 1 && my == 1)) {
-            //         continue;
-            //     }
-
-            //     sX = x + mx;
-            //     sY = y + my;
-
-            //     if (sX >= 0 && sY >= 0) {
-            //         break;
-            //     }
-            // }
-
-            // return [sX, sY];
+            return arrayCopia;
         }
 
         function setup() {
@@ -132,27 +118,68 @@
 
             let x = 0;
             let y = 0;
-            let sX = 0;
-            let sY = 0;
+
+            let arrayLetras = [];
+            for (let i = 0; i < cols; i++) {
+                arrayLetras[i] = [];
+                for (let j = 0; j < rows; j++) {
+                    arrayLetras[i][j] = '';
+                }
+            }
 
             for (let f = 0; f < frases.length; f++) {
+                let arrayLetrasCopia = copiaArray(arrayLetras);
+
                 let frase = frases[f];
                 console.log(frase);
 
-                x = floor(random(0, cols - frase.length - 1));
-                y = floor(random(0, rows - frase.length - 1));
+                let fraseEscrita = false;
 
-                for (let i = 0; i < frase.length; i++) {
-                    let letra = frase[i];
+                let ciclos = 0;
 
-                    fill('#' + coloresLetras[x][y]);
-                    text(letra.toUpperCase(), (x) * wCuadrado + wCuadrado / 8, (y + 1) * hCuadrado);
+                while (!fraseEscrita && ciclos < 1000) {
 
-                    let siguiente = siguienteLetra(x, y);
-                    x = siguiente[0];
-                    y = siguiente[1];
+                    ciclos++;
+                    fraseEscrita = true;
 
-                    console.log(x, y);
+                    x = floor(random(0, cols - 1));
+                    y = floor(random(0, rows - 1));
+
+                    for (let i = 0; i < frase.length; i++) {
+                        console.log(x, y, frase[i]);
+
+                        if (x >= 0 && x <= cols - 1 && y >= 0 && y <= rows - 1 &&
+                            arrayLetras[x][y] == '' &&
+                            (x == 0 || arrayLetras[x - 1][y] == '') &&
+                            (y == 0 || arrayLetras[x][y - 1] == '') &&
+                            (x == cols - 1 || arrayLetras[x + 1][y] == '') &&
+                            (y == rows - 1 || arrayLetras[x][y + 1] == '')) {
+
+                            arrayLetrasCopia[x][y] = frase[i];
+
+                            if (random() > .5) {
+                                x = x + 1;
+                            } else {
+                                y = y + 1;
+                            }
+                        } else {
+                            console.log('Problema!');
+                            fraseEscrita = false;
+                            arrayLetrasCopia = copiaArray(arrayLetras);
+                            break;
+                        }
+                    }
+                }
+
+                arrayLetras = arrayLetrasCopia;
+            }
+
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    if (arrayLetras[i][j] != '') {
+                        fill('#' + coloresLetras[i][j]);
+                        text(arrayLetras[i][j].toUpperCase(), (i) * wCuadrado + wCuadrado / 8, (j + 1) * hCuadrado);
+                    }
                 }
             }
         }
