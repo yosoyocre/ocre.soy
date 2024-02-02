@@ -11,6 +11,7 @@
 </style>
 <script>
     var imagenDibujada = false;
+    var canvasConectado = false;
 
     function copiaArray(array) {
         let arrayCopia = [];
@@ -222,7 +223,19 @@
 
                 imagenDibujada = true;
 
-                $('canvas').width('').height(''); // Quitamos el ancho y el alto para que se ajuste al contenedor
+                if (!canvasConectado) {
+                    $('canvas').width('').height('') // Quitamos el ancho y el alto para que se ajuste al contenedor
+                        .click(function(e) {
+                            e.preventDefault();
+
+                            var link = document.createElement("a");
+                            link.download = 'cartel.png';
+                            link.href = this.toDataURL("image/png");
+                            link.click();
+                        });
+
+                    canvasConectado = true;
+                }
             }
         }
     }
@@ -242,7 +255,7 @@
                 Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
             </p>
             <p>
-                Si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
+                Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
             </p>
         </div>
     </div>
