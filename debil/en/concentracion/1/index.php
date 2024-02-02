@@ -223,8 +223,10 @@
 
                 imagenDibujada = true;
 
+                $('canvas').width('').height(''); // Quitamos el ancho y el alto para que se ajuste al contenedor
+
                 if (!canvasConectado) {
-                    $('canvas').width('').height('') // Quitamos el ancho y el alto para que se ajuste al contenedor
+                    $('canvas')
                         .click(function(e) {
                             e.preventDefault();
 
