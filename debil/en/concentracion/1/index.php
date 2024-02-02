@@ -3,6 +3,12 @@
 ?>
 <?php require('../../../../_cabecera.php'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 <script>
     var imagenDibujada = false;
 
@@ -215,6 +221,8 @@
                 }
 
                 imagenDibujada = true;
+
+                $('canvas').width('').height(''); // Quitamos el ancho y el alto para que se ajuste al contenedor
             }
         }
     }
