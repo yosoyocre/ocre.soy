@@ -3,15 +3,11 @@
 ?>
 <?php require('../../../../_cabecera.php'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-<style>
-    canvas {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
+<script src="../js/comun.js"></script>
+<link rel="stylesheet" href="../css/comun.css">
 <script>
     var imagenDibujada = false;
-    var canvasConectado = false;
+    var folio;
 
     function copiaArray(array) {
         let arrayCopia = [];
@@ -25,23 +21,21 @@
         return arrayCopia;
     }
 
-    function setup() {}
+    function setup() {
+        folio = new Folio();
+    }
 
     function draw() {
         if (!imagenDibujada) {
             if (FUENTES_CARGADAS) {
-                // A4
-                let width = 700;
-                let height = width * 1.414;
-
                 let cols = 16;
                 let rows = 24;
 
                 let minTira = 2
                 let maxTira = 4;
 
-                let wCuadrado = width / cols;
-                let hCuadrado = height / rows;
+                let wCuadrado = folio.width / cols;
+                let hCuadrado = folio.height / rows;
 
                 let negro = "131313";
                 let paleta = ["DB898D", "005747", "4162AB", "E56C03", "582B5F", "DC3B26"];
@@ -58,8 +52,6 @@
                 shuffle(paleta, true);
 
                 let colores = [paleta[0], paleta[1], blanco];
-
-                createCanvas(width, height);
 
                 noStroke();
                 textFont('futura-pt', 800);
@@ -120,8 +112,8 @@
                 }
 
                 // Pintamos los cuadrados
-                for (let i = 0; i < width; i++) {
-                    for (let j = 0; j < height; j++) {
+                for (let i = 0; i < folio.width; i++) {
+                    for (let j = 0; j < folio.height; j++) {
 
                         let x = floor(i / wCuadrado);
                         let y = floor(j / hCuadrado);
@@ -223,21 +215,6 @@
 
                 imagenDibujada = true;
 
-                $('canvas').width('').height(''); // Quitamos el ancho y el alto para que se ajuste al contenedor
-
-                if (!canvasConectado) {
-                    $('canvas')
-                        .click(function(e) {
-                            e.preventDefault();
-
-                            var link = document.createElement("a");
-                            link.download = 'cartel.png';
-                            link.href = this.toDataURL("image/png");
-                            link.click();
-                        });
-
-                    canvasConectado = true;
-                }
             }
         }
     }
