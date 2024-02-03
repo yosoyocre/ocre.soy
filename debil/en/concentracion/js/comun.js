@@ -1,3 +1,5 @@
+var IMAGEN_DIBUJADA = false;
+
 class Folio {
   constructor() {
     // Creamos un A4
@@ -22,3 +24,13 @@ class Folio {
     $("canvas").width("").height("");
   }
 }
+
+document
+  .querySelector(".js-otro-poster")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+
+    console.log("Generando otro poster");
+
+    IMAGEN_DIBUJADA = false;
+  });
