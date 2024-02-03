@@ -49,59 +49,66 @@ colofon([
     let cajasPlanos = [];
     let limitesPlanos = [];
 
+    let N_PLANOS = 2;
+    let N_CAJAS = 150;
+    let MARGEN_TEXTO = 50;
+
     function setup() {
-        let N_PLANOS = 2;
-        let N_CAJAS = 150;
-
-        let paleta = random(PALETAS_CHULAS);
-
         folio = new Folio();
-        let tamanoLimite = 50;
-        let negro = color(paleta[0]);
-
-        let unColor = color(random(paleta));
-        let esMonocromo = random() > 0.75;
-        // let esMonocromo = true;
-
-        for (let i = 0; i < N_PLANOS; i++) {
-            let engine = Engine.create();
-            let world = engine.world;
-            let cajas = [];
-            let limites = [];
-
-            // Límite izquierda
-            limites.push(new Limite(tamanoLimite / -2 + 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
-            // Límite derecha
-            limites.push(new Limite(folio.width + tamanoLimite / 2 - 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
-            // Límite abajo
-            limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0, world));
-
-            for (let c = 0; c < N_CAJAS; c++) {
-                let anchoCaja = random(50, 100);
-                let largoCaja = random(50, 100);
-
-                let colorCaja;
-
-                if (esMonocromo) {
-                    colorCaja = unColor;
-                } else {
-                    colorCaja = color(random(paleta));
-                }
-
-                cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, colorCaja, negro, world));
-            }
-
-            planos.push(engine);
-            cajasPlanos.push(cajas);
-            limitesPlanos.push(limites);
-        }
 
         textFont('futura-pt', 800);
         textStyle(BOLD);
     }
 
     function draw() {
-        let MARGEN_TEXTO = 50;
+        if (!IMAGEN_DIBUJADA) {
+            planos = [];
+            cajasPlanos = [];
+            limitesPlanos = [];
+
+            let paleta = random(PALETAS_CHULAS);
+            let tamanoLimite = 50;
+            let negro = color(paleta[0]);
+
+            let unColor = color(random(paleta));
+            let esMonocromo = random() > 0.5;
+            // let esMonocromo = true;
+
+            for (let i = 0; i < N_PLANOS; i++) {
+                let engine = Engine.create();
+                let world = engine.world;
+                let cajas = [];
+                let limites = [];
+
+                // Límite izquierda
+                limites.push(new Limite(tamanoLimite / -2 + 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+                // Límite derecha
+                limites.push(new Limite(folio.width + tamanoLimite / 2 - 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+                // Límite abajo
+                limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0, world));
+
+                for (let c = 0; c < N_CAJAS; c++) {
+                    let anchoCaja = random(50, 100);
+                    let largoCaja = random(50, 100);
+
+                    let colorCaja;
+
+                    if (esMonocromo) {
+                        colorCaja = unColor;
+                    } else {
+                        colorCaja = color(random(paleta));
+                    }
+
+                    cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, colorCaja, negro, world));
+                }
+
+                planos.push(engine);
+                cajasPlanos.push(cajas);
+                limitesPlanos.push(limites);
+            }
+
+            IMAGEN_DIBUJADA = true;
+        }
 
         if (FUENTES_CARGADAS) {
             background(255);
@@ -126,7 +133,7 @@ colofon([
             textLeading(30);
             // posicionTexto = posicionTexto + 100;
             posicionTexto = folio.height - MARGEN_TEXTO;
-            text('1 de marzo de 2024\nAcéfala', MARGEN_TEXTO, posicionTexto);
+            text('1 de marzo de 2024\nA Revolt-eira', MARGEN_TEXTO, posicionTexto);
 
             textSize(50);
             textLeading(45);
