@@ -110,17 +110,23 @@ colofon([
                 // }
             }
 
+            let posicionTexto;
+
             push();
             stroke(255);
             fill(255);
-            textSize(50);
-            textLeading(45);
-            let posicionTexto = 2 * folio.height / 3;
-            text('Sufjan Stevens\n+ Ocre', MARGEN_TEXTO, posicionTexto);
+            textAlign(LEFT, BOTTOM);
             textSize(25);
             textLeading(30);
-            posicionTexto = posicionTexto + 100;
+            // posicionTexto = posicionTexto + 100;
+            posicionTexto = folio.height - MARGEN_TEXTO;
             text('1 de marzo de 2024\nAcéfala', MARGEN_TEXTO, posicionTexto);
+
+            textSize(50);
+            textLeading(45);
+            posicionTexto = posicionTexto - 100;
+            // posicionTexto = 3 * folio.height / 4;
+            text('Sufjan Stevens\n+ Ocre', MARGEN_TEXTO, posicionTexto);
             pop();
         }
     }
