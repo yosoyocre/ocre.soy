@@ -1,9 +1,10 @@
 class Limite {
-  constructor(x, y, w, h, a) {
+  constructor(x, y, w, h, a, world) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.world = world;
     let options = {
       friction: 1,
       restitution: 0,
@@ -11,7 +12,7 @@ class Limite {
       isStatic: true,
     };
     this.body = Bodies.rectangle(this.x, this.y, this.w, this.h, options);
-    Composite.add(world, this.body);
+    Composite.add(this.world, this.body);
   }
 
   show() {

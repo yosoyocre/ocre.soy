@@ -45,31 +45,53 @@ colofon([
         Composite
     } = Matter;
 
-    let engine;
-    let world;
-    let cajas = [];
-    let limites = [];
+    let planos = [];
+    let cajasPlanos = [];
+    let limitesPlanos = [];
 
     function setup() {
-        folio = new Folio();
-        engine = Engine.create();
-        world = engine.world;
+        let N_PLANOS = 2;
+        let N_CAJAS = 150;
 
+        let paleta = [
+            "131313",
+            "DB898D",
+            "005747",
+            "4162AB",
+            "E56C03",
+            "582B5F",
+            "DC3B26",
+            "D8D6D7"
+        ];
+
+        folio = new Folio();
         let tamanoLimite = 50;
 
-        // Límite izquierda
-        limites.push(new Limite(tamanoLimite / -2, folio.height / 2, tamanoLimite, folio.height * 2, 0));
-        // Límite derecha
-        limites.push(new Limite(folio.width + tamanoLimite / 2, folio.height / 2, tamanoLimite, folio.height * 2, 0));
-        // Límite abajo
-        limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0));
+        for (let i = 0; i < N_PLANOS; i++) {
+            let engine = Engine.create();
+            let world = engine.world;
+            let cajas = [];
+            let limites = [];
 
-        let paleta = ["131313", "DB898D", "005747", "4162AB", "E56C03", "582B5F", "DC3B26", "D8D6D7"];
+            // Límite izquierda
+            limites.push(new Limite(tamanoLimite / -2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+            // Límite derecha
+            limites.push(new Limite(folio.width + tamanoLimite / 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+            // Límite abajo
+            limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0, world));
 
-        for (i = 0; i < 100; i++) {
-            let anchoCaja = random(50, 100);
-            let largoCaja = random(50, 100);
-            cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, random(paleta)));
+            for (let c = 0; c < N_CAJAS; c++) {
+                let anchoCaja = random(50, 100);
+                let largoCaja = random(50, 100);
+
+                let colorCaja = color('#' + random(paleta));
+
+                cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, colorCaja, world));
+            }
+
+            planos.push(engine);
+            cajasPlanos.push(cajas);
+            limitesPlanos.push(limites);
         }
 
         textFont('futura-pt', 800);
@@ -80,12 +102,15 @@ colofon([
     function draw() {
         if (FUENTES_CARGADAS) {
             background(255);
-            Engine.update(engine);
-            for (let i = 0; i < cajas.length; i++) {
-                cajas[i].show();
-            }
-            for (let i = 0; i < limites.length; i++) {
-                limites[i].show();
+
+            for (let i = 0; i < planos.length; i++) {
+                Engine.update(planos[i]);
+                for (let j = 0; j < cajasPlanos[i].length; j++) {
+                    cajasPlanos[i][j].show();
+                }
+                for (let j = 0; j < limitesPlanos[i].length; j++) {
+                    limitesPlanos[i][j].show();
+                }
             }
 
             push();
