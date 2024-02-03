@@ -74,9 +74,9 @@ colofon([
             let limites = [];
 
             // Límite izquierda
-            limites.push(new Limite(tamanoLimite / -2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+            limites.push(new Limite(tamanoLimite / -2 + 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
             // Límite derecha
-            limites.push(new Limite(folio.width + tamanoLimite / 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
+            limites.push(new Limite(folio.width + tamanoLimite / 2 - 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
             // Límite abajo
             limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0, world));
 
@@ -95,11 +95,12 @@ colofon([
         }
 
         textFont('futura-pt', 800);
-        textSize(50);
         textStyle(BOLD);
     }
 
     function draw() {
+        let MARGEN_TEXTO = 50;
+
         if (FUENTES_CARGADAS) {
             background(255);
 
@@ -108,15 +109,22 @@ colofon([
                 for (let j = 0; j < cajasPlanos[i].length; j++) {
                     cajasPlanos[i][j].show();
                 }
-                for (let j = 0; j < limitesPlanos[i].length; j++) {
-                    limitesPlanos[i][j].show();
-                }
+                // for (let j = 0; j < limitesPlanos[i].length; j++) {
+                //     limitesPlanos[i][j].show();
+                // }
             }
 
             push();
             stroke(255);
             fill(255);
-            text('Sufjan Stevens + Ocre', 50, 2 * folio.height / 3);
+            textSize(50);
+            textLeading(45);
+            let posicionTexto = 2 * folio.height / 3;
+            text('Sufjan Stevens\n+ Ocre', MARGEN_TEXTO, posicionTexto);
+            textSize(25);
+            textLeading(30);
+            posicionTexto = posicionTexto + 100;
+            text('1 de marzo de 2024\nAcéfala', MARGEN_TEXTO, posicionTexto);
             pop();
         }
     }
