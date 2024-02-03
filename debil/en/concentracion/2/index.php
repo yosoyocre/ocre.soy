@@ -55,7 +55,8 @@ colofon([
 
         let paletas = [
             ["#131313", "#DB898D", "#005747", "#4162AB", "#E56C03", "#582B5F", "#DC3B26", "#D8D6D7"],
-            ['#010000', '#de2723', '#0a634f', '#f38e00', '#f29294', '#014874']
+            ['#010000', '#de2723', '#0a634f', '#f38e00', '#f29294', '#014874'],
+            ['#060606', '#420002', '#e84149', '#f081a2', '#209ed1', '#fdf2d4', '#02664e', '#fcbc34']
             // ['#000002', '#0053a1', '#de090f', '#fff8de'];
             // ['#1f1f1f', '#e24e47', '#035699', '#d6b12c'];
         ];
@@ -68,7 +69,7 @@ colofon([
 
         let unColor = color(random(paleta));
         let esMonocromo = random() > 0.75;
-        // let esMonocromo = true;
+        // let esMonocromo = false;
 
         for (let i = 0; i < N_PLANOS; i++) {
             let engine = Engine.create();
