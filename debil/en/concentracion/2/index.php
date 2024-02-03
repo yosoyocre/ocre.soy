@@ -32,15 +32,46 @@ colofon([
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
+<script src="../js/matter.min.js"></script>
+<script src="js/boundary.js"></script>
+<script src="js/circle.js"></script>
 <script>
     var folio;
 
+    const {
+        Engine,
+        World,
+        Bodies,
+        Composite
+    } = Matter;
+
+    let engine;
+    let world;
+    let circles = [];
+    let boundaries = [];
+
     function setup() {
         folio = new Folio();
+        engine = Engine.create();
+        world = engine.world;
+        boundaries.push(new Boundary(0, folio.height / 2, 50, folio.height, 0));
+        boundaries.push(new Boundary(folio.width, folio.height / 2, 50, folio.height, 0));
+        boundaries.push(new Boundary(folio.width / 2, folio.height, folio.width, 50, 0));
+    }
+
+    function mouseDragged() {
+        circles.push(new Circle(mouseX, mouseY, random(5, 10)));
     }
 
     function draw() {
-
+        background(51);
+        Engine.update(engine);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].show();
+        }
+        for (let i = 0; i < boundaries.length; i++) {
+            boundaries[i].show();
+        }
     }
 </script>
 
