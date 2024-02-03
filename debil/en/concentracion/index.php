@@ -16,7 +16,7 @@
         $directorio = opendir('.');
 
         while ($archivo = readdir($directorio)) {
-            if (is_dir($archivo) && $archivo != '.' && $archivo != '..') {
+            if (is_dir($archivo) && $archivo != '.' && $archivo != '..' && $archivo != 'css' && $archivo != 'js') {
                 $index = './' . $archivo . "/index.php";
 
                 // Leemos el primer comentario del index.php de cada subcarpeta                
