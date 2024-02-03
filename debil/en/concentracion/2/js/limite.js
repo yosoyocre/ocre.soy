@@ -5,8 +5,8 @@ class Limite {
     this.w = w;
     this.h = h;
     let options = {
-      friction: 0,
-      restitution: 0.6,
+      friction: 1,
+      restitution: 0,
       angle: a,
       isStatic: true,
     };
@@ -21,6 +21,7 @@ class Limite {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
+    noStroke();
     fill(0);
     rect(0, 0, this.w, this.h);
     pop();

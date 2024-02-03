@@ -64,9 +64,12 @@ colofon([
         // Límite abajo
         limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0));
 
+        let paleta = ["131313", "DB898D", "005747", "4162AB", "E56C03", "582B5F", "DC3B26", "D8D6D7"];
+
         for (i = 0; i < 100; i++) {
             let anchoCaja = random(50, 100);
-            cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, anchoCaja, 0));
+            let largoCaja = random(50, 100);
+            cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, random(paleta)));
         }
 
         textFont('futura-pt', 800);
@@ -85,9 +88,11 @@ colofon([
                 limites[i].show();
             }
 
+            push();
             stroke(255);
             fill(255);
             text('Sufjan Stevens + Ocre', 50, 2 * folio.height / 3);
+            pop();
         }
     }
 </script>

@@ -1,13 +1,13 @@
 class Caja {
-  constructor(x, y, w, h, a) {
+  constructor(x, y, w, h, c) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.c = c;
     let options = {
       friction: 1,
       restitution: 0,
-      angle: a,
     };
     this.body = Bodies.rectangle(this.x, this.y, this.w, this.h, options);
     Composite.add(world, this.body);
@@ -20,7 +20,8 @@ class Caja {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    fill(0);
+    noStroke();
+    fill("#" + this.c);
     rect(0, 0, this.w, this.h);
     pop();
   }
