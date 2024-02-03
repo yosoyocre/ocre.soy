@@ -33,8 +33,8 @@ colofon([
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
 <script src="../js/matter.min.js"></script>
-<script src="js/boundary.js"></script>
-<script src="js/circle.js"></script>
+<script src="js/limite.js"></script>
+<script src="js/caja.js"></script>
 <script>
     var folio;
 
@@ -47,30 +47,47 @@ colofon([
 
     let engine;
     let world;
-    let circles = [];
-    let boundaries = [];
+    let cajas = [];
+    let limites = [];
 
     function setup() {
         folio = new Folio();
         engine = Engine.create();
         world = engine.world;
-        boundaries.push(new Boundary(0, folio.height / 2, 50, folio.height, 0));
-        boundaries.push(new Boundary(folio.width, folio.height / 2, 50, folio.height, 0));
-        boundaries.push(new Boundary(folio.width / 2, folio.height, folio.width, 50, 0));
-    }
 
-    function mouseDragged() {
-        circles.push(new Circle(mouseX, mouseY, random(5, 10)));
+        let tamanoLimite = 50;
+
+        // Límite izquierda
+        limites.push(new Limite(tamanoLimite / -2, folio.height / 2, tamanoLimite, folio.height * 2, 0));
+        // Límite derecha
+        limites.push(new Limite(folio.width + tamanoLimite / 2, folio.height / 2, tamanoLimite, folio.height * 2, 0));
+        // Límite abajo
+        limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0));
+
+        for (i = 0; i < 100; i++) {
+            let anchoCaja = random(50, 100);
+            cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, anchoCaja, 0));
+        }
+
+        textFont('futura-pt', 800);
+        textSize(50);
+        textStyle(BOLD);
     }
 
     function draw() {
-        background(51);
-        Engine.update(engine);
-        for (let i = 0; i < circles.length; i++) {
-            circles[i].show();
-        }
-        for (let i = 0; i < boundaries.length; i++) {
-            boundaries[i].show();
+        if (FUENTES_CARGADAS) {
+            background(255);
+            Engine.update(engine);
+            for (let i = 0; i < cajas.length; i++) {
+                cajas[i].show();
+            }
+            for (let i = 0; i < limites.length; i++) {
+                limites[i].show();
+            }
+
+            stroke(255);
+            fill(255);
+            text('Sufjan Stevens + Ocre', 50, 2 * folio.height / 3);
         }
     }
 </script>

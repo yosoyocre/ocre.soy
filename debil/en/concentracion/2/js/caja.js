@@ -1,14 +1,13 @@
-class Boundary {
+class Caja {
   constructor(x, y, w, h, a) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     let options = {
-      friction: 0,
-      restitution: 0.6,
+      friction: 1,
+      restitution: 0,
       angle: a,
-      isStatic: true,
     };
     this.body = Bodies.rectangle(this.x, this.y, this.w, this.h, options);
     Composite.add(world, this.body);
