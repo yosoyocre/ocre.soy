@@ -1,10 +1,11 @@
 class Caja {
-  constructor(x, y, w, h, c, world) {
+  constructor(x, y, w, h, c, negro, world) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.c = c;
+    this.negro = negro;
     this.world = world;
     let options = {
       friction: 1,
@@ -21,7 +22,8 @@ class Caja {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    stroke("#131313");
+    // stroke(this.negro);
+    noStroke();
     fill(this.c);
     rect(0, 0, this.w, this.h);
     pop();

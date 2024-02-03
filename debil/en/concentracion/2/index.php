@@ -53,19 +53,15 @@ colofon([
         let N_PLANOS = 2;
         let N_CAJAS = 150;
 
-        let paleta = [
-            "131313",
-            "DB898D",
-            "005747",
-            "4162AB",
-            "E56C03",
-            "582B5F",
-            "DC3B26",
-            "D8D6D7"
-        ];
+        // let paleta = ["#131313", "#DB898D", "#005747", "#4162AB", "#E56C03", "#582B5F", "#DC3B26", "#D8D6D7"];
+        let paleta = ['#010000', '#de2723', '#0a634f', '#f38e00', '#f29294', '#014874'];
+
+        // let paleta = ['#000002', '#0053a1', '#de090f', '#fff8de'];
+        // let paleta = ['#1f1f1f', '#e24e47', '#035699', '#d6b12c'];
 
         folio = new Folio();
         let tamanoLimite = 50;
+        let negro = color(paleta[0]);
 
         for (let i = 0; i < N_PLANOS; i++) {
             let engine = Engine.create();
@@ -84,9 +80,9 @@ colofon([
                 let anchoCaja = random(50, 100);
                 let largoCaja = random(50, 100);
 
-                let colorCaja = color('#' + random(paleta));
+                let colorCaja = color(random(paleta));
 
-                cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, colorCaja, world));
+                cajas.push(new Caja(random(folio.width), random(-500, -1000), anchoCaja, largoCaja, colorCaja, negro, world));
             }
 
             planos.push(engine);
