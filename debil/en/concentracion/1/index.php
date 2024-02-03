@@ -35,18 +35,6 @@ colofon([
 <script>
     var folio;
 
-    function copiaArray(array) {
-        let arrayCopia = [];
-        for (let i = 0; i < array.length; i++) {
-            arrayCopia[i] = [];
-            for (let j = 0; j < array[i].length; j++) {
-                arrayCopia[i][j] = array[i][j];
-            }
-        }
-
-        return arrayCopia;
-    }
-
     function setup() {
         folio = new Folio();
     }
