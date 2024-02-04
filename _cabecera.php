@@ -1,6 +1,9 @@
 <?php
+require_once 'funciones.php';
+
 $version = '15100700';
 ?>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>

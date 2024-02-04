@@ -2,31 +2,45 @@
 // Generador de carteles con cuadrados
 ?>
 <?php require('../../../../_cabecera.php'); ?>
+
+<link rel="stylesheet" href="../css/comun.css">
+
+<div class="row">
+    <div class="col-lg-12">
+        <?php breadcrumb(); ?>
+        <p>
+            Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
+        </p>
+        <p>
+            Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <main></main>
+    </div>
+</div>
+
+<?php
+colofon([
+    'Lenguajes de programación' => 'HTML, CSS y JavaScript',
+    'Librerías' => '<a href="https://p5js.org">p5.js</a>',
+    'Inspiración' => '<a href="https://www.instagram.com/p/CwNbI3CtjTV/">Este cartel</a> del <a href="https://www.instagram.com/extraset.ch/">Instagram de Extraset</a>'
+]);
+?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
-<link rel="stylesheet" href="../css/comun.css">
 <script>
-    var imagenDibujada = false;
     var folio;
-
-    function copiaArray(array) {
-        let arrayCopia = [];
-        for (let i = 0; i < array.length; i++) {
-            arrayCopia[i] = [];
-            for (let j = 0; j < array[i].length; j++) {
-                arrayCopia[i][j] = array[i][j];
-            }
-        }
-
-        return arrayCopia;
-    }
 
     function setup() {
         folio = new Folio();
     }
 
     function draw() {
-        if (!imagenDibujada) {
+        if (!IMAGEN_DIBUJADA) {
             if (FUENTES_CARGADAS) {
                 let cols = 16;
                 let rows = 24;
@@ -213,75 +227,11 @@
                     }
                 }
 
-                imagenDibujada = true;
+                IMAGEN_DIBUJADA = true;
 
             }
         }
     }
-</script>
-</head>
-
-<body>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>
-                <span class="separador">/</span> <a href="/debil">débil</a>
-                <span class="separador">/</span> <a href="/debil/en">en</a>
-                <span class="separador">/</span> <a href="/debil/en/concentracion">concentración</a>
-                <span class="separador">/</span> <a href="/debil/en/concentracion/1">1</a>
-            </h1>
-            <p>
-                Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
-            </p>
-            <p>
-                Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <main></main>
-        </div>
-    </div>
-    <div class="ficha">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Colofón</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4">
-                Código fuente
-                <span class="dato"><a href="https://github.com/yosoyocre/ocre.soy/tree/master/debil/en/concentracion/1">Github</a></span>
-            </div>
-
-            <div class="col-lg-4">
-                Lenguajes de programación
-                <span class="dato">HTML, CSS y JavaScript</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                Librerías
-                <span class="dato"><a href="https://p5js.org">p5.js</a></span>
-            </div>
-            <div class="col-lg-4">
-                Inspiración
-                <span class="dato"><a href="https://www.instagram.com/p/CwNbI3CtjTV/">Este cartel</a> del <a href="https://www.instagram.com/extraset.ch/">Instagram de Extraset</a></span>
-            </div>
-        </div>
-    </div>
-</body>
-
-<script>
-    $('.js-otro-poster').click(function(e) {
-        e.preventDefault();
-
-        console.log('Generando otro poster');
-
-        imagenDibujada = false;
-    });
 </script>
 
 <?php require('../../../../_pie.php'); ?>
