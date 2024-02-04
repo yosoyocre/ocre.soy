@@ -38,15 +38,28 @@ colofon([
     let anchoRealVideo = 256;
     let altoRealVideo = 144;
     var TAMANO_PIXEL = 25;
+    var paleta;
+    var negro;
     var fondo;
     var colorLlama;
+    var colorLetras;
     let anchoVideo;
     let altoVideo;
+    let initY;
+    let initX;
 
     function setup() {
-        fondo = color('#ba58fe');
-        colorLlama = color('#ff5fc7');
+        paleta = random(PALETAS_CHULAS);
+        negro = paleta.shift();
+
+        shuffle(paleta, true);
+
         folio = new Folio();
+
+        fondo = color(paleta[0]);
+        colorLlama = color(paleta[1]);
+        console.log(brightness(fondo));
+        colorLetras = brightness(fondo) > 80 ? negro : color(255);
 
         anchoVideo = folio.width * 4;
         altoVideo = anchoVideo * altoRealVideo / anchoRealVideo;
@@ -56,44 +69,66 @@ colofon([
         vid.volume(0);
         vid.loop();
         vid.hide(); // hides the html video loader
-        let img = vid.get();
-        console.log(img);
+
+        textFont('futura-pt', 800);
+        textStyle(BOLD);
+        drawingContext.letterSpacing = "-3px";
+
+        initY = 300;
+        initX = floor(random(500, 1500));
     }
 
     function draw() {
-        fill(fondo);
-        rect(0, 0, folio.width, folio.height);
+        if (FUENTES_CARGADAS) {
+            select('canvas').elt.style.letterSpacing = "10px";
 
-        vid.loadPixels();
-        const stepSize = TAMANO_PIXEL;
+            fill(fondo);
+            rect(0, 0, folio.width, folio.height);
 
-        let initY = 300;
-        let initX = 500;
+            vid.loadPixels();
+            const stepSize = TAMANO_PIXEL;
 
-        noStroke();
-        fill(colorLlama);
+            noStroke();
+            fill(colorLlama);
 
-        for (let y = initY; y < (initY + folio.height); y += stepSize) {
-            for (let x = initX; x < (initX + folio.width); x += stepSize) {
-                const i = y * anchoVideo + x;
-                const darkness = (255 - vid.pixels[i * 4]) / 255;
+            for (let y = initY; y < (initY + folio.height); y += stepSize) {
+                for (let x = initX; x < (initX + folio.width); x += stepSize) {
+                    const i = y * anchoVideo + x;
+                    const darkness = (255 - vid.pixels[i * 4]) / 255;
 
-                if (darkness < 0.5) {
-                    rect(x - initX, y - initY, stepSize, stepSize);
+                    if (darkness < 0.5) {
+                        rect(x - initX, y - initY, stepSize, stepSize);
+                    }
                 }
             }
-        }
 
-        // Márgenes
-        fill(fondo);
-        // Izquierda
-        rect(0, 0, TAMANO_PIXEL, folio.height);
-        // Arriba
-        rect(TAMANO_PIXEL, 0, folio.width, TAMANO_PIXEL);
-        // Derecha
-        rect(folio.width - TAMANO_PIXEL, 0, TAMANO_PIXEL, folio.height);
-        // Abajo
-        rect(TAMANO_PIXEL, folio.height - TAMANO_PIXEL, folio.width, TAMANO_PIXEL);
+            // Márgenes
+            fill(fondo);
+            // Izquierda
+            rect(0, 0, TAMANO_PIXEL, folio.height);
+            // Arriba
+            rect(TAMANO_PIXEL, 0, folio.width, TAMANO_PIXEL);
+            // Derecha
+            rect(folio.width - TAMANO_PIXEL, 0, TAMANO_PIXEL, folio.height);
+            // Abajo
+            rect(TAMANO_PIXEL, folio.height - TAMANO_PIXEL, folio.width, TAMANO_PIXEL);
+
+            let posicionTexto;
+            push();
+            stroke(colorLetras);
+            fill(colorLetras);
+            textSize(70);
+            textLeading(60);
+            posicionTexto = folio.height / 5;
+            text('SUFJAN STEVENS\n+ OCRE', TAMANO_PIXEL, posicionTexto);
+
+            textSize(40);
+            textLeading(38);
+            posicionTexto = posicionTexto + 150;
+            text('1 DE MARZO DE 2024\nA REVOLT-EIRA', TAMANO_PIXEL, posicionTexto);
+
+            pop();
+        }
     }
 </script>
 
