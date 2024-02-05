@@ -49,17 +49,7 @@ colofon([
     let initX;
 
     function setup() {
-        paleta = random(PALETAS_CHULAS);
-        negro = paleta.shift();
-
-        shuffle(paleta, true);
-
         folio = new Folio();
-
-        fondo = color(paleta[0]);
-        colorLlama = color(paleta[1]);
-        console.log(brightness(fondo));
-        colorLetras = brightness(fondo) > 80 ? negro : color(255);
 
         anchoVideo = folio.width * 4;
         altoVideo = anchoVideo * altoRealVideo / anchoRealVideo;
@@ -80,6 +70,20 @@ colofon([
 
     function draw() {
         if (FUENTES_CARGADAS) {
+
+            if (!IMAGEN_DIBUJADA) {
+                paleta = random(PALETAS_CHULAS).slice(0);
+                negro = paleta.shift();
+
+                shuffle(paleta, true);
+
+                fondo = color(paleta[0]);
+                colorLlama = color(paleta[1]);
+                colorLetras = brightness(fondo) > 80 ? negro : color(255);
+
+                IMAGEN_DIBUJADA = true;
+            }
+
             select('canvas').elt.style.letterSpacing = "10px";
 
             fill(fondo);

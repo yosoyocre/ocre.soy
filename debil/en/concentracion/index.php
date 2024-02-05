@@ -13,9 +13,8 @@
         <?php
         // Leemos todas las subcarpetas de este directorio
 
-        $directorio = opendir('.');
-
-        while ($archivo = readdir($directorio)) {
+        $subcarpetas = scandir('.');
+        foreach ($subcarpetas as $archivo) {
             if (is_dir($archivo) && $archivo != '.' && $archivo != '..' && $archivo != 'css' && $archivo != 'js' && $archivo != '_plantilla') {
                 $index = './' . $archivo . "/index.php";
 
