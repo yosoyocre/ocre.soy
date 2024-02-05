@@ -130,7 +130,6 @@ colofon([
             textLeading(38);
             posicionTexto = posicionTexto + 150;
             text('1 DE MARZO DE 2024\nA REVOLT-EIRA', TAMANO_PIXEL, posicionTexto);
-
             pop();
         }
     }
