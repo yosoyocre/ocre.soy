@@ -73,18 +73,17 @@ colofon([
 
             if (!IMAGEN_DIBUJADA) {
                 paleta = random(PALETAS_CHULAS).slice(0);
-                negro = paleta.shift();
+                // negro = paleta.shift();
 
                 shuffle(paleta, true);
 
                 fondo = color(paleta[0]);
                 colorLlama = color(paleta[1]);
-                colorLetras = brightness(fondo) > 80 ? negro : color(255);
+                colorLetras = color(paleta[1]);
+                // colorLetras = brightness(fondo) > 88 ? negro : color(255);
 
                 IMAGEN_DIBUJADA = true;
             }
-
-            select('canvas').elt.style.letterSpacing = "10px";
 
             fill(fondo);
             rect(0, 0, folio.width, folio.height);
