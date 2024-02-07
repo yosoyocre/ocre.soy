@@ -58,10 +58,13 @@ colofon([
 
         textFont('futura-pt', 800);
         textStyle(BOLD);
+
+        drawingContext.letterSpacing = "-1px";
     }
 
     function draw() {
         if (!IMAGEN_DIBUJADA) {
+
             planos = [];
             cajasPlanos = [];
             limitesPlanos = [];
