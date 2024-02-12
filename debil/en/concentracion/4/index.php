@@ -140,9 +140,10 @@ colofon([
     // }
 
     var escala = 2.5;
-    var anchoRombo = 376 / escala;
-    var altoRombo = 220 / escala;
     var ladoRombo;
+    var anguloPeq;
+    var anchoRombo;
+    var altoRombo;
 
     console.log(anchoRombo, altoRombo, ladoRombo);
 
@@ -164,7 +165,10 @@ colofon([
     function setup() {
         folio = new Folio();
 
-        ladoRombo = dist(0, altoRombo / 2, anchoRombo / 2, altoRombo);
+        ladoRombo = 88;
+        anguloPeq = PI / 3;
+        anchoRombo = cos(anguloPeq / 2) * ladoRombo * 2;
+        altoRombo = sin(anguloPeq / 2) * ladoRombo * 2;
 
         let maskImage;
 
@@ -183,27 +187,27 @@ colofon([
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(PI / 3);
+        maskImage.rotate(anguloPeq);
         recortaRombo(maskImage);
         imgCopia3.mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(2 * PI / 3);
+        maskImage.rotate(2 * anguloPeq);
         maskImage.translate(-anchoRombo / 2, -3 * altoRombo / 2);
         recortaRombo(maskImage);
         imgCopia4.mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(PI / 3);
+        maskImage.rotate(anguloPeq);
         maskImage.translate(anchoRombo / 2, -3 * altoRombo / 2);
         recortaRombo(maskImage);
         imgCopia5.mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(2 * PI / 3);
+        maskImage.rotate(2 * anguloPeq);
         maskImage.translate(-anchoRombo, -3 * altoRombo);
         recortaRombo(maskImage);
         imgCopia6.mask(maskImage);
@@ -215,14 +219,14 @@ colofon([
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(PI / 3);
+        maskImage.rotate(anguloPeq);
         maskImage.translate(anchoRombo, 0);
         recortaRombo(maskImage);
         imgCopia8.mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
-        maskImage.rotate(2 * PI / 3);
+        maskImage.rotate(2 * anguloPeq);
         maskImage.translate(0, -3 * altoRombo);
         recortaRombo(maskImage);
         imgCopia9.mask(maskImage);
