@@ -168,8 +168,8 @@ colofon([
 
         let maskImage;
 
-        let xInicial = 200;
-        let yInicial = 200;
+        let xInicial = 120;
+        let yInicial = 130;
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
