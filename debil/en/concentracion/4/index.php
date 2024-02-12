@@ -37,12 +37,27 @@ colofon([
     var img;
     var imgCopia1;
     var imgCopia2;
+    var imgCopia3;
+    var imgCopia4;
+    var imgCopia5;
+    var imgCopia6;
+    var imgCopia7;
+    var imgCopia8;
+    var imgCopia9;
     var tamanoCuadrado = 125;
 
     function preload() {
         img = loadImage('edu_oso_cartel.png');
+
         imgCopia1 = loadImage('edu_oso_cartel.png');
         imgCopia2 = loadImage('edu_oso_cartel.png');
+        imgCopia3 = loadImage('edu_oso_cartel.png');
+        imgCopia4 = loadImage('edu_oso_cartel.png');
+        imgCopia5 = loadImage('edu_oso_cartel.png');
+        imgCopia6 = loadImage('edu_oso_cartel.png');
+        imgCopia7 = loadImage('edu_oso_cartel.png');
+        imgCopia8 = loadImage('edu_oso_cartel.png');
+        imgCopia9 = loadImage('edu_oso_cartel.png');
     }
 
     function izquierda(x, y) {
@@ -139,7 +154,11 @@ colofon([
     }
 
     function recortaRombo(maskImage) {
+        maskImage.push();
+        // maskImage.translate(anchoRombo / -2, altoRombo / -2);
+        maskImage.translate(0, altoRombo / -2);
         maskImage.quad(anchoRombo / 2, 0, anchoRombo, altoRombo / 2, anchoRombo / 2, altoRombo, 0, altoRombo / 2);
+        maskImage.pop();
     }
 
     function setup() {
@@ -149,21 +168,79 @@ colofon([
 
         let maskImage;
 
+        let xInicial = 200;
+        let yInicial = 200;
+
         maskImage = mascara();
-        maskImage.translate(200, 200);
+        maskImage.translate(xInicial, yInicial);
         recortaRombo(maskImage);
         imgCopia1.mask(maskImage);
 
         maskImage = mascara();
-        maskImage.translate(200 + anchoRombo, 200);
+        maskImage.translate(xInicial + anchoRombo, yInicial);
         recortaRombo(maskImage);
         imgCopia2.mask(maskImage);
 
-        image(img, 0, 0, folio.width, folio.height);
-        image(imgCopia1, -50, -80, folio.width, folio.height);
-        image(imgCopia2, -50, -80 + ladoRombo, folio.width, folio.height);
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(PI / 3);
+        recortaRombo(maskImage);
+        imgCopia3.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(2 * PI / 3);
+        maskImage.translate(-anchoRombo / 2, -3 * altoRombo / 2);
+        recortaRombo(maskImage);
+        imgCopia4.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(PI / 3);
+        maskImage.translate(anchoRombo / 2, -3 * altoRombo / 2);
+        recortaRombo(maskImage);
+        imgCopia5.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(2 * PI / 3);
+        maskImage.translate(-anchoRombo, -3 * altoRombo);
+        recortaRombo(maskImage);
+        imgCopia6.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial + anchoRombo / 2, yInicial + ladoRombo + altoRombo / 2);
+        recortaRombo(maskImage);
+        imgCopia7.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(PI / 3);
+        maskImage.translate(anchoRombo, 0);
+        recortaRombo(maskImage);
+        imgCopia8.mask(maskImage);
+
+        maskImage = mascara();
+        maskImage.translate(xInicial, yInicial);
+        maskImage.rotate(2 * PI / 3);
+        maskImage.translate(0, -3 * altoRombo);
+        recortaRombo(maskImage);
+        imgCopia9.mask(maskImage);
+
+        // image(img, 0, 0, folio.width, folio.height);
+        image(imgCopia1, 0, 0, folio.width, folio.height);
+        image(imgCopia2, 0, 0, folio.width, folio.height);
+        image(imgCopia3, 0, 0, folio.width, folio.height);
+        image(imgCopia4, 0, 0, folio.width, folio.height);
+        image(imgCopia5, 0, 0, folio.width, folio.height);
+        image(imgCopia6, 0, 0, folio.width, folio.height);
+        image(imgCopia7, 0, 0, folio.width, folio.height);
+        image(imgCopia8, 0, 0, folio.width, folio.height);
+        image(imgCopia9, 0, 0, folio.width, folio.height);
+
         // fill(255, 0, 0);
-        // square(200, 200, 10);
+        // strokeWeight(5);
+        // point(xInicial, yInicial);
 
     }
 
