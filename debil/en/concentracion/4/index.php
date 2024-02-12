@@ -35,10 +35,14 @@ colofon([
 <script>
     var folio;
     var img;
+    var imgCopia1;
+    var imgCopia2;
     var tamanoCuadrado = 125;
 
     function preload() {
         img = loadImage('edu_oso_cartel.png');
+        imgCopia1 = loadImage('edu_oso_cartel.png');
+        imgCopia2 = loadImage('edu_oso_cartel.png');
     }
 
     function izquierda(x, y) {
@@ -55,6 +59,10 @@ colofon([
 
     function abajo(x, y) {
         return [x, y + tamanoCuadrado];
+    }
+
+    function girarDerecha(x, y) {
+        return [floor(x + PI / 2), floor(y + PI / 2)];
     }
 
     // function setup() {
@@ -116,73 +124,47 @@ colofon([
     //     image(img, 0, 0, folio.width, folio.height);
     // }
 
+    var escala = 2.5;
+    var anchoRombo = 376 / escala;
+    var altoRombo = 220 / escala;
+    var ladoRombo;
+
+    console.log(anchoRombo, altoRombo, ladoRombo);
+
+    function mascara() {
+        let m = createGraphics(folio.width, folio.height);
+        m.fill(0);
+
+        return m;
+    }
+
+    function recortaRombo(maskImage) {
+        maskImage.quad(anchoRombo / 2, 0, anchoRombo, altoRombo / 2, anchoRombo / 2, altoRombo, 0, altoRombo / 2);
+    }
+
     function setup() {
         folio = new Folio();
 
-        img.loadPixels();
+        ladoRombo = dist(0, altoRombo / 2, anchoRombo / 2, altoRombo);
 
-        let inicioX;
-        let inicioY;
+        let maskImage;
 
-        let inicioDeformacionX = 160;
-        let inicioDeformacionY = 120;
+        maskImage = mascara();
+        maskImage.translate(200, 200);
+        recortaRombo(maskImage);
+        imgCopia1.mask(maskImage);
 
-        inicioX = inicioDeformacionX;
-        inicioY = inicioDeformacionY;
-        for (let x = inicioX; x < inicioX + tamanoCuadrado; x += tamanoCuadrado) {
-            for (let y = inicioY; y < inicioY + tamanoCuadrado; y += tamanoCuadrado) {
-                for (let i = 0; i < tamanoCuadrado; i++) {
-                    for (let j = 0; j < tamanoCuadrado; j++) {
-                        let t = derecha(x + i, y + j);
-                        t = abajo(t[0], t[1]);
-                        img.set(x + i, y + j, img.get(t[0], t[1]));
-                    }
-                }
-            }
-        }
-        inicioX = inicioDeformacionX + tamanoCuadrado;
-        inicioY = inicioDeformacionY;
-        for (let x = inicioX; x < inicioX + tamanoCuadrado; x += tamanoCuadrado) {
-            for (let y = inicioY; y < inicioY + tamanoCuadrado; y += tamanoCuadrado) {
-                for (let i = 0; i < tamanoCuadrado; i++) {
-                    for (let j = 0; j < tamanoCuadrado; j++) {
-                        let t = abajo(x + i, y + j);
-                        t = izquierda(t[0], t[1]);
-                        img.set(x + i, y + j, img.get(t[0], t[1]));
-                    }
-                }
-            }
-        }
-        inicioX = inicioDeformacionX;
-        inicioY = inicioDeformacionY + tamanoCuadrado;
-        for (let x = inicioX; x < inicioX + tamanoCuadrado; x += tamanoCuadrado) {
-            for (let y = inicioY; y < inicioY + tamanoCuadrado; y += tamanoCuadrado) {
-                for (let i = 0; i < tamanoCuadrado; i++) {
-                    for (let j = 0; j < tamanoCuadrado; j++) {
-                        let t = arriba(x + i, y + j);
-                        t = derecha(t[0], t[1]);
-                        img.set(x + i, y + j, img.get(t[0], t[1]));
-                    }
-                }
-            }
-        }
-        inicioX = inicioDeformacionX + tamanoCuadrado;
-        inicioY = inicioDeformacionY + tamanoCuadrado;
-        for (let x = inicioX; x < inicioX + tamanoCuadrado; x += tamanoCuadrado) {
-            for (let y = inicioY; y < inicioY + tamanoCuadrado; y += tamanoCuadrado) {
-                for (let i = 0; i < tamanoCuadrado; i++) {
-                    for (let j = 0; j < tamanoCuadrado; j++) {
-                        let t = arriba(x + i, y + j);
-                        t = izquierda(t[0], t[1]);
-                        img.set(x + i, y + j, img.get(t[0], t[1]));
-                    }
-                }
-            }
-        }
-
-        img.updatePixels();
+        maskImage = mascara();
+        maskImage.translate(200 + anchoRombo, 200);
+        recortaRombo(maskImage);
+        imgCopia2.mask(maskImage);
 
         image(img, 0, 0, folio.width, folio.height);
+        image(imgCopia1, -50, -80, folio.width, folio.height);
+        image(imgCopia2, -50, -80 + ladoRombo, folio.width, folio.height);
+        // fill(255, 0, 0);
+        // square(200, 200, 10);
+
     }
 
     function draw() {
