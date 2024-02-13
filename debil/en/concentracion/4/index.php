@@ -171,6 +171,18 @@ colofon([
     }
 
     function setup() {
+        function ordenaDistintos(lista) {
+            let nuevaLista = shuffle(lista);
+
+            for (let i = 0; i < lista.length; i++) {
+                if (lista[i] === nuevaLista[i]) {
+                    return ordenaDistintos(lista);
+                }
+            }
+
+            return nuevaLista;
+        }
+
         folio = new Folio();
 
         ladoRombo = 88;
@@ -185,22 +197,26 @@ colofon([
         let xInicial = 120;
         let yInicial = 130;
 
+        // Máscara 1
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         recortaRombo(maskImage);
         copias[0].mask(maskImage);
 
+        // Máscara 2
         maskImage = mascara();
         maskImage.translate(xInicial + anchoRombo, yInicial);
         recortaRombo(maskImage);
         copias[1].mask(maskImage);
 
+        // Máscara 3
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
         recortaRombo(maskImage);
         copias[2].mask(maskImage);
 
+        // Máscara 4
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
@@ -208,6 +224,7 @@ colofon([
         recortaRombo(maskImage);
         copias[3].mask(maskImage);
 
+        // Máscara 5
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
@@ -215,6 +232,7 @@ colofon([
         recortaRombo(maskImage);
         copias[4].mask(maskImage);
 
+        // Máscara 6
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
@@ -222,11 +240,13 @@ colofon([
         recortaRombo(maskImage);
         copias[5].mask(maskImage);
 
+        // Máscara 7
         maskImage = mascara();
         maskImage.translate(xInicial + anchoRombo / 2, yInicial + ladoRombo + altoRombo / 2);
         recortaRombo(maskImage);
         copias[6].mask(maskImage);
 
+        // Máscara 8
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
@@ -234,6 +254,7 @@ colofon([
         recortaRombo(maskImage);
         copias[7].mask(maskImage);
 
+        // Máscara 9
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
@@ -243,33 +264,33 @@ colofon([
 
         let operaciones = [];
 
-        // Copia 1
+        // Rombo 1
         operaciones.push([
             ['t', -xInicial, -yInicial],
             ['t', -anchoRombo / 2, 0],
         ]);
 
-        // Copia 2
+        // Rombo 2
         operaciones.push([
             ['t', -xInicial, -yInicial],
             ['t', -3 * anchoRombo / 2, 0],
         ]);
 
-        // Copia 3
+        // Rombo 3
         operaciones.push([
             ['r', -PI / 3],
             ['t', -xInicial, -yInicial],
             ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
         ]);
 
-        // Copia 4        
+        // Rombo 4        
         operaciones.push([
             ['r', PI / 3],
             ['t', -xInicial, -yInicial],
             ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
         ]);
 
-        // Copia 5
+        // Rombo 5
         operaciones.push([
             ['r', -PI / 3],
             ['t', -xInicial, -yInicial],
@@ -277,7 +298,7 @@ colofon([
             ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
         ]);
 
-        // Copia 6
+        // Rombo 6
         operaciones.push([
             ['r', PI / 3],
             ['t', -xInicial, -yInicial],
@@ -285,14 +306,14 @@ colofon([
             ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
         ]);
 
-        // Copia 7
+        // Rombo 7
         operaciones.push([
             ['t', -xInicial, -yInicial],
             ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
             ['t', -anchoRombo / 2, 0],
         ]);
 
-        // Copia 8
+        // Rombo 8
         operaciones.push([
             ['r', (-PI / 3)],
             ['t', -xInicial, -yInicial],
@@ -300,7 +321,7 @@ colofon([
             ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))]
         ]);
 
-        // Copia 9
+        // Rombo 9
         operaciones.push([
             ['r', PI / 3],
             ['t', -xInicial, -yInicial],
@@ -308,7 +329,7 @@ colofon([
             ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
         ]);
 
-        let nuevasOperaciones = shuffle(operaciones);
+        let nuevasOperaciones = ordenaDistintos(operaciones);
 
         image(img, 0, 0, folio.width, folio.height);
 
