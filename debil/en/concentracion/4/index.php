@@ -30,6 +30,12 @@ colofon([
 ]);
 ?>
 
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
 <script>
@@ -145,7 +151,6 @@ colofon([
     var anchoRombo;
     var altoRombo;
 
-    console.log(anchoRombo, altoRombo, ladoRombo);
 
     function mascara() {
         let m = createGraphics(folio.width, folio.height);
@@ -167,8 +172,10 @@ colofon([
 
         ladoRombo = 88;
         anguloPeq = PI / 3;
+        anguloGrande = 2 * PI - 2 * anguloPeq;
         anchoRombo = cos(anguloPeq / 2) * ladoRombo * 2;
         altoRombo = sin(anguloPeq / 2) * ladoRombo * 2;
+        console.log(anchoRombo, altoRombo, ladoRombo);
 
         let maskImage;
 
@@ -232,15 +239,74 @@ colofon([
         imgCopia9.mask(maskImage);
 
         // image(img, 0, 0, folio.width, folio.height);
+        // image(imgCopia1, 0, 0, folio.width, folio.height);
+        // image(imgCopia2, 0, 0, folio.width, folio.height);
+        // image(imgCopia3, 0, 0, folio.width, folio.height);
+        // image(imgCopia4, 0, 0, folio.width, folio.height);
+        // image(imgCopia5, 0, 0, folio.width, folio.height);
+        // image(imgCopia6, 0, 0, folio.width, folio.height);
+        // image(imgCopia7, 0, 0, folio.width, folio.height);
+        // image(imgCopia8, 0, 0, folio.width, folio.height);
+        // image(imgCopia9, 0, 0, folio.width, folio.height);
+
+        push();
+        translate(-xInicial, -yInicial);
+        translate(-anchoRombo / 2, 0);
         image(imgCopia1, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        translate(-xInicial, -yInicial);
+        translate(-3 * anchoRombo / 2, 0);
         image(imgCopia2, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(-PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2)));
         image(imgCopia3, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2));
         image(imgCopia4, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(-PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-anchoRombo, 0);
+        translate(-(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2)));
         image(imgCopia5, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-anchoRombo, 0);
+        translate(-(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2));
         image(imgCopia6, 0, 0, folio.width, folio.height);
-        image(imgCopia7, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(-PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-anchoRombo / 2, -altoRombo / 2 - ladoRombo);
+        translate(-(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2)));
         image(imgCopia8, 0, 0, folio.width, folio.height);
+        pop();
+
+        push();
+        rotate(PI / 3);
+        translate(-xInicial, -yInicial);
+        translate(-anchoRombo / 2, -altoRombo / 2 - ladoRombo);
+        translate(-(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2));
         image(imgCopia9, 0, 0, folio.width, folio.height);
+        pop();
+
 
         // fill(255, 0, 0);
         // strokeWeight(5);
