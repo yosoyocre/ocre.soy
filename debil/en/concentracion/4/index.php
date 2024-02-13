@@ -26,7 +26,7 @@
 colofon([
     'Lenguajes de programación' => 'HTML, CSS y JavaScript',
     'Librerías' => '<a href="https://p5js.org">p5.js</a>',
-    'Foto' => '<a href="https://www.instagram.com/calisadas/">Calís</a>',
+    'Foto' => '<a href="https://www.instagram.com/calisadas/">Calís</a>, <a href="https://www.instagram.com/goodnight.mr.martinez/">Jorge</a> y Mamá',
     'Inspiración' => '<a href="https://www.instagram.com/reel/C1owf3Fr9Nv/">Este vídeo</a> del <a href="https://www.instagram.com/kensukekoike">Instagram de Kensuke Koike</a>'
 ]);
 ?>
@@ -42,7 +42,7 @@ colofon([
 
     function preload() {
         // Cargamos todos las posibles imágenes
-        for (i = 1; i <= 2; i++) {
+        for (i = 1; i <= 3; i++) {
             let nombreImg = 'edu_' + i + '.png';
 
             let copiasImagenes = [];
