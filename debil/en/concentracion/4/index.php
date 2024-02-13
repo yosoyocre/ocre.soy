@@ -70,7 +70,6 @@ colofon([
 
     function recortaRombo(maskImage) {
         maskImage.push();
-        // maskImage.translate(anchoRombo / -2, altoRombo / -2);
         maskImage.translate(0, altoRombo / -2);
         maskImage.quad(anchoRombo / 2, 0, anchoRombo, altoRombo / 2, anchoRombo / 2, altoRombo, 0, altoRombo / 2);
         maskImage.pop();
