@@ -260,87 +260,115 @@ colofon([
         // image(imgCopia8, 0, 0, folio.width, folio.height);
         // image(imgCopia9, 0, 0, folio.width, folio.height);
 
-        let operaciones;
+        let operaciones = [];
+
+        // Copia 1
+        operaciones.push([
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo / 2, 0],
+        ]);
+
+        // Copia 2
+        operaciones.push([
+            ['t', -xInicial, -yInicial],
+            ['t', -3 * anchoRombo / 2, 0],
+        ]);
+
+        // Copia 3
+        operaciones.push([
+            ['r', -PI / 3],
+            ['t', -xInicial, -yInicial],
+            ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
+        ]);
+
+        // Copia 4        
+        operaciones.push([
+            ['r', PI / 3],
+            ['t', -xInicial, -yInicial],
+            ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
+        ]);
+
+        // Copia 5
+        operaciones.push([
+            ['r', -PI / 3],
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo, 0],
+            ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
+        ]);
+
+        // Copia 6
+        operaciones.push([
+            ['r', PI / 3],
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo, 0],
+            ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
+        ]);
+
+        // Copia 7
+        operaciones.push([
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
+            ['t', -anchoRombo / 2, 0],
+        ]);
+
+        // Copia 8
+        operaciones.push([
+            ['r', (-PI / 3)],
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
+            ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))]
+        ]);
+
+        // Copia 9
+        operaciones.push([
+            ['r', PI / 3],
+            ['t', -xInicial, -yInicial],
+            ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
+            ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
+        ]);
 
         // push();
-        // operaciones = [
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -anchoRombo / 2, 0],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[0]);
         // image(imgCopia1, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -3 * anchoRombo / 2, 0],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[1]);
         // image(imgCopia2, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', -PI / 3],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[2]);
         // image(imgCopia3, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', PI / 3],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[3]);
         // image(imgCopia4, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', -PI / 3],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -anchoRombo, 0],
-        //     ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[4]);
         // image(imgCopia5, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', PI / 3],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -anchoRombo, 0],
-        //     ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[5]);
         // image(imgCopia6, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', (-PI / 3)],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
-        //     ['t', -(cos(PI / 2 - anguloPeq / 2) * anchoRombo / 2), -(anchoRombo / 2 * cos(anguloPeq / 2))]
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[6]);
+        // image(imgCopia7, 0, 0, folio.width, folio.height);
+        // pop();
+
+        // push();
+        // transforma(operaciones[7]);
         // image(imgCopia8, 0, 0, folio.width, folio.height);
         // pop();
 
         // push();
-        // operaciones = [
-        //     ['r', PI / 3],
-        //     ['t', -xInicial, -yInicial],
-        //     ['t', -anchoRombo / 2, -altoRombo / 2 - ladoRombo],
-        //     ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
-        // ];
-        // transforma(operaciones);
+        // transforma(operaciones[8]);
         // image(imgCopia9, 0, 0, folio.width, folio.height);
         // pop();
 
