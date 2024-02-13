@@ -38,17 +38,22 @@ colofon([
     var img;
     var nRombos = 9;
     var copias = [];
+    var imagenes = [];
 
     function preload() {
-        let nombreImg = 'edu.png'
-        img = loadImage(nombreImg);
+        // Cargamos todos las posibles imágenes
+        for (i = 1; i <= 2; i++) {
+            let nombreImg = 'edu_' + i + '.png';
 
-        for (let i = 0; i < nRombos; i++) {
-            copias.push(loadImage(nombreImg));
+            let copiasImagenes = [];
+            for (let j = 0; j < nRombos + 1; j++) {
+                copiasImagenes.push(loadImage(nombreImg));
+            }
+
+            imagenes.push(copiasImagenes);
         }
     }
 
-    var escala = 2.5;
     var ladoRombo;
     var anguloPeq;
     var anchoRombo;
@@ -57,6 +62,11 @@ colofon([
     var operaciones = [];
     var nuevasOperaciones = [];
 
+    /**
+     * Crea una máscara vacía
+     * 
+     * @returns {p5.Graphics}
+     */
     function mascara() {
         let m = createGraphics(folio.width, folio.height);
         m.fill(0);
@@ -64,6 +74,13 @@ colofon([
         return m;
     }
 
+    /**
+     * Recorta un rombo en una máscara
+     * 
+     * @param {p5.Graphics} maskImage
+     * 
+     * @returns {void}
+     */
     function recortaRombo(maskImage) {
         maskImage.push();
         maskImage.translate(0, altoRombo / -2);
@@ -71,6 +88,14 @@ colofon([
         maskImage.pop();
     }
 
+    /**
+     * Aplica una serie de operaciones a la imagen
+     * 
+     * @param {Array} operaciones
+     * @param {boolean} alReves Si es true, se aplican las operaciones en orden inverso
+     * 
+     * @returns {void}
+     */
     function transforma(operaciones, alReves = false) {
         let signo = alReves ? -1 : 1;
         if (alReves) {
@@ -99,6 +124,9 @@ colofon([
 
     function draw() {
         if (!IMAGEN_DIBUJADA) {
+            copias = random(imagenes).slice();
+            img = copias.shift();
+
             function ordenaDistintos(lista) {
                 let nuevaLista = shuffle(lista);
 
@@ -110,8 +138,6 @@ colofon([
 
                 return nuevaLista;
             }
-
-            console.log(anchoRombo, altoRombo, ladoRombo);
 
             let maskImage;
 
