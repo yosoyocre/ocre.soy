@@ -43,7 +43,6 @@ colofon([
     var img;
     var nRombos = 9;
     var copias = [];
-    var tamanoCuadrado = 125;
 
     function preload() {
         img = loadImage('edu_oso_cartel.png');
@@ -51,26 +50,6 @@ colofon([
         for (let i = 0; i < nRombos; i++) {
             copias.push(loadImage('edu_oso_cartel.png'));
         }
-    }
-
-    function izquierda(x, y) {
-        return [x - tamanoCuadrado, y];
-    }
-
-    function derecha(x, y) {
-        return [x + tamanoCuadrado, y];
-    }
-
-    function arriba(x, y) {
-        return [x, y - tamanoCuadrado];
-    }
-
-    function abajo(x, y) {
-        return [x, y + tamanoCuadrado];
-    }
-
-    function girarDerecha(x, y) {
-        return [floor(x + PI / 2), floor(y + PI / 2)];
     }
 
     var escala = 2.5;
