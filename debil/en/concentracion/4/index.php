@@ -167,13 +167,18 @@ colofon([
         maskImage.pop();
     }
 
-    function transforma(operaciones) {
+    function transforma(operaciones, alReves = false) {
+        let signo = alReves ? -1 : 1;
+        if (alReves) {
+            operaciones = operaciones.slice().reverse();
+        }
+
         for (let o = 0; o < operaciones.length; o++) {
             let operacion = operaciones[o];
             if (operacion[0] === 't') {
-                translate(operacion[1], operacion[2]);
+                translate(signo * operacion[1], signo * operacion[2]);
             } else {
-                rotate(operacion[1]);
+                rotate(signo * operacion[1]);
             }
         }
     }
