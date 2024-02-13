@@ -41,29 +41,16 @@ colofon([
 <script>
     var folio;
     var img;
-    var imgCopia1;
-    var imgCopia2;
-    var imgCopia3;
-    var imgCopia4;
-    var imgCopia5;
-    var imgCopia6;
-    var imgCopia7;
-    var imgCopia8;
-    var imgCopia9;
+    var nRombos = 9;
+    var copias = [];
     var tamanoCuadrado = 125;
 
     function preload() {
         img = loadImage('edu_oso_cartel.png');
 
-        imgCopia1 = loadImage('edu_oso_cartel.png');
-        imgCopia2 = loadImage('edu_oso_cartel.png');
-        imgCopia3 = loadImage('edu_oso_cartel.png');
-        imgCopia4 = loadImage('edu_oso_cartel.png');
-        imgCopia5 = loadImage('edu_oso_cartel.png');
-        imgCopia6 = loadImage('edu_oso_cartel.png');
-        imgCopia7 = loadImage('edu_oso_cartel.png');
-        imgCopia8 = loadImage('edu_oso_cartel.png');
-        imgCopia9 = loadImage('edu_oso_cartel.png');
+        for (let i = 0; i < nRombos; i++) {
+            copias.push(loadImage('edu_oso_cartel.png'));
+        }
     }
 
     function izquierda(x, y) {
@@ -201,69 +188,58 @@ colofon([
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         recortaRombo(maskImage);
-        imgCopia1.mask(maskImage);
+        copias[0].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial + anchoRombo, yInicial);
         recortaRombo(maskImage);
-        imgCopia2.mask(maskImage);
+        copias[1].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
         recortaRombo(maskImage);
-        imgCopia3.mask(maskImage);
+        copias[2].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
         maskImage.translate(-anchoRombo / 2, -3 * altoRombo / 2);
         recortaRombo(maskImage);
-        imgCopia4.mask(maskImage);
+        copias[3].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
         maskImage.translate(anchoRombo / 2, -3 * altoRombo / 2);
         recortaRombo(maskImage);
-        imgCopia5.mask(maskImage);
+        copias[4].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
         maskImage.translate(-anchoRombo, -3 * altoRombo);
         recortaRombo(maskImage);
-        imgCopia6.mask(maskImage);
+        copias[5].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial + anchoRombo / 2, yInicial + ladoRombo + altoRombo / 2);
         recortaRombo(maskImage);
-        imgCopia7.mask(maskImage);
+        copias[6].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(anguloPeq);
         maskImage.translate(anchoRombo, 0);
         recortaRombo(maskImage);
-        imgCopia8.mask(maskImage);
+        copias[7].mask(maskImage);
 
         maskImage = mascara();
         maskImage.translate(xInicial, yInicial);
         maskImage.rotate(2 * anguloPeq);
         maskImage.translate(0, -3 * altoRombo);
         recortaRombo(maskImage);
-        imgCopia9.mask(maskImage);
-
-        // image(img, 0, 0, folio.width, folio.height);
-        // image(imgCopia1, 0, 0, folio.width, folio.height);
-        // image(imgCopia2, 0, 0, folio.width, folio.height);
-        // image(imgCopia3, 0, 0, folio.width, folio.height);
-        // image(imgCopia4, 0, 0, folio.width, folio.height);
-        // image(imgCopia5, 0, 0, folio.width, folio.height);
-        // image(imgCopia6, 0, 0, folio.width, folio.height);
-        // image(imgCopia7, 0, 0, folio.width, folio.height);
-        // image(imgCopia8, 0, 0, folio.width, folio.height);
-        // image(imgCopia9, 0, 0, folio.width, folio.height);
+        copias[8].mask(maskImage);
 
         let operaciones = [];
 
@@ -332,55 +308,17 @@ colofon([
             ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
         ]);
 
-        // push();
-        // transforma(operaciones[0]);
-        // image(imgCopia1, 0, 0, folio.width, folio.height);
-        // pop();
+        let nuevasOperaciones = shuffle(operaciones);
 
-        // push();
-        // transforma(operaciones[1]);
-        // image(imgCopia2, 0, 0, folio.width, folio.height);
-        // pop();
+        image(img, 0, 0, folio.width, folio.height);
 
-        // push();
-        // transforma(operaciones[2]);
-        // image(imgCopia3, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[3]);
-        // image(imgCopia4, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[4]);
-        // image(imgCopia5, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[5]);
-        // image(imgCopia6, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[6]);
-        // image(imgCopia7, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[7]);
-        // image(imgCopia8, 0, 0, folio.width, folio.height);
-        // pop();
-
-        // push();
-        // transforma(operaciones[8]);
-        // image(imgCopia9, 0, 0, folio.width, folio.height);
-        // pop();
-
-
-        // fill(255, 0, 0);
-        // strokeWeight(5);
-        // point(xInicial, yInicial);
+        for (let i = 0; i < nRombos; i++) {
+            push();
+            transforma(nuevasOperaciones[i], true);
+            transforma(operaciones[i]);
+            image(copias[i], 0, 0, folio.width, folio.height);
+            pop();
+        }
 
     }
 
