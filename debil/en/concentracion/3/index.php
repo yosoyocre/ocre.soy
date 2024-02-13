@@ -26,7 +26,7 @@
 colofon([
     'Lenguajes de programación' => 'HTML, CSS y JavaScript',
     'Librerías' => '<a href="https://p5js.org">p5.js</a>',
-    'Inspiración' => '<a href="#">Este cartel</a> del <a href="#">Instagram de XXX</a>'
+    'Inspiración' => '<a href="https://www.instagram.com/p/CuDwiv_Jstb/?img_index=3">Este cartel</a> del <a href="https://www.instagram.com/mccarthydesign">Instagram de McCarthy Design studio</a>'
 ]);
 ?>
 
