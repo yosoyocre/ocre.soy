@@ -30,12 +30,6 @@ colofon([
 ]);
 ?>
 
-<style>
-    canvas {
-        border: 1px solid black;
-    }
-</style>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
 <script>
@@ -45,10 +39,11 @@ colofon([
     var copias = [];
 
     function preload() {
-        img = loadImage('edu_oso_cartel.png');
+        let nombreImg = 'edu_solo_2.png'
+        img = loadImage(nombreImg);
 
         for (let i = 0; i < nRombos; i++) {
-            copias.push(loadImage('edu_oso_cartel.png'));
+            copias.push(loadImage(nombreImg));
         }
     }
 
@@ -94,7 +89,7 @@ colofon([
     function setup() {
         folio = new Folio();
 
-        ladoRombo = 88;
+        ladoRombo = 120;
         anguloPeq = PI / 3;
         anguloGrande = 2 * PI - 2 * anguloPeq;
         anchoRombo = cos(anguloPeq / 2) * ladoRombo * 2;
@@ -116,8 +111,11 @@ colofon([
 
         let maskImage;
 
-        let xInicial = 120;
-        let yInicial = 130;
+        let xCentro = folio.width / 2;
+        let yCentro = folio.height / 2;
+
+        let xInicial = xCentro - anchoRombo;
+        let yInicial = yCentro - altoRombo;
 
         // Máscara 1
         maskImage = mascara();
