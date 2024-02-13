@@ -39,7 +39,7 @@ colofon([
     var copias = [];
 
     function preload() {
-        let nombreImg = 'edu_solo_2.png'
+        let nombreImg = 'edu.png'
         img = loadImage(nombreImg);
 
         for (let i = 0; i < nRombos; i++) {
