@@ -138,6 +138,8 @@ colofon([
     var anchoRombo;
     var altoRombo;
 
+    var operaciones = [];
+    var nuevasOperaciones = [];
 
     function mascara() {
         let m = createGraphics(folio.width, folio.height);
@@ -171,6 +173,14 @@ colofon([
     }
 
     function setup() {
+        folio = new Folio();
+
+        ladoRombo = 88;
+        anguloPeq = PI / 3;
+        anguloGrande = 2 * PI - 2 * anguloPeq;
+        anchoRombo = cos(anguloPeq / 2) * ladoRombo * 2;
+        altoRombo = sin(anguloPeq / 2) * ladoRombo * 2;
+
         function ordenaDistintos(lista) {
             let nuevaLista = shuffle(lista);
 
@@ -183,13 +193,6 @@ colofon([
             return nuevaLista;
         }
 
-        folio = new Folio();
-
-        ladoRombo = 88;
-        anguloPeq = PI / 3;
-        anguloGrande = 2 * PI - 2 * anguloPeq;
-        anchoRombo = cos(anguloPeq / 2) * ladoRombo * 2;
-        altoRombo = sin(anguloPeq / 2) * ladoRombo * 2;
         console.log(anchoRombo, altoRombo, ladoRombo);
 
         let maskImage;
@@ -262,8 +265,6 @@ colofon([
         recortaRombo(maskImage);
         copias[8].mask(maskImage);
 
-        let operaciones = [];
-
         // Rombo 1
         operaciones.push([
             ['t', -xInicial, -yInicial],
@@ -329,23 +330,24 @@ colofon([
             ['t', -(anchoRombo / 2 + sin(anguloGrande / 2) * altoRombo / 2), -(altoRombo / 2 - cos(anguloGrande / 2) * altoRombo / 2)],
         ]);
 
-        let nuevasOperaciones = ordenaDistintos(operaciones);
+        nuevasOperaciones = ordenaDistintos(operaciones);
 
         image(img, 0, 0, folio.width, folio.height);
 
         for (let i = 0; i < nRombos; i++) {
             push();
             transforma(nuevasOperaciones[i], true);
+            // rotate(map(mouseX, 0, width, 0, 2 * PI));
+            if (random() > 0.5) {
+                rotate(PI);
+            }
             transforma(operaciones[i]);
             image(copias[i], 0, 0, folio.width, folio.height);
             pop();
         }
-
     }
 
-    function draw() {
-
-    }
+    function draw() {}
 </script>
 
 <?php require('../../../../_pie.php'); ?>
