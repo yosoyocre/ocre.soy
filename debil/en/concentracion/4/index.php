@@ -1,5 +1,5 @@
 <?php
-// Generador de carteles pixelando imágenes
+// Generador de imágenes alteradas por cubos
 ?>
 <?php require('../../../../_cabecera.php'); ?>
 
@@ -9,10 +9,10 @@
     <div class="col-lg-12">
         <?php breadcrumb(); ?>
         <p>
-            Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
+            Pruebo ideas para fotos promocionales. <br>En este caso, altero una foto mía con una especie de efecto caleidoscópico.
         </p>
         <p>
-            Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
+            Pulsa en la imagen para descargarla. <br>Y si quieres generar otra <a class="js-otro-poster" href="#">pulsa aquí</a>.
         </p>
     </div>
 </div>
@@ -26,7 +26,7 @@
 colofon([
     'Lenguajes de programación' => 'HTML, CSS y JavaScript',
     'Librerías' => '<a href="https://p5js.org">p5.js</a>',
-    'Inspiración' => '<a href="#">Este cartel</a> del <a href="#">Instagram de XXX</a>'
+    'Inspiración' => '<a href="https://www.instagram.com/reel/C1owf3Fr9Nv/">Este vídeo</a> del <a href="https://www.instagram.com/kensukekoike">Instagram de Kensuke Koike</a>'
 ]);
 ?>
 
