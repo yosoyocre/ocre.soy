@@ -53,6 +53,7 @@ colofon([
         let triangulos = [];
         for (let i = 1; i <= nTriangulos; i++) {
             let coords = [];
+            // En P5, los vectores se crean con base en el origen de coordenadas (0 , 0)
             v0 = createVector(random(minLado, maxLado), 0);
             v1 = p5.Vector.rotate(v0, random(PI / 2, PI / 3));
 
@@ -74,47 +75,67 @@ colofon([
         stroke(0);
         fill(0);
 
+        let conFondo = true;
+        let conContenido = true;
+        let debug = true;
+
+        let limiteIzquierdo = folio.width / 5;
+        let limiteDerecho = folio.width - limiteIzquierdo;
+        let limiteSuperior = folio.height / 5;
+        let limiteInferior = folio.height - limiteSuperior;
+
         for (let i = 0; i < triangulos.length; i++) {
             let triangulo = triangulos[i];
 
-            let x = random(folio.width / 3, folio.width * 2 / 3);
-            let y = random(folio.height / 3, folio.height * 2 / 3);
-            let rotacion = random(0, TWO_PI);
+            let x = random(limiteIzquierdo, limiteDerecho);
+            let y = random(limiteSuperior, limiteInferior);
+            let rotacion = random(0, HALF_PI);
 
-            push();
-            translate(x, y);
-            rotate(rotacion);
-            triangle(
-                triangulo[0], triangulo[1],
-                triangulo[2], triangulo[3],
-                triangulo[4], triangulo[5]
-            );
-            pop();
+            if (conFondo) {
+                push();
+                translate(x, y);
+                rotate(rotacion);
+                triangle(
+                    triangulo[0], triangulo[1],
+                    triangulo[2], triangulo[3],
+                    triangulo[4], triangulo[5]
+                );
+                pop();
+            }
 
-            let m = createGraphics(folio.width, folio.height);
-            m.translate(x, y);
-            m.rotate(rotacion);
-            m.fill(0);
-            m.triangle(
-                triangulo[0], triangulo[1],
-                triangulo[2], triangulo[3],
-                triangulo[4], triangulo[5]
-            );
-            let nueva = img.get();
-            nueva.mask(m);
-            image(nueva, 0, 0, folio.width, folio.height);
+            if (conContenido) {
+                let m = createGraphics(folio.width, folio.height);
+                m.translate(x, y);
+                m.rotate(rotacion);
+                m.fill(0);
+                m.triangle(
+                    triangulo[0], triangulo[1],
+                    triangulo[2], triangulo[3],
+                    triangulo[4], triangulo[5]
+                );
+                let nueva = img.get();
+                nueva.mask(m);
+                image(nueva, 0, 0, folio.width, folio.height);
+            }
 
+            if (debug) {
+                push();
+                stroke(0);
+                strokeWeight(1);
+                line(limiteIzquierdo, 0, limiteIzquierdo, folio.height);
+                line(limiteDerecho, 0, limiteDerecho, folio.height);
+                line(0, limiteSuperior, folio.width, limiteSuperior);
+                line(0, limiteInferior, folio.width, limiteInferior);
+                pop();
 
-            // push();
-            // strokeWeight(5);
-            // stroke(0, 255, 0);
-            // line(triangulo[0], triangulo[1], triangulo[2], triangulo[3]);
-            // stroke(0, 0, 255);
-            // line(triangulo[0], triangulo[1], triangulo[4], triangulo[5]);
-            // stroke(255, 0, 0);
-            // point(triangulo[0], triangulo[1]);
-            // pop();
-
+                // DEBUG de puntos de origen
+                push();
+                translate(x, y);
+                stroke(255, 0, 0);
+                strokeWeight(10);
+                point(triangulo[0], triangulo[1]);
+                pop();
+            }
         }
     }
 
