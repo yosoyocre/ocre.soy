@@ -32,12 +32,14 @@ colofon([
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kchapelier/poisson-disk-sampling@2.3.1/build/poisson-disk-sampling.min.js"></script>
+
 <script>
     var folio;
     var img;
 
     function preload() {
-        img = loadImage('edu_oso.png');
+        img = loadImage('edu_ampliado.png');
     }
 
     let v0, v1, v2;
@@ -45,10 +47,27 @@ colofon([
     function setup() {
         folio = new Folio();
 
-        let nTriangulos = 9;
-        // let nTriangulos = 1;
-        let minLado = 150;
-        let maxLado = 180;
+        let conFondo = true;
+        let conContenido = true;
+        let debug = false;
+
+        let minLado = 200;
+        let maxLado = 300;
+
+        let limiteIzquierdo = folio.width / 4;
+        let limiteDerecho = folio.width - limiteIzquierdo;
+        let limiteSuperior = folio.height / 4;
+        let limiteInferior = folio.height - limiteSuperior;
+
+        var p = new PoissonDiskSampling({
+            shape: [limiteDerecho - limiteIzquierdo, limiteInferior - limiteSuperior],
+            minDistance: maxLado / 3,
+            maxDistance: maxLado * 2,
+            tries: 10
+        });
+        var puntos = p.fill();
+
+        let nTriangulos = puntos.length;
 
         let triangulos = [];
         for (let i = 1; i <= nTriangulos; i++) {
@@ -69,27 +88,23 @@ colofon([
             triangulos.push(coords);
         }
 
-        console.log(triangulos);
-
         strokeWeight(5);
         stroke(0);
         fill(0);
 
-        let conFondo = true;
-        let conContenido = true;
-        let debug = true;
-
-        let limiteIzquierdo = folio.width / 5;
-        let limiteDerecho = folio.width - limiteIzquierdo;
-        let limiteSuperior = folio.height / 5;
-        let limiteInferior = folio.height - limiteSuperior;
+        if (debug) {
+            push();
+            tint(255, 255 / 4);
+            image(img, 0, 0, folio.width, folio.height);
+            pop();
+        }
 
         for (let i = 0; i < triangulos.length; i++) {
             let triangulo = triangulos[i];
 
-            let x = random(limiteIzquierdo, limiteDerecho);
-            let y = random(limiteSuperior, limiteInferior);
-            let rotacion = random(0, HALF_PI);
+            let x = puntos[i][0] + limiteIzquierdo;
+            let y = puntos[i][1] + limiteSuperior;
+            let rotacion = random(0, TWO_PI);
 
             if (conFondo) {
                 push();
@@ -117,23 +132,29 @@ colofon([
                 nueva.mask(m);
                 image(nueva, 0, 0, folio.width, folio.height);
             }
+        }
 
-            if (debug) {
-                push();
-                stroke(0);
-                strokeWeight(1);
-                line(limiteIzquierdo, 0, limiteIzquierdo, folio.height);
-                line(limiteDerecho, 0, limiteDerecho, folio.height);
-                line(0, limiteSuperior, folio.width, limiteSuperior);
-                line(0, limiteInferior, folio.width, limiteInferior);
-                pop();
+        if (debug) {
+            // DEBUG límites
+            push();
+            stroke(0);
+            strokeWeight(1);
+            line(limiteIzquierdo, 0, limiteIzquierdo, folio.height);
+            line(limiteDerecho, 0, limiteDerecho, folio.height);
+            line(0, limiteSuperior, folio.width, limiteSuperior);
+            line(0, limiteInferior, folio.width, limiteInferior);
+            pop();
+
+            for (let i = 0; i < triangulos.length; i++) {
+                let x = puntos[i][0] + limiteIzquierdo;
+                let y = puntos[i][1] + limiteSuperior;
 
                 // DEBUG de puntos de origen
                 push();
                 translate(x, y);
-                stroke(255, 0, 0);
+                stroke(0, 255, 0);
                 strokeWeight(10);
-                point(triangulo[0], triangulo[1]);
+                point(0, 0);
                 pop();
             }
         }
