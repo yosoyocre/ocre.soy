@@ -49,10 +49,11 @@ colofon([
 
         let conFondo = true;
         let conContenido = true;
-        let debug = true;
+        let debug = 0;
 
         let minLado = 200;
         let maxLado = 300;
+        let nLineas = 6;
 
         let limiteIzquierdo = folio.width / 4;
         let limiteDerecho = folio.width - limiteIzquierdo;
@@ -179,7 +180,7 @@ colofon([
         let lineas = [];
         let intersecciones = [];
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < nLineas; i++) {
             let x1;
             let y1;
 
@@ -227,59 +228,84 @@ colofon([
             }
         }
 
-        var p = new PoissonDiskSampling({
-            shape: [limiteDerecho - limiteIzquierdo, limiteInferior - limiteSuperior],
-            minDistance: maxLado / 3,
-            maxDistance: maxLado * 2,
-            tries: 10
-        });
-        var puntos = p.fill();
-
-        if (debug) {
-            stroke(0, 255, 0);
-            strokeWeight(10);
-            for (let i = 0; i < puntos.length; i++) {
-                point(puntos[i][0] + limiteIzquierdo, puntos[i][1] + limiteSuperior);
-            }
-        }
-
-        stroke(0, 0, 255);
-        strokeWeight(10);
+        // Order intersecciones by y
+        intersecciones.sort((a, b) => a[1] - b[1]);
 
         let triangulos = [];
-        let maxIntentos = 10;
-        let intentos;
 
-        for (let i = 0; i < puntos.length; i++) {
-            let x1 = puntos[i][0] + limiteIzquierdo;
-            let y1 = puntos[i][1] + limiteSuperior;
+        for (let i = 0; i < intersecciones.length - 1; i += 2) {
+            let punto1 = intersecciones[i];
+            let punto2 = intersecciones[i + 1];
 
-            let interseccion1 = random(intersecciones);
-            let x2 = interseccion1[0];
-            let y2 = interseccion1[1];
+            let m1 = (punto2[1] - punto1[1]) / (punto2[0] - punto1[0]); //calculate slope of line1
+            let m2 = -1 / (m1) //perpendicular slope is -1/m for line 1
+            let b2 = punto1[1] - punto1[0] * m2 //find b of line2 (y = mx+b) using a new point (x3,y3)
 
-            let interseccion2;
-            let x3;
-            let y3;
+            let nX = punto1[0] + (random(25) + 25) * (random() > 0.5 ? 1 : -1);
+            let nY = m2 * nX + b2;
 
-            intentos = 0;
-            do {
-                interseccion2 = random(intersecciones);
-                x3 = interseccion2[0];
-                y3 = interseccion2[1];
-                intentos++;
-            } while (x2 == x3 && y2 == y3 && intentos < maxIntentos);
-
-            triangulos.push([x1, y1, x2, y2, x3, y3]);
+            triangulos.push([punto1[0], punto1[1], punto2[0], punto2[1], nX, nY]);
 
             if (debug) {
                 triangle(
-                    x1, y1,
-                    x2, y2,
-                    x3, y3
+                    punto1[0], punto1[1], punto2[0], punto2[1], nX, nY
                 );
             }
         }
+
+        // var p = new PoissonDiskSampling({
+        //     shape: [limiteDerecho - limiteIzquierdo, limiteInferior - limiteSuperior],
+        //     minDistance: maxLado / 3,
+        //     maxDistance: maxLado * 2,
+        //     tries: 10
+        // });
+        // var puntos = p.fill();
+
+        // if (debug) {
+        //     stroke(0, 255, 0);
+        //     strokeWeight(10);
+        //     for (let i = 0; i < puntos.length; i++) {
+        //         point(puntos[i][0] + limiteIzquierdo, puntos[i][1] + limiteSuperior);
+        //     }
+        // }
+
+        // stroke(0, 0, 255);
+        // strokeWeight(10);
+
+        // let triangulos = [];
+        // let maxIntentos = 10;
+        // let intentos;
+
+        // for (let i = 0; i < puntos.length; i++) {
+        //     let x1 = puntos[i][0] + limiteIzquierdo;
+        //     let y1 = puntos[i][1] + limiteSuperior;
+
+        //     let interseccion1 = random(intersecciones);
+        //     let x2 = interseccion1[0];
+        //     let y2 = interseccion1[1];
+
+        //     let interseccion2;
+        //     let x3;
+        //     let y3;
+
+        //     intentos = 0;
+        //     do {
+        //         interseccion2 = random(intersecciones);
+        //         x3 = interseccion2[0];
+        //         y3 = interseccion2[1];
+        //         intentos++;
+        //     } while (x2 == x3 && y2 == y3 && intentos < maxIntentos);
+
+        //     triangulos.push([x1, y1, x2, y2, x3, y3]);
+
+        //     if (debug) {
+        //         triangle(
+        //             x1, y1,
+        //             x2, y2,
+        //             x3, y3
+        //         );
+        //     }
+        // }
 
         console.log(triangulos);
 
