@@ -57,8 +57,8 @@ colofon([
         let conContenido = true;
         let debug = 1;
 
-        let minLado = 50;
-        let maxLado = 50;
+        let minLado = 100;
+        let maxLado = 300;
         let nLineas = 3;
         let nTriangulosPorLinea = 3;
 
@@ -137,31 +137,31 @@ colofon([
             console.log(xs);
 
             for (let j = 0; j < nTriangulosPorLinea; j++) {
-                let x1 = xs[j];
-                let y1 = yEnLinea(linea, x1);
+                let v1 = createVector(xs[j], yEnLinea(linea, xs[j]));
 
-                let x2 = x1 + random(minLado, maxLado);
-                let y2 = yEnLinea(linea, x2);
+                let v2 = createVector(v1.x, v1.y);
+                let v2p = createVector(linea[0] - v1.x, linea[1] - v1.y);
+                push();
+                translate(v2.x, v2.y);
+                v2p.setMag(random(minLado, maxLado));
+                v2.add(v2p);
+                pop();
 
-                let v0;
-
+                let v3;
                 if (random() > 0.5) {
-                    v0 = createVector(x1, y1);
+                    v3 = createVector(v1.x, v1.y);
                 } else {
-                    v0 = createVector(x2, y2);
+                    v3 = createVector(v2.x, v2.y);
                 }
 
                 push();
-                translate(v0.x, v0.y);
-                let v1 = createVector(x2 - x1, y2 - y1);
-                v1.rotate(HALF_PI);
-                v0.add(v1);
+                translate(v3.x, v3.y);
+                let v3p = createVector(v2.x - v1.x, v2.y - v1.y);
+                v3p.rotate(HALF_PI);
+                v3.add(v3p);
                 pop();
 
-                let x3 = v0.x;
-                let y3 = v0.y;
-
-                triangulos.push([x1, y1, x2, y2, x3, y3]);
+                triangulos.push([v1.x, v1.y, v2.x, v2.y, v3.x, v3.y]);
             }
         }
 
