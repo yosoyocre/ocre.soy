@@ -55,7 +55,7 @@ colofon([
 
         let conFondo = true;
         let conContenido = true;
-        let debug = 1;
+        let debug = 0;
 
         let minLado = 100;
         let maxLado = 300;
@@ -174,9 +174,13 @@ colofon([
         stroke(0);
         strokeWeight(5);
 
+        let maxMargen = 10;
+
         for (let i = 0; i < triangulos.length; i++) {
             let triangulo = triangulos[i];
-            let rotacion = random(0, TWO_PI);
+            let rotacion = random(0, PI / 6);
+            let margenX = random(-maxMargen, maxMargen);
+            let margenY = random(-maxMargen, maxMargen);
 
             let x1 = triangulo[0];
             let y1 = triangulo[1];
@@ -185,8 +189,24 @@ colofon([
             let x3 = triangulo[4];
             let y3 = triangulo[5];
 
-            stroke(0);
+            if (debug) {
+                push();
+                stroke(200, 200, 200);
+                noFill();
+                triangle(
+                    x1, y1,
+                    x2, y2,
+                    x3, y3
+                );
+                pop();;
+            }
+
             push();
+            stroke(0);
+            translate(x1, y1);
+            rotate(rotacion);
+            translate(-x1, -y1);
+            translate(-margenX, -margenY);
             triangle(
                 x1, y1,
                 x2, y2,
@@ -195,8 +215,10 @@ colofon([
             pop();
 
             let m = createGraphics(folio.width, folio.height);
-            // m.translate(x, y);
-            // m.rotate(rotacion);
+            m.translate(x1, y1);
+            m.rotate(rotacion);
+            m.translate(-x1, -y1);
+            m.translate(-margenX, -margenY);
             m.fill(0);
             m.triangle(
                 x1, y1,
@@ -207,12 +229,14 @@ colofon([
             nueva.mask(m);
             image(nueva, 0, 0, folio.width, folio.height);
 
-            stroke(255, 0, 0);
-            point(x1, y1);
-            stroke(0, 255, 0);
-            point(x2, y2);
-            stroke(0, 0, 255);
-            point(x3, y3);
+            if (debug) {
+                stroke(255, 0, 0);
+                point(x1, y1);
+                stroke(0, 255, 0);
+                point(x2, y2);
+                stroke(0, 0, 255);
+                point(x3, y3);
+            }
         }
     }
 
