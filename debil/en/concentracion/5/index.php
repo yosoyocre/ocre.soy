@@ -92,11 +92,12 @@ colofon([
             }
 
             let m = (x2 - x1) / (y2 - y1);
-            console.log(m);
 
-            if (abs(m) < 0.1) {
+            if (abs(m) < 0.2) {
                 continue;
             }
+
+            console.log(m);
 
             lineas.push([x1, y1, x2, y2]);
 
@@ -157,7 +158,12 @@ colofon([
                 push();
                 translate(v3.x, v3.y);
                 let v3p = createVector(v2.x - v1.x, v2.y - v1.y);
-                v3p.rotate(HALF_PI);
+                if (random() > 0.5) {
+                    v3p.rotate(HALF_PI);
+                } else {
+                    v3p.rotate(-HALF_PI);
+                }
+
                 v3.add(v3p);
                 pop();
 
