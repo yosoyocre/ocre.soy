@@ -63,10 +63,10 @@ colofon([
         let nLineas = 3;
         let nPuntosPorLinea = 3;
 
-        let limiteIzquierdo = folio.width / 6;
+        let limiteIzquierdo = folio.width / 8;
         // let limiteIzquierdo = 0;
         let limiteDerecho = folio.width - limiteIzquierdo;
-        let limiteSuperior = folio.height / 6;
+        let limiteSuperior = folio.height / 8;
         // let limiteSuperior = 0;
         let limiteInferior = folio.height - limiteSuperior;
 
@@ -97,10 +97,10 @@ colofon([
 
         const delaunay = Delaunator.from(puntos);
 
-        stroke(0);
-        strokeWeight(5);
 
-        let maxMargen = 10;
+        let imgFinal = createGraphics(folio.width, folio.height);
+
+        let maxMargen = 20;
 
         for (let i = 0; i < delaunay.triangles.length; i = i + 3) {
             let rotacion = random(0, PI / 20);
@@ -128,18 +128,26 @@ colofon([
                 pop();
             }
 
-            push();
-            stroke(0);
-            translate(x1, y1);
-            rotate(rotacion);
-            translate(-x1, -y1);
-            translate(-margenX, -margenY);
-            triangle(
+            imgFinal.push();
+            imgFinal.translate(x1, y1);
+            imgFinal.rotate(rotacion);
+            imgFinal.translate(-x1, -y1);
+            imgFinal.translate(-margenX, -margenY);
+            imgFinal.stroke(255);
+            imgFinal.strokeWeight(6);
+            imgFinal.triangle(
                 x1, y1,
                 x2, y2,
                 x3, y3
             );
-            pop();
+            imgFinal.stroke(0);
+            imgFinal.strokeWeight(5);
+            imgFinal.triangle(
+                x1, y1,
+                x2, y2,
+                x3, y3
+            );
+            imgFinal.pop();
 
             let m = createGraphics(folio.width, folio.height);
             m.translate(x1, y1);
@@ -154,7 +162,8 @@ colofon([
             );
             let nueva = img.get();
             nueva.mask(m);
-            image(nueva, 0, 0, folio.width, folio.height);
+
+            imgFinal.image(nueva, 0, 0, folio.width, folio.height);
 
             if (debug) {
                 stroke(255, 0, 0);
@@ -165,6 +174,37 @@ colofon([
                 point(x3, y3);
             }
         }
+
+        imgFinal.loadPixels();
+        let numPixels = 4 * imgFinal.width * imgFinal.height;
+        for (let i = 0; i < numPixels; i += 4) {
+
+            let brillo = brightness(color(imgFinal.pixels[i], imgFinal.pixels[i + 1], imgFinal.pixels[i + 2]));
+            if (brillo < 70 && brillo > 0) {
+                let negro = random(10, 30);
+
+                // Red.
+                imgFinal.pixels[i] = negro;
+                // Green.
+                imgFinal.pixels[i + 1] = negro;
+                // Blue.
+                imgFinal.pixels[i + 2] = negro;
+                // Alpha.
+                imgFinal.pixels[i + 3] = 255;
+            } else {
+                // Red.
+                imgFinal.pixels[i] = 255;
+                // Green.
+                imgFinal.pixels[i + 1] = 255;
+                // Blue.
+                imgFinal.pixels[i + 2] = 255;
+                // Alpha.
+                imgFinal.pixels[i + 3] = 255;
+            }
+        }
+        imgFinal.updatePixels();
+
+        image(imgFinal, 0, 0, folio.width, folio.height);
     }
 
     function draw() {
