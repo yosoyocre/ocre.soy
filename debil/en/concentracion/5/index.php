@@ -58,7 +58,7 @@ colofon([
         let conContenido = true;
         let debug = 0;
 
-        let minLado = 100;
+        let minLado = 200;
         let maxLado = 300;
         let nLineas = 3;
         let nPuntosPorLinea = 3;
@@ -75,8 +75,8 @@ colofon([
 
         let p = new PoissonDiskSampling({
             shape: [limiteDerecho - limiteIzquierdo, limiteInferior - limiteSuperior],
-            minDistance: maxLado / 2,
-            maxDistance: maxLado * 2,
+            minDistance: minLado,
+            maxDistance: maxLado,
             tries: 10
         });
         let puntosPds = p.fill();
