@@ -33,6 +33,7 @@ colofon([
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 <script src="../js/comun.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/kchapelier/poisson-disk-sampling@2.3.1/build/poisson-disk-sampling.min.js"></script>
+<script src="https://unpkg.com/delaunator@5.0.0/delaunator.min.js"></script>
 
 <script>
     var folio;
@@ -60,136 +61,62 @@ colofon([
         let minLado = 100;
         let maxLado = 300;
         let nLineas = 3;
-        let nTriangulosPorLinea = 3;
+        let nPuntosPorLinea = 3;
 
-        let limiteIzquierdo = folio.width / 4;
+        let limiteIzquierdo = folio.width / 6;
+        // let limiteIzquierdo = 0;
         let limiteDerecho = folio.width - limiteIzquierdo;
-        let limiteSuperior = folio.height / 4;
+        let limiteSuperior = folio.height / 6;
+        // let limiteSuperior = 0;
         let limiteInferior = folio.height - limiteSuperior;
 
-        let lineas = [];
-        let intersecciones = [];
+        let puntos = [];
         let triangulos = [];
 
-        while (lineas.length < nLineas) {
-            let x1;
-            let y1;
+        let p = new PoissonDiskSampling({
+            shape: [limiteDerecho - limiteIzquierdo, limiteInferior - limiteSuperior],
+            minDistance: maxLado / 2,
+            maxDistance: maxLado * 2,
+            tries: 10
+        });
+        let puntosPds = p.fill();
 
-            let x2;
-            let y2;
-            if (random() > 0.5) {
-                x1 = random(limiteIzquierdo, limiteDerecho);
-                y1 = 0;
+        for (let i = 0; i < puntosPds.length; i++) {
+            let x = puntosPds[i][0] + limiteIzquierdo;
+            let y = puntosPds[i][1] + limiteSuperior;
+            puntos.push([x, y]);
+        }
 
-                x2 = random(limiteIzquierdo, limiteDerecho);
-                y2 = folio.height;
-            } else {
-                x1 = 0;
-                y1 = random(limiteSuperior, limiteInferior);
-
-                x2 = folio.width;
-                y2 = random(limiteSuperior, limiteInferior);
-            }
-
-            let m = (x2 - x1) / (y2 - y1);
-
-            if (abs(m) < 0.2) {
-                continue;
-            }
-
-            console.log(m);
-
-            lineas.push([x1, y1, x2, y2]);
-
-            if (debug) {
-                let i = lineas.length - 1;
-                if (i == 0) {
-                    stroke(255, 0, 0);
-                } else if (i == 1) {
-                    stroke(0, 255, 0);
-                } else if (i == 2) {
-                    stroke(0, 0, 255);
-                }
-                line(x1, y1, x2, y2);
+        if (debug) {
+            stroke(0);
+            strokeWeight(10);
+            for (let i = 0; i < puntos.length; i++) {
+                point(puntos[i][0], puntos[i][1]);
             }
         }
 
-
-        for (let i = 0; i < lineas.length; i++) {
-            let linea = lineas[i];
-
-            let xs = [];
-
-            let nIntentos = 0;
-            let maxIntentos = 10;
-            while (xs.length < nTriangulosPorLinea && nIntentos < maxIntentos) {
-                nIntentos++;
-                let x = random(limiteIzquierdo, limiteDerecho);
-                let y = yEnLinea(linea, x);
-
-                if (y < limiteSuperior || y > limiteInferior) {
-                    continue;
-                }
-                xs.push(x);
-            }
-
-            xs.sort((a, b) => a - b);
-
-            console.log(xs);
-
-            for (let j = 0; j < nTriangulosPorLinea; j++) {
-                let v1 = createVector(xs[j], yEnLinea(linea, xs[j]));
-
-                let v2 = createVector(v1.x, v1.y);
-                let v2p = createVector(linea[0] - v1.x, linea[1] - v1.y);
-                push();
-                translate(v2.x, v2.y);
-                v2p.setMag(random(minLado, maxLado));
-                v2.add(v2p);
-                pop();
-
-                let v3;
-                if (random() > 0.5) {
-                    v3 = createVector(v1.x, v1.y);
-                } else {
-                    v3 = createVector(v2.x, v2.y);
-                }
-
-                push();
-                translate(v3.x, v3.y);
-                let v3p = createVector(v2.x - v1.x, v2.y - v1.y);
-                if (random() > 0.5) {
-                    v3p.rotate(HALF_PI);
-                } else {
-                    v3p.rotate(-HALF_PI);
-                }
-
-                v3.add(v3p);
-                pop();
-
-                triangulos.push([v1.x, v1.y, v2.x, v2.y, v3.x, v3.y]);
-            }
-        }
+        const delaunay = Delaunator.from(puntos);
 
         stroke(0);
         strokeWeight(5);
 
         let maxMargen = 10;
 
-        for (let i = 0; i < triangulos.length; i++) {
-            let triangulo = triangulos[i];
-            let rotacion = random(0, PI / 6);
+        for (let i = 0; i < delaunay.triangles.length; i = i + 3) {
+            let rotacion = random(0, PI / 20);
+            // let rotacion = 0;
             let margenX = random(-maxMargen, maxMargen);
             let margenY = random(-maxMargen, maxMargen);
 
-            let x1 = triangulo[0];
-            let y1 = triangulo[1];
-            let x2 = triangulo[2];
-            let y2 = triangulo[3];
-            let x3 = triangulo[4];
-            let y3 = triangulo[5];
+            let x1 = puntos[delaunay.triangles[i]][0];
+            let y1 = puntos[delaunay.triangles[i]][1];
+            let x2 = puntos[delaunay.triangles[i + 1]][0];
+            let y2 = puntos[delaunay.triangles[i + 1]][1];
+            let x3 = puntos[delaunay.triangles[i + 2]][0];
+            let y3 = puntos[delaunay.triangles[i + 2]][1];
 
             if (debug) {
+                console.log(x1, y1, x2, y2, x3, y3);
                 push();
                 stroke(200, 200, 200);
                 noFill();
@@ -198,7 +125,7 @@ colofon([
                     x2, y2,
                     x3, y3
                 );
-                pop();;
+                pop();
             }
 
             push();
