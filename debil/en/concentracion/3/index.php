@@ -1,5 +1,5 @@
 <?php
-// Generador de carteles con fuego
+// Generador de carteles desmotivacionales
 ?>
 <?php require('../../../../_cabecera.php'); ?>
 
@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <?php breadcrumb(); ?>
         <p>
-            Generador de carteles motivacionales con la letra de "Estoy fatal".
+            Generador de carteles desmotivacionales con la letra de "Estoy fatal".
         </p>
         <p>
             Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
@@ -49,10 +49,14 @@ colofon([
     let initX;
 
     let frases = [
-        'SI NO TE GUSTA\nTU VIDA\n\nDEBERÍAS CAMBIAR\nDE BEBIDA',
-        'SI TE PARECE\nUNA PESADILLA\n\nDEBERÍAS\nAPROVECHAR\nMIS CUCHILLAS',
-        'SI TE INUNDA\nEL RIDÍCULO\n\nDEBERÍAS ROMPER\nALGO BONITO',
-        'SI NO SABES BIEN\nCÓMO TE SIENTES\n\nPOR NADA\nDEL MUNDO\nLO COMPARTAS\nCON LA GENTE'
+        ['SI NO TE GUSTA\nTU VIDA\n\nDEBERÍAS CAMBIAR\nDE BEBIDA'],
+        ['SI TE PARECE\nUNA PESADILLA\n\nDEBERÍAS\nAPROVECHAR\nMIS CUCHILLAS'],
+        ['SI TE INUNDA\nEL RIDÍCULO\n\nDEBERÍAS ROMPER\nALGO BONITO'],
+        ['SI NO SABES BIEN\nCÓMO TE SIENTES\n\nPOR NADA\nDEL MUNDO\nLO COMPARTAS\nCON LA GENTE'],
+        ['QUÉ QUIERES\nQUE TE DIGA?'],
+        ['QUÉ\nQUIERES\nQUE TE DIGA?', 100, 80],
+        ['TAMBIÉN\nESTOY\nMAL', 150, 125],
+        ['ESTOY\nFATAL', 220, 180]
     ]
     let nFrase = -1;
 
@@ -70,6 +74,7 @@ colofon([
 
         textFont('futura-pt', 800);
         textStyle(BOLD);
+        textAlign(LEFT, TOP);
         drawingContext.letterSpacing = "-3px";
 
         initY = 300;
@@ -91,6 +96,14 @@ colofon([
                 // colorLetras = brightness(fondo) > 88 ? negro : color(255);
 
                 nFrase = (nFrase + 1) % frases.length;
+
+                if (!!frases[nFrase][1]) {
+                    textSize(frases[nFrase][1]);
+                    textLeading(frases[nFrase][2]);
+                } else {
+                    textSize(70);
+                    textLeading(60);
+                }
 
                 IMAGEN_DIBUJADA = true;
             }
@@ -130,10 +143,8 @@ colofon([
             push();
             stroke(colorLetras);
             fill(colorLetras);
-            textSize(70);
-            textLeading(60);
-            posicionTexto = folio.height / 5;
-            text(frases[nFrase], TAMANO_PIXEL, posicionTexto);
+            posicionTexto = folio.height / 7;
+            text(frases[nFrase][0], TAMANO_PIXEL, posicionTexto);
         }
     }
 </script>

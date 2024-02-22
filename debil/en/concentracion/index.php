@@ -8,7 +8,7 @@
             <span class="separador">/</span> <a href="/debil/en/concentracion">concentración</a>
         </h1>
 
-        <p>Estos son mis experimentos que generan imágenes para Instagram:</p>
+        <p>Estos son los experimentos que he estado programando para ayudarme a darle contenido a mi cuenta de Instagram:</p>
 
         <?php
         // Leemos todas las subcarpetas de este directorio
