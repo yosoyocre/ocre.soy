@@ -72,6 +72,7 @@ colofon([
                 let maxLado = 300;
                 let nLineas = 3;
                 let nPuntosPorLinea = 3;
+                let margenSombra = 10;
 
                 let limiteIzquierdo = folio.width / 20;
                 // let limiteIzquierdo = 0;
@@ -150,8 +151,16 @@ colofon([
                     //     x2, y2,
                     //     x3, y3
                     // );
+                    imgFinal.noStroke();
+                    imgFinal.fill(random(10, 30));
+                    imgFinal.triangle(
+                        x1 + margenSombra, y1 + margenSombra,
+                        x2 + margenSombra, y2 + margenSombra,
+                        x3 + margenSombra, y3 + margenSombra
+                    );
                     imgFinal.stroke(0);
                     imgFinal.strokeWeight(6);
+                    imgFinal.fill(random(10, 30));
                     imgFinal.triangle(
                         x1, y1,
                         x2, y2,
@@ -229,17 +238,17 @@ colofon([
 
                 let textoSuperior;
 
-                stroke(150);
+                stroke(200);
                 fill(random(10, 30));
-                textSize(30);
+                textSize(50);
                 textoSuperior = random(limiteSuperior, folio.height / 4);
-                text('YO', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
+                text('YO', random(limiteIzquierdo, limiteDerecho - 60), textoSuperior);
 
                 textoSuperior = random(textoSuperior + 50, folio.height / 2);
-                text('TAMBIÉN', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
+                text('TAMBIÉN', random(limiteIzquierdo, limiteDerecho - 200), textoSuperior);
 
                 textoSuperior = random(textoSuperior + 50, 3 * folio.height / 4);
-                text('ESTOY', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
+                text('ESTOY', random(limiteIzquierdo, limiteDerecho - 150), textoSuperior);
 
                 textoSuperior = random(textoSuperior + 50, limiteInferior);
                 text('MAL', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
