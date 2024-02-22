@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <?php breadcrumb(); ?>
         <p>
-            Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
+            Generador de carteles motivacionales con la letra de "Estoy fatal".
         </p>
         <p>
             Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
@@ -48,6 +48,14 @@ colofon([
     let initY;
     let initX;
 
+    let frases = [
+        'SI NO TE GUSTA\nTU VIDA\n\nDEBERÍAS CAMBIAR\nDE BEBIDA',
+        'SI TE PARECE\nUNA PESADILLA\n\nDEBERÍAS\nAPROVECHAR\nMIS CUCHILLAS',
+        'SI TE INUNDA\nEL RIDÍCULO\n\nDEBERÍAS ROMPER\nALGO BONITO',
+        'SI NO SABES BIEN\nCÓMO TE SIENTES\n\nPOR NADA\nDEL MUNDO\nLO COMPARTAS\nCON LA GENTE'
+    ]
+    let nFrase = -1;
+
     function setup() {
         folio = new Folio();
 
@@ -81,6 +89,8 @@ colofon([
                 colorLlama = color(paleta[1]);
                 colorLetras = color(paleta[1]);
                 // colorLetras = brightness(fondo) > 88 ? negro : color(255);
+
+                nFrase = (nFrase + 1) % frases.length;
 
                 IMAGEN_DIBUJADA = true;
             }
@@ -123,13 +133,7 @@ colofon([
             textSize(70);
             textLeading(60);
             posicionTexto = folio.height / 5;
-            text('SUFJAN STEVENS\n+ OCRE', TAMANO_PIXEL, posicionTexto);
-
-            textSize(40);
-            textLeading(38);
-            posicionTexto = posicionTexto + 150;
-            text('1 DE MARZO DE 2024\nA REVOLT-EIRA', TAMANO_PIXEL, posicionTexto);
-            pop();
+            text(frases[nFrase], TAMANO_PIXEL, posicionTexto);
         }
     }
 </script>
