@@ -110,7 +110,7 @@ colofon([
 
                 let imgFinal = createGraphics(folio.width, folio.height);
 
-                let maxMargen = 0;
+                let maxMargen = random(0, 20);
 
                 for (let i = 0; i < delaunay.triangles.length; i = i + 3) {
                     let rotacion = random(0, PI / 20);
@@ -144,14 +144,14 @@ colofon([
                     imgFinal.translate(-x1, -y1);
                     imgFinal.translate(-margenX, -margenY);
                     imgFinal.stroke(255);
-                    imgFinal.strokeWeight(3);
-                    imgFinal.triangle(
-                        x1, y1,
-                        x2, y2,
-                        x3, y3
-                    );
+                    imgFinal.strokeWeight(10);
+                    // imgFinal.triangle(
+                    //     x1, y1,
+                    //     x2, y2,
+                    //     x3, y3
+                    // );
                     imgFinal.stroke(0);
-                    imgFinal.strokeWeight(2);
+                    imgFinal.strokeWeight(6);
                     imgFinal.triangle(
                         x1, y1,
                         x2, y2,
@@ -190,31 +190,40 @@ colofon([
                 for (let i = 0; i < numPixels; i += 4) {
 
                     let brillo = brightness(color(imgFinal.pixels[i], imgFinal.pixels[i + 1], imgFinal.pixels[i + 2]));
-                    let colorPromedio = (imgFinal.pixels[i] + imgFinal.pixels[i + 1] + imgFinal.pixels[i + 2]) / 3;
-                    if (brillo < 70 && brillo > 0) {
-                        // if (colorPromedio > 0 && colorPromedio < 150) {
+                    if (brillo == 0) {
+                        imgFinal.pixels[i] = 255;
+                        imgFinal.pixels[i + 1] = 255;
+                        imgFinal.pixels[i + 2] = 255;
+                        imgFinal.pixels[i + 3] = 0;
+                    } else if (brillo < 70 && brillo > 0) {
                         let negro = random(10, 30);
 
-                        // Red.
                         imgFinal.pixels[i] = negro;
-                        // Green.
                         imgFinal.pixels[i + 1] = negro;
-                        // Blue.
                         imgFinal.pixels[i + 2] = negro;
-                        // Alpha.
                         imgFinal.pixels[i + 3] = 255;
                     } else {
-                        // Red.
                         imgFinal.pixels[i] = 255;
-                        // Green.
                         imgFinal.pixels[i + 1] = 255;
-                        // Blue.
                         imgFinal.pixels[i + 2] = 255;
-                        // Alpha.
                         imgFinal.pixels[i + 3] = 255;
                     }
                 }
                 imgFinal.updatePixels();
+
+                noStroke();
+                fill(random(10, 30));
+                let diametro = 4;
+                let margenCirculo = floor(diametro / 2);
+                let diametroConMargen = diametro + 2 * margenCirculo;
+                let nCirculosPorFila = ceil(folio.width / diametroConMargen);
+                let nCirculosPorColumna = ceil(folio.height / diametroConMargen);
+                for (let i = 0; i < nCirculosPorFila; i++) {
+                    for (let j = 0; j < nCirculosPorColumna; j++) {
+                        let descoloque = diametro * (j % 2);
+                        circle(i * diametroConMargen + margenCirculo + descoloque, j * diametroConMargen + margenCirculo, diametro);
+                    }
+                }
 
                 image(imgFinal, 0, 0, folio.width, folio.height);
 
