@@ -43,13 +43,15 @@ colofon([
         Engine,
         World,
         Bodies,
-        Composite
+        Composite,
+        Vertices
     } = Matter;
 
     var engine;
     var world;
-    var letra;
+    var palabra = 'OCRE';
     var limites = [];
+    var letras = [];
 
     function preload() {
         font = loadFont('Fredoka-SemiBold.ttf');
@@ -66,6 +68,7 @@ colofon([
             engine = Engine.create();
             world = engine.world;
 
+            limites = [];
             // Límite izquierda
             limites.push(new Limite(tamanoLimite / -2 + 2, folio.height / 2, tamanoLimite, folio.height * 2, 0, world));
             // Límite derecha
@@ -73,14 +76,21 @@ colofon([
             // Límite abajo
             limites.push(new Limite(folio.width / 2, folio.height + tamanoLimite / 2, folio.width, tamanoLimite, 0, world));
 
-            letra = new Letra('O', font, folio.width / 2, 0, 250, 250, world);
+            letras = [];
+
+            for (let i = 0; i < palabra.length; i++) {
+                let letra = new Letra(palabra[i], font, random(0, folio.width), 0, 250, world);
+                letras.push(letra);
+            }
 
             IMAGEN_DIBUJADA = true;
         }
 
         background(255);
         Engine.update(engine);
-        letra.show();
+        for (let letra of letras) {
+            letra.show();
+        }
     }
 </script>
 
