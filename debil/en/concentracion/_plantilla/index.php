@@ -40,7 +40,12 @@ colofon([
     }
 
     function draw() {
+        if (!IMAGEN_DIBUJADA) {
+            if (FUENTES_CARGADAS) {
 
+                IMAGEN_DIBUJADA = true;
+            }
+        }
     }
 </script>
 
