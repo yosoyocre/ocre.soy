@@ -17,8 +17,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-6">
         <main></main>
+    </div>
+    <div class="col-lg-6">
+        <div id="matter"></div>
     </div>
 </div>
 
@@ -44,12 +47,13 @@ colofon([
         World,
         Bodies,
         Composite,
-        Vertices
+        Vertices,
+        Render
     } = Matter;
 
     var engine;
     var world;
-    var palabra = 'OCRE';
+    var palabra = 'ocre';
     var limites = [];
     var letras = [];
 
@@ -67,6 +71,18 @@ colofon([
 
             engine = Engine.create();
             world = engine.world;
+
+            // create renderer
+            var render = Render.create({
+                element: document.getElementById('matter'),
+                engine: engine,
+                options: {
+                    width: folio.width,
+                    height: folio.height,
+                }
+            });
+
+            Render.run(render);
 
             limites = [];
             // Límite izquierda

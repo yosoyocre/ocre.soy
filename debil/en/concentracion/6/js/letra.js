@@ -19,7 +19,8 @@ class Letra {
       this.x,
       this.y,
       Vertices.create(this.points),
-      options
+      options,
+      true
     );
     Composite.add(this.world, this.body);
   }
