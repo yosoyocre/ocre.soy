@@ -37,10 +37,15 @@ colofon([
 
 <script>
     var folio;
+    var imgs;
     var img;
 
     function preload() {
-        img = loadImage('edu_grito_ampliado.jpg');
+        imgs = [
+            loadImage('edu_grito_ampliado.jpg'),
+            loadImage('edu_grito_ampliado_2.jpg'),
+            loadImage('edu_grito_ampliado_3.jpg')
+        ];
     }
 
     let v0, v1, v2;
@@ -63,6 +68,8 @@ colofon([
         if (FUENTES_CARGADAS) {
             if (!IMAGEN_DIBUJADA) {
                 folio = new Folio();
+
+                img = random(imgs);
 
                 let conFondo = true;
                 let conContenido = true;
