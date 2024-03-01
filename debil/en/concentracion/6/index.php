@@ -46,6 +46,7 @@ colofon([
         Engine,
         World,
         Bodies,
+        Body,
         Composite,
         Vertices,
         Render
@@ -95,7 +96,7 @@ colofon([
             letras = [];
 
             for (let i = 0; i < palabra.length; i++) {
-                let letra = new Letra(palabra[i], font, random(0, folio.width), 0, 250, world);
+                let letra = new Letra(palabra[i], font, random(0, folio.width), 400, 250, world);
                 letras.push(letra);
             }
 
