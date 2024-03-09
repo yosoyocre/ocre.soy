@@ -227,6 +227,8 @@ colofon([
                 }
                 imgFinal.updatePixels();
 
+                background(255);
+
                 noStroke();
                 fill(random(10, 30));
                 let diametro = 4;
@@ -258,7 +260,7 @@ colofon([
                 text('ESTOY', random(limiteIzquierdo, limiteDerecho - 150), textoSuperior);
 
                 textoSuperior = random(textoSuperior + 50, limiteInferior);
-                text('MAL', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
+                text(random() > 0.5 ? 'MAL' : 'FATAL', random(limiteIzquierdo, limiteDerecho - 100), textoSuperior);
 
                 IMAGEN_DIBUJADA = true;
             }
