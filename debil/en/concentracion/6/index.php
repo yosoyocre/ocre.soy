@@ -54,12 +54,12 @@ colofon([
 
     var engine;
     var world;
-    var palabra = 'ocre';
+    var palabra = 'OCRE';
     var limites = [];
     var letras = [];
 
     function preload() {
-        font = loadFont('Fredoka-SemiBold.ttf');
+        font = loadFont('fonts/PufffWeb.otf');
     }
 
     function setup() {

@@ -18,7 +18,7 @@ class Letra {
       200,
       this.tamanoLetra,
       {
-        sampleFactor: 0.1,
+        sampleFactor: 1,
       }
     );
 
@@ -106,35 +106,35 @@ class Letra {
       noStroke();
       fill(228, 63, 41);
 
-      for (let i = 0; i < this.pointsMapped.length; i++) {
-        let pt = this.pointsMapped[i];
-        let verticeOrginal = pt[1];
-        let vertice = vertices[pt[0]];
+      // for (let i = 0; i < this.pointsMapped.length; i++) {
+      //   let pt = this.pointsMapped[i];
+      //   let verticeOrginal = pt[1];
+      //   let vertice = vertices[pt[0]];
 
-        // Convertimos los vertices en vectores
-        let vectorOrginal = createVector(verticeOrginal.x, verticeOrginal.y);
-        let vectorActual = createVector(vertice.x, vertice.y);
-        let vectorPunto = createVector(this.points[i].x, this.points[i].y);
+      //   // Convertimos los vertices en vectores
+      //   let vectorOrginal = createVector(verticeOrginal.x, verticeOrginal.y);
+      //   let vectorActual = createVector(vertice.x, vertice.y);
+      //   let vectorPunto = createVector(this.points[i].x, this.points[i].y);
 
-        // console.log(vector.x, vector.y);
+      //   // console.log(vector.x, vector.y);
 
-        stroke(255, 0, 0);
-        line(0, 0, vectorActual.x, vectorActual.y);
+      //   stroke(255, 0, 0);
+      //   line(0, 0, vectorActual.x, vectorActual.y);
 
-        let vectorDiferencia = p5.Vector.sub(vectorPunto, vectorOrginal);
+      //   let vectorDiferencia = p5.Vector.sub(vectorPunto, vectorOrginal);
 
-        let vectorPuntoFinal = p5.Vector.add(vectorDiferencia, vectorActual);
+      //   let vectorPuntoFinal = p5.Vector.add(vectorDiferencia, vectorActual);
 
-        stroke(0, 255, 0);
-        line(vectorPunto.x, vectorPunto.y, vectorOrginal.x, vectorOrginal.y);
+      //   stroke(0, 255, 0);
+      //   line(vectorPunto.x, vectorPunto.y, vectorOrginal.x, vectorOrginal.y);
 
-        // vertex(pt.x * relacionX, pt.y * relacionY);
-        vertex(vectorPuntoFinal.x, vectorPuntoFinal.y);
-      }
-
-      // for (let i = 0; i < vertices.length; i++) {
-      //   vertex(vertices[i].x, vertices[i].y);
+      //   // vertex(pt.x * relacionX, pt.y * relacionY);
+      //   vertex(vectorPuntoFinal.x, vectorPuntoFinal.y);
       // }
+
+      for (let i = 0; i < vertices.length; i++) {
+        vertex(vertices[i].x, vertices[i].y);
+      }
       endShape(CLOSE);
     };
   }
