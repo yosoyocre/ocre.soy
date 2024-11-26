@@ -55,9 +55,19 @@ require('../_cabecera.php');
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
+            <p>
+                <a href="https://open.spotify.com/album/4TJyHW1TUP2XYWKTPZyipQ?si=jW4FPYXtQtyWq8LnfK3XBw">
+                    Escucha mi último disco "Débil" en Spotify
+                </a>
+            </p>
+            <p>
+                <a href="https://claro.ocre.soy">
+                    Lee mis notas sobre mi trabajo
+                </a>
+            </p>
             <p style="margin-bottom: 50px">
                 <a href="https://www.youtube.com/watch?v=rZxMnXr3aCk">
-                    10 años del videoclip de "Renegror"
+                    Ve el videoclip de "Renegror", que ha cumplido 10 años
                 </a>
             </p>
             <p>
@@ -66,18 +76,8 @@ require('../_cabecera.php');
                 </a>
             </p>
             <p>
-                <a href="https://open.spotify.com/album/4TJyHW1TUP2XYWKTPZyipQ?si=jW4FPYXtQtyWq8LnfK3XBw">
-                    Escucha mi último disco "Débil" en Spotify
-                </a>
-            </p>
-            <p>
-                <a href="https://open.spotify.com/artist/4vaAG0GM8Bb96kbuZJ7tqG?si=01-MJPz9S2aqf6pXtFl6xA">
-                    El resto de mi música en Spotify
-                </a>
-            </p>
-            <p>
                 <a href="https://ocre.soy">
-                    Mi web oficial
+                    Pásate por mi web oficial
                 </a>
             </p>
         </div>
