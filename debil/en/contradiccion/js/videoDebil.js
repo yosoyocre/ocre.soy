@@ -467,7 +467,7 @@ export function crea(opciones) {
             });
 
             setTimeout(() => {
-              // audio.currentTime = 3 * 60 + 45;
+              // audio.currentTime = 0 * 60 + 40;
               audio.play();
             }, 1000);
           }
