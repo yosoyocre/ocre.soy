@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="h-screen font-bold text-center uppercase text-black bg-black" style="font-size: 16rem; line-height: 0.9; letter-spacing: -0.1em;">
+<body class="h-screen font-bold text-center uppercase text-black bg-black" style="font-size: 25vh; line-height: 24vh; letter-spacing: -0.1em;">
     <div class="flex items-center h-full">
         <div id="comienzo" class="w-1/2 mx-auto z-20 text-white text-2xl relative tracking-normal font-normal">
             <a href="#">Pulsa aquí para comenzar</a>
