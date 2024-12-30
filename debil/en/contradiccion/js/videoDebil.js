@@ -466,10 +466,10 @@ export function crea(opciones) {
               liricle.sync(time, false);
             });
 
-            setTimeout(() => {
-              // audio.currentTime = 0 * 60 + 45;
-              audio.play();
-            }, 1000);
+            // setTimeout(() => {
+            //   // audio.currentTime = 0 * 60 + 45;
+            //   audio.play();
+            // }, 1000);
           }
 
           function onWindowResize() {

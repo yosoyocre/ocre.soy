@@ -51,8 +51,13 @@
             crea
         } from "./js/videoDebil.js";
 
+        let audio = document.getElementById("audio");
+
         document.getElementById('comienzo').addEventListener('click', (e) => {
             e.preventDefault();
+
+            audio.play();
+
             document.getElementById("comienzo").remove();
             document.getElementById("advertencia").classList.remove("hidden");
 
