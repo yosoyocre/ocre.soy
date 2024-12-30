@@ -56,14 +56,14 @@
         document.getElementById('comienzo').addEventListener('click', (e) => {
             e.preventDefault();
 
-            audio.play();
-
             document.getElementById("comienzo").remove();
             document.getElementById("advertencia").classList.remove("hidden");
 
             setTimeout(() => {
                 document.getElementById("advertencia").remove();
                 document.getElementById("contenedor-letra").classList.remove("hidden");
+
+                audio.play();
 
                 let borrar = crea({
                     portada: "#portada",
