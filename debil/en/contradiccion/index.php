@@ -36,7 +36,7 @@
         <div id="contenedor-letra" class="mx-auto relative z-10 hidden">
             <span id="letra"></span>
         </div>
-        <div id="portada" class="absolute mx-auto top-0 left-0"></div>
+        <div id="portada" class="absolute mx-auto top-0 left-0 right-0 bottom-0"></div>
         <!-- <audio controls id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio> -->
         <audio id="audio" src="audio/no_debil_con_6s_silencio.mp3" class="z-50 w-screen absolute bottom-0"></audio>
     </div>
