@@ -38,7 +38,7 @@
         </div>
         <div id="portada" class="absolute mx-auto"></div>
         <!-- <audio controls id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio> -->
-        <audio id="audio" src="audio/no_debil.mp3" class="z-50 w-screen absolute bottom-0"></audio>
+        <audio id="audio" src="audio/no_debil_con_6s_silencio.mp3" class="z-50 w-screen absolute bottom-0"></audio>
     </div>
 
     <!-- Import maps polyfill -->
@@ -56,6 +56,9 @@
         document.getElementById('comienzo').addEventListener('click', (e) => {
             e.preventDefault();
 
+            // Safari nos obliga a lanzar el audio en la misma llamada en la que se ha hecho el click
+            audio.play();
+
             document.getElementById("comienzo").remove();
             document.getElementById("advertencia").classList.remove("hidden");
 
@@ -63,7 +66,6 @@
                 document.getElementById("advertencia").remove();
                 document.getElementById("contenedor-letra").classList.remove("hidden");
 
-                audio.play();
 
                 let borrar = crea({
                     portada: "#portada",
@@ -79,7 +81,7 @@
                     conColorEnNegativo: true,
                     conAbismoCircular: false
                 });
-            }, 5000);
+            }, 4000);
         });
     </script>
 </body>

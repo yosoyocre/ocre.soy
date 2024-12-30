@@ -411,6 +411,11 @@ export function crea(opciones) {
             let esFinal = false;
 
             const liricle = new Liricle();
+            // El audio cuenta con 6 segundos de silencio al principio
+            // para poder lanzarlo en el evento del click (nos obliga Safari)
+            // y que dé tiempo a mostrar la portada. Así que tenemos que desplazar
+            // la letra 6 segundos hacia adelante.
+            liricle.offset = -6000;
 
             // listen to on sync event
             liricle.on("sync", (line, word) => {
