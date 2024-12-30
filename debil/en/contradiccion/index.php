@@ -18,10 +18,6 @@
             font-family: 'futura-pt', sans-serif;
             overflow: hidden;
         }
-
-        #portada canvas {
-            width: 100vw;
-        }
     </style>
 </head>
 
