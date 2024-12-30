@@ -463,7 +463,7 @@ export function crea(opciones) {
             audio.addEventListener("timeupdate", () => {
               const time = audio.currentTime;
 
-              if (time > 3 * 60 + 49) {
+              if (time > 3 * 60 + 55) {
                 trallaFinal = true;
               }
 
@@ -471,10 +471,7 @@ export function crea(opciones) {
               liricle.sync(time, false);
             });
 
-            // setTimeout(() => {
-            //   // audio.currentTime = 0 * 60 + 45;
-            //   audio.play();
-            // }, 1000);
+            // audio.currentTime = 3 * 60 + 50;
           }
 
           function onWindowResize() {
