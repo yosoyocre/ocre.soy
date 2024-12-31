@@ -55,9 +55,14 @@ require('../_cabecera.php');
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
+            <p style="margin-bottom: 50px">
+                <a href="https://youtu.be/qXcyCIJjvOA">
+                    Ve el anti-lyric video de "No débil"
+                </a>
+            </p>
             <p>
                 <a href="https://open.spotify.com/album/4TJyHW1TUP2XYWKTPZyipQ?si=jW4FPYXtQtyWq8LnfK3XBw">
-                    Escucha mi último disco "Débil" en Spotify
+                    Escucha mi último disco "Débil"
                 </a>
             </p>
             <p>
@@ -65,14 +70,9 @@ require('../_cabecera.php');
                     Lee mis notas sobre mi trabajo
                 </a>
             </p>
-            <p style="margin-bottom: 50px">
-                <a href="https://www.youtube.com/watch?v=rZxMnXr3aCk">
-                    Ve el videoclip de "Renegror", que ha cumplido 10 años
-                </a>
-            </p>
             <p>
                 <a href="https://arieuger.itch.io/destrucciones-martinez">
-                    Juega a "Destrucciones Martínez" en Itch.io
+                    Juega a "Destrucciones Martínez"
                 </a>
             </p>
             <p>
