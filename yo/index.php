@@ -55,9 +55,15 @@ require('../_cabecera.php');
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            <p style="margin-bottom: 50px">
+            <h4>No Débil</h4>
+            <p>
                 <a href="https://youtu.be/qXcyCIJjvOA">
-                    Ve el anti-lyric video de "No débil"
+                    Ve el anti-lyric video en YouTube
+                </a>
+            </p>
+            <p style="margin-bottom: 100px">
+                <a href="https://ocre.soy/debil/en/contradiccion">
+                    O genera tu propio vídeo único
                 </a>
             </p>
             <p>
