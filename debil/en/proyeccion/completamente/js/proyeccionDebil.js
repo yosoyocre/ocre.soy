@@ -67,6 +67,7 @@ const luminosidad = (r, g, b) => {
  * @param   {boolean} opciones.conPosicionInicialRandom  Si la proyección se genera en una posición random o no
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la proyección en negativo o no
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
+ * @param   {boolean} opciones.conVariacionTamano        Si en cada visualización se varía el tamaño del modelo
  * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
  * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
  * @returns {void}
@@ -142,6 +143,10 @@ export function crea(opciones) {
       let conColorEnNegativo = opciones.conColorEnNegativo;
       let conEfecto =
         opciones.conEfecto !== undefined ? opciones.conEfecto : true;
+      let conVariacionTamano =
+        opciones.conVariacionTamano !== undefined
+          ? opciones.conVariacionTamano
+          : true;
 
       let contenedor3d;
 
@@ -421,13 +426,14 @@ export function crea(opciones) {
           escena.remove(modeloMostrado);
         }
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
-        // modeloMostrado = modelosCargados[2];
 
         // Variamos su escala entre 0.5 y 2
-        let variacionEscala = Math.random() * 1.5 + 0.5;
-        modeloMostrado.scale.setScalar(
-          modeloMostrado.scale.x * variacionEscala
-        );
+        if (conVariacionTamano) {
+          let variacionEscala = Math.random() * 1.5 + 0.5;
+          modeloMostrado.scale.setScalar(
+            modeloMostrado.scale.x * variacionEscala
+          );
+        }
 
         escena.add(modeloMostrado);
 
