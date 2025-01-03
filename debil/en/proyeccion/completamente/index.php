@@ -2,10 +2,10 @@
 
 // Leemos las subcarpetas de la carpeta modelos
 
-$directorioModelos = opendir('./modelos');
+$directoriosModelos = scandir('./modelos');
 $modelos = [];
 
-while ($archivo = readdir($directorioModelos)) {
+foreach ($directoriosModelos as $archivo) {
     if ($archivo != "." && $archivo != "..") {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }

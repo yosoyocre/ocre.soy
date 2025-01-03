@@ -421,7 +421,14 @@ export function crea(opciones) {
           escena.remove(modeloMostrado);
         }
         modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
-        // modeloMostrado = modelosCargados[6];
+        // modeloMostrado = modelosCargados[2];
+
+        // Variamos su escala entre 0.5 y 2
+        let variacionEscala = Math.random() * 1.5 + 0.5;
+        modeloMostrado.scale.setScalar(
+          modeloMostrado.scale.x * variacionEscala
+        );
+
         escena.add(modeloMostrado);
 
         efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
