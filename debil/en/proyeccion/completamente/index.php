@@ -6,7 +6,7 @@ $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
 foreach ($directoriosModelos as $archivo) {
-    // if ($archivo == 'hammer') {
+    // if ($archivo == 'skull') {
     if ($archivo != "." && $archivo != "..") {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
@@ -50,8 +50,8 @@ foreach ($directoriosModelos as $archivo) {
             proyector: "#proyector",
             conMovimiento: true,
             // conEfecto: false,
-            // conColorEnNegativo: false,
             // conVariacionTamano: false,
+            // conColorEnNegativo: false,
             modelos: <?= json_encode($modelos); ?>
         });
     </script>

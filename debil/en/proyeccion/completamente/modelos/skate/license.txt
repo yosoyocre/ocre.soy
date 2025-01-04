@@ -1,0 +1,11 @@
+Model Information:
+* title:	Skate
+* source:	https://sketchfab.com/3d-models/skate-936e79f2935c4b28a93a88480d8aa44d
+* author:	Tiago Lopes (https://sketchfab.com/drobluda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Skate" (https://sketchfab.com/3d-models/skate-936e79f2935c4b28a93a88480d8aa44d) by Tiago Lopes (https://sketchfab.com/drobluda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

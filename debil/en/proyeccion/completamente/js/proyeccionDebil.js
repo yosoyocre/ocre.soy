@@ -339,7 +339,12 @@ export function crea(opciones) {
           import(path).then((modelo) => {
             const objeto = modelo.default;
             const loader = new GLTFLoader();
-            loader.load(objeto.path, function (gltf) {
+            // Si no se indica en la propiedad "path" se asume que el archivo se llama scene.gltf
+            const pathModelo =
+              objeto.path !== undefined
+                ? objeto.path
+                : path.replace("modelo.js", "scene.gltf");
+            loader.load(pathModelo, function (gltf) {
               nModelosCargados++;
 
               let modeloCargado = gltf.scene;
