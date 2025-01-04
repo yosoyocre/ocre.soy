@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dumbell - Gym Training Weights
+* source:	https://sketchfab.com/3d-models/dumbell-gym-training-weights-bf39a73e496e49f7b3dade4ad8fe39d7
+* author:	LasquetiSpice (https://sketchfab.com/LasquetiSpice)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dumbell - Gym Training Weights" (https://sketchfab.com/3d-models/dumbell-gym-training-weights-bf39a73e496e49f7b3dade4ad8fe39d7) by LasquetiSpice (https://sketchfab.com/LasquetiSpice) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

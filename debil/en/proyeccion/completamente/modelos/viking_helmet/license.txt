@@ -1,0 +1,11 @@
+Model Information:
+* title:	Viking Helmet
+* source:	https://sketchfab.com/3d-models/viking-helmet-3a331e50283644a6b496606a09285105
+* author:	NikolasAntonio (https://sketchfab.com/NikolasAntonio)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Viking Helmet" (https://sketchfab.com/3d-models/viking-helmet-3a331e50283644a6b496606a09285105) by NikolasAntonio (https://sketchfab.com/NikolasAntonio) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

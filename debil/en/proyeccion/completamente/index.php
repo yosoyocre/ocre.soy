@@ -6,7 +6,7 @@ $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
 foreach ($directoriosModelos as $archivo) {
-    // if ($archivo == 'skull') {
+    // if ($archivo == 'gym') {
     if ($archivo != "." && $archivo != "..") {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
@@ -47,11 +47,11 @@ foreach ($directoriosModelos as $archivo) {
         } from "./js/proyeccionDebil.js";
 
         let nuevoBorrar = crea({
+            // conColorEnNegativo: false,
             proyector: "#proyector",
             conMovimiento: true,
             // conEfecto: false,
             // conVariacionTamano: false,
-            // conColorEnNegativo: false,
             modelos: <?= json_encode($modelos); ?>
         });
     </script>
