@@ -6,7 +6,7 @@ $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
 foreach ($directoriosModelos as $archivo) {
-    // if ($archivo == 'gym') {
+    // if ($archivo == 'boxing_glove') {
     if ($archivo != "." && $archivo != "..") {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
