@@ -5,9 +5,11 @@
 $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
+$esTest = false;
+$modeloAProbar = null;
+
 foreach ($directoriosModelos as $archivo) {
-    // if ($archivo == 'boxing_glove') {
-    if ($archivo != "." && $archivo != "..") {
+    if (($modeloAProbar && $archivo == $modeloAProbar) || (!$modeloAProbar && $archivo != "." && $archivo != "..")) {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
 }
@@ -50,8 +52,10 @@ foreach ($directoriosModelos as $archivo) {
             // conColorEnNegativo: false,
             proyector: "#proyector",
             conMovimiento: true,
-            // conEfecto: false,
-            // conVariacionTamano: false,
+            <?php if ($esTest) : ?>
+                conEfecto: false,
+                conVariacionTamano: false,
+            <?php endif; ?>
             modelos: <?= json_encode($modelos); ?>
         });
     </script>

@@ -430,7 +430,8 @@ export function crea(opciones) {
         if (modeloMostrado !== undefined) {
           escena.remove(modeloMostrado);
         }
-        modeloMostrado = modelosCargados[Math.floor(Math.random() * nModelos)];
+        modeloMostrado =
+          modelosCargados[Math.floor(Math.random() * nModelos)].clone();
 
         // Variamos su escala entre 0.5 y 2
         if (conVariacionTamano) {
