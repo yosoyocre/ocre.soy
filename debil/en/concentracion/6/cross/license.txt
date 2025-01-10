@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cross
+* source:	https://sketchfab.com/3d-models/cross-12139cddb0e04d3f86678ce63b98d75a
+* author:	watzlaw (https://sketchfab.com/watzlaw)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cross" (https://sketchfab.com/3d-models/cross-12139cddb0e04d3f86678ce63b98d75a) by watzlaw (https://sketchfab.com/watzlaw) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
