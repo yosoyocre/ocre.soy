@@ -5,7 +5,7 @@
 $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
-$esTest = false;
+$esTest = 0;
 $modeloAProbar = null;
 
 foreach ($directoriosModelos as $archivo) {
