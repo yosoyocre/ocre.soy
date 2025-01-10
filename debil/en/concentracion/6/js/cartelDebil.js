@@ -444,9 +444,9 @@ export function crea(opciones) {
         modeloMostrado =
           modelosCargados[Math.floor(Math.random() * nModelos)].clone();
 
-        // Variamos su escala entre 0.5 y 2
+        // Variamos su escala entre 1 y 3
         if (conVariacionTamano) {
-          let variacionEscala = Math.random() * 1.5 + 0.5;
+          let variacionEscala = Math.random() * 2 + 1;
           modeloMostrado.scale.setScalar(
             modeloMostrado.scale.x * variacionEscala
           );
@@ -487,18 +487,6 @@ export function crea(opciones) {
         context.fillRect(0, altoImagen - tamanoBorde, anchoImagen, tamanoBorde);
         context.fillRect(anchoImagen - tamanoBorde, 0, tamanoBorde, altoImagen);
 
-        // Dibujamos un rectángulo con el color base que sirve de fondo del texto
-        // context.fillStyle = colorBase;
-        // let margenX = 200;
-        // let margenY = 250;
-        // context.fillRect(
-        //   margenX,
-        //   altoImagen - margenY,
-        //   anchoImagen - margenX,
-        //   190
-        // );
-        // context.fillRect(0, altoImagen - 210, anchoImagen, 110);
-
         let fontInicial = context.font;
         let textAlignInicial = context.textAlign;
         let fillStyleInicial = context.fillStyle;
@@ -506,30 +494,55 @@ export function crea(opciones) {
 
         context.font = "bold 50px futura-pt";
         context.textAlign = "right";
-        // context.fillStyle = colorBase;
         context.letterSpacing = "-3px";
 
-        const txt = "AUTOSACRAMENTAL\n+OCRE";
-        const x = anchoImagen - 30;
+        const x = anchoImagen - 13;
         const y = altoImagen - 150;
-        const lineheight = 52;
-        const lines = txt.split("\n");
+        const lineheight = 54;
+        const lines = [
+          ["AUTOSACRAMENTAL", 450],
+          ["+ OCRE", 165],
+        ];
         lines.reverse();
-        let fondo = context.fillStyle;
         for (let i = 0; i < lines.length; i++) {
-          // context.fillStyle = "black";
-          // console.log(colorBase);
-          context.fillStyle = fondo;
-          let tamanoRect = lines[i].length * 30;
+          context.fillStyle = fillStyleInicial;
+          let tamanoRect = lines[i][1];
           context.fillRect(
             x - tamanoRect + 10,
-            y - i * lineheight,
+            y - i * lineheight - 5,
             tamanoRect,
-            45
+            55
           );
 
           context.fillStyle = "white";
-          context.fillText(lines[i], x, y - i * lineheight);
+          context.fillText(lines[i][0], x, y - i * lineheight);
+        }
+
+        context.font = "bold 25px futura-pt";
+        context.letterSpacing = "-2px";
+
+        const sx = anchoImagen - 13;
+        const sy = altoImagen - 70;
+        const slineheight = 25;
+        const slines = [
+          ["25 DE XANEIRO + 21H + ACÉFALA", 335],
+          // ["25 DE XANEIRO", 170],
+          // ["21H", 55],
+          // ["ACÉFALA", 102],
+        ];
+        slines.reverse();
+        for (let i = 0; i < slines.length; i++) {
+          context.fillStyle = fillStyleInicial;
+          let tamanoRect = slines[i][1];
+          context.fillRect(
+            sx - tamanoRect + 10,
+            sy - i * slineheight - 2,
+            tamanoRect,
+            26
+          );
+
+          context.fillStyle = "white";
+          context.fillText(slines[i][0], sx, sy - i * slineheight);
         }
 
         context.font = fontInicial;
