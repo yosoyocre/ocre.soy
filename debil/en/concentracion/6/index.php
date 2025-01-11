@@ -26,8 +26,7 @@
 <?php
 colofon([
     'Lenguajes de programación' => 'HTML, CSS y JavaScript',
-    'Librerías' => '<a href="https://p5js.org">p5.js</a>',
-    'Inspiración' => '<a href="#">Este cartel</a> del <a href="#">Instagram de XXX</a>'
+    'Librerías' => '<a href="https://threejs.org/">three.js</a>',
 ]);
 ?>
 
