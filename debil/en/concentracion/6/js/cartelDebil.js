@@ -495,11 +495,11 @@ export function crea(opciones) {
         let letterSpacingInicial = context.letterSpacing;
 
         context.font = "bold 60px futura-pt";
-        context.textAlign = "right";
+        context.textAlign = "center";
         context.letterSpacing = "-3px";
 
-        const x = anchoImagen - 20;
-        const y = altoImagen - 210;
+        const x = anchoImagen / 2;
+        const y = altoImagen - 122;
         const lineheight = 74;
         const lines = [
           ["AUTOSACRAMENTAL", 550],
@@ -510,7 +510,7 @@ export function crea(opciones) {
           context.fillStyle = fillStyleInicial;
           let tamanoRect = lines[i][1];
           context.fillRect(
-            x - tamanoRect + 10,
+            anchoImagen / 2 - tamanoRect / 2,
             y - i * lineheight - 10,
             tamanoRect,
             75
@@ -524,10 +524,10 @@ export function crea(opciones) {
 
         context.font = "bold 35px futura-pt";
         context.letterSpacing = "-2px";
-        context.textAlign = "left";
+        context.textAlign = "center";
 
-        const sx = 20;
-        const sy = altoImagen - 95;
+        const sx = anchoImagen / 2;
+        const sy = altoImagen - 53;
         const slineheight = 25;
         const slines = [
           ["25 DE XANEIRO + 21H + ACÉFALA", 490],
@@ -539,7 +539,12 @@ export function crea(opciones) {
         for (let i = 0; i < slines.length; i++) {
           context.fillStyle = fillStyleInicial;
           let tamanoRect = slines[i][1];
-          context.fillRect(10, sy - i * slineheight - 5, tamanoRect, 40);
+          context.fillRect(
+            anchoImagen / 2 - tamanoRect / 2,
+            sy - i * slineheight - 5,
+            tamanoRect,
+            40
+          );
 
           context.fillStyle = "white";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
