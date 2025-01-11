@@ -480,7 +480,7 @@ export function crea(opciones) {
         let context = canvasProyector.getContext("2d");
 
         // Dibujamos bordes en la imagen con el color base
-        let tamanoBorde = 12;
+        let tamanoBorde = 19;
         context.fillStyle = colorBase;
         context.fillRect(0, 0, anchoImagen, tamanoBorde);
         context.fillRect(0, 0, tamanoBorde, altoImagen);
@@ -492,16 +492,16 @@ export function crea(opciones) {
         let fillStyleInicial = context.fillStyle;
         let letterSpacingInicial = context.letterSpacing;
 
-        context.font = "bold 50px futura-pt";
+        context.font = "bold 60px futura-pt";
         context.textAlign = "right";
         context.letterSpacing = "-3px";
 
-        const x = anchoImagen - 13;
-        const y = altoImagen - 150;
-        const lineheight = 54;
+        const x = anchoImagen - 20;
+        const y = altoImagen - 210;
+        const lineheight = 74;
         const lines = [
-          ["AUTOSACRAMENTAL", 450],
-          ["+ OCRE", 165],
+          ["AUTOSACRAMENTAL", 550],
+          ["+ OCRE", 203],
         ];
         lines.reverse();
         for (let i = 0; i < lines.length; i++) {
@@ -509,23 +509,26 @@ export function crea(opciones) {
           let tamanoRect = lines[i][1];
           context.fillRect(
             x - tamanoRect + 10,
-            y - i * lineheight - 5,
+            y - i * lineheight - 10,
             tamanoRect,
-            55
+            75
           );
+        }
 
+        for (let i = 0; i < lines.length; i++) {
           context.fillStyle = "white";
           context.fillText(lines[i][0], x, y - i * lineheight);
         }
 
-        context.font = "bold 25px futura-pt";
+        context.font = "bold 35px futura-pt";
         context.letterSpacing = "-2px";
+        context.textAlign = "left";
 
-        const sx = anchoImagen - 13;
-        const sy = altoImagen - 70;
+        const sx = 20;
+        const sy = altoImagen - 95;
         const slineheight = 25;
         const slines = [
-          ["25 DE XANEIRO + 21H + ACÉFALA", 335],
+          ["25 DE XANEIRO + 21H + ACÉFALA", 490],
           // ["25 DE XANEIRO", 170],
           // ["21H", 55],
           // ["ACÉFALA", 102],
@@ -534,12 +537,7 @@ export function crea(opciones) {
         for (let i = 0; i < slines.length; i++) {
           context.fillStyle = fillStyleInicial;
           let tamanoRect = slines[i][1];
-          context.fillRect(
-            sx - tamanoRect + 10,
-            sy - i * slineheight - 2,
-            tamanoRect,
-            26
-          );
+          context.fillRect(10, sy - i * slineheight - 5, tamanoRect, 40);
 
           context.fillStyle = "white";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
