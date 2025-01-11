@@ -163,6 +163,9 @@ export function crea(opciones) {
       let canvasProyector;
       let alturaTexto;
       let alturaSubtexto;
+      let alignTexto;
+      let alignSubtexto;
+      let posiblesAligns = ["left", "center", "right"];
       let tamanoBorde = 19;
 
       const raycaster = new THREE.Raycaster();
@@ -209,8 +212,58 @@ export function crea(opciones) {
       };
 
       function colocaTextos() {
-        alturaTexto = Math.random() * (altoImagen - 102) + tamanoBorde;
-        alturaSubtexto = Math.random() * (altoImagen - 72) + tamanoBorde;
+        let margenEntreTextos = 10;
+
+        let minAlturaTexto = tamanoBorde + 84;
+        alturaTexto =
+          Math.random() * (altoImagen - 83 - minAlturaTexto) + minAlturaTexto;
+
+        // alturaTexto = tamanoBorde + 124;
+        // alturaTexto = altoImagen - tamanoBorde - 103;
+
+        let posicionSubtextoAntes;
+
+        if (alturaTexto < tamanoBorde + 124 + margenEntreTextos) {
+          posicionSubtextoAntes = false;
+        } else {
+          if (
+            alturaTexto >
+            altoImagen - tamanoBorde - 103 - margenEntreTextos
+          ) {
+            posicionSubtextoAntes = true;
+          } else {
+            posicionSubtextoAntes = Math.random() > 0.5;
+          }
+        }
+
+        // alturaSubtexto = alturaTexto - 119;
+        // alturaSubtexto = alturaTexto + 69;
+        // alturaSubtexto = altoImagen - tamanoBorde - 34;
+
+        console.log("posicionSubtextoAntes", posicionSubtextoAntes);
+
+        let minAlturaSubtexto = alturaTexto + 69 + margenEntreTextos;
+
+        if (posicionSubtextoAntes) {
+          alturaSubtexto =
+            Math.random() *
+              (alturaTexto - 119 - margenEntreTextos - tamanoBorde) +
+            tamanoBorde;
+        } else {
+          alturaSubtexto =
+            0 * (altoImagen - tamanoBorde - 34 - minAlturaSubtexto) +
+            minAlturaSubtexto;
+        }
+
+        alignTexto =
+          posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
+
+        // Solo permitimos o todo centrado o todo a un lado, aunque sea alternado
+        if (alignTexto === "center") {
+          alignSubtexto = "center";
+        } else {
+          alignSubtexto = Math.random() > 0.5 ? "left" : "right";
+        }
       }
 
       const forma = generador() * 100;
@@ -505,27 +558,59 @@ export function crea(opciones) {
         let fillStyleInicial = context.fillStyle;
         let letterSpacingInicial = context.letterSpacing;
 
-        context.font = "bold 60px futura-pt";
-        context.textAlign = "right";
-        context.letterSpacing = "-3px";
+        let x;
+        let y = alturaTexto;
 
-        const x = anchoImagen - 20;
-        const y = alturaTexto;
-        const lineheight = 74;
-        const lines = [
+        let lineheight = 74;
+        let lines = [
           ["AUTOSACRAMENTAL", 550],
           ["+ OCRE", 203],
         ];
         lines.reverse();
-        for (let i = 0; i < lines.length; i++) {
-          context.fillStyle = fillStyleInicial;
-          let tamanoRect = lines[i][1];
-          context.fillRect(
-            x - tamanoRect + 10,
-            y - i * lineheight - 10,
-            tamanoRect,
-            75
-          );
+
+        context.font = "bold 60px futura-pt";
+        context.letterSpacing = "-3px";
+
+        context.textAlign = alignTexto;
+
+        switch (alignTexto) {
+          case "left":
+            x = 20;
+            for (let i = 0; i < lines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = lines[i][1];
+              context.fillRect(10, y - i * lineheight - 10, tamanoRect, 75);
+            }
+
+            break;
+
+          case "center":
+            x = anchoImagen / 2;
+            for (let i = 0; i < lines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = lines[i][1];
+              context.fillRect(
+                anchoImagen / 2 - tamanoRect / 2,
+                y - i * lineheight - 10,
+                tamanoRect,
+                75
+              );
+            }
+            break;
+
+          case "right":
+            x = anchoImagen - 20;
+            for (let i = 0; i < lines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = lines[i][1];
+              context.fillRect(
+                x - tamanoRect + 10,
+                y - i * lineheight - 10,
+                tamanoRect,
+                75
+              );
+            }
+            break;
         }
 
         for (let i = 0; i < lines.length; i++) {
@@ -535,23 +620,60 @@ export function crea(opciones) {
 
         context.font = "bold 35px futura-pt";
         context.letterSpacing = "-2px";
-        context.textAlign = "left";
+        context.textAlign = alignSubtexto;
 
-        const sx = 20;
-        const sy = alturaSubtexto;
-        const slineheight = 25;
-        const slines = [
+        let sx;
+        let sy = alturaSubtexto;
+        let slineheight = 25;
+        let slines = [
           ["25 DE XANEIRO + 21H + ACÉFALA", 490],
           // ["25 DE XANEIRO", 170],
           // ["21H", 55],
           // ["ACÉFALA", 102],
         ];
         slines.reverse();
-        for (let i = 0; i < slines.length; i++) {
-          context.fillStyle = fillStyleInicial;
-          let tamanoRect = slines[i][1];
-          context.fillRect(10, sy - i * slineheight - 5, tamanoRect, 40);
 
+        switch (alignSubtexto) {
+          case "left":
+            sx = 20;
+            for (let i = 0; i < slines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = slines[i][1];
+              context.fillRect(10, sy - i * slineheight - 5, tamanoRect, 40);
+            }
+
+            break;
+
+          case "center":
+            sx = anchoImagen / 2;
+            for (let i = 0; i < slines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = slines[i][1];
+              context.fillRect(
+                anchoImagen / 2 - tamanoRect / 2,
+                sy - i * slineheight - 5,
+                tamanoRect,
+                40
+              );
+            }
+            break;
+
+          case "right":
+            sx = anchoImagen - 20;
+            for (let i = 0; i < slines.length; i++) {
+              context.fillStyle = fillStyleInicial;
+              let tamanoRect = slines[i][1];
+              context.fillRect(
+                sx - tamanoRect + 10,
+                sy - i * slineheight - 5,
+                tamanoRect,
+                40
+              );
+            }
+            break;
+        }
+
+        for (let i = 0; i < slines.length; i++) {
           context.fillStyle = "white";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
         }
