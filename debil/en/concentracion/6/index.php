@@ -20,6 +20,7 @@
 <div class="row">
     <div class="col-lg-8">
         <div id="cartel"></div>
+        <div class="js-otro-poster"></div>
     </div>
 </div>
 
@@ -30,6 +31,7 @@ colofon([
 ]);
 ?>
 
+<script src="../js/comun.js"></script>
 <!-- Import maps polyfill -->
 <!-- Remove this when import maps will be widely supported -->
 <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>

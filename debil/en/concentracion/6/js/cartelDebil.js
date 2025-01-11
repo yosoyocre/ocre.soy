@@ -4,6 +4,34 @@ import { AsciiEffectProyeccionDebil } from "./AsciiEffectProyeccionDebil.js";
 import { OrbitControls } from "../../../../js/OrbitControls.js";
 import { GLTFLoader } from "./GLTFLoader.js";
 
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+function shuffle(array) {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+}
+
 /**
  * Carga un script de forma asíncrona
  *
@@ -285,6 +313,7 @@ export function crea(opciones) {
       } else {
         colorBase = colorAleatorioConContraste();
       }
+      colorFondo = blanco;
 
       luminanceBase = luminosidad(
         colorBase["r"],
@@ -495,12 +524,23 @@ export function crea(opciones) {
 
         escena.add(modeloMostrado);
 
+        // Alternamos entre color/blanco y 2 colores de una paleta
         if (Math.random() > 0.5) {
-          colorBase = blanco;
-          colorFondo = colorAleatorioConContraste();
+          let paleta =
+            PALETAS_CHULAS[Math.floor(Math.random() * PALETAS_CHULAS.length)];
+
+          shuffle(paleta);
+
+          paleta.colorBase = hexToRgb(paleta[0]);
+          colorFondo = hexToRgb(paleta[1]);
         } else {
-          colorBase = colorAleatorioConContraste();
-          colorFondo = blanco;
+          if (Math.random() > 0.5) {
+            colorBase = blanco;
+            colorFondo = colorAleatorioConContraste();
+          } else {
+            colorBase = colorAleatorioConContraste();
+            colorFondo = blanco;
+          }
         }
 
         efectoAscii.colorBaseGlobal = colorBase;
