@@ -274,10 +274,6 @@ export function crea(opciones) {
           link.click();
         });
 
-        if (conColorEnNegativo === undefined) {
-          conColorEnNegativo = generador() > 0.5;
-        }
-
         // Creamos el efecto ASCII
         efectoAscii = new AsciiEffectProyeccionDebil(
           URL_BASE,
@@ -289,7 +285,10 @@ export function crea(opciones) {
             resolution: 0.1,
             scale: 1,
             color: "rgb(0,255,0)",
-            invert: conColorEnNegativo,
+            invert:
+              conColorEnNegativo === undefined
+                ? generador() > 0.5
+                : conColorEnNegativo,
           }
         );
         efectoAscii.setSize(anchoImagen, altoImagen);
@@ -455,7 +454,10 @@ export function crea(opciones) {
         escena.add(modeloMostrado);
 
         efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
-        efectoAscii.invert = conColorEnNegativo;
+        efectoAscii.invert =
+          conColorEnNegativo === undefined
+            ? generador() > 0.5
+            : conColorEnNegativo;
         efectoAscii.caracteres =
           posiblesCaracteres[
             Math.floor(generador() * posiblesCaracteres.length)

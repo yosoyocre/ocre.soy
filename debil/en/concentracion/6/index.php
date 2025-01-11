@@ -45,7 +45,7 @@ colofon([
     // let alto = ancho;
 
     let nuevoBorrar = crea({
-        conColorEnNegativo: false,
+        // conColorEnNegativo: false,
         ancho: ancho,
         alto: alto,
         proyector: "#cartel",
