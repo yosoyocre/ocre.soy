@@ -206,8 +206,18 @@ export function crea(opciones) {
 
         // Primero colocamos el texto principal
         let minAlturaTexto = tamanoBorde + 84;
+        let maxAlturaTexto = altoImagen - 83;
         alturaTexto =
-          Math.random() * (altoImagen - 83 - minAlturaTexto) + minAlturaTexto;
+          Math.random() * (maxAlturaTexto - minAlturaTexto) + minAlturaTexto;
+
+        // Redondeamos la altura a la mínima o máxima para que no queden espacios pequeños en blanco
+        if (alturaTexto < minAlturaTexto + margenEntreTextos) {
+          alturaTexto = minAlturaTexto;
+        } else {
+          if (alturaTexto > maxAlturaTexto - margenEntreTextos) {
+            alturaTexto = maxAlturaTexto;
+          }
+        }
 
         // En función del hueco que quede antes o después del texto principal, colocamos el subtexto
         let posicionSubtextoAntes;
@@ -225,17 +235,28 @@ export function crea(opciones) {
           }
         }
 
-        let minAlturaSubtexto = alturaTexto + 69 + margenEntreTextos;
+        let minAlturaSubtexto = tamanoBorde;
+        let maxAlturaSubTexto = altoImagen - tamanoBorde - 34;
+        let minAlturaSubtextoConTexto = alturaTexto + 69 + margenEntreTextos;
+        let maxAlturaSubtextoConTexto = alturaTexto - 119 - margenEntreTextos;
 
         if (posicionSubtextoAntes) {
           alturaSubtexto =
-            Math.random() *
-              (alturaTexto - 119 - margenEntreTextos - tamanoBorde) +
-            tamanoBorde;
+            Math.random() * (maxAlturaSubtextoConTexto - minAlturaSubtexto) +
+            minAlturaSubtexto;
         } else {
           alturaSubtexto =
-            0 * (altoImagen - tamanoBorde - 34 - minAlturaSubtexto) +
-            minAlturaSubtexto;
+            Math.random() * (maxAlturaSubTexto - minAlturaSubtextoConTexto) +
+            minAlturaSubtextoConTexto;
+        }
+
+        // Redondeamos la altura a la mínima o máxima para que no queden espacios pequeños en blanco
+        if (alturaSubtexto < minAlturaSubtexto + margenEntreTextos) {
+          alturaSubtexto = minAlturaSubtexto;
+        } else {
+          if (alturaSubtexto > maxAlturaSubTexto - margenEntreTextos) {
+            alturaSubtexto = maxAlturaSubTexto;
+          }
         }
 
         // Escogemos las alineaciones de los textos
