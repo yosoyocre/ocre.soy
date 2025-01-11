@@ -79,9 +79,7 @@ export function crea(opciones) {
   const URL_BASE = DOMINIO_ACTUAL + "/debil/en/diseno/";
 
   let renderer;
-  let geometria;
   let textura;
-  let geometriaHelper;
   let efectoAscii;
   let detenido = false;
   let contenedorProyector;
@@ -154,9 +152,6 @@ export function crea(opciones) {
 
       let objeto;
 
-      const anchoMundo = 800,
-        profundidadMundo = 800;
-
       const anchoImagen = opciones.ancho ? opciones.ancho : 1400;
       const altoImagen = opciones.alto ? opciones.alto : 782;
 
@@ -171,13 +166,7 @@ export function crea(opciones) {
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
 
-      // Permitimos que una seed se pueda pasar por la URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const seed =
-        urlParams.get("seed") !== null
-          ? urlParams.get("seed")
-          : Math.random().toString(36).slice(2);
-
+      const seed = Math.random().toString(36).slice(2);
       // Creamos el generador de números aleatorios con la seed
       const generador = new Math.seedrandom(seed);
 
@@ -212,15 +201,15 @@ export function crea(opciones) {
       };
 
       function colocaTextos() {
+        // Colocamos los textos dentro de los márgenes del folio
         let margenEntreTextos = 10;
 
+        // Primero colocamos el texto principal
         let minAlturaTexto = tamanoBorde + 84;
         alturaTexto =
           Math.random() * (altoImagen - 83 - minAlturaTexto) + minAlturaTexto;
 
-        // alturaTexto = tamanoBorde + 124;
-        // alturaTexto = altoImagen - tamanoBorde - 103;
-
+        // En función del hueco que quede antes o después del texto principal, colocamos el subtexto
         let posicionSubtextoAntes;
 
         if (alturaTexto < tamanoBorde + 124 + margenEntreTextos) {
@@ -236,12 +225,6 @@ export function crea(opciones) {
           }
         }
 
-        // alturaSubtexto = alturaTexto - 119;
-        // alturaSubtexto = alturaTexto + 69;
-        // alturaSubtexto = altoImagen - tamanoBorde - 34;
-
-        console.log("posicionSubtextoAntes", posicionSubtextoAntes);
-
         let minAlturaSubtexto = alturaTexto + 69 + margenEntreTextos;
 
         if (posicionSubtextoAntes) {
@@ -254,6 +237,8 @@ export function crea(opciones) {
             0 * (altoImagen - tamanoBorde - 34 - minAlturaSubtexto) +
             minAlturaSubtexto;
         }
+
+        // Escogemos las alineaciones de los textos
 
         alignTexto =
           posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
@@ -268,9 +253,6 @@ export function crea(opciones) {
 
       const forma = generador() * 100;
 
-      console.log("seed", seed);
-      console.log("forma", forma);
-
       let colorBase;
       let luminanceBase;
 
@@ -284,14 +266,6 @@ export function crea(opciones) {
         colorBase["r"],
         colorBase["g"],
         colorBase["b"]
-      );
-
-      console.log(
-        "colorBase",
-        colorBase["r"],
-        colorBase["g"],
-        colorBase["b"],
-        luminanceBase
       );
 
       init();
@@ -326,6 +300,7 @@ export function crea(opciones) {
         canvasProyector.width = anchoImagen;
         canvasProyector.height = altoImagen;
 
+        // Al hacer click en el carte, se descarga una imagen
         canvasProyector.addEventListener("click", function (e) {
           e.preventDefault();
 
@@ -396,16 +371,6 @@ export function crea(opciones) {
         camara.position.z = 3000;
         controles.update();
 
-        // Generamos el terreno
-
-        geometria = new THREE.PlaneGeometry(
-          7500,
-          7500,
-          anchoMundo - 1,
-          profundidadMundo - 1
-        );
-        geometria.rotateX(-Math.PI / 2);
-
         modelos.forEach((path) => {
           import(path).then((modelo) => {
             const objeto = modelo.default;
@@ -434,22 +399,12 @@ export function crea(opciones) {
 
         // Aplicamos sombras
 
-        // const ambientLight = new THREE.AmbientLight(0xcccccc);
-        // ambientLight.name = "AmbientLight";
-        // escena.add(ambientLight);
-
         const dirLight = new THREE.DirectionalLight(0xffffff, 3);
         dirLight.target.position.set(0, 10, -1);
         dirLight.add(dirLight.target);
         dirLight.lookAt(-1, -10, 0);
         dirLight.name = "DirectionalLight";
         escena.add(dirLight);
-
-        // Creamos un helper que nos permita girar la cámara mirando siempre al centro
-
-        geometriaHelper = new THREE.ConeGeometry(20, 100, 3);
-        geometriaHelper.translate(0, 50, 0);
-        geometriaHelper.rotateX(Math.PI / 2);
 
         // Añadimos los listeners de los eventos
 
@@ -696,7 +651,7 @@ export function crea(opciones) {
       console.error(err);
     });
 
-  let borrables = [renderer, geometria, textura, geometriaHelper, efectoAscii];
+  let borrables = [renderer, textura, efectoAscii];
 
   return function () {
     borrables.forEach((e) => {
