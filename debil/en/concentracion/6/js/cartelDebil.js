@@ -518,7 +518,7 @@ export function crea(opciones) {
 
         let lineheight = 74;
         let lines = [
-          ["AUTOSACRAMENTAL", 550],
+          ["AUTO SACRAMENTAL", 565],
           ["+ OCRE", 203],
         ];
         lines.reverse();

@@ -9,10 +9,11 @@
     <div class="col-lg-12">
         <?php breadcrumb(); ?>
         <p>
-            Me imagino conciertos. Luego me imagino sus carteles. Y luego los programo.
+            Este cartel es de un concierto real: <br>
+            del que di con <a href="https://www.instagram.com/autosacramental/">Auto Sacramental</a> en <a href="https://www.instagram.com/acefala.colectivo/">Acéfala</a>, A Coruña, el 25 de enero de 2025.
         </p>
         <p>
-            Pulsa en el cartel para descargarlo. <br>Y si quieres generar otro cartel <a class="js-otro-poster" href="#">pulsa aquí</a>.
+            Pulsa en el cartel para descargarlo.
         </p>
     </div>
 </div>
