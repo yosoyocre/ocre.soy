@@ -161,6 +161,9 @@ export function crea(opciones) {
       const altoImagen = opciones.alto ? opciones.alto : 782;
 
       let canvasProyector;
+      let alturaTexto;
+      let alturaSubtexto;
+      let tamanoBorde = 19;
 
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -204,6 +207,11 @@ export function crea(opciones) {
 
         return color;
       };
+
+      function colocaTextos() {
+        alturaTexto = Math.random() * (altoImagen - 102) + tamanoBorde;
+        alturaSubtexto = Math.random() * (altoImagen - 72) + tamanoBorde;
+      }
 
       const forma = generador() * 100;
 
@@ -402,6 +410,8 @@ export function crea(opciones) {
         } else {
           contenedorProyector.appendChild(renderer.domElement);
         }
+
+        colocaTextos();
       }
 
       function onWindowResize() {
@@ -463,6 +473,8 @@ export function crea(opciones) {
             Math.floor(generador() * posiblesCaracteres.length)
           ];
 
+        colocaTextos();
+
         setTimeout(mostrarModelo, 5000);
       }
 
@@ -482,7 +494,6 @@ export function crea(opciones) {
         let context = canvasProyector.getContext("2d");
 
         // Dibujamos bordes en la imagen con el color base
-        let tamanoBorde = 19;
         context.fillStyle = colorBase;
         context.fillRect(0, 0, anchoImagen, tamanoBorde);
         context.fillRect(0, 0, tamanoBorde, altoImagen);
@@ -495,11 +506,11 @@ export function crea(opciones) {
         let letterSpacingInicial = context.letterSpacing;
 
         context.font = "bold 60px futura-pt";
-        context.textAlign = "center";
+        context.textAlign = "right";
         context.letterSpacing = "-3px";
 
-        const x = anchoImagen / 2;
-        const y = altoImagen - 122;
+        const x = anchoImagen - 20;
+        const y = alturaTexto;
         const lineheight = 74;
         const lines = [
           ["AUTOSACRAMENTAL", 550],
@@ -510,7 +521,7 @@ export function crea(opciones) {
           context.fillStyle = fillStyleInicial;
           let tamanoRect = lines[i][1];
           context.fillRect(
-            anchoImagen / 2 - tamanoRect / 2,
+            x - tamanoRect + 10,
             y - i * lineheight - 10,
             tamanoRect,
             75
@@ -524,10 +535,10 @@ export function crea(opciones) {
 
         context.font = "bold 35px futura-pt";
         context.letterSpacing = "-2px";
-        context.textAlign = "center";
+        context.textAlign = "left";
 
-        const sx = anchoImagen / 2;
-        const sy = altoImagen - 53;
+        const sx = 20;
+        const sy = alturaSubtexto;
         const slineheight = 25;
         const slines = [
           ["25 DE XANEIRO + 21H + ACÉFALA", 490],
@@ -539,12 +550,7 @@ export function crea(opciones) {
         for (let i = 0; i < slines.length; i++) {
           context.fillStyle = fillStyleInicial;
           let tamanoRect = slines[i][1];
-          context.fillRect(
-            anchoImagen / 2 - tamanoRect / 2,
-            sy - i * slineheight - 5,
-            tamanoRect,
-            40
-          );
+          context.fillRect(10, sy - i * slineheight - 5, tamanoRect, 40);
 
           context.fillStyle = "white";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
