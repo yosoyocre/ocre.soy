@@ -78,6 +78,8 @@ export function crea(opciones) {
   const URL_LIBRERIAS = DOMINIO_ACTUAL + "/debil/";
   const URL_BASE = DOMINIO_ACTUAL + "/debil/en/diseno/";
 
+  const blanco = { r: 255, g: 255, b: 255 };
+
   let renderer;
   let textura;
   let efectoAscii;
@@ -275,6 +277,7 @@ export function crea(opciones) {
       const forma = generador() * 100;
 
       let colorBase;
+      let colorFondo;
       let luminanceBase;
 
       if (opciones.color !== undefined) {
@@ -492,7 +495,16 @@ export function crea(opciones) {
 
         escena.add(modeloMostrado);
 
-        efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
+        if (Math.random() > 0.5) {
+          colorBase = blanco;
+          colorFondo = colorAleatorioConContraste();
+        } else {
+          colorBase = colorAleatorioConContraste();
+          colorFondo = blanco;
+        }
+
+        efectoAscii.colorBaseGlobal = colorBase;
+        efectoAscii.colorFondo = colorFondo;
         efectoAscii.invert =
           conColorEnNegativo === undefined
             ? generador() > 0.5
@@ -590,7 +602,14 @@ export function crea(opciones) {
         }
 
         for (let i = 0; i < lines.length; i++) {
-          context.fillStyle = "white";
+          context.fillStyle =
+            "rgb(" +
+            colorFondo["r"] +
+            "," +
+            colorFondo["g"] +
+            "," +
+            colorFondo["b"] +
+            ")";
           context.fillText(lines[i][0], x, y - i * lineheight);
         }
 
@@ -650,7 +669,14 @@ export function crea(opciones) {
         }
 
         for (let i = 0; i < slines.length; i++) {
-          context.fillStyle = "white";
+          context.fillStyle =
+            "rgb(" +
+            colorFondo["r"] +
+            "," +
+            colorFondo["g"] +
+            "," +
+            colorFondo["b"] +
+            ")";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
         }
 
