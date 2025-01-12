@@ -1,4 +1,4 @@
 export default {
-  tamano: 150,
-  posicion: [0, 500, 0],
+  tamano: 16000,
+  posicion: [0, 250, 0],
 };

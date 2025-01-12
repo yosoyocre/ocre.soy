@@ -354,6 +354,9 @@ export function crea(opciones) {
                 objeto.posicion[1],
                 objeto.posicion[2]
               );
+              modeloCargado.nombre = path
+                .replace("/debil/en/proyeccion/completamente/modelos/", "")
+                .replace("/modelo.js", "");
 
               modelosCargados.push(modeloCargado);
               actualizaContador();
@@ -430,12 +433,18 @@ export function crea(opciones) {
         if (modeloMostrado !== undefined) {
           escena.remove(modeloMostrado);
         }
-        modeloMostrado =
-          modelosCargados[Math.floor(Math.random() * nModelos)].clone();
+        let modeloOriginal =
+          modelosCargados[Math.floor(Math.random() * nModelos)];
+        modeloMostrado = modeloOriginal.clone();
+
+        console.log("Modelo cargado", modeloOriginal.nombre);
 
         // Variamos su escala entre 0.5 y 2
         if (conVariacionTamano) {
           let variacionEscala = Math.random() * 1.5 + 0.5;
+
+          console.log("Variación de escala", variacionEscala);
+
           modeloMostrado.scale.setScalar(
             modeloMostrado.scale.x * variacionEscala
           );

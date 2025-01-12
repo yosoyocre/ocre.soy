@@ -6,7 +6,7 @@ $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
 // $esTest = 1;
-// $modeloAProbar = 'superman';
+// $modeloAProbar = 'colt';
 
 foreach ($directoriosModelos as $archivo) {
     if ((isset($modeloAProbar) && $modeloAProbar && $archivo == $modeloAProbar) || (!(isset($modeloAProbar) && $modeloAProbar) && $archivo != "." && $archivo != "..")) {
