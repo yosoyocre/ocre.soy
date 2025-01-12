@@ -1,0 +1,11 @@
+Model Information:
+* title:	Golden crown
+* source:	https://sketchfab.com/3d-models/golden-crown-5689a9525a2c425d93f7d483b93d8cfa
+* author:	Pieter Ferreira (https://sketchfab.com/Badboy17Aiden)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Golden crown" (https://sketchfab.com/3d-models/golden-crown-5689a9525a2c425d93f7d483b93d8cfa) by Pieter Ferreira (https://sketchfab.com/Badboy17Aiden) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
