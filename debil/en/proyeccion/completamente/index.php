@@ -5,11 +5,11 @@
 $directoriosModelos = scandir('./modelos');
 $modelos = [];
 
-$esTest = 0;
-$modeloAProbar = null;
+// $esTest = 1;
+// $modeloAProbar = 'superman';
 
 foreach ($directoriosModelos as $archivo) {
-    if (($modeloAProbar && $archivo == $modeloAProbar) || (!$modeloAProbar && $archivo != "." && $archivo != "..")) {
+    if ((isset($modeloAProbar) && $modeloAProbar && $archivo == $modeloAProbar) || (!(isset($modeloAProbar) && $modeloAProbar) && $archivo != "." && $archivo != "..")) {
         array_push($modelos, '/debil/en/proyeccion/completamente/modelos/' . $archivo . '/modelo.js');
     }
 }
@@ -52,7 +52,7 @@ foreach ($directoriosModelos as $archivo) {
             // conColorEnNegativo: false,
             proyector: "#proyector",
             conMovimiento: true,
-            <?php if ($esTest) : ?>
+            <?php if (isset($esTest) && $esTest) : ?>
                 conEfecto: false,
                 conVariacionTamano: false,
             <?php endif; ?>
