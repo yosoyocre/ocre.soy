@@ -448,6 +448,10 @@ export function crea(opciones) {
           modeloMostrado.scale.setScalar(
             modeloMostrado.scale.x * variacionEscala
           );
+
+          if (Math.random() > 0.8) {
+            modeloMostrado.rotation.z = Math.random() * Math.PI * 2;
+          }
         }
 
         escena.add(modeloMostrado);
