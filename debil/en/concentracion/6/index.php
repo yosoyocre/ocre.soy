@@ -52,7 +52,8 @@ colofon([
         alto: alto,
         proyector: "#cartel",
         conMovimiento: true,
-        modelos: ['/debil/en/concentracion/6/cross/modelo.js']
+        modelos: ['/debil/en/concentracion/6/cross/modelo.js'],
+        // grabar: 10
     });
 </script>
 

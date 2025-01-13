@@ -96,8 +96,9 @@ const luminosidad = (r, g, b) => {
  * @param   {boolean} opciones.conColorEnNegativo        Si se debe pintar la proyección en negativo o no
  * @param   {boolean} opciones.conEfecto                 Si se debe usar el efecto ASCII o no
  * @param   {boolean} opciones.conVariacionTamano        Si en cada visualización se varía el tamaño del modelo
- * @param   {Object}  opciones.ancho                     Ancho de la imagen en píxeles
- * @param   {Object}  opciones.alto                      Alto de la imagen en píxeles
+ * @param   {number}  opciones.ancho                     Ancho de la imagen en píxeles
+ * @param   {number}  opciones.alto                      Alto de la imagen en píxeles
+ * @param   {number}  opciones.grabar                    Indica el número de visualizaciones que se grabarán en vídeo
  * @returns {void}
  * @public
  */
@@ -123,6 +124,8 @@ export function crea(opciones) {
   let imagenCargada = false;
   let logoAcefala;
   const proporcionLogo = 80 / 100;
+
+  const tiempoPorModelo = 5000;
 
   let contenedorContador = document.createElement("div");
   contenedorContador.classList.add(
@@ -185,6 +188,9 @@ export function crea(opciones) {
         opciones.conVariacionTamano !== undefined
           ? opciones.conVariacionTamano
           : true;
+      let grabar = opciones.grabar !== undefined ? opciones.grabar : 0;
+      let grabando = false;
+      let nGrabados = 0;
 
       let contenedor3d;
 
@@ -302,8 +308,8 @@ export function crea(opciones) {
 
         // Escogemos las alineaciones de los textos
 
-        alignTexto = "right";
-        // posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
+        alignTexto =
+          posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
 
         // Solo permitimos o todo centrado o todo a un lado, aunque sea alternado
         if (alignTexto === "center") {
@@ -540,7 +546,7 @@ export function crea(opciones) {
         escena.add(modeloMostrado);
 
         // Alternamos entre color/blanco y 2 colores de una paleta
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.8) {
           let paleta =
             PALETAS_CHULAS[Math.floor(Math.random() * PALETAS_CHULAS.length)];
 
@@ -600,7 +606,75 @@ export function crea(opciones) {
 
         colocaTextos();
 
-        setTimeout(mostrarModelo, 5000);
+        if (grabar && !grabando) {
+          // Grabamos la escena el número de cambios indicado por la variable grabar
+          grabando = true;
+
+          function record(canvas, time) {
+            var recordedChunks = [];
+            return new Promise(function (res, rej) {
+              var stream = canvas.captureStream(30 /*fps*/);
+              let mediaRecorder = new MediaRecorder(stream, {
+                // mimeType: "video/webm;codecs=vp9",
+                mimeType: "video/webm",
+                videoBitsPerSecond: 2500000,
+              });
+
+              //ondataavailable will fire in interval of `time || 4000 ms`
+              mediaRecorder.start(time || 4000);
+
+              mediaRecorder.ondataavailable = function (event) {
+                recordedChunks.push(event.data);
+                // after stop `dataavilable` event run one more time
+                if (mediaRecorder.state === "recording") {
+                  mediaRecorder.stop();
+                }
+              };
+
+              mediaRecorder.onstop = function (event) {
+                var blob = new Blob(recordedChunks, {
+                  type: "video/webm",
+                });
+                var url = URL.createObjectURL(blob);
+                res(url);
+              };
+            });
+          }
+
+          const recording = record(canvasProyector, grabar * tiempoPorModelo);
+          // Lo situamos en otro vídeo
+          var video$ = document.createElement("video");
+          // Ocultamos el vídeo
+          video$.style.display = "none";
+          document.body.appendChild(video$);
+          recording.then((url) => video$.setAttribute("src", url));
+
+          // Lo descargamos
+          var link$ = document.createElement("a");
+          var hoy = new Date();
+          var fechaFormateada = hoy
+            .toISOString()
+            .replace(/T/, "_")
+            .replace(/\..+/, "");
+          link$.setAttribute("download", "cartel_" + fechaFormateada + ".webm");
+          recording.then((url) => {
+            link$.setAttribute("href", url);
+            link$.click();
+          });
+        }
+
+        if (grabando) {
+          if (nGrabados < grabar) {
+            nGrabados++;
+            console.log("Grabando " + nGrabados + " de " + grabar);
+          } else {
+            console.log("Fin de la grabación");
+            grabando = false;
+            grabar = 0;
+          }
+        }
+
+        setTimeout(mostrarModelo, tiempoPorModelo);
       }
 
       /**
