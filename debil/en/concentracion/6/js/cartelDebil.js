@@ -574,8 +574,6 @@ export function crea(opciones) {
             }
           }
 
-          console.log(colorBase, colorFondo);
-
           if (colorFondo === null) {
             colorFondo = blanco;
           }
