@@ -247,7 +247,7 @@ export function crea(opciones) {
 
         // Primero colocamos el texto principal
         let minAlturaTexto = tamanoBorde + 84;
-        let maxAlturaTexto = altoImagen - 134;
+        let maxAlturaTexto = altoImagen - 139;
         alturaTexto =
           Math.random() * (maxAlturaTexto - minAlturaTexto) + minAlturaTexto;
 
@@ -268,7 +268,7 @@ export function crea(opciones) {
         } else {
           if (
             alturaTexto >
-            altoImagen - tamanoBorde - 144 - margenEntreTextos
+            altoImagen - tamanoBorde - 149 - margenEntreTextos
           ) {
             posicionSubtextoAntes = true;
           } else {
@@ -277,7 +277,7 @@ export function crea(opciones) {
         }
 
         let minAlturaSubtexto = tamanoBorde;
-        let maxAlturaSubTexto = altoImagen - tamanoBorde - 85;
+        let maxAlturaSubTexto = altoImagen - tamanoBorde - 90;
         let minAlturaSubtextoConTexto = alturaTexto + 69 + margenEntreTextos;
         let maxAlturaSubtextoConTexto = alturaTexto - 119 - margenEntreTextos;
 
@@ -302,8 +302,8 @@ export function crea(opciones) {
 
         // Escogemos las alineaciones de los textos
 
-        alignTexto =
-          posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
+        alignTexto = "right";
+        // posiblesAligns[Math.floor(Math.random() * posiblesAligns.length)];
 
         // Solo permitimos o todo centrado o todo a un lado, aunque sea alternado
         if (alignTexto === "center") {
@@ -763,16 +763,16 @@ export function crea(opciones) {
         }
 
         context.font = "bold 15px futura-pt";
-        context.letterSpacing = "-2px";
+        context.letterSpacing = "0px";
         context.textAlign = "right";
 
         let cx = anchoImagen - 73;
         let cy = altoImagen - 33;
         let clineheight = 16;
         let clines = [
-          ["8-10€ doazón artistas", 180],
-          ["Aforo limitado", 180],
-          ["Reservas:    reservas@acefala.org", 180],
+          ["8-10€ doazón artistas", 240],
+          ["aforo limitado", 240],
+          ["reservas:  reservas@acefala.org", 240],
         ];
         clines.reverse();
 
@@ -781,9 +781,9 @@ export function crea(opciones) {
           let tamanoRect = clines[i][1];
           context.fillRect(
             cx - tamanoRect + 10,
-            cy - i * clineheight - 5,
+            cy - i * clineheight - 10,
             tamanoRect,
-            20
+            25
           );
 
           context.fillStyle =
@@ -804,9 +804,9 @@ export function crea(opciones) {
         context.fillStyle = fillStyleInicial;
         context.fillRect(
           anchoImagen - anchoRectLogo - tamanoBorde - 3,
-          altoImagen - altoRectLogo - tamanoBorde + 1,
+          altoImagen - altoRectLogo - tamanoBorde - 4,
           altoRectLogo * proporcionLogo + 3,
-          altoRectLogo
+          altoRectLogo + 5
         );
 
         // Insertamos una imagen
