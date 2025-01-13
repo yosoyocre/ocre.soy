@@ -546,8 +546,39 @@ export function crea(opciones) {
 
           shuffle(paleta);
 
-          paleta.colorBase = hexToRgb(paleta[0]);
-          colorFondo = hexToRgb(paleta[1]);
+          colorBase = hexToRgb(paleta[0]);
+          let luminosidadBase = luminosidad(
+            colorBase["r"],
+            colorBase["g"],
+            colorBase["b"]
+          );
+
+          // Forzamos a que haya un mínimo de contraste entre el color base y el fondo
+          colorFondo = null;
+          for (let i = 1; i < paleta.length; i++) {
+            let propuestaFondo = hexToRgb(paleta[i]);
+            let luminosidadPropuesta = luminosidad(
+              propuestaFondo["r"],
+              propuestaFondo["g"],
+              propuestaFondo["b"]
+            );
+
+            let ratio =
+              luminosidadBase > luminosidadPropuesta
+                ? (luminosidadPropuesta + 0.05) / (luminosidadBase + 0.05)
+                : (luminosidadBase + 0.05) / (luminosidadPropuesta + 0.05);
+
+            if (ratio < 1 / 4) {
+              colorFondo = propuestaFondo;
+              break;
+            }
+          }
+
+          console.log(colorBase, colorFondo);
+
+          if (colorFondo === null) {
+            colorFondo = blanco;
+          }
         } else {
           if (Math.random() > 0.5) {
             colorBase = blanco;
@@ -780,6 +811,7 @@ export function crea(opciones) {
 
         // Insertamos una imagen
         if (imagenCargada) {
+          // Recortamos la forma del logo del fondo en un canvas temporal
           tempContext.clearRect(0, 0, anchoImagen, altoImagen);
 
           tempContext.fillStyle =
