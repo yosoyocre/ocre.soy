@@ -104,7 +104,7 @@ const luminosidad = (r, g, b) => {
 export function crea(opciones) {
   const DOMINIO_ACTUAL = window.location.origin;
   const URL_LIBRERIAS = DOMINIO_ACTUAL + "/debil/";
-  const URL_BASE = DOMINIO_ACTUAL + "/debil/en/diseno/";
+  const URL_BASE = DOMINIO_ACTUAL + "/debil/en/concentracion/6/";
 
   const blanco = { r: 255, g: 255, b: 255 };
 
@@ -120,6 +120,9 @@ export function crea(opciones) {
   let nModelosCargados = 0;
   let hayModelosCargados = false;
   let modeloMostrado;
+  let imagenCargada = false;
+  let logoAcefala;
+  const proporcionLogo = 80 / 100;
 
   let contenedorContador = document.createElement("div");
   contenedorContador.classList.add(
@@ -137,6 +140,13 @@ export function crea(opciones) {
   const actualizaContador = () => {
     contador.innerHTML =
       nModelosCargados + " de " + nModelos + " modelos cargados";
+  };
+
+  logoAcefala = new Image();
+  logoAcefala.src = URL_BASE + "logo_acefala.png";
+  logoAcefala.onload = function () {
+    imagenCargada = true;
+    console.log("Logo cargado");
   };
 
   // Cargamos los scripts necesarios
@@ -186,6 +196,7 @@ export function crea(opciones) {
       const altoImagen = opciones.alto ? opciones.alto : 782;
 
       let canvasProyector;
+      let tempCanvas;
       let alturaTexto;
       let alturaSubtexto;
       let alignTexto;
@@ -236,7 +247,7 @@ export function crea(opciones) {
 
         // Primero colocamos el texto principal
         let minAlturaTexto = tamanoBorde + 84;
-        let maxAlturaTexto = altoImagen - 83;
+        let maxAlturaTexto = altoImagen - 134;
         alturaTexto =
           Math.random() * (maxAlturaTexto - minAlturaTexto) + minAlturaTexto;
 
@@ -257,7 +268,7 @@ export function crea(opciones) {
         } else {
           if (
             alturaTexto >
-            altoImagen - tamanoBorde - 103 - margenEntreTextos
+            altoImagen - tamanoBorde - 144 - margenEntreTextos
           ) {
             posicionSubtextoAntes = true;
           } else {
@@ -266,7 +277,7 @@ export function crea(opciones) {
         }
 
         let minAlturaSubtexto = tamanoBorde;
-        let maxAlturaSubTexto = altoImagen - tamanoBorde - 34;
+        let maxAlturaSubTexto = altoImagen - tamanoBorde - 85;
         let minAlturaSubtextoConTexto = alturaTexto + 69 + margenEntreTextos;
         let maxAlturaSubtextoConTexto = alturaTexto - 119 - margenEntreTextos;
 
@@ -352,6 +363,10 @@ export function crea(opciones) {
         canvasProyector = document.createElement("canvas");
         canvasProyector.width = anchoImagen;
         canvasProyector.height = altoImagen;
+
+        tempCanvas = document.createElement("canvas");
+        tempCanvas.width = anchoImagen;
+        tempCanvas.height = altoImagen;
 
         // Al hacer click en el carte, se descarga una imagen
         canvasProyector.addEventListener("click", function (e) {
@@ -573,6 +588,7 @@ export function crea(opciones) {
         }
 
         let context = canvasProyector.getContext("2d");
+        let tempContext = tempCanvas.getContext("2d");
 
         // Dibujamos bordes en la imagen con el color base
         context.fillStyle = colorBase;
@@ -660,12 +676,7 @@ export function crea(opciones) {
         let sx;
         let sy = alturaSubtexto;
         let slineheight = 25;
-        let slines = [
-          ["25 DE XANEIRO + 21H + ACÉFALA", 490],
-          // ["25 DE XANEIRO", 170],
-          // ["21H", 55],
-          // ["ACÉFALA", 102],
-        ];
+        let slines = [["25 DE XANEIRO + 21H + ACÉFALA", 490]];
         slines.reverse();
 
         switch (alignSubtexto) {
@@ -718,6 +729,81 @@ export function crea(opciones) {
             colorFondo["b"] +
             ")";
           context.fillText(slines[i][0], sx, sy - i * slineheight);
+        }
+
+        context.font = "bold 15px futura-pt";
+        context.letterSpacing = "-2px";
+        context.textAlign = "right";
+
+        let cx = anchoImagen - 73;
+        let cy = altoImagen - 33;
+        let clineheight = 16;
+        let clines = [
+          ["8-10€ doazón artistas", 180],
+          ["Aforo limitado", 180],
+          ["Reservas:    reservas@acefala.org", 180],
+        ];
+        clines.reverse();
+
+        for (let i = 0; i < clines.length; i++) {
+          context.fillStyle = fillStyleInicial;
+          let tamanoRect = clines[i][1];
+          context.fillRect(
+            cx - tamanoRect + 10,
+            cy - i * clineheight - 5,
+            tamanoRect,
+            20
+          );
+
+          context.fillStyle =
+            "rgb(" +
+            colorFondo["r"] +
+            "," +
+            colorFondo["g"] +
+            "," +
+            colorFondo["b"] +
+            ")";
+          context.fillText(clines[i][0], cx, cy - i * clineheight);
+        }
+
+        let altoLogo = 43;
+        let altoRectLogo = altoLogo + 9;
+        let anchoRectLogo = altoRectLogo * proporcionLogo;
+
+        context.fillStyle = fillStyleInicial;
+        context.fillRect(
+          anchoImagen - anchoRectLogo - tamanoBorde - 3,
+          altoImagen - altoRectLogo - tamanoBorde + 1,
+          altoRectLogo * proporcionLogo + 3,
+          altoRectLogo
+        );
+
+        // Insertamos una imagen
+        if (imagenCargada) {
+          tempContext.clearRect(0, 0, anchoImagen, altoImagen);
+
+          tempContext.fillStyle =
+            "rgb(" +
+            colorFondo["r"] +
+            "," +
+            colorFondo["g"] +
+            "," +
+            colorFondo["b"] +
+            ")";
+          tempContext.fillRect(0, 0, anchoImagen, altoImagen);
+
+          tempContext.globalCompositeOperation = "destination-in";
+
+          tempContext.drawImage(
+            logoAcefala,
+            anchoImagen - 61,
+            altoImagen - 63,
+            altoLogo * proporcionLogo,
+            altoLogo
+          );
+          tempContext.globalCompositeOperation = "source-over";
+
+          context.drawImage(tempCanvas, 0, 0);
         }
 
         context.font = fontInicial;

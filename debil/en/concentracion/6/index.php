@@ -42,9 +42,9 @@ colofon([
     } from "./js/cartelDebil.js";
 
     let ancho = 700;
-    // let alto = ancho * 1.414;
+    let alto = ancho * 1.414;
     // Cuadrado para IG
-    let alto = ancho;
+    // let alto = ancho;
 
     let nuevoBorrar = crea({
         // conColorEnNegativo: false,
