@@ -123,6 +123,16 @@
         </a>
       </span>
     </div>
+    <div class="col-lg-4">
+      Generador de carteles de concierto
+      <span class="dato">
+        <a href="/debil/en/amistad">
+          <span class="separador">/</span> débil
+          <span class="separador">/</span> en
+          <span class="separador">/</span> amistad
+        </a>
+      </span>
+    </div>
   </div>
 </div>
 

@@ -1,7 +1,7 @@
-import * as THREE from "../../../../js/three.module.js";
+import * as THREE from "../../../js/three.module.js";
 
 import { AsciiEffectProyeccionDebil } from "./AsciiEffectProyeccionDebil.js";
-import { OrbitControls } from "../../../../js/OrbitControls.js";
+import { OrbitControls } from "../../../js/OrbitControls.js";
 import { GLTFLoader } from "./GLTFLoader.js";
 
 function hexToRgb(hex) {
@@ -105,7 +105,7 @@ const luminosidad = (r, g, b) => {
 export function crea(opciones) {
   const DOMINIO_ACTUAL = window.location.origin;
   const URL_LIBRERIAS = DOMINIO_ACTUAL + "/debil/";
-  const URL_BASE = DOMINIO_ACTUAL + "/debil/en/concentracion/6/";
+  const URL_BASE = DOMINIO_ACTUAL + "/debil/en/amistad/";
 
   const blanco = { r: 255, g: 255, b: 255 };
 

@@ -18,6 +18,9 @@
     <p>
       <a href="/debil/en/concentracion"><span class="separador">/</span> concentración</a>
     </p>
+    <p>
+      <a href="/debil/en/amistad"><span class="separador">/</span> amistad</a>
+    </p>
 
   </div>
 </div>
