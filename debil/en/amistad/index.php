@@ -1,6 +1,4 @@
 <?php
-// TITULO
-
 $versionCartel = $_GET && isset($_GET['version']) ? $_GET['version'] : 'vertical';
 ?>
 <?php require('../../../_cabecera.php'); ?>
