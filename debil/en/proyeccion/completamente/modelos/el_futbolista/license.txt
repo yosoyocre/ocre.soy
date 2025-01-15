@@ -1,0 +1,11 @@
+Model Information:
+* title:	El Futbolista
+* source:	https://sketchfab.com/3d-models/el-futbolista-ba68f0fbecf4497c846244f56f0461be
+* author:	Paul Marx (https://sketchfab.com/my3dscanner)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "El Futbolista" (https://sketchfab.com/3d-models/el-futbolista-ba68f0fbecf4497c846244f56f0461be) by Paul Marx (https://sketchfab.com/my3dscanner) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

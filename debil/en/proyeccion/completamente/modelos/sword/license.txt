@@ -1,0 +1,11 @@
+Model Information:
+* title:	Damascus Sword
+* source:	https://sketchfab.com/3d-models/damascus-sword-78b28b6c86a4443d9f4b2153b5a40704
+* author:	Psychloor (https://sketchfab.com/blomqvistkevin)
+
+Model License:
+* license type:	CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
+* requirements:	Author must be credited. Modified versions must have the same license. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Damascus Sword" (https://sketchfab.com/3d-models/damascus-sword-78b28b6c86a4443d9f4b2153b5a40704) by Psychloor (https://sketchfab.com/blomqvistkevin) licensed under CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
