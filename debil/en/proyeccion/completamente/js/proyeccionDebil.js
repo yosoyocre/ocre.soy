@@ -4,6 +4,34 @@ import { AsciiEffectProyeccionDebil } from "./AsciiEffectProyeccionDebil.js";
 import { OrbitControls } from "../../../../js/OrbitControls.js";
 import { GLTFLoader } from "./GLTFLoader.js";
 
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+function shuffle(array) {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+}
+
 /**
  * Carga un script de forma asíncrona
  *
@@ -209,7 +237,9 @@ export function crea(opciones) {
       console.log("forma", forma);
 
       let colorBase;
+      let colorFondo;
       let luminanceBase;
+      const blanco = { r: 255, g: 255, b: 255 };
 
       if (opciones.color !== undefined) {
         colorBase = opciones.color;
@@ -456,7 +486,56 @@ export function crea(opciones) {
 
         escena.add(modeloMostrado);
 
-        efectoAscii.colorBaseGlobal = colorAleatorioConContraste();
+        // Alternamos entre color/blanco y 2 colores de una paleta
+        if (Math.random() > 0.8) {
+          let paleta =
+            PALETAS_CHULAS[Math.floor(Math.random() * PALETAS_CHULAS.length)];
+
+          shuffle(paleta);
+
+          colorBase = hexToRgb(paleta[0]);
+          let luminosidadBase = luminosidad(
+            colorBase["r"],
+            colorBase["g"],
+            colorBase["b"]
+          );
+
+          // Forzamos a que haya un mínimo de contraste entre el color base y el fondo
+          colorFondo = null;
+          for (let i = 1; i < paleta.length; i++) {
+            let propuestaFondo = hexToRgb(paleta[i]);
+            let luminosidadPropuesta = luminosidad(
+              propuestaFondo["r"],
+              propuestaFondo["g"],
+              propuestaFondo["b"]
+            );
+
+            let ratio =
+              luminosidadBase > luminosidadPropuesta
+                ? (luminosidadPropuesta + 0.05) / (luminosidadBase + 0.05)
+                : (luminosidadBase + 0.05) / (luminosidadPropuesta + 0.05);
+
+            if (ratio < 1 / 4) {
+              colorFondo = propuestaFondo;
+              break;
+            }
+          }
+
+          if (colorFondo === null) {
+            colorFondo = blanco;
+          }
+        } else {
+          if (Math.random() > 0.5) {
+            colorBase = blanco;
+            colorFondo = colorAleatorioConContraste();
+          } else {
+            colorBase = colorAleatorioConContraste();
+            colorFondo = blanco;
+          }
+        }
+
+        efectoAscii.colorBaseGlobal = colorBase;
+        efectoAscii.colorFondo = colorFondo;
         efectoAscii.invert = generador() > 0.5;
         efectoAscii.caracteres =
           posiblesCaracteres[

@@ -62,12 +62,14 @@ function copiaArray(array) {
   return arrayCopia;
 }
 
-document
-  .querySelector(".js-otro-poster")
-  .addEventListener("click", function (e) {
-    e.preventDefault();
+if (document.querySelector(".js-otro-poster")) {
+  document
+    .querySelector(".js-otro-poster")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
 
-    console.log("Generando otro poster");
+      console.log("Generando otro poster");
 
-    IMAGEN_DIBUJADA = false;
-  });
+      IMAGEN_DIBUJADA = false;
+    });
+}

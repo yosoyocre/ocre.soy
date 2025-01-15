@@ -43,6 +43,8 @@ foreach ($directoriosModelos as $archivo) {
     <!-- Remove this when import maps will be widely supported -->
     <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
 
+    <script src="../../concentracion/js/comun.js"></script>
+
     <script type="module">
         import {
             crea

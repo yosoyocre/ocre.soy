@@ -23,6 +23,7 @@ class AsciiEffectProyeccionDebil {
 
     this.colorBaseGlobal = colorBase;
     this.invert = options["invert"] || false; // black is white, white is black
+    this.colorFondo = options["colorFondo"] || { r: 255, g: 255, b: 255 };
     this.caracteres = charSet;
 
     let width, height;
@@ -87,7 +88,14 @@ class AsciiEffectProyeccionDebil {
       targetCtx.textBaseline = "top";
 
       targetCtx.clearRect(0, 0, width, height);
-      targetCtx.fillStyle = "rgb(255, 255, 255)";
+      targetCtx.fillStyle = targetCtx.fillStyle =
+        "rgb(" +
+        self.colorFondo["r"] +
+        "," +
+        self.colorFondo["g"] +
+        "," +
+        self.colorFondo["b"] +
+        ")";
       targetCtx.fillRect(0, 0, width, height);
 
       targetCtx.fillStyle =
