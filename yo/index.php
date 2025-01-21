@@ -55,6 +55,14 @@ require('../_cabecera.php');
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
+            <a href="https://ocre.soy/debil/en/amistad">
+                <h4>Con Auto Sacramental</h4>
+            </a>
+            <p style="margin-bottom: 100px">
+                <a href="https://ocre.soy/debil/en/amistad">
+                    Genera carteles del concierto
+                </a>
+            </p>
             <h4>No Débil</h4>
             <p>
                 <a href="https://youtu.be/qXcyCIJjvOA">
