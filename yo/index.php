@@ -55,12 +55,22 @@ require('../_cabecera.php');
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            <a href="https://ocre.soy/debil/en/amistad">
-                <h4>Con Auto Sacramental</h4>
+            <a href="https://edupoch.itch.io/">
+                <h4>Música para videojuegos</h4>
             </a>
+            <p>
+                <a href="https://arieuger.itch.io/augardentia">
+                    Augardentía
+                </a>
+            </p>
+            <p>
+                <a href="https://arieuger.itch.io/turistifyer">
+                    Turistifyer
+                </a>
+            </p>
             <p style="margin-bottom: 100px">
-                <a href="https://ocre.soy/debil/en/amistad">
-                    Genera carteles del concierto
+                <a href="https://arieuger.itch.io/destrucciones-martinez">
+                    Destrucciones Martínez
                 </a>
             </p>
             <h4>No Débil</h4>
@@ -82,11 +92,6 @@ require('../_cabecera.php');
             <p>
                 <a href="https://claro.ocre.soy">
                     Lee mis notas sobre mi trabajo
-                </a>
-            </p>
-            <p>
-                <a href="https://arieuger.itch.io/destrucciones-martinez">
-                    Juega a "Destrucciones Martínez"
                 </a>
             </p>
             <p>
