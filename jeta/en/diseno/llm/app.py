@@ -12,9 +12,10 @@ model = AutoModel.from_pretrained(MODEL)
 model.eval()
 
 CATEGORIES = {
-    "motivacion": "me siento desmotivado en el trabajo",
-    "estres": "tengo demasiado estrés laboral",
-    "conflicto": "problemas con compañeros de trabajo"
+    "trabajo": "me siento desmotivado en el trabajo",
+    "amor": "mis relaciones amorosas no van bien",
+    "futuro": "el futuro me preocupa mucho",
+    "salud": "tengo problemas de salud que me afectan",
 }
 
 def embed(text):
@@ -29,10 +30,8 @@ class Input(BaseModel):
     text: str
 
 @app.get("/classify")
-# def classify(data: Input):
-def classify():
-    # e = embed(data.text)
-    e = embed("Mis compañeros son unos idiotas")
+def classify(text: str):
+    e = embed(text)
     scores = {
         k: float(cosine_similarity(e, v)[0][0])
         for k, v in CATEGORY_EMBEDS.items()
