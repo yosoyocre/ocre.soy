@@ -12,14 +12,21 @@ CATEGORIES = {
     # ACTITUD
     "me siento poco motivado": "actitud",
     # PASIÓN
-    "mi sueldo es muy bajo": "pasión",
+    "el sueldo es muy bajo": "pasión",
+    "no me siento valorado": "pasión",
     # TRABAJO
+    "tengo demasiadas cosas que hacer": "trabajo",
     "no soy capaz de superar mis obstáculos": "trabajo",
     # TRABAJO EN EQUIPO
-    "no tengo buenos compañeros": "equipo",
+    "no estoy contento con mi jefe": "equipo",
+    "mis compañeros no trabajan bien en equipo": "equipo",
     # ÉXITO
-    "no sé qué hacer con mi vida": "éxito"
+    "no sé qué objetivos seguir": "éxito",
+    "tengo miedo de que me despidan": "éxito"
 }
+
+# Concatenamos la frase "en mi trabajo" a cada categoría para mayor contexto
+CATEGORIES = {"en mi trabajo " + k: v for k, v in CATEGORIES.items()}
 
 
 class SemanticClassifier:

@@ -23,7 +23,7 @@ foreach ($posiblesProblemas as $problema) {
 
     echo "Problema:<br>";
     echo htmlspecialchars($problema) . "<br><br>";
-    echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
+    // echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
     // echo "Pesos: ";
     // foreach ($pesos as $label => $peso) {
     //     echo htmlspecialchars($label) . ": " . round($peso, 4) . ". ";
