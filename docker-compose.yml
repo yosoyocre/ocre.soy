@@ -22,7 +22,7 @@ services:
         user: admin
         uid: 1000
       context: ./
-      dockerfile: docker/python/Dockerfile
+      dockerfile: docker/python/sentencetransformer/Dockerfile
     image: ocre-python
     container_name: ocre-python
     working_dir: /var/www/
