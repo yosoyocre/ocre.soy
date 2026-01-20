@@ -32,19 +32,28 @@ foreach ($posiblesProblemas as $problema) {
     $posiblesSoluciones = $soluciones[$respuestaEstructurada['solution']];
     $solucion = $posiblesSoluciones[array_rand($posiblesSoluciones)];
 
+    echo '<p>';
+
     if ($sonPruebas) {
         echo "Problema:<br>" . htmlspecialchars($problema) . "<br><br>";
     }
 
-    if ($debug) {
-        echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
-        echo "Pesos: ";
-        foreach ($pesos as $label => $peso) {
-            echo htmlspecialchars($label) . ": " . round($peso, 4) . ". ";
-        }
-        echo "<br><br>";
+    echo '<span';
+    if (!$debug) {
+        echo ' style="display:none;"';
     }
+    echo '>';
+    echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
+    echo "Pesos: ";
+    foreach ($pesos as $label => $peso) {
+        echo htmlspecialchars($label) . ": " . round($peso, 4) . ". <br>";
+    }
+    echo "<br><br>";
+    echo "</span>";
+
     echo "Solución:<br>";
     echo $solucion;
+    echo '</p>';
+
     echo "<hr>";
 }

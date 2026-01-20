@@ -19,8 +19,9 @@ CATEGORIES = {
     "tengo demasiadas cosas que hacer": "trabajo",
     "no soy capaz de superar mis obstáculos": "trabajo",
     # TRABAJO EN EQUIPO
-    "no estoy contento con mi jefe": "equipo",
     "mis compañeros no trabajan bien en equipo": "equipo",
+    # JERARQUÍA
+    "no estoy contento con mi jefe": "jerarquía",
     # ÉXITO
     "no sé qué objetivos seguir": "éxito",
     "tengo miedo de que me despidan": "éxito"
