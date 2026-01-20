@@ -12,8 +12,9 @@ CATEGORIES = {
     # ACTITUD
     "me siento poco motivado": "actitud",
     # PASIÓN
-    "el sueldo es muy bajo": "pasión",
-    "no me siento valorado": "pasión",
+    "no me siento apreciado": "pasión",
+    # DINERO
+    "el sueldo que me pagan es muy bajo": "dinero",
     # TRABAJO
     "tengo demasiadas cosas que hacer": "trabajo",
     "no soy capaz de superar mis obstáculos": "trabajo",

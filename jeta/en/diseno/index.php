@@ -1,12 +1,23 @@
 <?php
 
+$text = "";
+$debug = isset($_GET['debug']) && $_GET['debug'] == "1";
+$sonPruebas = isset($_GET['text']) && $_GET['text'] == "todos";
 
 if (!isset($_GET['text'])) {
-    $posiblesProblemas = json_decode(file_get_contents("posiblesProblemas.json"), true);
+    $posiblesProblemas = [];
 } else {
-    $text = $_GET['text'];
-    $posiblesProblemas = [$text];
+    if ($sonPruebas) {
+        $posiblesProblemas = json_decode(file_get_contents("posiblesProblemas.json"), true);
+    } else {
+        $text = $_GET['text'];
+        $posiblesProblemas = [$text];
+    }
 }
+
+echo "Describe tu problema<br>";
+echo '<input type="text" size="80" value="' . htmlspecialchars($text) . '" onchange="location.href=\'?text=\'+this.value;">';
+echo "<br><br>";
 
 foreach ($posiblesProblemas as $problema) {
     $url = "http://python:5000/classify?text=" . urlencode($problema);
@@ -21,14 +32,18 @@ foreach ($posiblesProblemas as $problema) {
     $posiblesSoluciones = $soluciones[$respuestaEstructurada['solution']];
     $solucion = $posiblesSoluciones[array_rand($posiblesSoluciones)];
 
-    echo "Problema:<br>";
-    echo htmlspecialchars($problema) . "<br><br>";
-    // echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
-    // echo "Pesos: ";
-    // foreach ($pesos as $label => $peso) {
-    //     echo htmlspecialchars($label) . ": " . round($peso, 4) . ". ";
-    // }
-    // echo "<br><br>";
+    if ($sonPruebas) {
+        echo "Problema:<br>" . htmlspecialchars($problema) . "<br><br>";
+    }
+
+    if ($debug) {
+        echo "Ganadora:<br>" . htmlspecialchars($respuestaEstructurada['label']) . "<br><br>";
+        echo "Pesos: ";
+        foreach ($pesos as $label => $peso) {
+            echo htmlspecialchars($label) . ": " . round($peso, 4) . ". ";
+        }
+        echo "<br><br>";
+    }
     echo "Solución:<br>";
     echo $solucion;
     echo "<hr>";
