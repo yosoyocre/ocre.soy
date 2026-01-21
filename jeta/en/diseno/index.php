@@ -50,6 +50,7 @@
             </div>
         </div>
     </div>
+    <img id="jeta-img" class="hidden" src="jeta.png" alt="">
     <div class="flex items-center justify-center  min-h-screen">
         <main class="js-portada w-[500px] h-[500px] shadow-[4px_4px_5px_rgb(221,221,221)]"></main>
     </div>

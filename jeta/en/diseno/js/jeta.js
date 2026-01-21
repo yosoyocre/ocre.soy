@@ -19,6 +19,11 @@ function textHeight(text, maxWidth) {
 }
 
 let xTexto, yTexto, wTextp;
+let referencia;
+
+function preload() {
+  referencia = loadImage("jeta.png");
+}
 
 function setup() {
   pixelDensity(1);
@@ -38,10 +43,15 @@ function setup() {
 }
 function draw() {
   background(255);
-  stroke(0);
-  strokeWeight(5);
+
+  //   image(referencia, 0, 0);
+
   // Para que las líneas queden nítidas movemos el origen medio píxel
   translate(0.5, 0.5);
+
+  //   stroke(0, 0, 0, 255 * transparencia);
+  stroke(0);
+  strokeWeight(5);
 
   const margen = 70;
 
@@ -65,14 +75,14 @@ function draw() {
   if (FUENTES_CARGADAS) {
     // Escribimos la frase
     noStroke();
+    textLeading(70);
+
+    drawingContext.letterSpacing = "-4px";
     textAlign(LEFT, TOP);
     textFont("futura-pt", 75);
     textStyle(BOLD);
-    // textWeight(300);
 
-    textLeading(70);
     // Reducimos el kerning para que quepa más texto
-    drawingContext.letterSpacing = "-4px";
 
     //let frase =
     //"DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
@@ -98,5 +108,34 @@ function draw() {
       posicionY + margenTexto,
       anchoMaximo - 2 * margenTexto,
     );
+
+    fill(255);
+    rect(11 * margen + 3, 11 * margen + 3, 8 * margen, 8 * margen);
+
+    fill(0);
+    rect(12 * margen - 2, 12 * margen - 2, 7 * margen + 5, 7 * margen + 5);
+    fill(255);
+    rect(12 * margen + 3, 12 * margen + 3, 7 * margen - 5, 7 * margen - 5);
+
+    fill(0);
+    drawingContext.letterSpacing = "4px";
+    textAlign(CENTER, TOP);
+    textStyle(NORMAL);
+
+    const centroTitulo = 15 * margen + margen / 2 + 0.5;
+
+    stroke(0);
+    strokeWeight(1);
+    // line(centroTitulo, 0, centroTitulo, height);
+
+    textAlign(CENTER, TOP);
+    textFont("futura-pt", 180);
+    text("OCRE", centroTitulo + 2, 12 * margen + 30);
+    textAlign(CENTER, TOP);
+    textFont("futura-pt", 60);
+    text("ES UN", centroTitulo + 2, 15 * margen + 11);
+    textAlign(CENTER, TOP);
+    textFont("futura-pt", 180);
+    text("JETA", centroTitulo + 7, 16 * margen + 34);
   }
 }
