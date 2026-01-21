@@ -19,13 +19,27 @@
         Sloke.ai
     </div>
 
-    <div class="flex pt-72 justify-center min-h-screen text-3xl">
-        <div class="max-w-2xl w-full px-4 text-center">
-            <p>
-                Sloke.ai te ayuda a resolver tus problemas laborales con <b>inteligencia artificial</b>
-            </p>
-            <input type="text" placeholder="¿Qué es lo que te preocupa hoy en tu trabajo?" class="text-xl w-full rounded-full px-6 pt-3 pb-4 border border-slate-300 mt-8 focus:outline-none shadow-lg">
+    <div class="hidden flex pt-72 justify-center min-h-screen text-3xl">
+        <div class="max-w-2xl w-full text-center">
+            <div class="px-4">
+                <p>
+                    Sloke.ai te ayuda a resolver tus problemas laborales con <b>inteligencia artificial</b>
+                </p>
+                <input type="text" placeholder="¿Qué es lo que te preocupa hoy en tu trabajo?" class="text-xl w-full rounded-full px-6 pt-3 pb-4 border border-slate-300 mt-8 focus:outline-none shadow-lg">
+            </div>
         </div>
+    </div>
+    <div class="hidden flex pt-72 justify-center min-h-screen text-3xl">
+        <div class="max-w-2xl w-full text-center">
+            <div class="px-4">
+                <p class="animate-pulse">
+                    Sloke.ai está pensando una solución para ti...
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center justify-center  min-h-screen">
+        <canvas class="w-[500px] h-[500px] shadow-lg"></canvas>
     </div>
 
 </body>
