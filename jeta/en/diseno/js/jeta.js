@@ -18,8 +18,25 @@ function textHeight(text, maxWidth) {
   return h;
 }
 
-let xTexto, yTexto, wTextp;
+function colorAleatorio() {
+  let color = [];
+  color["r"] = random(0, 255);
+  color["g"] = random(0, 255);
+  color["b"] = random(0, 255);
+  return color;
+}
+
+function luminosidad(r, g, b) {
+  var a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+let xTexto, yTexto, wTexto;
 let referencia;
+let colorBase;
 
 function preload() {
   referencia = loadImage("jeta.png");
@@ -40,6 +57,28 @@ function setup() {
   //   xTexto = 2;
   //   yTexto = 3;
   //   wTexto = 8;
+
+  let colorBaseAux = colorAleatorio();
+
+  luminanceBase = luminosidad(
+    colorBaseAux["r"],
+    colorBaseAux["g"],
+    colorBaseAux["b"],
+  );
+  const maxLuminance = 0.1;
+
+  // El color debe tener una liminosidad menor que maxLuminance
+  // para que el texto en gris tenga contraste sufienciente
+  while (luminanceBase > maxLuminance) {
+    colorBaseAux = colorAleatorio();
+    luminanceBase = luminosidad(
+      colorBaseAux["r"],
+      colorBaseAux["g"],
+      colorBaseAux["b"],
+    );
+  }
+
+  colorBase = color(colorBaseAux["r"], colorBaseAux["g"], colorBaseAux["b"]);
 }
 function draw() {
   background(255);
@@ -50,7 +89,7 @@ function draw() {
   translate(0.5, 0.5);
 
   //   stroke(0, 0, 0, 255 * transparencia);
-  stroke(0);
+  stroke(colorBase);
   strokeWeight(5);
 
   const margen = 70;
@@ -101,7 +140,7 @@ function draw() {
     fill(255);
     rect(posicionX, posicionY, anchoMaximo, alturaRedondeada - 5);
 
-    fill(0);
+    fill(colorBase);
     text(
       frase,
       posicionX + margenTexto,
@@ -112,19 +151,19 @@ function draw() {
     fill(255);
     rect(11 * margen + 3, 11 * margen + 3, 8 * margen, 8 * margen);
 
-    fill(0);
+    fill(colorBase);
     rect(12 * margen - 2, 12 * margen - 2, 7 * margen + 5, 7 * margen + 5);
     fill(255);
     rect(12 * margen + 3, 12 * margen + 3, 7 * margen - 5, 7 * margen - 5);
 
-    fill(0);
+    fill(colorBase);
     drawingContext.letterSpacing = "4px";
     textAlign(CENTER, TOP);
     textStyle(NORMAL);
 
     const centroTitulo = 15 * margen + margen / 2 + 0.5;
 
-    stroke(0);
+    stroke(colorBase);
     strokeWeight(1);
     // line(centroTitulo, 0, centroTitulo, height);
 
