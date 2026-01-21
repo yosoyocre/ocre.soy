@@ -12,6 +12,11 @@
             Typekit.load();
         } catch (e) {}
     </script>
+    <style>
+        main canvas {
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body class="bg-white text-slate-800">
@@ -39,9 +44,12 @@
         </div>
     </div>
     <div class="flex items-center justify-center  min-h-screen">
-        <canvas class="w-[500px] h-[500px] shadow-lg"></canvas>
+        <main class="js-portada w-[500px] h-[500px] shadow-[4px_4px_5px_rgb(221,221,221)]"></main>
     </div>
 
 </body>
+
+<script src="./js/p5.min.js"></script>
+<script src="./js/jeta.js"></script>
 
 </html>
