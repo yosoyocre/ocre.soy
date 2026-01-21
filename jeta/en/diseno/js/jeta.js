@@ -41,11 +41,13 @@ let xPatron, yPatron, anchoPatron, altoPatron;
 let referencia;
 let colorBase;
 
+let patrones = ["diagonal-izquierda", "diagonal-derecha", "cruzado", "puntos"];
+let patron;
+
 function pintaPatron() {
   push();
   stroke(colorBase);
   strokeWeight(3);
-  let paso = 15;
 
   // Limitar el área de dibujo al rectángulo
   drawingContext.save();
@@ -58,13 +60,65 @@ function pintaPatron() {
   );
   drawingContext.clip();
 
-  fill(255);
-  rect(0, 0, width, height);
-
-  fill(colorBase);
   beginShape();
-  for (let i = -height; i < width; i += paso) {
-    line(i, 0, i + height, height);
+
+  let tamanoLinea;
+  let paso;
+
+  switch (patron) {
+    case "diagonal-izquierda":
+      fill(255);
+      rect(0, 0, width, height);
+
+      fill(colorBase);
+      tamanoLinea = 10;
+      paso = (2 * tamanoLinea) / sin(radians(45));
+      strokeWeight(tamanoLinea);
+      for (let i = -height; i < width; i += paso) {
+        line(i, 0, i + height, height);
+      }
+      break;
+    case "diagonal-derecha":
+      fill(255);
+      rect(0, 0, width, height);
+
+      fill(colorBase);
+      tamanoLinea = 10;
+      paso = (2 * tamanoLinea) / sin(radians(45));
+      strokeWeight(tamanoLinea);
+      for (let i = 0; i < width + height; i += paso) {
+        line(i, 0, i - height, height);
+      }
+      break;
+    case "cruzado":
+      fill(colorBase);
+      rect(0, 0, width, height);
+
+      stroke(255);
+      tamanoLinea = 4;
+      paso = (4 * tamanoLinea) / sin(radians(45));
+      strokeWeight(tamanoLinea);
+      for (let i = -height; i < width; i += paso) {
+        line(i, 0, i + height, height);
+      }
+      for (let i = 0; i < width + height; i += paso) {
+        line(i, 0, i - height, height);
+      }
+      break;
+    case "puntos":
+      fill(255);
+      rect(0, 0, width, height);
+
+      fill(colorBase);
+      tamanoLinea = 12;
+      paso = 18;
+      strokeWeight(tamanoLinea);
+      for (let x = tamanoLinea / -3; x <= width; x += paso) {
+        for (let y = tamanoLinea / -3; y <= height; y += paso) {
+          point(x, y);
+        }
+      }
+      break;
   }
   endShape();
 
@@ -96,6 +150,8 @@ function setup() {
   yPatron = floor(random(1, 13));
   anchoPatron = floor(random(3, 19 - xPatron));
   altoPatron = floor(random(3, 19 - yPatron));
+  patron = random(patrones);
+  //   patron = "puntos";
 
   let colorBaseAux = colorAleatorio();
 
@@ -151,12 +207,16 @@ function draw() {
   pintaPatron();
 
   if (FUENTES_CARGADAS) {
+    //   if (false) {
     // Escribimos la frase
     noStroke();
-    textLeading(70);
 
-    // Reducimos el kerning para que quepa más texto
-    drawingContext.letterSpacing = "-4px";
+    // textLeading(70);
+    // drawingContext.letterSpacing = "-4px";
+
+    textLeading(75);
+    drawingContext.letterSpacing = "-2px";
+
     textAlign(LEFT, TOP);
     textFont("futura-pt", 75);
     textStyle(BOLD);
@@ -189,6 +249,8 @@ function draw() {
       anchoMaximo - 2 * margenTexto,
     );
 
+    fill(colorBase);
+    rect(11 * margen - 2, 11 * margen - 2, 8 * margen + 5, 8 * margen + 5);
     fill(255);
     rect(11 * margen + 3, 11 * margen + 3, 8 * margen, 8 * margen);
 
