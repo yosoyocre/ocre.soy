@@ -34,9 +34,43 @@ function luminosidad(r, g, b) {
   return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 }
 
+const margen = 70;
+
 let xTexto, yTexto, wTexto;
+let xPatron, yPatron, anchoPatron, altoPatron;
 let referencia;
 let colorBase;
+
+function pintaPatron() {
+  push();
+  stroke(colorBase);
+  strokeWeight(3);
+  let paso = 15;
+
+  // Limitar el área de dibujo al rectángulo
+  drawingContext.save();
+  drawingContext.beginPath();
+  drawingContext.rect(
+    xPatron * margen + 3,
+    yPatron * margen + 3,
+    anchoPatron * margen - 5,
+    altoPatron * margen - 5,
+  );
+  drawingContext.clip();
+
+  fill(255);
+  rect(0, 0, width, height);
+
+  fill(colorBase);
+  beginShape();
+  for (let i = -height; i < width; i += paso) {
+    line(i, 0, i + height, height);
+  }
+  endShape();
+
+  drawingContext.restore();
+  pop();
+}
 
 function preload() {
   referencia = loadImage("jeta.png");
@@ -57,6 +91,11 @@ function setup() {
   //   xTexto = 2;
   //   yTexto = 3;
   //   wTexto = 8;
+
+  xPatron = floor(random(1, 13));
+  yPatron = floor(random(1, 13));
+  anchoPatron = floor(random(3, 19 - xPatron));
+  altoPatron = floor(random(3, 19 - yPatron));
 
   let colorBaseAux = colorAleatorio();
 
@@ -92,8 +131,6 @@ function draw() {
   stroke(colorBase);
   strokeWeight(5);
 
-  const margen = 70;
-
   for (let x = 0; x <= width; x += margen) {
     line(x, 0, x, height);
   }
@@ -111,17 +148,18 @@ function draw() {
   rect(0, 0, margen - 2, height);
   rect(width - margen + 3, 0, margen, height);
 
+  pintaPatron();
+
   if (FUENTES_CARGADAS) {
     // Escribimos la frase
     noStroke();
     textLeading(70);
 
+    // Reducimos el kerning para que quepa más texto
     drawingContext.letterSpacing = "-4px";
     textAlign(LEFT, TOP);
     textFont("futura-pt", 75);
     textStyle(BOLD);
-
-    // Reducimos el kerning para que quepa más texto
 
     //let frase =
     //"DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
@@ -137,6 +175,9 @@ function draw() {
     let altura =
       textHeight(frase, anchoMaximo - 2 * margenTexto) + 2 * margenTexto;
     let alturaRedondeada = Math.ceil(altura / margen) * margen;
+
+    fill(colorBase);
+    rect(posicionX - 5, posicionY - 5, anchoMaximo + 10, alturaRedondeada + 5);
     fill(255);
     rect(posicionX, posicionY, anchoMaximo, alturaRedondeada - 5);
 
