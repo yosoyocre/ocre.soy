@@ -1,3 +1,25 @@
+function textHeight(text, maxWidth) {
+  var words = text.split(" ");
+  var line = "";
+  var h = textLeading();
+
+  for (var i = 0; i < words.length; i++) {
+    var testLine = line + words[i] + " ";
+    var testWidth = drawingContext.measureText(testLine).width;
+
+    if (testWidth > maxWidth && i > 0) {
+      line = words[i] + " ";
+      h += textLeading();
+    } else {
+      line = testLine;
+    }
+  }
+
+  return h;
+}
+
+let xTexto, yTexto, wTextp;
+
 function setup() {
   pixelDensity(1);
 
@@ -5,6 +27,14 @@ function setup() {
 
   // Le quitamos el estilo al canvas para que se ajuste al contenedor
   document.querySelector("main canvas").removeAttribute("style");
+
+  // Tomamos x e y aleatorios
+  xTexto = floor(random(1, 10));
+  yTexto = floor(random(1, 10));
+  wTexto = floor(random(8, 10));
+  //   xTexto = 2;
+  //   yTexto = 3;
+  //   wTexto = 8;
 }
 function draw() {
   background(255);
@@ -15,10 +45,58 @@ function draw() {
 
   const margen = 70;
 
-  for (let x = margen; x <= width - margen; x += margen) {
-    line(x, margen, x, height - margen);
+  for (let x = 0; x <= width; x += margen) {
+    line(x, 0, x, height);
   }
-  for (let y = margen; y <= height - margen; y += margen) {
-    line(margen, y, width - margen, y);
+  for (let y = 0; y <= height; y += margen) {
+    line(0, y, width, y);
+  }
+
+  // Creamos un margen blanco alrededor
+  // para que las terminaciones de las líneas queden limpias
+  translate(-0.5, -0.5);
+  strokeWeight(0);
+  fill(255);
+  rect(0, 0, width, margen - 2);
+  rect(0, height - margen + 3, width, margen);
+  rect(0, 0, margen - 2, height);
+  rect(width - margen + 3, 0, margen, height);
+
+  if (FUENTES_CARGADAS) {
+    // Escribimos la frase
+    noStroke();
+    textAlign(LEFT, TOP);
+    textFont("futura-pt", 75);
+    textStyle(BOLD);
+    // textWeight(300);
+
+    textLeading(70);
+    // Reducimos el kerning para que quepa más texto
+    drawingContext.letterSpacing = "-4px";
+
+    //let frase =
+    //"DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
+
+    let frase =
+      "TRABAJAR DURO, UNA MENTE POSITIVA Y LEVANTARSE TEMPRANO SON LAS CLAVES PARA TENER UN GRAN DÍA";
+
+    let margenTexto = 10;
+    let posicionX = xTexto * margen + 3;
+    let posicionY = yTexto * margen + 3;
+    let anchoMaximo = wTexto * margen - 5;
+
+    let altura =
+      textHeight(frase, anchoMaximo - 2 * margenTexto) + 2 * margenTexto;
+    let alturaRedondeada = Math.ceil(altura / margen) * margen;
+    fill(255);
+    rect(posicionX, posicionY, anchoMaximo, alturaRedondeada - 5);
+
+    fill(0);
+    text(
+      frase,
+      posicionX + margenTexto,
+      posicionY + margenTexto,
+      anchoMaximo - 2 * margenTexto,
+    );
   }
 }

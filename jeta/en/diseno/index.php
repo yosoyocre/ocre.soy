@@ -8,8 +8,15 @@
 
     <script src="https://use.typekit.net/wfj3ppv.js"></script>
     <script>
+        var FUENTES_CARGADAS = false;
+
         try {
-            Typekit.load();
+            Typekit.load({
+                active: function() {
+                    // console.log('Fuente cargada!');
+                    FUENTES_CARGADAS = true;
+                },
+            });
         } catch (e) {}
     </script>
     <style>
