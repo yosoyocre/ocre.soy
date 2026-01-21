@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'futura-pt', sans-serif;
+}
+
+b {
+    font-weight: 500;
+}
