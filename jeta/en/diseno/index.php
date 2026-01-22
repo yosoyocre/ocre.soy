@@ -58,6 +58,6 @@
 </body>
 
 <script src="./js/p5.min.js"></script>
-<script src="./js/jeta.js"></script>
+<script type="module" src="./js/jeta.js"></script>
 
 </html>
