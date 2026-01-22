@@ -54,8 +54,9 @@ let patrones = [
   "ángulos",
   "ondas",
   "tejas",
+  "flechas",
 ];
-let patron;
+let patron = false;
 
 let CON_IMAGEN = true;
 let CON_FUENTES = true;
@@ -246,6 +247,28 @@ function pintaPatron() {
         }
       }
       break;
+
+    case "flechas":
+      fill(255);
+      rect(0, 0, width, height);
+
+      tamanoLinea = 30;
+      pasoX = tamanoLinea * 1.25;
+      pasoY = tamanoLinea * 1.25;
+      strokeWeight(5);
+      for (let x = 0; x <= width; x += pasoX) {
+        for (let y = 0; y <= height; y += pasoY) {
+          push();
+          translate(x + tamanoLinea, y + tamanoLinea);
+          let angulo = noise(x * 0.01, y * 0.01) * TWO_PI;
+          rotate(angulo);
+          line(0, -tamanoLinea / 2, 0, tamanoLinea / 2);
+          line(-tamanoLinea / 2, 0, 0, -tamanoLinea / 2);
+          line(tamanoLinea / 2, 0, 0, -tamanoLinea / 2);
+          pop();
+        }
+      }
+      break;
   }
   endShape();
 
@@ -278,8 +301,9 @@ function setup() {
   yPatron = floor(random(1, 13));
   anchoPatron = floor(random(10, 19 - xPatron));
   altoPatron = floor(random(10, 19 - yPatron));
-  patron = random(patrones);
-  // patron = "tejas";
+  if (!patron) {
+    patron = random(patrones);
+  }
 
   xFacepalm = floor(random(1, 13));
   yFacepalm = floor(random(1, 13));
