@@ -7,14 +7,18 @@
     <link href="./css/output.css" rel="stylesheet">
 
     <script src="https://use.typekit.net/wfj3ppv.js"></script>
-    <script>
-        var FUENTES_CARGADAS = false;
+
+    <script src="./js/p5.min.js"></script>
+    <script type="module" src="./js/jeta.js"></script>
+    <script type="module">
+        import {
+            jeta
+        } from "./js/jeta.js";
 
         try {
             Typekit.load({
                 active: function() {
-                    // console.log('Fuente cargada!');
-                    FUENTES_CARGADAS = true;
+                    new p5(jeta);
                 },
             });
         } catch (e) {}
@@ -57,7 +61,6 @@
 
 </body>
 
-<script src="./js/p5.min.js"></script>
-<script type="module" src="./js/jeta.js"></script>
+
 
 </html>
