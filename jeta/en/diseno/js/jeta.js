@@ -1,3 +1,15 @@
+import { DiagonalIzquierda } from "./patrones/diagonalIzquierda.js";
+import { DiagonalDerecha } from "./patrones/diagonalDerecha.js";
+import { Cruzado } from "./patrones/cruzado.js";
+import { Puntos } from "./patrones/puntos.js";
+import { PuntosOndas } from "./patrones/puntosOndas.js";
+import { PuntosPerlin } from "./patrones/puntosPerlin.js";
+import { Laberinto } from "./patrones/laberinto.js";
+import { Angulos } from "./patrones/angulos.js";
+import { Ondas } from "./patrones/ondas.js";
+import { Tejas } from "./patrones/tejas.js";
+import { Flechas } from "./patrones/flechas.js";
+
 const jeta = (p) => {
   function textHeight(text, maxWidth) {
     var words = text.split(" ");
@@ -87,190 +99,53 @@ const jeta = (p) => {
 
     switch (patron) {
       case "diagonal-izquierda":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        p.fill(colorBase);
-        tamanoLinea = 10;
-        paso = (2 * tamanoLinea) / p.sin(p.radians(45));
-        p.strokeWeight(tamanoLinea);
-        for (let i = -p.height; i < p.width; i += paso) {
-          p.line(i, 0, i + p.height, p.height);
-        }
+        let patronDiagonalIzquierda = new DiagonalIzquierda();
+        patronDiagonalIzquierda.dibujar(p, colorBase);
         break;
       case "diagonal-derecha":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        p.fill(colorBase);
-        tamanoLinea = 10;
-        paso = (2 * tamanoLinea) / p.sin(p.radians(45));
-        p.strokeWeight(tamanoLinea);
-        for (let i = 0; i < p.width + p.height; i += paso) {
-          p.line(i, 0, i - p.height, p.height);
-        }
+        let patronDiagonalDerecha = new DiagonalDerecha();
+        patronDiagonalDerecha.dibujar(p, colorBase);
         break;
       case "cruzado":
-        p.fill(colorBase);
-        p.rect(0, 0, p.width, p.height);
-
-        p.stroke(255);
-        tamanoLinea = 4;
-        paso = (4 * tamanoLinea) / p.sin(p.radians(45));
-        p.strokeWeight(tamanoLinea);
-        for (let i = -p.height; i < p.width; i += paso) {
-          p.line(i, 0, i + p.height, p.height);
-        }
-        for (let i = 0; i < p.width + p.height; i += paso) {
-          p.line(i, 0, i - p.height, p.height);
-        }
+        let patronCruzado = new Cruzado();
+        patronCruzado.dibujar(p, colorBase);
         break;
       case "puntos":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        p.fill(colorBase);
-        tamanoLinea = 12;
-        paso = 18;
-        p.strokeWeight(tamanoLinea);
-        for (let x = tamanoLinea / -3; x <= p.width; x += paso) {
-          for (let y = tamanoLinea / -3; y <= p.height; y += paso) {
-            p.point(x, y);
-          }
-        }
+        let patronPuntos = new Puntos();
+        patronPuntos.dibujar(p, colorBase);
         break;
       case "puntos-ondas":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        p.fill(colorBase);
-        tamanoLinea = 12;
-        paso = 18;
-        p.strokeWeight(tamanoLinea);
-        for (let x = tamanoLinea / -3; x <= p.width; x += paso) {
-          for (let y = tamanoLinea / -3; y <= p.height; y += paso) {
-            p.point(
-              x + p.noise(x * 0.01, y * 0.01) * 20,
-              y + p.noise(x * 0.01, y * 0.01) * 20,
-            );
-          }
-        }
+        let patronPuntosOndas = new PuntosOndas();
+        patronPuntosOndas.dibujar(p, colorBase);
         break;
       case "puntos-perlin":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        p.fill(colorBase);
-        // Llenamos el cuadrado de puntos siguiendo una distribución por perlin noise
-        tamanoLinea = 12;
-        paso = 18;
-        p.strokeWeight(tamanoLinea);
-        for (let x = tamanoLinea / -3; x <= p.width; x += paso) {
-          for (let y = tamanoLinea / -3; y <= p.height; y += paso) {
-            if (p.noise(x * 0.01, y * 0.01) > 0.5) {
-              p.point(x, y);
-            }
-          }
-        }
+        let patronPuntosPerlin = new PuntosPerlin();
+        patronPuntosPerlin.dibujar(p, colorBase);
         break;
 
       case "laberinto":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        // Dibujamos líneas cortas con ángulos variables y que no se toquen
-        tamanoLinea = 14;
-        paso = 14;
-        p.strokeCap(p.PROJECT);
-        p.strokeWeight(8);
-        for (let x = 0; x <= p.width; x += paso) {
-          for (let y = 0; y <= p.height; y += paso) {
-            let angulo = p.floor(p.random(0, 4)) * 90;
-            let xFin = x + tamanoLinea * p.cos(p.radians(angulo));
-            let yFin = y + tamanoLinea * p.sin(p.radians(angulo));
-            p.line(x, y, xFin, yFin);
-          }
-        }
+        let patronLaberinto = new Laberinto();
+        patronLaberinto.dibujar(p, colorBase);
         break;
 
       case "ángulos":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        tamanoLinea = 40;
-        pasoX = tamanoLinea;
-        pasoY = tamanoLinea / 3;
-        p.strokeWeight(3);
-        for (let x = 0; x <= p.width; x += pasoX) {
-          for (let y = 0; y <= p.height; y += pasoY) {
-            p.line(x, y, x + tamanoLinea / 2, y + tamanoLinea);
-            p.line(x + tamanoLinea, y, x + tamanoLinea / 2, y + tamanoLinea);
-          }
-        }
+        let patronAngulos = new Angulos();
+        patronAngulos.dibujar(p, colorBase);
         break;
 
       case "ondas":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        tamanoLinea = 20;
-        pasoX = tamanoLinea;
-        pasoY = tamanoLinea / 2;
-        p.strokeWeight(3);
-        for (let x = 0; x <= p.width; x += pasoX) {
-          for (let y = 0; y <= p.height; y += pasoY) {
-            // let offset = (y / height) * PI * 2;
-            let offset = p.noise(x * 0.01, y * 0.01) * PI;
-            let xFin = x + tamanoLinea * p.cos(offset);
-            let yFin = y + tamanoLinea * p.sin(offset);
-            p.line(x, y, xFin, yFin);
-          }
-        }
+        let patronOndas = new Ondas();
+        patronOndas.dibujar(p, colorBase);
         break;
 
       case "tejas":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        tamanoLinea = 30;
-        pasoX = tamanoLinea;
-        pasoY = tamanoLinea / 2 + 5;
-        p.strokeWeight(5);
-        for (let x = 0; x <= p.width; x += pasoX) {
-          for (let y = 0; y <= p.height; y += pasoY) {
-            let offsetX = p.floor(y / pasoY) % 2 === 0 ? tamanoLinea / 2 : 0;
-            p.arc(
-              x + tamanoLinea / 2 + offsetX,
-              y + tamanoLinea / 2,
-              tamanoLinea,
-              tamanoLinea,
-              0,
-              p.PI,
-            );
-          }
-        }
+        let patronTejas = new Tejas();
+        patronTejas.dibujar(p, colorBase);
         break;
 
       case "flechas":
-        p.fill(255);
-        p.rect(0, 0, p.width, p.height);
-
-        tamanoLinea = 30;
-        pasoX = tamanoLinea * 1.25;
-        pasoY = tamanoLinea * 1.25;
-        p.strokeWeight(5);
-        for (let x = 0; x <= p.width; x += pasoX) {
-          for (let y = 0; y <= p.height; y += pasoY) {
-            p.push();
-            p.translate(x + tamanoLinea, y + tamanoLinea);
-            let angulo = p.noise(x * 0.01, y * 0.01) * p.TWO_PI;
-            p.rotate(angulo);
-            p.line(0, -tamanoLinea / 2, 0, tamanoLinea / 2);
-            p.line(-tamanoLinea / 2, 0, 0, -tamanoLinea / 2);
-            p.line(tamanoLinea / 2, 0, 0, -tamanoLinea / 2);
-            p.pop();
-          }
-        }
+        let patronFlechas = new Flechas();
+        patronFlechas.dibujar(p, colorBase);
         break;
     }
     p.endShape();
