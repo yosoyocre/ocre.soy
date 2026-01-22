@@ -1,4 +1,4 @@
-import Patron from "../patron.js";
+import Patron from "./patron.js";
 
 export class Cruzado extends Patron {
   dibujar(p, color) {

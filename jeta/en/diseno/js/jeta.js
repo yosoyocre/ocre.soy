@@ -1,14 +1,4 @@
-import { DiagonalIzquierda } from "./patrones/diagonalIzquierda.js";
-import { DiagonalDerecha } from "./patrones/diagonalDerecha.js";
-import { Cruzado } from "./patrones/cruzado.js";
-import { Puntos } from "./patrones/puntos.js";
-import { PuntosOndas } from "./patrones/puntosOndas.js";
-import { PuntosPerlin } from "./patrones/puntosPerlin.js";
-import { Laberinto } from "./patrones/laberinto.js";
-import { Angulos } from "./patrones/angulos.js";
-import { Ondas } from "./patrones/ondas.js";
-import { Tejas } from "./patrones/tejas.js";
-import { Flechas } from "./patrones/flechas.js";
+import { patrones } from "./patrones.js";
 
 const jeta = (p) => {
   function textHeight(text, maxWidth) {
@@ -56,21 +46,6 @@ const jeta = (p) => {
   let facepalm;
   let colorBase;
 
-  let patrones = [
-    "diagonal-izquierda",
-    "diagonal-derecha",
-    "cruzado",
-    "puntos",
-    "puntos-ondas",
-    "puntos-perlin",
-    "laberinto",
-    "ángulos",
-    "ondas",
-    "tejas",
-    "flechas",
-  ];
-  let patron = false;
-
   let CON_IMAGEN = true;
   let CON_FUENTES = true;
 
@@ -92,62 +67,9 @@ const jeta = (p) => {
 
     p.beginShape();
 
-    let tamanoLinea;
-    let paso;
-    let pasoX;
-    let pasoY;
+    let patron = p.random(patrones);
+    patron.dibujar(p, colorBase);
 
-    switch (patron) {
-      case "diagonal-izquierda":
-        let patronDiagonalIzquierda = new DiagonalIzquierda();
-        patronDiagonalIzquierda.dibujar(p, colorBase);
-        break;
-      case "diagonal-derecha":
-        let patronDiagonalDerecha = new DiagonalDerecha();
-        patronDiagonalDerecha.dibujar(p, colorBase);
-        break;
-      case "cruzado":
-        let patronCruzado = new Cruzado();
-        patronCruzado.dibujar(p, colorBase);
-        break;
-      case "puntos":
-        let patronPuntos = new Puntos();
-        patronPuntos.dibujar(p, colorBase);
-        break;
-      case "puntos-ondas":
-        let patronPuntosOndas = new PuntosOndas();
-        patronPuntosOndas.dibujar(p, colorBase);
-        break;
-      case "puntos-perlin":
-        let patronPuntosPerlin = new PuntosPerlin();
-        patronPuntosPerlin.dibujar(p, colorBase);
-        break;
-
-      case "laberinto":
-        let patronLaberinto = new Laberinto();
-        patronLaberinto.dibujar(p, colorBase);
-        break;
-
-      case "ángulos":
-        let patronAngulos = new Angulos();
-        patronAngulos.dibujar(p, colorBase);
-        break;
-
-      case "ondas":
-        let patronOndas = new Ondas();
-        patronOndas.dibujar(p, colorBase);
-        break;
-
-      case "tejas":
-        let patronTejas = new Tejas();
-        patronTejas.dibujar(p, colorBase);
-        break;
-
-      case "flechas":
-        let patronFlechas = new Flechas();
-        patronFlechas.dibujar(p, colorBase);
-        break;
-    }
     p.endShape();
 
     p.drawingContext.restore();
@@ -179,9 +101,6 @@ const jeta = (p) => {
     yPatron = p.floor(p.random(1, 13));
     anchoPatron = p.floor(p.random(10, 19 - xPatron));
     altoPatron = p.floor(p.random(10, 19 - yPatron));
-    if (!patron) {
-      patron = p.random(patrones);
-    }
 
     xFacepalm = p.floor(p.random(1, 13));
     yFacepalm = p.floor(p.random(1, 13));
