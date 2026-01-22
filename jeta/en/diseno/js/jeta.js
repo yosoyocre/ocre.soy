@@ -51,6 +51,7 @@ let patrones = [
   "puntos-ondas",
   "puntos-perlin",
   "laberinto",
+  "ángulos",
 ];
 let patron;
 
@@ -182,6 +183,22 @@ function pintaPatron() {
         }
       }
       break;
+
+    case "ángulos":
+      fill(255);
+      rect(0, 0, width, height);
+
+      tamanoLinea = 40;
+      pasoX = tamanoLinea;
+      pasoY = tamanoLinea / 3;
+      strokeWeight(3);
+      for (let x = 0; x <= width; x += pasoX) {
+        for (let y = 0; y <= height; y += pasoY) {
+          line(x, y, x + tamanoLinea / 2, y + tamanoLinea);
+          line(x + tamanoLinea, y, x + tamanoLinea / 2, y + tamanoLinea);
+        }
+      }
+      break;
   }
   endShape();
 
@@ -214,8 +231,8 @@ function setup() {
   yPatron = floor(random(1, 13));
   anchoPatron = floor(random(10, 19 - xPatron));
   altoPatron = floor(random(10, 19 - yPatron));
-  patron = random(patrones);
-  // patron = "laberinto";
+  // patron = random(patrones);
+  patron = "ángulos";
 
   xFacepalm = floor(random(1, 13));
   yFacepalm = floor(random(1, 13));
