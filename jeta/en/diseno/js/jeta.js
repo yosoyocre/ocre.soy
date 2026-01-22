@@ -52,6 +52,8 @@ let patrones = [
   "puntos-perlin",
   "laberinto",
   "ángulos",
+  "ondas",
+  "tejas",
 ];
 let patron;
 
@@ -199,6 +201,48 @@ function pintaPatron() {
         }
       }
       break;
+
+    case "ondas":
+      fill(255);
+      rect(0, 0, width, height);
+
+      tamanoLinea = 20;
+      pasoX = tamanoLinea;
+      pasoY = tamanoLinea / 2;
+      strokeWeight(3);
+      for (let x = 0; x <= width; x += pasoX) {
+        for (let y = 0; y <= height; y += pasoY) {
+          // let offset = (y / height) * PI * 2;
+          let offset = noise(x * 0.01, y * 0.01) * PI;
+          let xFin = x + tamanoLinea * cos(offset);
+          let yFin = y + tamanoLinea * sin(offset);
+          line(x, y, xFin, yFin);
+        }
+      }
+      break;
+
+    case "tejas":
+      fill(255);
+      rect(0, 0, width, height);
+
+      tamanoLinea = 30;
+      pasoX = tamanoLinea;
+      pasoY = tamanoLinea;
+      strokeWeight(6);
+      for (let x = 0; x <= width; x += pasoX) {
+        for (let y = 0; y <= height; y += pasoY) {
+          let inicioAngulo = 0;
+          arc(
+            x + tamanoLinea / 2,
+            y + tamanoLinea / 2,
+            tamanoLinea,
+            tamanoLinea,
+            inicioAngulo,
+            inicioAngulo + PI,
+          );
+        }
+      }
+      break;
   }
   endShape();
 
@@ -232,7 +276,7 @@ function setup() {
   anchoPatron = floor(random(10, 19 - xPatron));
   altoPatron = floor(random(10, 19 - yPatron));
   // patron = random(patrones);
-  patron = "ángulos";
+  patron = "tejas";
 
   xFacepalm = floor(random(1, 13));
   yFacepalm = floor(random(1, 13));
@@ -302,8 +346,8 @@ function setup() {
 
   translate(0, 0);
 
+  // if (false) {
   if (FUENTES_CARGADAS) {
-    // if (false) {
     // Escribimos la frase
     noStroke();
 
