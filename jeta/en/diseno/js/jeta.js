@@ -231,10 +231,10 @@ function draw() {
   // Para que las líneas queden nítidas movemos el origen medio píxel
   translate(0.5, 0.5);
 
+  // CUADRÍCULA
   //   stroke(0, 0, 0, 255 * transparencia);
   stroke(colorBase);
   strokeWeight(5);
-
   for (let x = 0; x <= width; x += margen) {
     line(x, 0, x, height);
   }
@@ -242,25 +242,32 @@ function draw() {
     line(0, y, width, y);
   }
 
+  // PATRÓN
   pintaPatron();
+
+  // IMAGEN
   fill(colorBase);
   rect(
-    xFacepalm * margen - 3,
-    yFacepalm * margen - 3,
-    anchoFacepalm * margen + 5,
-    anchoFacepalm * margen + 5,
+    xFacepalm * margen,
+    yFacepalm * margen,
+    anchoFacepalm * margen,
+    anchoFacepalm * margen,
   );
+  // Recolocamos el origen medio píxel para que la imagen quede nítida
+  translate(-0.5, -0.5);
   fill(255);
+  smooth();
   image(
     facepalm,
-    xFacepalm * margen + 2,
-    yFacepalm * margen + 2,
-    anchoFacepalm * margen - 3,
-    anchoFacepalm * margen - 3,
+    xFacepalm * margen + 3,
+    yFacepalm * margen + 3,
+    anchoFacepalm * margen - 5,
+    anchoFacepalm * margen - 5,
   );
+  translate(0.5, 0.5);
 
   if (FUENTES_CARGADAS) {
-    //   if (false) {
+    // if (false) {
     // Escribimos la frase
     noStroke();
 
@@ -274,11 +281,11 @@ function draw() {
     textFont("futura-pt", 75);
     textStyle(BOLD);
 
-    //let frase =
-    //"DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
-
     let frase =
-      "TRABAJAR DURO, UNA MENTE POSITIVA Y LEVANTARSE TEMPRANO SON LAS CLAVES PARA TENER UN GRAN DÍA";
+      "DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
+
+    // let frase =
+    //   "TRABAJAR DURO, UNA MENTE POSITIVA Y LEVANTARSE TEMPRANO SON LAS CLAVES PARA TENER UN GRAN DÍA";
 
     let margenTexto = 10;
     let posicionX = xTexto * margen + 3;
