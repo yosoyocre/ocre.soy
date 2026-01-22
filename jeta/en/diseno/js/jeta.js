@@ -38,10 +38,19 @@ const margen = 70;
 
 let xTexto, yTexto, wTexto;
 let xPatron, yPatron, anchoPatron, altoPatron;
+let xFacepalm, yFacepalm, anchoFacepalm;
 let referencia;
+let facepalm;
 let colorBase;
 
-let patrones = ["diagonal-izquierda", "diagonal-derecha", "cruzado", "puntos"];
+let patrones = [
+  "diagonal-izquierda",
+  "diagonal-derecha",
+  "cruzado",
+  "puntos",
+  "puntos-ondas",
+  "puntos-perlin",
+];
 let patron;
 
 function pintaPatron() {
@@ -119,6 +128,40 @@ function pintaPatron() {
         }
       }
       break;
+    case "puntos-ondas":
+      fill(255);
+      rect(0, 0, width, height);
+
+      fill(colorBase);
+      tamanoLinea = 12;
+      paso = 18;
+      strokeWeight(tamanoLinea);
+      for (let x = tamanoLinea / -3; x <= width; x += paso) {
+        for (let y = tamanoLinea / -3; y <= height; y += paso) {
+          point(
+            x + noise(x * 0.01, y * 0.01) * 20,
+            y + noise(x * 0.01, y * 0.01) * 20,
+          );
+        }
+      }
+      break;
+    case "puntos-perlin":
+      fill(255);
+      rect(0, 0, width, height);
+
+      fill(colorBase);
+      // Llenamos el cuadrado de puntos siguiendo una distribución por perlin noise
+      tamanoLinea = 12;
+      paso = 18;
+      strokeWeight(tamanoLinea);
+      for (let x = tamanoLinea / -3; x <= width; x += paso) {
+        for (let y = tamanoLinea / -3; y <= height; y += paso) {
+          if (noise(x * 0.01, y * 0.01) > 0.5) {
+            point(x, y);
+          }
+        }
+      }
+      break;
   }
   endShape();
 
@@ -128,6 +171,7 @@ function pintaPatron() {
 
 function preload() {
   referencia = loadImage("jeta.png");
+  facepalm = loadImage("facepalm.png");
 }
 
 function setup() {
@@ -148,10 +192,14 @@ function setup() {
 
   xPatron = floor(random(1, 13));
   yPatron = floor(random(1, 13));
-  anchoPatron = floor(random(3, 19 - xPatron));
-  altoPatron = floor(random(3, 19 - yPatron));
+  anchoPatron = floor(random(5, 19 - xPatron));
+  altoPatron = floor(random(5, 19 - yPatron));
   patron = random(patrones);
-  //   patron = "puntos";
+  //   patron = "puntos-ondas";
+
+  xFacepalm = floor(random(1, 13));
+  yFacepalm = floor(random(1, 13));
+  anchoFacepalm = floor(random(5, 19 - xFacepalm));
 
   let colorBaseAux = colorAleatorio();
 
@@ -194,17 +242,22 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // Creamos un margen blanco alrededor
-  // para que las terminaciones de las líneas queden limpias
-  translate(-0.5, -0.5);
-  strokeWeight(0);
-  fill(255);
-  rect(0, 0, width, margen - 2);
-  rect(0, height - margen + 3, width, margen);
-  rect(0, 0, margen - 2, height);
-  rect(width - margen + 3, 0, margen, height);
-
   pintaPatron();
+  fill(colorBase);
+  rect(
+    xFacepalm * margen - 3,
+    yFacepalm * margen - 3,
+    anchoFacepalm * margen + 5,
+    anchoFacepalm * margen + 5,
+  );
+  fill(255);
+  image(
+    facepalm,
+    xFacepalm * margen + 2,
+    yFacepalm * margen + 2,
+    anchoFacepalm * margen - 3,
+    anchoFacepalm * margen - 3,
+  );
 
   if (FUENTES_CARGADAS) {
     //   if (false) {
@@ -279,5 +332,15 @@ function draw() {
     textAlign(CENTER, TOP);
     textFont("futura-pt", 180);
     text("JETA", centroTitulo + 7, 16 * margen + 34);
+
+    // Creamos un margen blanco alrededor
+    // para que las terminaciones de las líneas queden limpias
+    translate(-0.5, -0.5);
+    strokeWeight(0);
+    fill(255);
+    rect(0, 0, width, margen - 2);
+    rect(0, height - margen + 3, width, margen);
+    rect(0, 0, margen - 2, height);
+    rect(width - margen + 3, 0, margen, height);
   }
 }
