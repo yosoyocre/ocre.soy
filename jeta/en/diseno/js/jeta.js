@@ -57,6 +57,9 @@ let patrones = [
 ];
 let patron;
 
+let CON_IMAGEN = true;
+let CON_FUENTES = true;
+
 function pintaPatron() {
   push();
   stroke(colorBase);
@@ -227,18 +230,18 @@ function pintaPatron() {
 
       tamanoLinea = 30;
       pasoX = tamanoLinea;
-      pasoY = tamanoLinea;
-      strokeWeight(6);
+      pasoY = tamanoLinea / 2 + 5;
+      strokeWeight(5);
       for (let x = 0; x <= width; x += pasoX) {
         for (let y = 0; y <= height; y += pasoY) {
-          let inicioAngulo = 0;
+          let offsetX = floor(y / pasoY) % 2 === 0 ? tamanoLinea / 2 : 0;
           arc(
-            x + tamanoLinea / 2,
+            x + tamanoLinea / 2 + offsetX,
             y + tamanoLinea / 2,
             tamanoLinea,
             tamanoLinea,
-            inicioAngulo,
-            inicioAngulo + PI,
+            0,
+            PI,
           );
         }
       }
@@ -275,8 +278,8 @@ function setup() {
   yPatron = floor(random(1, 13));
   anchoPatron = floor(random(10, 19 - xPatron));
   altoPatron = floor(random(10, 19 - yPatron));
-  // patron = random(patrones);
-  patron = "tejas";
+  patron = random(patrones);
+  // patron = "tejas";
 
   xFacepalm = floor(random(1, 13));
   yFacepalm = floor(random(1, 13));
@@ -326,28 +329,29 @@ function setup() {
   pintaPatron();
 
   // IMAGEN
-  fill(colorBase);
-  rect(
-    xFacepalm * margen,
-    yFacepalm * margen,
-    anchoFacepalm * margen,
-    anchoFacepalm * margen,
-  );
-  // Recolocamos el origen medio píxel para que la imagen quede nítida
-  translate(-0.5, -0.5);
-  fill(255);
-  image(
-    facepalm,
-    xFacepalm * margen + 3,
-    yFacepalm * margen + 3,
-    anchoFacepalm * margen - 5,
-    anchoFacepalm * margen - 5,
-  );
+  if (CON_IMAGEN) {
+    fill(colorBase);
+    rect(
+      xFacepalm * margen,
+      yFacepalm * margen,
+      anchoFacepalm * margen,
+      anchoFacepalm * margen,
+    );
+    // Recolocamos el origen medio píxel para que la imagen quede nítida
+    translate(-0.5, -0.5);
+    fill(255);
+    image(
+      facepalm,
+      xFacepalm * margen + 3,
+      yFacepalm * margen + 3,
+      anchoFacepalm * margen - 5,
+      anchoFacepalm * margen - 5,
+    );
+  }
 
-  translate(0, 0);
+  translate(0.5, 0.5);
 
-  // if (false) {
-  if (FUENTES_CARGADAS) {
+  if (FUENTES_CARGADAS && CON_FUENTES) {
     // Escribimos la frase
     noStroke();
 
