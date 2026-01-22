@@ -50,6 +50,7 @@ let patrones = [
   "puntos",
   "puntos-ondas",
   "puntos-perlin",
+  "laberinto",
 ];
 let patron;
 
@@ -162,6 +163,25 @@ function pintaPatron() {
         }
       }
       break;
+
+    case "laberinto":
+      fill(255);
+      rect(0, 0, width, height);
+
+      // Dibujamos líneas cortas con ángulos variables y que no se toquen
+      tamanoLinea = 14;
+      paso = 14;
+      strokeCap(PROJECT);
+      strokeWeight(8);
+      for (let x = 0; x <= width; x += paso) {
+        for (let y = 0; y <= height; y += paso) {
+          let angulo = floor(random(0, 4)) * 90;
+          let xFin = x + tamanoLinea * cos(radians(angulo));
+          let yFin = y + tamanoLinea * sin(radians(angulo));
+          line(x, y, xFin, yFin);
+        }
+      }
+      break;
   }
   endShape();
 
@@ -192,10 +212,10 @@ function setup() {
 
   xPatron = floor(random(1, 13));
   yPatron = floor(random(1, 13));
-  anchoPatron = floor(random(5, 19 - xPatron));
-  altoPatron = floor(random(5, 19 - yPatron));
+  anchoPatron = floor(random(10, 19 - xPatron));
+  altoPatron = floor(random(10, 19 - yPatron));
   patron = random(patrones);
-  //   patron = "puntos-ondas";
+  // patron = "laberinto";
 
   xFacepalm = floor(random(1, 13));
   yFacepalm = floor(random(1, 13));
@@ -222,8 +242,7 @@ function setup() {
   }
 
   colorBase = color(colorBaseAux["r"], colorBaseAux["g"], colorBaseAux["b"]);
-}
-function draw() {
+
   background(255);
 
   //   image(referencia, 0, 0);
@@ -256,7 +275,6 @@ function draw() {
   // Recolocamos el origen medio píxel para que la imagen quede nítida
   translate(-0.5, -0.5);
   fill(255);
-  smooth();
   image(
     facepalm,
     xFacepalm * margen + 3,
@@ -264,7 +282,8 @@ function draw() {
     anchoFacepalm * margen - 5,
     anchoFacepalm * margen - 5,
   );
-  translate(0.5, 0.5);
+
+  translate(0, 0);
 
   if (FUENTES_CARGADAS) {
     // if (false) {
@@ -274,15 +293,21 @@ function draw() {
     // textLeading(70);
     // drawingContext.letterSpacing = "-4px";
 
-    textLeading(75);
-    drawingContext.letterSpacing = "-2px";
+    textLeading(65);
+    drawingContext.letterSpacing = "-4px";
+
+    // textLeading(80);
+    // drawingContext.letterSpacing = "-2px";
 
     textAlign(LEFT, TOP);
     textFont("futura-pt", 75);
     textStyle(BOLD);
 
+    // let frase =
+    //   "DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
+
     let frase =
-      "DE AQUEL QUE OPINA QUE EL DINERO PUEDE HACERLO TODO, CABE SOSPECHAR CON FUNDAMENTO QUE SERÁ CAPAZ DE HACER CUALQUIER COSA POR DINERO";
+      "EL DINERO PUEDE SER UN ALIADO PODEROSO SI LO USAS CON PROPÓSITO Y GRATITUD";
 
     // let frase =
     //   "TRABAJAR DURO, UNA MENTE POSITIVA Y LEVANTARSE TEMPRANO SON LAS CLAVES PARA TENER UN GRAN DÍA";
@@ -332,7 +357,8 @@ function draw() {
 
     textAlign(CENTER, TOP);
     textFont("futura-pt", 180);
-    text("OCRE", centroTitulo + 2, 12 * margen + 30);
+    // text("OCRE", centroTitulo + 2, 12 * margen + 30);
+    text("OCRE", centroTitulo, 12 * margen + 30);
     textAlign(CENTER, TOP);
     textFont("futura-pt", 60);
     text("ES UN", centroTitulo + 2, 15 * margen + 11);
@@ -350,4 +376,6 @@ function draw() {
     rect(0, 0, margen - 2, height);
     rect(width - margen + 3, 0, margen, height);
   }
+
+  function draw() {}
 }
