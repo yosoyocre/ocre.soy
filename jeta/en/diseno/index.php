@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="flex items-center justify-center  min-h-screen">
-        <main class="js-portada w-[500px] h-[500px] shadow-[4px_4px_5px_rgb(221,221,221)]"></main>
+        <main class="js-portada w-[500px] h-[500px]"></main>
     </div>
 
 </body>

@@ -7,3 +7,7 @@ body {
 b {
     font-weight: 500;
 }
+
+main.terminado {
+  @apply shadow-[4px_4px_5px_rgb(221,221,221)] transition-all duration-3000;
+}
