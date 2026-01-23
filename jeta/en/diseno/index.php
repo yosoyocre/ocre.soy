@@ -9,6 +9,7 @@
     <script src="https://use.typekit.net/wfj3ppv.js"></script>
 
     <script src="./js/p5.min.js"></script>
+    <script src="./js/poisson-disk-sampling.min.js"></script>
     <script type="module" src="./js/jeta.js"></script>
     <script type="module">
         import {

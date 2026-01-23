@@ -9,6 +9,7 @@ import { Angulos } from "./patrones/angulos.js";
 import { Ondas } from "./patrones/ondas.js";
 import { Tejas } from "./patrones/tejas.js";
 import { Flechas } from "./patrones/flechas.js";
+import { PuntosDiskSampling } from "./patrones/puntosDiskSampling.js";
 
 export const patrones = [
   new DiagonalIzquierda(),
@@ -17,6 +18,7 @@ export const patrones = [
   new Puntos(),
   new PuntosOndas(),
   new PuntosPerlin(),
+  new PuntosDiskSampling(),
   new Laberinto(),
   new Angulos(),
   new Ondas(),

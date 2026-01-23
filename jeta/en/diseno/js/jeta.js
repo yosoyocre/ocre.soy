@@ -81,7 +81,8 @@ export const jeta = (p) => {
 
     p.beginShape();
 
-    let patron = p.random(patrones);
+    const patron = p.random(patrones);
+    // const patron = patrones[8];
     patron.dibujar(p, colorBase);
 
     p.endShape();
