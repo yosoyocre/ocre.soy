@@ -232,7 +232,7 @@ export const jeta = (p) => {
   };
 
   p.preload = () => {
-    imagenes = [p.loadImage("img/facepalm.png")];
+    imagenes = [p.loadImage("img/facepalm.png"), p.loadImage("img/elon.png")];
     const frasesObject = p.loadJSON("soluciones.json", (data) => {
       frases = [];
       // Iteramos por los atributos del objeto para crear un array con las frases de cada atributo
