@@ -58,9 +58,9 @@ export const jeta = (p) => {
     }
   };
 
-  const pintaPatron = () => {
-    const xPatron = p.floor(p.random(1, 13));
-    const yPatron = p.floor(p.random(1, 13));
+  const pintaPatron = (x, y) => {
+    const xPatron = x || p.floor(p.random(1, 13));
+    const yPatron = y || p.floor(p.random(1, 13));
     const anchoPatron = p.floor(p.random(10, 19 - xPatron));
     const altoPatron = p.floor(p.random(10, 19 - yPatron));
 
@@ -91,11 +91,11 @@ export const jeta = (p) => {
     p.pop();
   };
 
-  const pintaImagen = () => {
+  const pintaImagen = (x, y) => {
     const imagen = p.random(imagenes);
 
-    const xImagen = p.floor(p.random(1, 13));
-    const yImagen = p.floor(p.random(1, 13));
+    const xImagen = x || p.floor(p.random(1, 13));
+    const yImagen = y || p.floor(p.random(1, 13));
     const anchoImagen = p.floor(p.random(5, 19 - xImagen));
 
     if (CON_IMAGEN) {
@@ -120,9 +120,13 @@ export const jeta = (p) => {
     }
   };
 
-  const pintaFrase = () => {
+  const pintaFrase = (x, y) => {
     if (CON_TEXTO) {
       const frase = p.random(frases).toUpperCase();
+
+      const xTexto = x || p.floor(p.random(1, 10));
+      const yTexto = y || p.floor(p.random(1, 10));
+      const wTexto = p.floor(p.random(8, 10));
 
       p.noStroke();
 
@@ -138,10 +142,6 @@ export const jeta = (p) => {
       p.textAlign(p.LEFT, p.TOP);
       p.textFont("futura-pt", 75);
       p.textStyle(p.BOLD);
-
-      const xTexto = p.floor(p.random(1, 10));
-      const yTexto = p.floor(p.random(1, 10));
-      const wTexto = p.floor(p.random(8, 10));
 
       let margenTexto = 10;
       let posicionX = xTexto * MARGEN + 3;
