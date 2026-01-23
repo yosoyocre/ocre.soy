@@ -1,11 +1,12 @@
 import { patrones } from "./patrones.js";
 
 export const jeta = (p) => {
-  const MARGEN = 70;
-  const MAX_LUMINANCE = 0.5;
-
   const CON_IMAGEN = true;
   const CON_TEXTO = true;
+  const PATRON = null;
+
+  const MARGEN = 70;
+  const MAX_LUMINANCE = 0.5;
 
   let imagenes;
   let frases;
@@ -81,8 +82,12 @@ export const jeta = (p) => {
 
     p.beginShape();
 
-    const patron = p.random(patrones);
-    // const patron = patrones[8];
+    let patron;
+    if (PATRON !== null) {
+      patron = patrones[PATRON];
+    } else {
+      patron = p.random(patrones);
+    }
     patron.dibujar(p, colorBase);
 
     p.endShape();

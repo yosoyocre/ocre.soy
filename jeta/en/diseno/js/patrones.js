@@ -10,6 +10,7 @@ import { Ondas } from "./patrones/ondas.js";
 import { Tejas } from "./patrones/tejas.js";
 import { Flechas } from "./patrones/flechas.js";
 import { PuntosDiskSampling } from "./patrones/puntosDiskSampling.js";
+import { Ruido } from "./patrones/ruido.js";
 
 export const patrones = [
   new DiagonalIzquierda(),
@@ -24,4 +25,5 @@ export const patrones = [
   new Ondas(),
   new Tejas(),
   new Flechas(),
+  new Ruido(),
 ];
