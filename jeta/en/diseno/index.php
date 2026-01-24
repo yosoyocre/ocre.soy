@@ -17,6 +17,8 @@
         } from "./js/jeta.js";
 
         try {
+            const CON_INTERFAZ = false;
+
             const enviaPeticion = () => {
                 const input = document.querySelector('#pregunta input');
                 const valor = input.value.trim();
@@ -78,6 +80,12 @@
 
                     const pregunta = document.getElementById('pregunta');
                     pregunta.classList.remove('opacity-0');
+
+                    if (!CON_INTERFAZ) {
+                        document.getElementById('pregunta').classList.add('hidden');
+                        document.getElementById('respuesta').classList.remove('hidden');
+                        new p5(jeta());
+                    }
 
                     // new p5(jeta());
                 },

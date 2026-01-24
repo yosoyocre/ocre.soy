@@ -119,7 +119,7 @@ export const jeta = (solucion) => {
 
       const xImagen = x || graphics.floor(graphics.random(1, 13));
       const yImagen = y || graphics.floor(graphics.random(1, 13));
-      const anchoImagen = graphics.floor(graphics.random(5, 19 - xImagen));
+      const anchoImagen = graphics.floor(graphics.random(5, 8));
 
       graphics.translate(0.5, 0.5);
       graphics.fill(colorBase);
@@ -250,6 +250,28 @@ export const jeta = (solucion) => {
       graphics.textAlign(graphics.CENTER, graphics.TOP);
       graphics.textFont("futura-pt", 180);
       graphics.text("JETA", centroTitulo + 7, 16 * MARGEN + 34);
+
+      // Reforzamos los límites de la cuadrícula para nada se pinte por encima
+      // Para que las líneas queden nítidas movemos el origen medio píxel
+      graphics.translate(0.5, 0.5);
+      graphics.strokeCap(graphics.PROJECT);
+      graphics.stroke(colorBase);
+      graphics.strokeWeight(5);
+      graphics.noFill();
+      graphics.line(MARGEN, MARGEN, graphics.width - MARGEN, MARGEN);
+      graphics.line(
+        graphics.width - MARGEN,
+        MARGEN,
+        graphics.width - MARGEN,
+        MARGEN * 11,
+      );
+      graphics.line(
+        MARGEN,
+        graphics.height - MARGEN,
+        MARGEN * 11,
+        graphics.height - MARGEN,
+      );
+      graphics.line(MARGEN, graphics.height - MARGEN, MARGEN, MARGEN);
     };
 
     const pintaMarco = (graphics) => {
@@ -297,21 +319,46 @@ export const jeta = (solucion) => {
       // FONDO
       p.background(255);
 
+      let posiciones = [];
+      for (let i = 0; i < 3; i++) {
+        let xPosicion = p.floor(p.random(1, 15));
+        let yPosicion;
+        if (xPosicion > 8) {
+          yPosicion = p.floor(p.random(1, 10));
+        } else {
+          yPosicion = p.floor(p.random(1, 15));
+        }
+        posiciones.push([xPosicion, yPosicion]);
+      }
+
+      console.log("posiciones", posiciones);
+
       // CUADRÍCULA
       cuadricula = p.createGraphics(p.width, p.height);
       pintaCuadricula(cuadricula);
 
       // PATRÓN
       cuadroPatron = p.createGraphics(p.width, p.height);
-      pintaPatron(cuadroPatron);
+      pintaPatron(
+        cuadroPatron,
+        p.floor(posiciones[0][0]),
+        p.floor(posiciones[0][1]),
+      );
 
       // IMAGEN
       cuadroImagen = p.createGraphics(p.width, p.height);
-      pintaImagen(cuadroImagen);
-
+      pintaImagen(
+        cuadroImagen,
+        p.floor(posiciones[1][0]),
+        p.floor(posiciones[1][1]),
+      );
       // FRASE
       cuadroFrase = p.createGraphics(p.width, p.height);
-      pintaFrase(cuadroFrase);
+      pintaFrase(
+        cuadroFrase,
+        p.floor(posiciones[2][0]),
+        p.floor(posiciones[2][1]),
+      );
 
       // TÍTULO
       cuadroTitulo = p.createGraphics(p.width, p.height);
