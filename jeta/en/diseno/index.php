@@ -24,29 +24,37 @@
                     const pregunta = document.querySelector('.js-pregunta');
 
                     pregunta.classList.add('hidden');
-                    document.querySelector('.js-cargando').classList.remove('opacity-0');
+                    document.querySelector('.js-cargando').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.querySelector('.js-cargando').classList.remove('opacity-0');
+                        setTimeout(() => {
+                            // Hacemos una petición a la inteligencia artificial con el problema
+                            fetch('peticion.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        "Content-Type": "application/x-www-form-urlencoded",
+                                    },
+                                    body: new URLSearchParams({
+                                        problema: valor
+                                    }),
+                                }).then(response => response.json())
+                                .then(data => {
+                                    console.log(data);
+                                    document.querySelector('.js-cargando').classList.add('hidden');
+                                    document.querySelector('.js-respuesta').classList.remove('hidden');
+                                    new p5(jeta(data.solucion));
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    document.querySelector('.js-cargando').classList.add('hidden');
+                                    document.querySelector('.js-error').classList.remove('hidden');
+                                    setTimeout(() => {
+                                        document.querySelector('.js-error').classList.remove('opacity-0');
+                                    }, 100);
+                                });
+                        }, 3000);
+                    }, 100);
 
-                    // Hacemos una petición a la inteligencia artificial con el problema
-                    fetch('peticion.php', {
-                            method: 'POST',
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded",
-                            },
-                            body: new URLSearchParams({
-                                problema: valor
-                            }),
-                        }).then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            document.querySelector('.js-cargando').classList.add('hidden');
-                            document.querySelector('.js-respuesta').classList.remove('hidden');
-                            new p5(jeta(data.solucion));
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            document.querySelector('.js-cargando').classList.add('hidden');
-                            document.querySelector('.js-error').classList.remove('opacity-0');
-                        });
                 }
             }
 
@@ -96,7 +104,7 @@
             </div>
         </div>
     </div>
-    <div class="tarjeta js-cargando opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
+    <div class="tarjeta js-cargando hidden opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
         <div class="max-w-2xl w-full text-center">
             <div class="px-4">
                 <p class="animate-pulse">
@@ -105,10 +113,7 @@
             </div>
         </div>
     </div>
-    <div class="tarjeta js-respuesta hidden flex items-center justify-center  min-h-screen">
-        <main class="js-portada w-[500px] h-[500px]"></main>
-    </div>
-    <div class="tarjeta js-error opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
+    <div class="tarjeta js-error hidden opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
         <div class="max-w-2xl w-full text-center">
             <div class="px-4">
                 <p class="mb-8">
@@ -119,6 +124,9 @@
                 </p>
             </div>
         </div>
+    </div>
+    <div class="tarjeta js-respuesta hidden flex items-center justify-center  min-h-screen">
+        <main class="js-portada w-[500px] h-[500px]"></main>
     </div>
 </body>
 
