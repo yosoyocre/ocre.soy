@@ -19,6 +19,16 @@
         try {
             const CON_INTERFAZ = false;
 
+            const muestraExplicacion = () => {
+                document.querySelector("main").classList.add("terminado");
+                document.getElementById("explicacion").classList.remove("hidden");
+                setTimeout(() => {
+                    document
+                        .getElementById("explicacion")
+                        .classList.remove("opacity-0");
+                }, 1000);
+            }
+
             const enviaPeticion = () => {
                 const input = document.querySelector('#pregunta input');
                 const valor = input.value.trim();
@@ -44,12 +54,7 @@
                                     console.log(data);
                                     document.getElementById('cargando').classList.add('hidden');
                                     document.getElementById('respuesta').classList.remove('hidden');
-                                    new p5(jeta(data.solucion));
-
-                                    document.getElementById('explicacion').classList.remove('hidden');
-                                    setTimeout(() => {
-                                        document.getElementById('explicacion').classList.remove('opacity-0');
-                                    }, 3000);
+                                    new p5(jeta(data.solucion, muestraExplicacion));
                                 })
                                 .catch(error => {
                                     console.error('Error:', error);
@@ -84,7 +89,7 @@
                     if (!CON_INTERFAZ) {
                         document.getElementById('pregunta').classList.add('hidden');
                         document.getElementById('respuesta').classList.remove('hidden');
-                        new p5(jeta());
+                        new p5(jeta(null, muestraExplicacion));
                     }
 
                     // new p5(jeta());

@@ -1,6 +1,6 @@
 import { patrones } from "./patrones.js";
 
-export const jeta = (solucion) => {
+export const jeta = (solucion, despuesPintado) => {
   return function (p) {
     const CON_IMAGEN = true;
     const CON_TEXTO = true;
@@ -331,14 +331,13 @@ export const jeta = (solucion) => {
         posiciones.push([xPosicion, yPosicion]);
       }
 
-      console.log("posiciones", posiciones);
-
       // CUADRÍCULA
       cuadricula = p.createGraphics(p.width, p.height);
       pintaCuadricula(cuadricula);
 
       // PATRÓN
       cuadroPatron = p.createGraphics(p.width, p.height);
+      console.log("posición patrón", posiciones[0]);
       pintaPatron(
         cuadroPatron,
         p.floor(posiciones[0][0]),
@@ -347,6 +346,7 @@ export const jeta = (solucion) => {
 
       // IMAGEN
       cuadroImagen = p.createGraphics(p.width, p.height);
+      console.log("posición imagen", posiciones[1]);
       pintaImagen(
         cuadroImagen,
         p.floor(posiciones[1][0]),
@@ -354,6 +354,7 @@ export const jeta = (solucion) => {
       );
       // FRASE
       cuadroFrase = p.createGraphics(p.width, p.height);
+      console.log("posición frase", posiciones[2]);
       pintaFrase(
         cuadroFrase,
         p.floor(posiciones[2][0]),
@@ -402,8 +403,10 @@ export const jeta = (solucion) => {
         transparenciaCuadroTitulo = p.max(0, p.min(tiempo - 3000, 255));
 
         if (tiempo > 3500) {
-          document.querySelector("main").classList.add("terminado");
           console.log("¡Terminado!");
+          if (!!despuesPintado) {
+            despuesPintado();
+          }
           p.noLoop();
         }
 
