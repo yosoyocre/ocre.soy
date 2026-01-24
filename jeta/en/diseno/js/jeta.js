@@ -147,8 +147,8 @@ export const jeta = (solucion, despuesPintado) => {
         ? solucion.toUpperCase()
         : graphics.random(frases).toUpperCase();
 
-      const xTexto = x || graphics.floor(graphics.random(1, 10));
-      const yTexto = y || graphics.floor(graphics.random(1, 10));
+      let xTexto = x || graphics.floor(graphics.random(1, 10));
+      let yTexto = y || graphics.floor(graphics.random(1, 10));
       const wTexto = graphics.floor(graphics.random(8, 10));
 
       graphics.noStroke();
@@ -167,15 +167,27 @@ export const jeta = (solucion, despuesPintado) => {
       graphics.textStyle(graphics.BOLD);
 
       let margenTexto = 10;
-      let posicionX = xTexto * MARGEN + 3;
-      let posicionY = yTexto * MARGEN + 3;
       let anchoMaximo = wTexto * MARGEN - 5;
 
       // Calculamos la altura del texto para ajustar el fondo
       let altura =
         alturaDeTexto(graphics, frase, anchoMaximo - 2 * margenTexto) +
         2 * margenTexto;
-      let alturaRedondeada = Math.ceil(altura / MARGEN) * MARGEN;
+      let alturaRedondeada = Math.ceil(altura / MARGEN);
+
+      // Ajustamos la posición si se sale del área
+      if (xTexto + wTexto > 19) {
+        console.log("Ajustando xTexto");
+        xTexto = 19 - wTexto;
+      }
+
+      if (yTexto + alturaRedondeada > 19) {
+        console.log("Ajustando yTexto");
+        yTexto = 19 - alturaRedondeada;
+      }
+
+      let posicionX = xTexto * MARGEN + 3;
+      let posicionY = yTexto * MARGEN + 3;
 
       // Cuadro que define el borde
       graphics.fill(colorBase);
@@ -183,12 +195,17 @@ export const jeta = (solucion, despuesPintado) => {
         posicionX - 5,
         posicionY - 5,
         anchoMaximo + 10,
-        alturaRedondeada + 5,
+        alturaRedondeada * MARGEN + 5,
       );
 
       // Fondo blanco del texto
       graphics.fill(255);
-      graphics.rect(posicionX, posicionY, anchoMaximo, alturaRedondeada - 5);
+      graphics.rect(
+        posicionX,
+        posicionY,
+        anchoMaximo,
+        alturaRedondeada * MARGEN - 5,
+      );
 
       // Texto
       graphics.fill(colorBase);
