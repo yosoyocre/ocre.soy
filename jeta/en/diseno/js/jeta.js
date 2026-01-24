@@ -13,6 +13,8 @@ export const jeta = (p) => {
   let frases;
   let colorBase;
 
+  let tiempo = 0;
+
   let cuadricula;
   let marco;
   let transparenciaCuadricula = CON_ANIMACION ? 0 : 255;
@@ -343,29 +345,19 @@ export const jeta = (p) => {
     p.image(marco, 0, 0);
 
     if (CON_ANIMACION) {
-      if (transparenciaCuadroFrase < 255) {
-        transparenciaCuadroFrase += 5;
-      } else {
-        if (transparenciaCuadricula < 255) {
-          transparenciaCuadricula += 5;
-        } else {
-          if (transparenciaCuadroPatron < 255) {
-            transparenciaCuadroPatron += 5;
-          } else {
-            if (transparenciaCuadroImagen < 255) {
-              transparenciaCuadroImagen += 5;
-            } else {
-              if (transparenciaCuadroTitulo < 255) {
-                transparenciaCuadroTitulo += 5;
-              } else {
-                document.querySelector("main").classList.add("terminado");
-                console.log("¡Terminado!");
-                p.noLoop();
-              }
-            }
-          }
-        }
+      transparenciaCuadroFrase = p.min(tiempo, 255);
+      transparenciaCuadricula = p.max(0, p.min(tiempo - 1000, 255));
+      transparenciaCuadroPatron = p.max(0, p.min(tiempo - 1500, 255));
+      transparenciaCuadroImagen = p.max(0, p.min(tiempo - 2000, 255));
+      transparenciaCuadroTitulo = p.max(0, p.min(tiempo - 2500, 255));
+
+      if (tiempo > 3000) {
+        document.querySelector("main").classList.add("terminado");
+        console.log("¡Terminado!");
+        p.noLoop();
       }
+
+      tiempo = tiempo + 5;
     }
   };
 };
