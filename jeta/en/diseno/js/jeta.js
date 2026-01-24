@@ -175,15 +175,27 @@ export const jeta = (solucion, despuesPintado) => {
         2 * margenTexto;
       let alturaRedondeada = Math.ceil(altura / MARGEN);
 
+      let xFinal = xTexto + wTexto;
+      let yFinal = yTexto + alturaRedondeada;
+
       // Ajustamos la posición si se sale del área
-      if (xTexto + wTexto > 19) {
-        console.log("Ajustando xTexto");
+      if (xFinal > 19) {
+        console.log("Texto sale por la derecha");
         xTexto = 19 - wTexto;
+        console.log("posición frase ajustada", xTexto, yTexto);
       }
 
-      if (yTexto + alturaRedondeada > 19) {
-        console.log("Ajustando yTexto");
+      if (yFinal > 19) {
+        console.log("Texto sale por abajo");
         yTexto = 19 - alturaRedondeada;
+        console.log("posición frase ajustada", xTexto, yTexto);
+      }
+
+      if (xFinal > 11 && yFinal > 11) {
+        console.log("Texto se solapa con el título");
+        xTexto = 11 - wTexto;
+        yTexto = 11 - alturaRedondeada;
+        console.log("posición frase ajustada", xTexto, yTexto);
       }
 
       let posicionX = xTexto * MARGEN + 3;
