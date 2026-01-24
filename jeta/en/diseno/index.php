@@ -31,11 +31,27 @@
                                 pregunta.classList.add('hidden');
                                 document.querySelector('.js-cargando').classList.remove('opacity-0');
 
-                                setTimeout(function() {
-                                    document.querySelector('.js-cargando').classList.add('hidden');
-                                    document.querySelector('.js-respuesta').classList.remove('hidden');
-                                    new p5(jeta);
-                                }, 5000); // Simula un tiempo de espera de 5 segundos
+                                // Hacemos una petición a la inteligencia artificial con el problema
+                                fetch('peticion.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded",
+                                        },
+                                        body: new URLSearchParams({
+                                            problema: valor
+                                        }),
+                                    }).then(response => response.json())
+                                    .then(data => {
+                                        console.log(data);
+                                        document.querySelector('.js-cargando').classList.add('hidden');
+                                        document.querySelector('.js-respuesta').classList.remove('hidden');
+                                        new p5(jeta(data.solucion));
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        document.querySelector('.js-cargando').classList.add('hidden');
+                                        document.querySelector('.js-error').classList.remove('opacity-0');
+                                    });
                             }
                         }
                     });
@@ -71,6 +87,18 @@
     </div>
     <div class="tarjeta js-respuesta hidden flex items-center justify-center  min-h-screen">
         <main class="js-portada w-[500px] h-[500px]"></main>
+    </div>
+    <div class="tarjeta js-error opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
+        <div class="max-w-2xl w-full text-center">
+            <div class="px-4">
+                <p class="mb-8">
+                    Ha ocurrido un error y Sloke.ai no ha podido encontrar una solución para ti
+                </p>
+                <p>
+                    Por favor, inténtalo de nuevo más tarde
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 
