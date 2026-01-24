@@ -19,16 +19,30 @@
         try {
             Typekit.load({
                 active: function() {
-                    new p5(jeta);
+                    let pregunta = document.querySelector('.js-pregunta');
+                    let input = document.querySelector('.js-pregunta input');
+
+                    pregunta.classList.remove('opacity-0');
+
+                    input.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            let valor = input.value.trim();
+                            if (valor.length > 0) {
+                                pregunta.classList.add('hidden');
+                                document.querySelector('.js-cargando').classList.remove('opacity-0');
+
+                                setTimeout(function() {
+                                    document.querySelector('.js-cargando').classList.add('hidden');
+                                    document.querySelector('.js-respuesta').classList.remove('hidden');
+                                    new p5(jeta);
+                                }, 5000); // Simula un tiempo de espera de 5 segundos
+                            }
+                        }
+                    });
                 },
             });
         } catch (e) {}
     </script>
-    <style>
-        main canvas {
-            max-width: 100%;
-        }
-    </style>
 </head>
 
 <body class="bg-white text-slate-800">
@@ -36,7 +50,7 @@
         Sloke.ai
     </div>
 
-    <div class="hidden flex pt-72 justify-center min-h-screen text-3xl">
+    <div class="tarjeta opacity-0 js-pregunta flex pt-72 justify-center min-h-screen text-3xl">
         <div class="max-w-2xl w-full text-center">
             <div class="px-4">
                 <p>
@@ -46,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="hidden flex pt-72 justify-center min-h-screen text-3xl">
+    <div class="tarjeta js-cargando opacity-0 flex pt-72 justify-center min-h-screen text-3xl">
         <div class="max-w-2xl w-full text-center">
             <div class="px-4">
                 <p class="animate-pulse">
@@ -55,12 +69,9 @@
             </div>
         </div>
     </div>
-    <div class="flex items-center justify-center  min-h-screen">
+    <div class="tarjeta js-respuesta hidden flex items-center justify-center  min-h-screen">
         <main class="js-portada w-[500px] h-[500px]"></main>
     </div>
-
 </body>
-
-
 
 </html>

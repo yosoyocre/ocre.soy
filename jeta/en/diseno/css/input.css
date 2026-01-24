@@ -11,3 +11,11 @@ b {
 main.terminado {
   @apply shadow-[4px_4px_5px_rgb(221,221,221)] transition-all duration-3000;
 }
+
+main canvas {
+    @apply max-w-full;
+}
+
+.tarjeta {
+    @apply transition-all duration-1000;
+}

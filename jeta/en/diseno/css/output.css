@@ -301,6 +301,9 @@
   .italic {
     font-style: italic;
   }
+  .opacity-0 {
+    opacity: 0%;
+  }
   .shadow-lg {
     --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -345,6 +348,16 @@ main.terminado {
   transition-duration: var(--tw-duration, var(--default-transition-duration));
   --tw-duration: 3000ms;
   transition-duration: 3000ms;
+}
+main canvas {
+  max-width: 100%;
+}
+.tarjeta {
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: 1000ms;
+  transition-duration: 1000ms;
 }
 @property --tw-rotate-x {
   syntax: "*";

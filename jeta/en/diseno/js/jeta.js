@@ -349,9 +349,9 @@ export const jeta = (p) => {
       transparenciaCuadricula = p.max(0, p.min(tiempo - 1000, 255));
       transparenciaCuadroPatron = p.max(0, p.min(tiempo - 1500, 255));
       transparenciaCuadroImagen = p.max(0, p.min(tiempo - 2000, 255));
-      transparenciaCuadroTitulo = p.max(0, p.min(tiempo - 2500, 255));
+      transparenciaCuadroTitulo = p.max(0, p.min(tiempo - 3000, 255));
 
-      if (tiempo > 3000) {
+      if (tiempo > 3500) {
         document.querySelector("main").classList.add("terminado");
         console.log("¡Terminado!");
         p.noLoop();
