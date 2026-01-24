@@ -2,7 +2,6 @@ import { patrones } from "./patrones.js";
 
 export const jeta = (solucion, despuesPintado) => {
   return function (p) {
-    const CON_IMAGEN = true;
     const CON_TEXTO = true;
     const PATRON = null;
     const CON_ANIMACION = true;
@@ -23,7 +22,7 @@ export const jeta = (solucion, despuesPintado) => {
     let transparenciaCuadroFrase = CON_ANIMACION ? 0 : 255;
     let cuadroPatron;
     let transparenciaCuadroPatron = CON_ANIMACION ? 0 : 255;
-    let cuadroImagen;
+    let cuadroPatron2;
     let transparenciaCuadroImagen = CON_ANIMACION ? 0 : 255;
     let cuadroTitulo;
     let transparenciaCuadroTitulo = CON_ANIMACION ? 0 : 255;
@@ -82,11 +81,24 @@ export const jeta = (solucion, despuesPintado) => {
       const yPatron = y || graphics.floor(graphics.random(1, 13));
       const anchoPatron = graphics.floor(graphics.random(10, 19 - xPatron));
       const altoPatron = graphics.floor(graphics.random(10, 19 - yPatron));
+
+      // Dibujamos el borde del patrón
+      graphics.push();
+      graphics.noStroke();
+      graphics.fill(colorBase);
+      graphics.rect(
+        xPatron * MARGEN - 2,
+        yPatron * MARGEN - 2,
+        anchoPatron * MARGEN + 5,
+        altoPatron * MARGEN + 5,
+      );
+      graphics.pop();
+
       graphics.push();
       graphics.stroke(colorBase);
       graphics.strokeWeight(3);
 
-      // Limitar el área de dibujo al rectángulo
+      // Limitamos el área de dibujo al rectángulo
       graphics.drawingContext.save();
       graphics.drawingContext.beginPath();
       graphics.drawingContext.rect(
@@ -114,13 +126,13 @@ export const jeta = (solucion, despuesPintado) => {
     };
 
     const pintaImagen = (graphics, x, y) => {
-      graphics.noStroke();
       const imagen = graphics.random(imagenes);
 
       const xImagen = x || graphics.floor(graphics.random(1, 13));
       const yImagen = y || graphics.floor(graphics.random(1, 13));
       const anchoImagen = graphics.floor(graphics.random(5, 8));
 
+      graphics.noStroke();
       graphics.translate(0.5, 0.5);
       graphics.fill(colorBase);
       graphics.rect(
@@ -374,13 +386,21 @@ export const jeta = (solucion, despuesPintado) => {
       );
 
       // IMAGEN
-      cuadroImagen = p.createGraphics(p.width, p.height);
+      cuadroPatron2 = p.createGraphics(p.width, p.height);
       console.log("posición imagen", posiciones[1]);
-      pintaImagen(
-        cuadroImagen,
-        p.floor(posiciones[1][0]),
-        p.floor(posiciones[1][1]),
-      );
+      if (p.random() < 0.2) {
+        pintaImagen(
+          cuadroPatron2,
+          p.floor(posiciones[1][0]),
+          p.floor(posiciones[1][1]),
+        );
+      } else {
+        pintaPatron(
+          cuadroPatron2,
+          p.floor(posiciones[1][0]),
+          p.floor(posiciones[1][1]),
+        );
+      }
       // FRASE
       cuadroFrase = p.createGraphics(p.width, p.height);
       console.log("posición frase", posiciones[2]);
@@ -408,10 +428,8 @@ export const jeta = (solucion, despuesPintado) => {
       p.tint(255, transparenciaCuadroPatron);
       p.image(cuadroPatron, 0, 0);
 
-      if (CON_IMAGEN) {
-        p.tint(255, transparenciaCuadroImagen);
-        p.image(cuadroImagen, 0, 0);
-      }
+      p.tint(255, transparenciaCuadroImagen);
+      p.image(cuadroPatron2, 0, 0);
 
       if (CON_TEXTO) {
         p.tint(255, transparenciaCuadroFrase);
