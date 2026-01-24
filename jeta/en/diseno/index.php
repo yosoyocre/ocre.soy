@@ -17,44 +17,54 @@
         } from "./js/jeta.js";
 
         try {
+            const enviaPeticion = () => {
+                const input = document.querySelector('.js-pregunta input');
+                const valor = input.value.trim();
+                if (valor.length > 0) {
+                    const pregunta = document.querySelector('.js-pregunta');
+
+                    pregunta.classList.add('hidden');
+                    document.querySelector('.js-cargando').classList.remove('opacity-0');
+
+                    // Hacemos una petición a la inteligencia artificial con el problema
+                    fetch('peticion.php', {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: new URLSearchParams({
+                                problema: valor
+                            }),
+                        }).then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            document.querySelector('.js-cargando').classList.add('hidden');
+                            document.querySelector('.js-respuesta').classList.remove('hidden');
+                            new p5(jeta(data.solucion));
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            document.querySelector('.js-cargando').classList.add('hidden');
+                            document.querySelector('.js-error').classList.remove('opacity-0');
+                        });
+                }
+            }
+
             Typekit.load({
                 active: function() {
-                    let pregunta = document.querySelector('.js-pregunta');
-                    let input = document.querySelector('.js-pregunta input');
 
-                    pregunta.classList.remove('opacity-0');
-
+                    const input = document.querySelector('.js-pregunta input');
                     input.addEventListener('keydown', function(event) {
                         if (event.key === 'Enter') {
-                            let valor = input.value.trim();
-                            if (valor.length > 0) {
-                                pregunta.classList.add('hidden');
-                                document.querySelector('.js-cargando').classList.remove('opacity-0');
-
-                                // Hacemos una petición a la inteligencia artificial con el problema
-                                fetch('peticion.php', {
-                                        method: 'POST',
-                                        headers: {
-                                            "Content-Type": "application/x-www-form-urlencoded",
-                                        },
-                                        body: new URLSearchParams({
-                                            problema: valor
-                                        }),
-                                    }).then(response => response.json())
-                                    .then(data => {
-                                        console.log(data);
-                                        document.querySelector('.js-cargando').classList.add('hidden');
-                                        document.querySelector('.js-respuesta').classList.remove('hidden');
-                                        new p5(jeta(data.solucion));
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                        document.querySelector('.js-cargando').classList.add('hidden');
-                                        document.querySelector('.js-error').classList.remove('opacity-0');
-                                    });
-                            }
+                            enviaPeticion();
                         }
                     });
+
+                    const boton = document.querySelector('.js-boton');
+                    boton.addEventListener('click', enviaPeticion);
+
+                    const pregunta = document.querySelector('.js-pregunta');
+                    pregunta.classList.remove('opacity-0');
                 },
             });
         } catch (e) {}
@@ -63,7 +73,9 @@
 
 <body class="bg-white text-slate-800">
     <div class="absolute top-0 left-0 p-4 text-4xl">
-        Sloke.ai
+        <a href="/jeta/en/diseno">
+            Sloke.ai
+        </a>
     </div>
 
     <div class="tarjeta opacity-0 js-pregunta flex pt-72 justify-center min-h-screen text-3xl">
@@ -72,7 +84,15 @@
                 <p>
                     Sloke.ai te ayuda a resolver tus problemas laborales con <b>inteligencia artificial</b>
                 </p>
-                <input type="text" placeholder="¿Qué es lo que te preocupa hoy en tu trabajo?" class="text-xl w-full rounded-full px-6 pt-3 pb-4 border border-slate-300 mt-8 focus:outline-none shadow-lg">
+                <div class="w-full rounded-full pl-6 pr-3 pt-1 pb-4 border border-slate-300 mt-8 shadow-lg text-left">
+                    <input type="text" placeholder="¿Qué es lo que te preocupa hoy en tu trabajo?" maxlength="60" class="w-[calc(100%-3rem)] mt-[9px] text-xl focus:outline-none">
+                    <button class="js-boton float-right mt-1 w-10 h-10 flex items-center justify-center bg-slate-800 rounded-full hover:bg-slate-500 cursor-pointer transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path class="fill-white" d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z" />
+                        </svg>
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
