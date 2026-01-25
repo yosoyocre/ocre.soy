@@ -3,6 +3,7 @@ import { Azulejos } from "./patrones/azulejos.js";
 import { Azulejos2 } from "./patrones/azulejos2.js";
 import { Azulejos3 } from "./patrones/azulejos3.js";
 import { Azulejos4 } from "./patrones/azulejos4.js";
+import { AzulejosFlores } from "./patrones/azulejosFlores.js";
 import { Cruzado } from "./patrones/cruzado.js";
 import { DiagonalDerecha } from "./patrones/diagonalDerecha.js";
 import { DiagonalIzquierda } from "./patrones/diagonalIzquierda.js";
@@ -24,6 +25,7 @@ export const patrones = [
   new Azulejos2(),
   new Azulejos3(),
   new Azulejos4(),
+  new AzulejosFlores(),
   new Cruzado(),
   new DiagonalDerecha(),
   new DiagonalIzquierda(),
