@@ -2,8 +2,8 @@ import { patrones } from "./patrones.js";
 
 export const jeta = (solucion, despuesPintado) => {
   return function (p) {
-    const CON_TEXTO = true;
     const PATRON = null;
+    const CON_TEXTO = true;
     const CON_ANIMACION = true;
 
     const MARGEN = 70;
@@ -154,6 +154,51 @@ export const jeta = (solucion, despuesPintado) => {
       graphics.translate(0.5, 0.5);
     };
 
+    const ajustaPosicionFrase = (xTexto, yTexto, wTexto, alturaRedondeada) => {
+      let xFinal = xTexto + wTexto;
+      let yFinal = yTexto + alturaRedondeada;
+      let huboAjuste = false;
+
+      // Ajustamos la posición si se sale del área
+      if (xFinal < 1) {
+        console.log("Texto sale por la izquierda");
+        xTexto = 1;
+        console.log("posición frase ajustada", xTexto, yTexto);
+        huboAjuste = true;
+      }
+
+      if (yFinal < 1) {
+        console.log("Texto sale por arriba");
+        yTexto = 1;
+        console.log("posición frase ajustada", xTexto, yTexto);
+        huboAjuste = true;
+      }
+
+      if (xFinal > 19) {
+        console.log("Texto sale por la derecha");
+        xTexto = 19 - wTexto;
+        console.log("posición frase ajustada", xTexto, yTexto);
+        huboAjuste = true;
+      }
+
+      if (yFinal > 19) {
+        console.log("Texto sale por abajo");
+        yTexto = 19 - alturaRedondeada;
+        console.log("posición frase ajustada", xTexto, yTexto);
+        huboAjuste = true;
+      }
+
+      if (xFinal > 11 && yFinal > 11) {
+        console.log("Texto se solapa con el título");
+        xTexto = 11 - wTexto;
+        yTexto = 11 - alturaRedondeada;
+        console.log("posición frase ajustada", xTexto, yTexto);
+        huboAjuste = true;
+      }
+
+      return [huboAjuste, xTexto, yTexto];
+    };
+
     const pintaFrase = (graphics, x, y) => {
       const frase = solucion
         ? solucion.toUpperCase()
@@ -187,28 +232,15 @@ export const jeta = (solucion, despuesPintado) => {
         2 * margenTexto;
       let alturaRedondeada = Math.ceil(altura / MARGEN);
 
-      let xFinal = xTexto + wTexto;
-      let yFinal = yTexto + alturaRedondeada;
-
-      // Ajustamos la posición si se sale del área
-      if (xFinal > 19) {
-        console.log("Texto sale por la derecha");
-        xTexto = 19 - wTexto;
-        console.log("posición frase ajustada", xTexto, yTexto);
-      }
-
-      if (yFinal > 19) {
-        console.log("Texto sale por abajo");
-        yTexto = 19 - alturaRedondeada;
-        console.log("posición frase ajustada", xTexto, yTexto);
-      }
-
-      if (xFinal > 11 && yFinal > 11) {
-        console.log("Texto se solapa con el título");
-        xTexto = 11 - wTexto;
-        yTexto = 11 - alturaRedondeada;
-        console.log("posición frase ajustada", xTexto, yTexto);
-      }
+      let huboAjuste;
+      do {
+        [huboAjuste, xTexto, yTexto] = ajustaPosicionFrase(
+          xTexto,
+          yTexto,
+          wTexto,
+          alturaRedondeada,
+        );
+      } while (huboAjuste);
 
       let posicionX = xTexto * MARGEN + 3;
       let posicionY = yTexto * MARGEN + 3;
