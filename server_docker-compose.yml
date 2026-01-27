@@ -20,6 +20,8 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - backend
 
   nginx:
     image: nginx:alpine
@@ -37,6 +39,25 @@ services:
       - ./dhparam:/etc/ssl/certs
     links:
       - app
+    networks:
+      - backend
+
+  python:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: docker/python/sentencetransformer/Dockerfile
+    image: ocre-python
+    container_name: ocre-python
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
 
   certbot:
     image: certbot/certbot
@@ -52,3 +73,6 @@ services:
 volumes:
   certbot-etc:
   certbot-var:
+
+networks:
+  backend:

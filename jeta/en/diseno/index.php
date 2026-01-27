@@ -17,7 +17,7 @@
         } from "./js/jeta.js";
 
         try {
-            const CON_INTERFAZ = false;
+            const CON_INTERFAZ = true;
 
             const muestraExplicacion = () => {
                 document.querySelector("main").classList.add("terminado");
