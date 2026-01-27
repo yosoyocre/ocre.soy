@@ -150,7 +150,7 @@
     </div>
     <div id="explicacion" class="hiddem opacity-0 tarjeta flex justify-center min-h-screen text-2xl">
         <div class="max-w-2xl w-full text-left">
-            <p>Este es tu diseño del disco "Jeta" de Ocre</p>
+            <p>Sloke.ai es realmente el generador de portadas del "Jeta", el quinto disco de Ocre publicado en diciembre de 2026.</p>
         </div>
     </div>
 </body>

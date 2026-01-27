@@ -3,8 +3,8 @@ import { patrones } from "./patrones.js";
 export const jeta = (solucion, despuesPintado) => {
   return function (p) {
     const PATRON = null;
-    const CON_TEXTO = true;
-    const CON_ANIMACION = true;
+    const CON_TEXTO = 1;
+    const CON_ANIMACION = 1;
 
     const MARGEN = 70;
     const MAX_LUMINANCE = 0.5;
@@ -132,17 +132,21 @@ export const jeta = (solucion, despuesPintado) => {
       const yImagen = y || graphics.floor(graphics.random(1, 13));
       const anchoImagen = graphics.floor(graphics.random(5, 8));
 
+      graphics.push();
       graphics.noStroke();
-      graphics.translate(0.5, 0.5);
+      graphics.translate(0, 0);
       graphics.fill(colorBase);
       graphics.rect(
-        xImagen * MARGEN,
-        yImagen * MARGEN,
-        anchoImagen * MARGEN,
-        anchoImagen * MARGEN,
+        xImagen * MARGEN - 2,
+        yImagen * MARGEN - 2,
+        anchoImagen * MARGEN + 5,
+        anchoImagen * MARGEN + 5,
       );
+      graphics.pop();
+
+      graphics.push();
       // Recolocamos el origen medio píxel para que la imagen quede nítida
-      graphics.translate(-0.5, -0.5);
+      graphics.translate(0, 0);
       graphics.fill(255);
       graphics.image(
         imagen,
@@ -151,7 +155,7 @@ export const jeta = (solucion, despuesPintado) => {
         anchoImagen * MARGEN - 5,
         anchoImagen * MARGEN - 5,
       );
-      graphics.translate(0.5, 0.5);
+      graphics.pop();
     };
 
     const ajustaPosicionFrase = (xTexto, yTexto, wTexto, alturaRedondeada) => {
@@ -160,14 +164,14 @@ export const jeta = (solucion, despuesPintado) => {
       let huboAjuste = false;
 
       // Ajustamos la posición si se sale del área
-      if (xFinal < 1) {
+      if (xTexto < 1) {
         console.log("Texto sale por la izquierda");
         xTexto = 1;
         console.log("posición frase ajustada", xTexto, yTexto);
         huboAjuste = true;
       }
 
-      if (yFinal < 1) {
+      if (yTexto < 1) {
         console.log("Texto sale por arriba");
         yTexto = 1;
         console.log("posición frase ajustada", xTexto, yTexto);
@@ -359,7 +363,11 @@ export const jeta = (solucion, despuesPintado) => {
     };
 
     p.preload = () => {
-      imagenes = [p.loadImage("img/facepalm.png"), p.loadImage("img/elon.png")];
+      imagenes = [
+        p.loadImage("img/facepalm.png"),
+        p.loadImage("img/elon.png"),
+        p.loadImage("img/mill_children_440.png"),
+      ];
       const frasesObject = p.loadJSON("soluciones.json", (data) => {
         frases = [];
         // Iteramos por los atributos del objeto para crear un array con las frases de cada atributo
@@ -421,6 +429,7 @@ export const jeta = (solucion, despuesPintado) => {
       cuadroPatron2 = p.createGraphics(p.width, p.height);
       console.log("posición imagen", posiciones[1]);
       if (p.random() < 0.2) {
+        // if (p.random() < 1) {
         pintaImagen(
           cuadroPatron2,
           p.floor(posiciones[1][0]),
