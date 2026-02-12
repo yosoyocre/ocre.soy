@@ -19,9 +19,10 @@
         try {
             <?php
             // Usamos el parámetro "p", de "prueba", para saltarnos la interfaz y mostrar directamente la portada generada
+            $esPrueba = isset($_GET['p']);
             ?>
-            const CON_INTERFAZ = <?= !isset($_GET['p']) ? 'true' : 'false' ?>;
-            const CON_ANIMACION = <?= !isset($_GET['p']) ? 'true' : 'false' ?>;
+            const CON_INTERFAZ = <?= !$esPrueba ? 'true' : 'false' ?>;
+            const CON_ANIMACION = <?= !$esPrueba ? 'true' : 'false' ?>;
 
             const muestraExplicacion = () => {
                 document.querySelector("main").classList.add("terminado");
@@ -31,6 +32,10 @@
                         .getElementById("explicacion")
                         .classList.remove("opacity-0");
                 }, 1000);
+            }
+
+            const muestraSombra = () => {
+                document.querySelector("main").classList.add("terminadoya");
             }
 
             const enviaPeticion = () => {
@@ -93,7 +98,7 @@
                     if (!CON_INTERFAZ) {
                         document.getElementById('pregunta').classList.add('hidden');
                         document.getElementById('respuesta').classList.remove('hidden');
-                        new p5(jeta(null, CON_ANIMACION, muestraExplicacion));
+                        new p5(jeta(null, CON_ANIMACION, muestraSombra));
                     }
 
                     // new p5(jeta());

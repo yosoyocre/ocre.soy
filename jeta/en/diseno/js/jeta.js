@@ -502,6 +502,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         }
 
         tiempo = tiempo + 5;
+      } else {
+        if (!!despuesPintado) {
+          despuesPintado();
+        }
       }
     };
   };

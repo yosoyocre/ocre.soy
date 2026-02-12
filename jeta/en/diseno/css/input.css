@@ -8,6 +8,10 @@ b {
     font-weight: 500;
 }
 
+main.terminadoya {
+  @apply shadow-[4px_4px_5px_rgb(221,221,221)];
+}
+
 main.terminado {
   @apply shadow-[4px_4px_5px_rgb(221,221,221)] transition-all duration-3000;
 }
