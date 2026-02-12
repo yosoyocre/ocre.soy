@@ -17,7 +17,11 @@
         } from "./js/jeta.js";
 
         try {
-            const CON_INTERFAZ = true;
+            <?php
+            // Usamos el parámetro "p", de "prueba", para saltarnos la interfaz y mostrar directamente la portada generada
+            ?>
+            const CON_INTERFAZ = <?= !isset($_GET['p']) ? 'true' : 'false' ?>;
+            const CON_ANIMACION = <?= !isset($_GET['p']) ? 'true' : 'false' ?>;
 
             const muestraExplicacion = () => {
                 document.querySelector("main").classList.add("terminado");
@@ -54,7 +58,7 @@
                                     console.log(data);
                                     document.getElementById('cargando').classList.add('hidden');
                                     document.getElementById('respuesta').classList.remove('hidden');
-                                    new p5(jeta(data.solucion, muestraExplicacion));
+                                    new p5(jeta(data.solucion, CON_ANIMACION, muestraExplicacion));
                                 })
                                 .catch(error => {
                                     console.error('Error:', error);
@@ -89,7 +93,7 @@
                     if (!CON_INTERFAZ) {
                         document.getElementById('pregunta').classList.add('hidden');
                         document.getElementById('respuesta').classList.remove('hidden');
-                        new p5(jeta(null, muestraExplicacion));
+                        new p5(jeta(null, CON_ANIMACION, muestraExplicacion));
                     }
 
                     // new p5(jeta());

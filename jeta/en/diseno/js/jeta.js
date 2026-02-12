@@ -1,13 +1,16 @@
 import { patrones } from "./patrones.js";
 
-export const jeta = (solucion, despuesPintado) => {
+export const jeta = (solucion, conAnimacion, despuesPintado) => {
   return function (p) {
     const PATRON = null;
     const CON_TEXTO = 1;
-    const CON_ANIMACION = 1;
 
     const MARGEN = 70;
     const MAX_LUMINANCE = 0.5;
+
+    if (!!conAnimacion) {
+      conAnimacion = true;
+    }
 
     let imagenes;
     let frases;
@@ -17,15 +20,15 @@ export const jeta = (solucion, despuesPintado) => {
 
     let cuadricula;
     let marco;
-    let transparenciaCuadricula = CON_ANIMACION ? 0 : 255;
+    let transparenciaCuadricula = conAnimacion ? 0 : 255;
     let cuadroFrase;
-    let transparenciaCuadroFrase = CON_ANIMACION ? 0 : 255;
+    let transparenciaCuadroFrase = conAnimacion ? 0 : 255;
     let cuadroPatron;
-    let transparenciaCuadroPatron = CON_ANIMACION ? 0 : 255;
+    let transparenciaCuadroPatron = conAnimacion ? 0 : 255;
     let cuadroPatron2;
-    let transparenciaCuadroImagen = CON_ANIMACION ? 0 : 255;
+    let transparenciaCuadroImagen = conAnimacion ? 0 : 255;
     let cuadroTitulo;
-    let transparenciaCuadroTitulo = CON_ANIMACION ? 0 : 255;
+    let transparenciaCuadroTitulo = conAnimacion ? 0 : 255;
 
     const colorAleatorio = () => {
       return p.color(p.random(0, 255), p.random(0, 255), p.random(0, 255));
@@ -483,7 +486,7 @@ export const jeta = (solucion, despuesPintado) => {
       p.tint(255, 255);
       p.image(marco, 0, 0);
 
-      if (CON_ANIMACION) {
+      if (conAnimacion) {
         transparenciaCuadroFrase = p.min(tiempo, 255);
         transparenciaCuadricula = p.max(0, p.min(tiempo - 1000, 255));
         transparenciaCuadroPatron = p.max(0, p.min(tiempo - 1500, 255));
