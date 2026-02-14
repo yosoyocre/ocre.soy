@@ -373,6 +373,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         p.loadImage("img/hirakud_dam.png"),
         p.loadImage("img/triumph_of_labour.png"),
         p.loadImage("img/russell_lee.png"),
+        p.loadImage("img/russell_lee_2.png"),
+        p.loadImage(
+          "img/a-brazilian-family-in-rio-de-janeiro-by-jean-baptiste-debret-1839.png",
+        ),
       ];
       const frasesObject = p.loadJSON("soluciones.json", (data) => {
         frases = [];
