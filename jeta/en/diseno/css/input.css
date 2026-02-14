@@ -8,11 +8,11 @@ b {
     font-weight: 500;
 }
 
-main.terminadoya {
+main.terminadoya canvas {
   @apply shadow-[4px_4px_5px_rgb(221,221,221)];
 }
 
-main.terminado {
+main.terminado canvas {
   @apply shadow-[4px_4px_5px_rgb(221,221,221)] transition-all duration-3000;
 }
 
