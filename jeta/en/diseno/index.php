@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/output.css" rel="stylesheet">
+    <link href="./css/output.css?v=26021400" rel="stylesheet">
 
     <script src="https://use.typekit.net/wfj3ppv.js"></script>
 
