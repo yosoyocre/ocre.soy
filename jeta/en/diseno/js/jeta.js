@@ -368,8 +368,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
     p.preload = () => {
       imagenes = [
         p.loadImage("img/facepalm.png"),
-        p.loadImage("img/elon.png"),
+        // p.loadImage("img/elon.png"),
         p.loadImage("img/mill_children_440.png"),
+        p.loadImage("img/hirakud_dam.png"),
+        p.loadImage("img/triumph_of_labour.png"),
       ];
       const frasesObject = p.loadJSON("soluciones.json", (data) => {
         frases = [];
