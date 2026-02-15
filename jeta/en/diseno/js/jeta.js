@@ -6,6 +6,21 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
     const CON_TEXTO = 1;
     const SOLO_IMAGENES = 0;
 
+    const listaImagenes = [
+      "facepalm.png",
+      // "elon.png",
+      "mill_children_440.png",
+      "hirakud_dam.png",
+      "triumph_of_labour.png",
+      "russell_lee.png",
+      "russell_lee_2.png",
+      "a-brazilian-family-in-rio-de-janeiro-by-jean-baptiste-debret-1839.png",
+      "worn_out.png",
+      "monument_of_skulls.png",
+      "grenade_woman.png",
+      "female_labourers.png",
+    ];
+
     const MARGEN = 70;
     const MAX_LUMINANCE = 0.5;
 
@@ -134,7 +149,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
 
       const xImagen = x || graphics.floor(graphics.random(1, 13));
       const yImagen = y || graphics.floor(graphics.random(1, 13));
-      const anchoImagen = graphics.floor(graphics.random(8, 10));
+      const anchoImagen = graphics.floor(graphics.random(8, 12));
 
       graphics.push();
       graphics.noStroke();
@@ -367,19 +382,12 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
     };
 
     p.preload = () => {
-      imagenes = [
-        p.loadImage("img/facepalm.png"),
-        // p.loadImage("img/elon.png"),
-        p.loadImage("img/mill_children_440.png"),
-        p.loadImage("img/hirakud_dam.png"),
-        p.loadImage("img/triumph_of_labour.png"),
-        p.loadImage("img/russell_lee.png"),
-        p.loadImage("img/russell_lee_2.png"),
-        p.loadImage(
-          "img/a-brazilian-family-in-rio-de-janeiro-by-jean-baptiste-debret-1839.png",
-        ),
-        p.loadImage("img/worn_out.png"),
-      ];
+      imagenes = [];
+
+      for (const nombreImagen of listaImagenes) {
+        imagenes.push(p.loadImage(`img/${nombreImagen}`));
+      }
+
       const frasesObject = p.loadJSON("soluciones.json", (data) => {
         frases = [];
         // Iteramos por los atributos del objeto para crear un array con las frases de cada atributo
@@ -440,7 +448,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       // IMAGEN
       cuadroPatron2 = p.createGraphics(p.width, p.height);
       console.log("posición imagen", posiciones[1]);
-      const probabilidadImagen = SOLO_IMAGENES ? 1 : 0.2;
+      const probabilidadImagen = SOLO_IMAGENES ? 1 : 0.5;
       if (p.random() < probabilidadImagen) {
         pintaImagen(
           cuadroPatron2,
