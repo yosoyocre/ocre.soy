@@ -4,6 +4,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
   return function (p) {
     const PATRON = null;
     const CON_TEXTO = 1;
+    const SOLO_IMAGENES = 0;
 
     const MARGEN = 70;
     const MAX_LUMINANCE = 0.5;
@@ -133,7 +134,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
 
       const xImagen = x || graphics.floor(graphics.random(1, 13));
       const yImagen = y || graphics.floor(graphics.random(1, 13));
-      const anchoImagen = graphics.floor(graphics.random(5, 8));
+      const anchoImagen = graphics.floor(graphics.random(8, 10));
 
       graphics.push();
       graphics.noStroke();
@@ -439,8 +440,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       // IMAGEN
       cuadroPatron2 = p.createGraphics(p.width, p.height);
       console.log("posición imagen", posiciones[1]);
-      if (p.random() < 0.2) {
-        // if (p.random() < 1) {
+      const probabilidadImagen = SOLO_IMAGENES ? 1 : 0.2;
+      if (p.random() < probabilidadImagen) {
         pintaImagen(
           cuadroPatron2,
           p.floor(posiciones[1][0]),
