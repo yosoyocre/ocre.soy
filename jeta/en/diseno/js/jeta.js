@@ -377,6 +377,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         p.loadImage(
           "img/a-brazilian-family-in-rio-de-janeiro-by-jean-baptiste-debret-1839.png",
         ),
+        p.loadImage("img/worn_out.png"),
       ];
       const frasesObject = p.loadJSON("soluciones.json", (data) => {
         frases = [];
