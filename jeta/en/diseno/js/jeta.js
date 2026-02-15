@@ -4,7 +4,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
   return function (p) {
     const PATRON = null;
     const CON_TEXTO = 1;
-    const SOLO_IMAGENES = 0;
+    const SOLO_IMAGENES = 1;
 
     const listaImagenes = [
       "facepalm.png",
@@ -19,6 +19,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "monument_of_skulls.png",
       "grenade_woman.png",
       "female_labourers.png",
+      "utah_penitentiary.png",
+      "pennsylvania_penitentiary.png",
     ];
 
     const MARGEN = 70;
