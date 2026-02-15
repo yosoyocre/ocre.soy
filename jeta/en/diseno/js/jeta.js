@@ -21,6 +21,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "female_labourers.png",
       "utah_penitentiary.png",
       "pennsylvania_penitentiary.png",
+      "rossums_universal_robots.png",
+      "la_grant_danse_macabre.png",
+      "physical_training_for_business_men.png",
+      "atlas.png",
     ];
 
     const MARGEN = 70;
