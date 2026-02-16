@@ -30,6 +30,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "picking_slate.png",
       "spinner_in_cotton_mill.png",
       "at_the_close_of_the_day.png",
+      "slave_trade.png",
+      "death_with_worldly_vanities.png",
     ];
 
     const MARGEN = 70;
