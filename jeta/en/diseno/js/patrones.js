@@ -9,6 +9,7 @@ import { Cruzado } from "./patrones/cruzado.js";
 import { DiagonalDerecha } from "./patrones/diagonalDerecha.js";
 import { DiagonalIzquierda } from "./patrones/diagonalIzquierda.js";
 import { Flechas } from "./patrones/flechas.js";
+import { Ladrillos } from "./patrones/ladrillos.js";
 import { Laberinto } from "./patrones/laberinto.js";
 import { LineasDiskSampling } from "./patrones/lineasDiskSampling.js";
 import { LineasOndulantes } from "./patrones/lineasOndulantes.js";
@@ -32,6 +33,7 @@ export const patrones = [
   new DiagonalDerecha(),
   new DiagonalIzquierda(),
   new Flechas(),
+  new Ladrillos(),
   new Laberinto(),
   new LineasDiskSampling(),
   new LineasOndulantes(),
