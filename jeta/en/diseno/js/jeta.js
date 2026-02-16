@@ -25,6 +25,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "la_grant_danse_macabre.png",
       "physical_training_for_business_men.png",
       "atlas.png",
+      "the_tinsmiths.png",
     ];
 
     const MARGEN = 70;
