@@ -1,3 +1,4 @@
+import { Ajedrez } from "./patrones/ajedrez.js";
 import { Angulos } from "./patrones/angulos.js";
 import { Azulejos } from "./patrones/azulejos.js";
 import { Azulejos2 } from "./patrones/azulejos2.js";
@@ -25,6 +26,7 @@ import { Ruido } from "./patrones/ruido.js";
 import { Tejas } from "./patrones/tejas.js";
 
 export const patrones = [
+  new Ajedrez(),
   new Angulos(),
   new Azulejos(),
   new Azulejos2(),
