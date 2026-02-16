@@ -8,7 +8,6 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
 
     const listaImagenes = [
       "facepalm.png",
-      // "elon.png",
       "mill_children_440.png",
       "hirakud_dam.png",
       "triumph_of_labour.png",
@@ -26,6 +25,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "physical_training_for_business_men.png",
       "atlas.png",
       "the_tinsmiths.png",
+      "adam_tills_the_soil.png",
     ];
 
     const MARGEN = 70;
