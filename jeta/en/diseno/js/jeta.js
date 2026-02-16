@@ -26,6 +26,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "atlas.png",
       "the_tinsmiths.png",
       "adam_tills_the_soil.png",
+      "telegrapher_boy.png",
+      "picking_slate.png",
+      "spinner_in_cotton_mill.png",
+      "at_the_close_of_the_day.png",
     ];
 
     const MARGEN = 70;
