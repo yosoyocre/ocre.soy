@@ -20,6 +20,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "la_grant_danse_macabre.png",
       "mill_children_440.png",
       "monument_of_skulls.png",
+      "ouvriers_sortant_de_lusine.png",
       "pennsylvania_penitentiary.png",
       "physical_training_for_business_men.png",
       "picking_slate.png",
