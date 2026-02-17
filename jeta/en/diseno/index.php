@@ -99,6 +99,7 @@
                         document.getElementById('pregunta').classList.add('hidden');
                         document.getElementById('respuesta').classList.remove('hidden');
                         new p5(jeta(null, CON_ANIMACION, muestraSombra));
+                        // new p5(jeta("Cuando algo es lo suficientemente importante, hazlo igual aunque las probabilidades no estén a tu favor", CON_ANIMACION, muestraSombra));
                     }
 
                     // new p5(jeta());

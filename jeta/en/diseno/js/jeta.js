@@ -242,9 +242,12 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         ? solucion.toUpperCase()
         : graphics.random(frases).toUpperCase();
 
-      let xTexto = x || graphics.floor(graphics.random(1, 10));
-      let yTexto = y || graphics.floor(graphics.random(1, 10));
-      const wTexto = graphics.floor(graphics.random(8, 10));
+      // Obtenemos la palabra más larga para calcular el ancho mínimo del cuadro
+      const palabras = frase.split(" ");
+      const palabraMasLarga = palabras.reduce((a, b) =>
+        a.length > b.length ? a : b,
+      );
+      console.log("Palabra más larga", palabraMasLarga);
 
       graphics.noStroke();
 
@@ -260,6 +263,22 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       graphics.textAlign(graphics.LEFT, graphics.TOP);
       graphics.textFont("futura-pt", 75);
       graphics.textStyle(graphics.BOLD);
+
+      // Calculamos el ancho mínimo del cuadro
+      const anchoMinimo = graphics.ceil(
+        graphics.drawingContext.measureText(palabraMasLarga).width,
+      );
+      console.log("Ancho mínimo del cuadro", anchoMinimo);
+      let unidadesAnchoMinimo = graphics.ceil(anchoMinimo / MARGEN);
+      console.log("Unidades de ancho mínimo del cuadro", unidadesAnchoMinimo);
+
+      unidadesAnchoMinimo = Math.max(unidadesAnchoMinimo, 8);
+
+      let xTexto = x || graphics.floor(graphics.random(1, 10));
+      let yTexto = y || graphics.floor(graphics.random(1, 10));
+      const wTexto = graphics.floor(
+        graphics.random(unidadesAnchoMinimo, unidadesAnchoMinimo + 2),
+      );
 
       let margenTexto = 10;
       let anchoMaximo = wTexto * MARGEN - 5;
