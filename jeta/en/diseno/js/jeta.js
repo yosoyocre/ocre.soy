@@ -159,12 +159,72 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       graphics.pop();
     };
 
-    const pintaImagen = (graphics, x, y) => {
-      const imagen = graphics.random(imagenes);
+    const calculaSolapamiento = (x1, y1, w1, h1, x2, y2, w2, h2) => {
+      const xOverlap = Math.max(
+        0,
+        Math.min(x1 + w1, x2 + w2) - Math.max(x1, x2),
+      );
+      const yOverlap = Math.max(
+        0,
+        Math.min(y1 + h1, y2 + h2) - Math.max(y1, y2),
+      );
+      const overlapArea = xOverlap * yOverlap;
+      const area1 = w1 * h1;
 
-      const xImagen = x || graphics.floor(graphics.random(1, 13));
-      const yImagen = y || graphics.floor(graphics.random(1, 13));
-      const anchoImagen = graphics.floor(graphics.random(8, 12));
+      // Devolvemos el solapamiento como un porcentaje del área de la primera figura
+      return overlapArea / area1;
+    };
+
+    const pintaImagen = (graphics, datosFrase) => {
+      const imagen = graphics.random(imagenes);
+      let imagenPintada = false;
+
+      const maxSolapamiento = 0.3;
+
+      let xImagen;
+      let yImagen;
+      let anchoImagen;
+      let alturaImagen;
+
+      // Comprobamos que la imagen no quede más un maxSolapamiento solapada con la frase
+      // y el título
+      while (!imagenPintada) {
+        xImagen = graphics.floor(graphics.random(1, 13));
+        yImagen = graphics.floor(graphics.random(1, 13));
+        anchoImagen = graphics.floor(graphics.random(8, 12));
+        alturaImagen = anchoImagen;
+
+        const solapamientoFrase = calculaSolapamiento(
+          xImagen * MARGEN,
+          yImagen * MARGEN,
+          anchoImagen * MARGEN,
+          alturaImagen * MARGEN,
+          datosFrase.x,
+          datosFrase.y,
+          datosFrase.ancho,
+          datosFrase.altura,
+        );
+        console.log("Solapamiento frase", solapamientoFrase);
+
+        const solapamientoTitulo = calculaSolapamiento(
+          xImagen * MARGEN,
+          yImagen * MARGEN,
+          anchoImagen * MARGEN,
+          alturaImagen * MARGEN,
+          11 * MARGEN + 3,
+          11 * MARGEN + 3,
+          8 * MARGEN - 5,
+          8 * MARGEN - 5,
+        );
+        console.log("Solapamiento título", solapamientoTitulo);
+
+        const solapamientoTotal = solapamientoFrase + solapamientoTitulo;
+        console.log("Solapamiento total", solapamientoTotal);
+
+        if (solapamientoTotal < maxSolapamiento) {
+          imagenPintada = true;
+        }
+      }
 
       graphics.push();
       graphics.noStroke();
@@ -237,7 +297,18 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       return [huboAjuste, xTexto, yTexto];
     };
 
-    const pintaFrase = (graphics, x, y) => {
+    const defineTipografia = (graphics) => {
+      graphics.noStroke();
+
+      graphics.textLeading(65);
+      graphics.drawingContext.letterSpacing = "-4px";
+
+      graphics.textAlign(graphics.LEFT, graphics.TOP);
+      graphics.textFont("futura-pt", 75);
+      graphics.textStyle(graphics.BOLD);
+    };
+
+    const colocaFrase = (graphics, xInicial, yInicial) => {
       const frase = solucion
         ? solucion.toUpperCase()
         : graphics.random(frases).toUpperCase();
@@ -249,20 +320,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       );
       console.log("Palabra más larga", palabraMasLarga);
 
-      graphics.noStroke();
-
-      // graphics.textLeading(70);
-      // graphics.drawingContext.letterSpacing = "-4px";
-
-      graphics.textLeading(65);
-      graphics.drawingContext.letterSpacing = "-4px";
-
-      // graphics.textLeading(80);
-      // graphics.drawingContext.letterSpacing = "-2px";
-
-      graphics.textAlign(graphics.LEFT, graphics.TOP);
-      graphics.textFont("futura-pt", 75);
-      graphics.textStyle(graphics.BOLD);
+      defineTipografia(graphics);
 
       // Calculamos el ancho mínimo del cuadro
       const anchoMinimo = graphics.ceil(
@@ -274,20 +332,20 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
 
       unidadesAnchoMinimo = Math.max(unidadesAnchoMinimo, 8);
 
-      let xTexto = x || graphics.floor(graphics.random(1, 10));
-      let yTexto = y || graphics.floor(graphics.random(1, 10));
+      let xTexto = xInicial || graphics.floor(graphics.random(1, 10));
+      let yTexto = yInicial || graphics.floor(graphics.random(1, 10));
       const wTexto = graphics.floor(
         graphics.random(unidadesAnchoMinimo, unidadesAnchoMinimo + 2),
       );
 
       let margenTexto = 10;
-      let anchoMaximo = wTexto * MARGEN - 5;
+      let ancho = wTexto * MARGEN - 5;
 
       // Calculamos la altura del texto para ajustar el fondo
-      let altura =
-        alturaDeTexto(graphics, frase, anchoMaximo - 2 * margenTexto) +
+      let alturaSinRedondear =
+        alturaDeTexto(graphics, frase, ancho - 2 * margenTexto) +
         2 * margenTexto;
-      let alturaRedondeada = Math.ceil(altura / MARGEN);
+      let alturaRedondeada = Math.ceil(alturaSinRedondear / MARGEN);
 
       let huboAjuste;
       do {
@@ -299,34 +357,40 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         );
       } while (huboAjuste);
 
-      let posicionX = xTexto * MARGEN + 3;
-      let posicionY = yTexto * MARGEN + 3;
+      const x = xTexto * MARGEN + 3;
+      const y = yTexto * MARGEN + 3;
+      const altura = alturaRedondeada * MARGEN;
+
+      return {
+        frase,
+        x,
+        y,
+        ancho,
+        altura,
+        margenTexto,
+      };
+    };
+
+    const pintaFrase = (graphics, datos) => {
+      const { frase, x, y, ancho, altura, margenTexto } = datos;
+
+      defineTipografia(graphics);
 
       // Cuadro que define el borde
       graphics.fill(colorBase);
-      graphics.rect(
-        posicionX - 5,
-        posicionY - 5,
-        anchoMaximo + 10,
-        alturaRedondeada * MARGEN + 5,
-      );
+      graphics.rect(x - 5, y - 5, ancho + 10, altura + 5);
 
       // Fondo blanco del texto
       graphics.fill(255);
-      graphics.rect(
-        posicionX,
-        posicionY,
-        anchoMaximo,
-        alturaRedondeada * MARGEN - 5,
-      );
+      graphics.rect(x, y, ancho, altura - 5);
 
       // Texto
       graphics.fill(colorBase);
       graphics.text(
         frase,
-        posicionX + margenTexto,
-        posicionY + margenTexto,
-        anchoMaximo - 2 * margenTexto,
+        x + margenTexto,
+        y + margenTexto,
+        ancho - 2 * margenTexto,
       );
     };
 
@@ -479,31 +543,25 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         p.floor(posiciones[0][1]),
       );
 
+      // POSICIÓN DE LA FRASE
+      cuadroFrase = p.createGraphics(p.width, p.height);
+      console.log("posición frase", posiciones[2]);
+      const datosFrase = colocaFrase(
+        cuadroFrase,
+        posiciones[2][0],
+        posiciones[2][1],
+      );
+
+      console.log(datosFrase);
+
       // IMAGEN
       cuadroPatron2 = p.createGraphics(p.width, p.height);
       console.log("posición imagen", posiciones[1]);
       const probabilidadImagen = SOLO_IMAGENES ? 1 : 0.5;
-      if (p.random() < probabilidadImagen) {
-        pintaImagen(
-          cuadroPatron2,
-          p.floor(posiciones[1][0]),
-          p.floor(posiciones[1][1]),
-        );
-      } else {
-        pintaPatron(
-          cuadroPatron2,
-          p.floor(posiciones[1][0]),
-          p.floor(posiciones[1][1]),
-        );
-      }
+      pintaImagen(cuadroPatron2, datosFrase);
       // FRASE
-      cuadroFrase = p.createGraphics(p.width, p.height);
-      console.log("posición frase", posiciones[2]);
-      pintaFrase(
-        cuadroFrase,
-        p.floor(posiciones[2][0]),
-        p.floor(posiciones[2][1]),
-      );
+
+      pintaFrase(cuadroFrase, datosFrase);
 
       // TÍTULO
       cuadroTitulo = p.createGraphics(p.width, p.height);
