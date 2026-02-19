@@ -56,7 +56,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
     let transparenciaCuadroFrase = conAnimacion ? 0 : 255;
     let cuadroPatron;
     let transparenciaCuadroPatron = conAnimacion ? 0 : 255;
-    let cuadroPatron2;
+    let cuadroImagen;
     let transparenciaCuadroImagen = conAnimacion ? 0 : 255;
     let cuadroTitulo;
     let transparenciaCuadroTitulo = conAnimacion ? 0 : 255;
@@ -75,6 +75,17 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
         return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
       });
       return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    };
+
+    const posicionAleatoria = () => {
+      let xPosicion = p.floor(p.random(1, 15));
+      let yPosicion;
+      if (xPosicion > 8) {
+        yPosicion = p.floor(p.random(1, 10));
+      } else {
+        yPosicion = p.floor(p.random(1, 15));
+      }
+      return { x: xPosicion, y: yPosicion };
     };
 
     const alturaDeTexto = (graphics, text, maxWidth) => {
@@ -110,19 +121,22 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       }
     };
 
-    const pintaPatron = (graphics, x, y) => {
-      const xPatron = x || graphics.floor(graphics.random(1, 13));
-      const yPatron = y || graphics.floor(graphics.random(1, 13));
-      const anchoPatron = graphics.floor(graphics.random(10, 19 - xPatron));
-      const altoPatron = graphics.floor(graphics.random(10, 19 - yPatron));
+    const pintaPatron = (graphics) => {
+      const posicionPatron = posicionAleatoria();
+      const anchoPatron = graphics.floor(
+        graphics.random(10, 19 - posicionPatron.x),
+      );
+      const altoPatron = graphics.floor(
+        graphics.random(10, 19 - posicionPatron.y),
+      );
 
       // Dibujamos el borde del patrón
       graphics.push();
       graphics.noStroke();
       graphics.fill(colorBase);
       graphics.rect(
-        xPatron * MARGEN - 2,
-        yPatron * MARGEN - 2,
+        posicionPatron.x * MARGEN - 2,
+        posicionPatron.y * MARGEN - 2,
         anchoPatron * MARGEN + 5,
         altoPatron * MARGEN + 5,
       );
@@ -136,8 +150,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       graphics.drawingContext.save();
       graphics.drawingContext.beginPath();
       graphics.drawingContext.rect(
-        xPatron * MARGEN + 3,
-        yPatron * MARGEN + 3,
+        posicionPatron.x * MARGEN + 3,
+        posicionPatron.y * MARGEN + 3,
         anchoPatron * MARGEN - 5,
         altoPatron * MARGEN - 5,
       );
@@ -175,7 +189,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       return overlapArea / area1;
     };
 
-    const pintaImagen = (graphics, datosFrase) => {
+    const pintaImagen = (graphics, datosTitulo, datosFrase) => {
       const imagen = graphics.random(imagenes);
       let imagenPintada = false;
 
@@ -211,10 +225,10 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
           yImagen * MARGEN,
           anchoImagen * MARGEN,
           alturaImagen * MARGEN,
-          11 * MARGEN + 3,
-          11 * MARGEN + 3,
-          8 * MARGEN - 5,
-          8 * MARGEN - 5,
+          datosTitulo.x,
+          datosTitulo.y,
+          datosTitulo.ancho,
+          datosTitulo.altura,
         );
         console.log("Solapamiento título", solapamientoTitulo);
 
@@ -308,7 +322,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       graphics.textStyle(graphics.BOLD);
     };
 
-    const colocaFrase = (graphics, xInicial, yInicial) => {
+    const colocaFrase = (graphics) => {
+      const posicionFrase = posicionAleatoria();
       const frase = solucion
         ? solucion.toUpperCase()
         : graphics.random(frases).toUpperCase();
@@ -332,8 +347,8 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
 
       unidadesAnchoMinimo = Math.max(unidadesAnchoMinimo, 8);
 
-      let xTexto = xInicial || graphics.floor(graphics.random(1, 10));
-      let yTexto = yInicial || graphics.floor(graphics.random(1, 10));
+      let xTexto = posicionFrase.x;
+      let yTexto = posicionFrase.y;
       const wTexto = graphics.floor(
         graphics.random(unidadesAnchoMinimo, unidadesAnchoMinimo + 2),
       );
@@ -394,32 +409,46 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       );
     };
 
-    const pintaTitulo = (graphics) => {
+    const colocaTitulo = (graphics) => {
+      const x = 11 * MARGEN;
+      const y = 11 * MARGEN;
+      const ancho = 8 * MARGEN;
+      const altura = 8 * MARGEN;
+
+      return { x, y, ancho, altura };
+    };
+
+    const pintaTitulo = (graphics, datosTitulo) => {
       graphics.noStroke();
 
       graphics.fill(colorBase);
       graphics.rect(
-        11 * MARGEN - 2,
-        11 * MARGEN - 2,
-        8 * MARGEN + 5,
-        8 * MARGEN + 5,
+        datosTitulo.x - 2,
+        datosTitulo.y - 2,
+        datosTitulo.ancho + 5,
+        datosTitulo.altura + 5,
       );
       graphics.fill(255);
-      graphics.rect(11 * MARGEN + 3, 11 * MARGEN + 3, 8 * MARGEN, 8 * MARGEN);
+      graphics.rect(
+        datosTitulo.x + 3,
+        datosTitulo.y + 3,
+        datosTitulo.ancho,
+        datosTitulo.altura,
+      );
 
       graphics.fill(colorBase);
       graphics.rect(
-        12 * MARGEN - 2,
-        12 * MARGEN - 2,
-        7 * MARGEN + 5,
-        7 * MARGEN + 5,
+        datosTitulo.x + MARGEN - 2,
+        datosTitulo.y + MARGEN - 2,
+        datosTitulo.ancho - MARGEN + 5,
+        datosTitulo.altura - MARGEN + 5,
       );
       graphics.fill(255);
       graphics.rect(
-        12 * MARGEN + 3,
-        12 * MARGEN + 3,
-        7 * MARGEN - 5,
-        7 * MARGEN - 5,
+        datosTitulo.x + MARGEN + 3,
+        datosTitulo.y + MARGEN + 3,
+        datosTitulo.ancho - MARGEN - 5,
+        datosTitulo.altura - MARGEN - 5,
       );
 
       graphics.fill(colorBase);
@@ -518,54 +547,31 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       // FONDO
       p.background(255);
 
-      let posiciones = [];
-      for (let i = 0; i < 3; i++) {
-        let xPosicion = p.floor(p.random(1, 15));
-        let yPosicion;
-        if (xPosicion > 8) {
-          yPosicion = p.floor(p.random(1, 10));
-        } else {
-          yPosicion = p.floor(p.random(1, 15));
-        }
-        posiciones.push([xPosicion, yPosicion]);
-      }
-
       // CUADRÍCULA
       cuadricula = p.createGraphics(p.width, p.height);
       pintaCuadricula(cuadricula);
 
       // PATRÓN
       cuadroPatron = p.createGraphics(p.width, p.height);
-      console.log("posición patrón", posiciones[0]);
-      pintaPatron(
-        cuadroPatron,
-        p.floor(posiciones[0][0]),
-        p.floor(posiciones[0][1]),
-      );
+      pintaPatron(cuadroPatron);
 
       // POSICIÓN DE LA FRASE
       cuadroFrase = p.createGraphics(p.width, p.height);
-      console.log("posición frase", posiciones[2]);
-      const datosFrase = colocaFrase(
-        cuadroFrase,
-        posiciones[2][0],
-        posiciones[2][1],
-      );
+      const datosFrase = colocaFrase(cuadroFrase);
 
-      console.log(datosFrase);
+      // POSICION DEL TÍTULO
+      cuadroTitulo = p.createGraphics(p.width, p.height);
+      const datosTitulo = colocaTitulo(cuadroTitulo);
 
       // IMAGEN
-      cuadroPatron2 = p.createGraphics(p.width, p.height);
-      console.log("posición imagen", posiciones[1]);
-      const probabilidadImagen = SOLO_IMAGENES ? 1 : 0.5;
-      pintaImagen(cuadroPatron2, datosFrase);
-      // FRASE
+      cuadroImagen = p.createGraphics(p.width, p.height);
+      pintaImagen(cuadroImagen, datosTitulo, datosFrase);
 
+      // FRASE
       pintaFrase(cuadroFrase, datosFrase);
 
       // TÍTULO
-      cuadroTitulo = p.createGraphics(p.width, p.height);
-      pintaTitulo(cuadroTitulo);
+      pintaTitulo(cuadroTitulo, datosTitulo);
 
       // MARCO
       marco = p.createGraphics(p.width, p.height);
@@ -582,7 +588,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       p.image(cuadroPatron, 0, 0);
 
       p.tint(255, transparenciaCuadroImagen);
-      p.image(cuadroPatron2, 0, 0);
+      p.image(cuadroImagen, 0, 0);
 
       if (CON_TEXTO) {
         p.tint(255, transparenciaCuadroFrase);
