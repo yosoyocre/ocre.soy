@@ -29,7 +29,6 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "russell_lee_2.png",
       "slave_trade.png",
       "spinner_in_cotton_mill.png",
-      "telegrapher_boy.png",
       "the_tinsmiths.png",
       "triumph_of_labour.png",
       "utah_penitentiary.png",
