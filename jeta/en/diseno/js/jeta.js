@@ -14,6 +14,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "facepalm.png",
       "female_labourers.png",
       "fire.png",
+      "garment_workers_strike.png",
       "grenade_woman.png",
       "hirakud_dam.png",
       "la_grant_danse_macabre.png",
