@@ -4,7 +4,6 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
   return function (p) {
     const PATRON = null;
     const CON_TEXTO = 1;
-    const SOLO_IMAGENES = 1;
 
     const listaImagenes = [
       "a-brazilian-family-in-rio-de-janeiro-by-jean-baptiste-debret-1839.png",
@@ -14,6 +13,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "death_with_worldly_vanities.png",
       "facepalm.png",
       "female_labourers.png",
+      "fire.png",
       "grenade_woman.png",
       "hirakud_dam.png",
       "la_grant_danse_macabre.png",
