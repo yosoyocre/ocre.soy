@@ -35,6 +35,7 @@ export const jeta = (solucion, conAnimacion, despuesPintado) => {
       "spinner_in_cotton_mill.png",
       "the_death_of_louis_xvi.png",
       "the_devourer_of_souls.png",
+      "the_pillory.png",
       "the_sutra_of_the_ten_kings_of_hell.png",
       "the_tinsmiths.png",
       "triumph_of_labour.png",
