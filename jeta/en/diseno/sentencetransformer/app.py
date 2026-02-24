@@ -11,6 +11,7 @@ model = SentenceTransformer(MODEL_NAME)
 CATEGORIES = {
     # ACTITUD
     "me siento poco motivado": "actitud",
+    "me aburro": "actitud",
     # PASIÓN
     "no me siento apreciado": "pasión",
     # DINERO
