@@ -5,11 +5,11 @@ export class Angulos extends Patron {
     p.fill(255);
     p.rect(0, 0, p.width, p.height);
 
-    const tamanoLinea = 100;
+    const tamanoLinea = 40;
     const pasoX = tamanoLinea;
     const pasoY = tamanoLinea / 2;
     p.fill(color);
-    p.strokeWeight(12);
+    p.strokeWeight(4);
     for (let x = 0; x <= p.width; x += pasoX) {
       for (let y = 0; y <= p.height; y += pasoY) {
         p.line(x, y, x + tamanoLinea / 2, y + tamanoLinea);
