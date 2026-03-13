@@ -9,7 +9,6 @@ import { AzulejosFlores2 } from "./patrones/azulejosFlores2.js";
 import { CirculosTachados } from "./patrones/circulosTachados.js";
 import { Cruzado } from "./patrones/cruzado.js";
 import { CuadradosConcentricos } from "./patrones/cuadradosConcentricos.js";
-import { CuadradosConcentricosGirados } from "./patrones/cuadradosConcentricosGirados.js";
 import { DiagonalDerecha } from "./patrones/diagonalDerecha.js";
 import { DiagonalIzquierda } from "./patrones/diagonalIzquierda.js";
 import { Flechas } from "./patrones/flechas.js";
@@ -37,7 +36,6 @@ export const patrones = [
   new CirculosTachados(),
   new Cruzado(),
   new CuadradosConcentricos(),
-  new CuadradosConcentricosGirados(),
   new DiagonalDerecha(),
   new DiagonalIzquierda(),
   new Flechas(),
